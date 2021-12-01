@@ -7,6 +7,8 @@ export const boardService = {
   query,
   remove,
   update,
+  getBoardById
+  
 };
 loadBoard();
 async function loadBoard() {
@@ -17,13 +19,32 @@ async function loadBoard() {
     console.log('loadedBoard');
   }
 }
+
 async function query(filterBy = null) {
   try {
     console.log('hi');
     //   var queryStr = (!filterBy) ? '' : `?name=${filterBy.name}&sort=anaAref`
-    return await storageService.query('board');
+    return await storageService.query('boards');
   } catch (err) {
     console.log('Had error on boardServices: QUERY', err);
+  }
+}
+
+async function getTaskById(taskId,boardId){ //Not sure yet
+  try{
+    
+  }catch(err){
+
+  }
+}
+
+async function getBoardById(boardId){
+  try{
+    const board = await storageService.get('boards',boardId)
+    return board
+    
+  }catch(err){
+    console.log('Could\'nt get board by id ',err)
   }
 }
 

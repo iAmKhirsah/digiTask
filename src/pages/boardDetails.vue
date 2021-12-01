@@ -1,6 +1,6 @@
 <template></template>
 <script>
 export default {
-    name: 'boardDetails'
+    name: 'boardDetails',
 };
 </script>

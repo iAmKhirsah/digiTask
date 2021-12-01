@@ -5,11 +5,12 @@ import io from 'socket.io-client'
 // export const SOCKET_EVENT_USER_UPDATED = 'user-updated';
 // export const SOCKET_EVENT_REVIEW_ADDED = 'review-added';
 // export const SOCKET_EVENT_REVIEW_ABOUT_YOU = 'review-about-you';
-
+export const SOCKET_EVENT_WATCHBOARD = 'board-watch'
+export const SOCKET_EMIT_UPDATEBOARD = 'board-updated'
 
 const baseUrl = (process.env.NODE_ENV === 'production')? '' : '//localhost:3000'
 // export const socketService = createSocketService()
-// export const socketService = createDummySocketService()
+export const socketService = createDummySocketService()
 
 // window.socketService = socketService
 
