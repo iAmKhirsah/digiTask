@@ -1,6 +1,6 @@
 <template></template>
 <script>
 export default {
-    name: 'digiApp'
+  name: "digiApp",
 };
 </script>

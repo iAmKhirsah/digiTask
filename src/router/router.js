@@ -20,7 +20,7 @@ const routes = [
     component: digiApp,
   },
   {
-    path: '/b/:board._id',
+    path: '/b/:boardId',
     name: 'boardDetails',
     component: boardDetails,
     children: [
