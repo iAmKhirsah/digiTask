@@ -8,16 +8,14 @@ import groupList from "../components/groupList.vue";
 export default {
   name: "boardDetails",
   data() {
-    return {    
+    return {
       board: null,
     };
   },
   async created() {
-      let boardId = this.$route.params.boardId
-     
-  await this.$store.dispatch({type:'loadAndWatchBoard',boardId})
-  this.board = this.$store.getters.currBoard
-    console.log(this.board)
+    let boardId = this.$route.params.boardId;
+    await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
+    this.board = this.$store.getters.currBoard;
   },
   components: { groupList },
 };

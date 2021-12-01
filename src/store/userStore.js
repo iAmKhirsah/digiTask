@@ -3,9 +3,9 @@ import { userService } from '../services/userService.js';
 export const userStore = {
   strict: true,
   state: {
-    users: null,
-    loggedInUser: null,
-    boardMembers: null,
+    users: {},
+    loggedInUser: {},
+    boardMembers: {},
   },
   getters: {
     currUser({ loggedInUser }) {
