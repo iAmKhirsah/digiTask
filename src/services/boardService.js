@@ -14,7 +14,8 @@ loadBoard();
 async function loadBoard() {
   try {
     let loadedBoard = await query();
-    if (loadedBoard.length === 0) createDemoBoard();
+    
+    if (!loadedBoard.length || !loadedBoard) createDemoBoard();
   } catch (err) {
     console.log('loadedBoard');
   }
@@ -22,7 +23,7 @@ async function loadBoard() {
 
 async function query(filterBy = null) {
   try {
-    console.log('hi');
+
     //   var queryStr = (!filterBy) ? '' : `?name=${filterBy.name}&sort=anaAref`
     return await storageService.query('boards');
   } catch (err) {
@@ -41,6 +42,7 @@ async function getTaskById(taskId,boardId){ //Not sure yet
 async function getBoardById(boardId){
   try{
     const board = await storageService.get('boards',boardId)
+    console.log(boardId)
     return board
     
   }catch(err){
@@ -199,5 +201,5 @@ function createDemoBoard() {
       },
     ],
   };
-  storageService.post('board', board);
+  storageService.post('boards', board);
 }

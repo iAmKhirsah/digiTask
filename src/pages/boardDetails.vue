@@ -1,5 +1,5 @@
 <template>
-  <div class="board-details-container">
+  <div v-if="board" class="board-details-container">
     <group-list :boardGroups="board.groups" />
   </div>
 </template>
@@ -12,8 +12,12 @@ export default {
       board: null,
     };
   },
-  created() {
-    this.board = boardService.getBoardById(this.$router.params.boardId);
+  async created() {
+      let boardId = this.$route.params.boardId
+     
+  await this.$store.dispatch({type:'loadAndWatchBoard',boardId})
+  this.board = this.$store.getters.currBoard
+    console.log(this.board)
   },
   components: { groupList },
 };

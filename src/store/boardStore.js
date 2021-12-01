@@ -9,12 +9,18 @@ export const boardStore = {
     currTask:null,
     filterBy:{keyWord:'',members:[],dueDate:null,labels:[],},
   },
-  getters: {},
+  getters: {
+    currBoard(state){
+      return state.currBoard
+    }
+
+  },
   mutations: {
     setBoards(state,{boards}){
       state.boards = boards
     },
     setCurrBoard(state,{board}){
+     
       state.currBoard = board
     },
     updateBoard(state,{board}){
@@ -52,12 +58,15 @@ export const boardStore = {
     async loadAndWatchBoard({commit},{boardId}){
       try{
         const board = await boardService.getBoardById(boardId)
+        
         commit({type:'setCurrBoard',board})
         socketService.off(SOCKET_EVENT_WATCHBOARD)
         socketService.on(SOCKET_EVENT_WATCHBOARD , board=>{
           console.log('Board changed from socket',board)
           commit({type:'updateBoard',board})
-        })
+         
+        }) 
+   
       }catch(err){
         console.log('Couldnt load board',err)
       }
