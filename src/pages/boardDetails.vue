@@ -1,10 +1,13 @@
 <template>
   <div v-if="board" class="board-details-container">
+      <board-header :board="board" />
     <group-list :boardGroups="board.groups" />
   </div>
 </template>
 <script>
 import groupList from "../components/groupList.vue";
+import boardHeader from "../components/boardHeader.vue"
+
 export default {
   name: "boardDetails",
   data() {
@@ -17,6 +20,6 @@ export default {
     await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
     this.board = this.$store.getters.currBoard;
   },
-  components: { groupList },
+  components: { groupList ,boardHeader},
 };
 </script>

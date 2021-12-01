@@ -1,6 +1,7 @@
 <template>
   <div class="boards-container">
     <div v-for="board in boards" :key="board._id" class="board-card">
+    
     </div>
   </div>
 </template>
