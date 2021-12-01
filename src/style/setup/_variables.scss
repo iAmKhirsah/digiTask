@@ -1,0 +1,31 @@
+
+// COLOR PALETTE
+$clr1: #fff;
+$clr2: #310e3f;
+$clr3: #d902ee;
+$clr4: #f162ff;
+$clr5: #1fbfb8;
+$clr6: #79cbb8;
+
+// BACKGROUND COLORS
+$bgc-grad-content: linear-gradient(135deg, rgb(96, 205, 150) 0%,#0291e3 25%,#2F93CC 50%, #8019C6 100%);
+$bgc-grad: linear-gradient(135deg, $clr1 20%,#a45ee6 40%,#a45ee6 60%, #60cd96 80%,$clr1 100%);
+// linear-gradient( #8019C6 0%,#2F93CC 100%)
+// FONTS
+$border-font :#3d3d3d;
+$text-font:#29293a ;
+$shadow-font :#bbbbbb;
+
+//BUTTONS
+$btn-close:#e74c3c;
+// LAYOUT
+$layoutPadding: 20px;
+
+// LAYOUT BREAKPOINTS
+$break-narrow: 460px;
+$break-normal: 640px;
+$break-wide: 960px;
+
+$padded-break-narrow: $break-narrow + $layoutPadding * 2;
+$padded-break-normal: $break-normal + $layoutPadding * 2;
+$padded-break-wide: $break-wide + $layoutPadding * 2;

@@ -2,7 +2,7 @@
   <div class="boards-container">
     <div v-for="board in boards" :key="board._id" class="board-card">
       <p>{{ board.title }}</p>
-      <p>board background/img goes here</p>
+      <!-- <p>board background/img goes here</p> -->
     </div>
   </div>
 </template>

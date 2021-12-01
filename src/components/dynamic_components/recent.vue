@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="dynamic-recent">
     <div v-for="(board, idx) in recentBoards" :key="idx">
       {{ board }}
     </div>

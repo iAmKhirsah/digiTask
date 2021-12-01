@@ -1,0 +1,86 @@
+.nav-modal {
+    color: #5e6c84;
+    position: absolute;
+    border-radius: 5px;
+
+    .header-layout {
+        color: #5e6c84;
+        padding: 0 12px;
+        display: flex;
+        justify-content: center;
+        height: 40px;
+        line-height: 40px;
+        border-bottom: 1px solid rgba(9, 30, 66, 0.13);
+        margin: 0 12px;
+
+        button {
+            font-size: 14px;
+            color: #5e6c84;
+            position: absolute;
+            right: 7px;
+            top: 13px;
+            border: none;
+            background-color: transparent;
+        }
+    }
+    .workspace-contant {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 8px;
+        margin: 0 8px 12px;
+        .name-tag {
+            height: 40px;
+            line-height: 40px;
+            width: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(#403294, #0747a6);
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            border-radius: 4px;
+        }
+        p {
+            color: #172b4d;
+            text-align: start;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 0 0 8px;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    .subtitle {
+        text-align: start;
+        font-size: 12px;
+        color: #5e6c84;
+        font-weight: 600;
+        margin: 12px;
+        line-height: 16px;
+    }
+}
+
+
+.dynamic-workspace {
+    top: 47px;
+    left: 100px;
+}
+
+.dynamic-profile {
+    right: 3px;
+    top: 47px;
+}
+
+.card-layout {
+    position: fixed;
+    width: 304px;
+    box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
+}
+.card-line {
+    border-top: 1px solid rgba(9, 30, 66, 0.08);
+}

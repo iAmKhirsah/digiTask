@@ -1,17 +1,24 @@
 <template>
-  <section>
-    <h2>Account</h2>
-    <div>miniUser PLACEHOLDER</div>
+  <section class="dynamic-profile card-layout nav-modal">
+    <div class="header-layout">
+      <header>Account</header>
+      <button><i class="fas fa-times"></i></button>
+    </div>
+
+    <div class="user-info">
+      <div>pic</div>
+      <div>
+        <div>fullname</div>
+        <span>mail</span>
+      </div>
+    </div>
+
+    <hr />
     <div>
-      <p>Profile and visibility</p>
+      <p>Profile?</p>
       <p>Activity</p>
-      <p>Cards</p>
-      <p>Settings</p>
     </div>
-    <div>
-      <p>Help</p>
-      <p>Shortcuts?</p>
-    </div>
+    
     <div>Logout</div>
   </section>
 </template>

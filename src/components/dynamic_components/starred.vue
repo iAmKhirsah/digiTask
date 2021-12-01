@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="dynamic-starred">
     <div v-for="(board, idx) in starredBoards" :key="idx">
       {{ board }}
     </div>
