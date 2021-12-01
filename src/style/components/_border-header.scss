@@ -1,0 +1,16 @@
+.border-header {
+    height: auto;
+    padding: 8px 4px 4px 8px;
+    position: relative;
+    background-color: green;
+    .board-box{
+        background-color: #ffffff3d;
+        
+    }
+    h1 {
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 32px;
+        padding: 0 12px;
+    }
+}

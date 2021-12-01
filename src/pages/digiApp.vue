@@ -1,8 +1,12 @@
 <template>
   <div class="boards-container">
     <div v-for="board in boards" :key="board._id" class="board-card">
-      <p>{{ board.title }}</p>
-      <!-- <p>board background/img goes here</p> -->
+      <header class="border-header">
+        <div>
+          <h1 class="board-box">{{ board.title }}</h1>
+        </div>
+        <p>board background/img goes here</p>
+      </header>
     </div>
   </div>
 </template>

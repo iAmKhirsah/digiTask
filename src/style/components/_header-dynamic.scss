@@ -1,7 +1,7 @@
 .nav-modal {
     color: #5e6c84;
     position: absolute;
-    border-radius: 5px;
+    border-radius: 3px;
 
     .header-layout {
         color: #5e6c84;
@@ -14,6 +14,7 @@
         margin: 0 12px;
 
         button {
+            cursor: pointer;
             font-size: 14px;
             color: #5e6c84;
             position: absolute;
@@ -77,7 +78,9 @@
 }
 
 .card-layout {
+    background-color: #fff;
     position: fixed;
+    padding-bottom: 12px;
     width: 304px;
     box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
 }
