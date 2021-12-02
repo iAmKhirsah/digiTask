@@ -4,11 +4,14 @@
       <header>Invites</header>
     </div>
     <div>
-      <p class="subtitle">Current Workspace</p>
+      <input class="search" type="text" placeholder="CHANGE INPUT">
     </div>
-    <div class="workspace-contant">
-      <div class="name-tag">I</div>
-      <p>Ilya Shershniov's workspace</p>
+    <div v-for="(user,idx) in users" :key="idx">
+    <div class="invite-contant">
+        <img :src="user.imgUrl">
+      <p class="name-tag">{{user.username}}</p>
+        
+    </div>
     </div>
   </section>
 </template>
@@ -18,11 +21,26 @@ export default {
   data() {
     return {
       users: [],
+      board:{},
+      chosenUsers:[]
     };
   },
   async created(){
-      await this.$store.dipatch({type:'loadUsers'})
-      this.users = this.$store.getters.userss
+      await this.$store.dispatch({type:'loadUsers'})
+      this.users = this.$store.getters.users
+      this.board = this.$store.getters.currBoard
+    // this.users =  users.filter((user)=>{
+    //     return  !this.board.members.some((member)=>{
+    //        return member._id === user._id
+    //     })
+    //  })
+     console.log(this.users)
+  },
+  methods:{
+      choseUser(idx){
+        
+          this.chosenUsers.push(this.users[idx])
+      }
   }
 };
 </script>

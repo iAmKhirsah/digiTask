@@ -11,9 +11,9 @@
         <div v-for="(user,idx) in board.memebers" :key="idx" class="members">
             <span class="member"></span>
         </div>
-         <div class="board-box invite">Invite</div>
+         <div class="board-box invite" @click="setType('invite')">Invite</div >
     </div>
-    <header-dynamic></header-dynamic>
+    <header-dynamic :type="type" ></header-dynamic>
   </header>
 </template>
 <script>
@@ -25,6 +25,7 @@ export default {
   data() {
     return {
       isStarred: false,
+      type:'',
     };
   },
   created() {},
@@ -36,6 +37,9 @@ export default {
   methods:{
     toggleStar(){
       this.isStarred = !this.isStarred
+    },
+    setType(type){
+    this.type=type
     }
   },
   components:{
