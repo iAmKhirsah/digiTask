@@ -5,7 +5,8 @@
         <p>{{ group.title }}</p>
         <button>edit</button>
       </div>
-      <task-list :tasks="group.tasks" @editTask="editTask" />
+      <task-list :group="group" @editTask="editTask" @addTask="addTask" />
+     
     </div>
   </div>
 </template>
@@ -20,16 +21,15 @@ export default {
     return {};
   },
   methods: {
-    editTask(taskId) {
-      let group = this.boardGroups.find((group) => {
-        if (group.tasks.find((task) => task.id === taskId));
-        return group;
-      });
-      console.log(group);
+    editTask(taskId,groupId) {
+      
       let boardId = this.$route.params.boardId;
-      let routerLink = `${boardId}/g/${group.id}/t/${taskId}`;
+      let routerLink = `${boardId}/g/${groupId}/t/${taskId}`;
       this.$router.push(routerLink);
     },
+    addTask(groupId){
+
+    }
   },
 };
 </script>

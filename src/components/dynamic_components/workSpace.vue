@@ -39,15 +39,11 @@ export default {
       boards: null,
     };
   },
-<<<<<<< HEAD
   methods: {
     closeModal() {
       console.log("hello");
       this.$emit("closeModal");
     },
   },
-=======
-  methods: {},
->>>>>>> 0c32171cca82cfe1edc6c6cc4994af2afabbf852
 };
 </script>
