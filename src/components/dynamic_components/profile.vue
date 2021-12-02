@@ -13,13 +13,13 @@
       </div>
     </div>
 
-    <hr />
-    <div>
-      <p>Profile?</p>
+  
+    <div class="user-activity">
+      <p>Profile and visibility</p>
       <p>Activity</p>
     </div>
 
-    <div>Logout</div>
+    <button class="user-info-logout-btn">Log out</button>
   </section>
 </template>
 <script>

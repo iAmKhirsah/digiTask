@@ -13,12 +13,15 @@ export const boardStore = {
     boards: [],
     currTask: {},
     filterBy: { keyWord: '', members: [], dueDate: null, labels: [] },
+    newGroup:{},
+    newTask:{}
    
   },
   getters: {
-    getEmptyGroup(){
-    let newGroup = boardService.getEmptyGroup()
-    console.log(newGroup)
+    getEmptyTask({newTask}){
+     return newTask
+    },
+    getEmptyGroup({newGroup}){
     return newGroup
     },
     currBoard({ currBoard }) {
@@ -43,8 +46,8 @@ export const boardStore = {
       state.boards.splice(idx, 1);
     },
     addGroup(state, { group }) {
-      
       state.currBoard.groups.push(group);
+       this.newGroup= boardService.getEmptyGroup()
     },
     updateGroup(state, { group }) {
       let idx = state.boards.groups.findIndex(
@@ -131,11 +134,18 @@ export const boardStore = {
   },
   async addGroup({ dispatch, commit }, { group }) {
     try {
-      console.log(group)
+     
       commit({ type: 'addGroup' ,group});
       await dispatch({ type: 'updateBoard' });
     } catch (err) {
       console.log('couldnt update in addgroup', err);
+    }
+  },
+  async addTask({dispatch,commit},{task}){
+    try{
+      
+    }catch(err){
+      console.log('Couldnt add a task',err)
     }
   },
   async getTaskById() {

@@ -12,7 +12,7 @@
       <p>Ilya Shershniov's workspace</p>
     </div>
     <div class="card-line"></div>
-    <div class="card-main-line"></div>
+   
     <div>
       <p class="subtitle">Your Workspaces</p>
     </div>
@@ -21,7 +21,7 @@
       <p>Digitask workspace</p>
     </div>
 
-    <div class="card-main-line"></div>
+ 
     <div>
       <p class="subtitle">Guest Workspaces</p>
     </div>
