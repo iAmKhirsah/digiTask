@@ -38,7 +38,7 @@
             <div class="task-details-actions">
               <div>Move</div>
               <div>Copy</div>
-              <div>Watch</div>
+              <div><input type="checkbox" /> Watch</div>
               <div>Archive</div>
               <div>Share</div>
             </div>

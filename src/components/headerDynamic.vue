@@ -35,9 +35,5 @@ export default {
       this.$emit('closeModal')
     }
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> ba0a62cb2864426885581ea39b486d97a2262219
 };
 </script>

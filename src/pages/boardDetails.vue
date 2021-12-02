@@ -24,16 +24,15 @@ export default {
       board: null,
       isNewGroup: false,
       newGroup: {},
-      newTask:{}
+      newTask: {},
     };
   },
   async created() {
     this.newGroup = { ...this.$store.getters.getEmptyGroup };
-    this.newTask = {...this.$store.getters.getEmptyTask}
+    this.newTask = { ...this.$store.getters.getEmptyTask };
     let boardId = this.$route.params.boardId;
     await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
     this.board = this.$store.getters.currBoard;
-    
   },
   methods: {
     toggleNewGroup() {
@@ -48,9 +47,7 @@ export default {
         console.log("Couldnt add group", group);
       }
     },
-    async addTask(groupId){
-       
-    }
+    async addTask(groupId) {},
   },
   computed: {},
   components: { groupList, boardHeader },

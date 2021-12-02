@@ -10,48 +10,74 @@ $clr7: #b3bac5;
 $sclr1: #007bbc;
 
 // USER BACKGROUND PALETTE
+<<<<<<< HEAD
+=======
+
+// BACKGROUND COLORS
+$bgc-grad-content: linear-gradient(
+  135deg,
+  rgb(96, 205, 150) 0%,
+  #0291e3 25%,
+  #2f93cc 50%,
+  #8019c6 100%
+);
+$bgc-grad: linear-gradient(
+  135deg,
+  $clr1 20%,
+  #a45ee6 40%,
+  #a45ee6 60%,
+  #60cd96 80%,
+  $clr1 100%
+);
+
+
+
+// BACKGROUND COLORS
+$bgc-grad-content: linear-gradient(135deg, rgb(96, 205, 150) 0%,#0291e3 25%,#2F93CC 50%, #8019C6 100%);
+$bgc-grad: linear-gradient(135deg, $clr1 20%,#a45ee6 40%,#a45ee6 60%, #60cd96 80%,$clr1 100%);
+>>>>>>> 079c7711d0aca89c23b978fd5766379fc4213499
 // linear-gradient( #8019C6 0%,#2F93CC 100%)
 $bgc-grad-gray: linear-gradient(
-    135deg,
-    #727a9a 0%,
-    #949ab4 25%,
-    #b6bbcf 50%,
-    #d8dbe9 100%
+  135deg,
+  #727a9a 0%,
+  #949ab4 25%,
+  #b6bbcf 50%,
+  #d8dbe9 100%
 );
 $bgc-grad-green: linear-gradient(
-    135deg,
-    #0a3431 0%,
-    #1f564b 25%,
-    #357965 50%,
-    #4a9b7f 100%
+  135deg,
+  #0a3431 0%,
+  #1f564b 25%,
+  #357965 50%,
+  #4a9b7f 100%
 );
 $bgc-grad-purple: linear-gradient(
-    135deg,
-    #810576 0%,
-    #aa4494 25%,
-    #d382b1 50%,
-    #fcc1cf 100%
+  135deg,
+  #810576 0%,
+  #aa4494 25%,
+  #d382b1 50%,
+  #fcc1cf 100%
 );
 $bgc-grad-blue: linear-gradient(
-    135deg,
-    #456fe8 0%,
-    #3685e9 25%,
-    #289aeb 50%,
-    #19b0ec 100%
+  135deg,
+  #456fe8 0%,
+  #3685e9 25%,
+  #289aeb 50%,
+  #19b0ec 100%
 );
 $bgc-grad-pink: linear-gradient(
-    135deg,
-    #f6c4ed 0%,
-    #efcbeb 25%,
-    #e8d3e8 50%,
-    #e1dae6 100%
+  135deg,
+  #f6c4ed 0%,
+  #efcbeb 25%,
+  #e8d3e8 50%,
+  #e1dae6 100%
 );
 $bgc-grad-turquoise: linear-gradient(
-    135deg,
-    #0b3866 0%,
-    #397885 25%,
-    #67b9a4 50%,
-    #95f9c3 100%
+  135deg,
+  #0b3866 0%,
+  #397885 25%,
+  #67b9a4 50%,
+  #95f9c3 100%
 );
 // BACKGROUND TAG NAMES
 $tclr1: #0079bf;
