@@ -7,10 +7,19 @@
       <span v-if="!isStarred"><i class="far fa-star"></i></span>
       <span v-else><i class="fas fa-star"></i></span>
     </div>
+    <div>
+        <div v-for="(user,idx) in board.memebers" :key="idx" class="members">
+            <span class="member"></span>
+        </div>
+         <div class="board-box invite">Invite</div>
+    </div>
+    <header-dynamic></header-dynamic>
   </header>
 </template>
 <script>
+import headerDynamic from "./headerDynamic.vue";
 export default {
+    
   name: "boardHeader",
   props: ["board"],
   data() {
@@ -28,6 +37,9 @@ export default {
     toggleStar(){
       this.isStarred = !this.isStarred
     }
+  },
+  components:{
+    headerDynamic
   }
 };
 </script>
