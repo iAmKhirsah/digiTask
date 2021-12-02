@@ -18,23 +18,23 @@
         border-radius: 3px ;
         background-color: rgba(255, 255, 255, 0.3);
         &.star {
-            color: white;
+            color: $clr1;
             cursor: pointer;
             height: 32px;
             width: 32px;
             text-align: center;
             line-height: 30px;
             &:hover {
-                color: #f2d600;
+                color: $clr5;
                 font-size: 18px ;
             }
             .fas {
-                color: #f2d600;
+                color: $clr5;
             }
         }
 
         &.invite{
-         color:white;
+         color:$clr1;
            height:32px;
            padding:0 6px;
            text-align: center;
@@ -44,7 +44,7 @@
         
         input {
            
-            color: white;
+            color: $clr1;
             border: none;
             font-size: 18px;
             font-weight: 700;
@@ -53,13 +53,12 @@
             height: 32px;
             text-align: center;
             padding: 0 6px;
-            // margin: 0 10px;
             &:focus {
-                background-color: white;
-                box-shadow: 0 0 0 2px #007bbc;
+                background-color: $clr1;
+                box-shadow: 0 0 0 2px $sclr1;
                 border-radius: 3px;
                 outline: none;
-               color: #172c4c;
+               color: $clr4;
             }
         }
     }

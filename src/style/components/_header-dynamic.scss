@@ -1,10 +1,10 @@
 .nav-modal {
-    color: #5e6c84;
+    color: $clr3;
     position: absolute;
     border-radius: 3px;
 
     .header-layout {
-        color: #5e6c84;
+        color: $clr3;
         padding: 0 12px;
         display: flex;
         justify-content: center;
@@ -12,11 +12,11 @@
         line-height: 40px;
         border-bottom: 1px solid rgba(9, 30, 66, 0.13);
         margin: 0 12px;
-
+        margin-bottom: 8px;
         button {
             cursor: pointer;
             font-size: 14px;
-            color: #5e6c84;
+            color: $clr3;
             position: absolute;
             right: 7px;
             top: 13px;
@@ -40,11 +40,11 @@
             background: linear-gradient(#403294, #0747a6);
             font-size: 20px;
             font-weight: bold;
-            color: white;
+            color: $clr1;
             border-radius: 4px;
         }
         p {
-            color: #172b4d;
+            color: $clr2;
             text-align: start;
             font-size: 14px;
             font-weight: 600;
@@ -59,42 +59,54 @@
     .subtitle {
         text-align: start;
         font-size: 12px;
-        color: #5e6c84;
+        color: $clr3;
         font-weight: 600;
         margin: 12px;
         line-height: 16px;
     }
-    &.dynamic-invite{
-   .invite-contant{
-       display: flex;
-       justify-content: space-around;
-   }
+    &.dynamic-invite {
+        .invite-contant {
+            display: flex;
+            justify-content: space-around;
+        }
         input {
-              
-               color: white;
-               border: none;
-               font-size: 18px;
-               font-weight: 700;
-               box-shadow: none;
-               background-color: transparent;
-               height: 32px;
-               text-align: center;
-               padding: 0 6px;
-               // margin: 0 10px;
-               &:focus {
-                   background-color: white;
-                   box-shadow: 0 0 0 2px #007bbc;
-                   border-radius: 3px;
-                   outline: none;
-                  color: #172c4c;
-               }
-         
-   }
-}
+            color: $clr1;
+            border: none;
+            font-size: 18px;
+            font-weight: 700;
+            box-shadow: none;
+            background-color: transparent;
+            height: 32px;
+            text-align: center;
+            padding: 0 6px;
+            &:focus {
+                background-color: $clr1;
+                box-shadow: 0 0 0 2px $sclr1;
+                border-radius: 3px;
+                outline: none;
+                color: $clr4;
+            }
+        }
+    }
+    .user-info {
+        display: flex;
+        align-items: center;
+        padding: 4px 8px 4px 12px;
+        .user-info-details {
+            text-align: start;
+            color: $clr2;
+            span {
+                font-size: 12px;
+                color: $clr7;
+            }
+            div{
+                font-size: 14px;
+            }
+        }
+    }
 }
 
 .dynamic-workspace {
-    
     top: 47px;
     left: 115px;
 }
@@ -104,10 +116,7 @@
     top: 47px;
 }
 
-
-
 .card-layout {
-
     background-color: #fff;
     position: fixed;
     padding-bottom: 12px;
@@ -118,3 +127,25 @@
     border-top: 1px solid rgba(9, 30, 66, 0.08);
 }
 
+.user-tag-name {
+    height: 28px;
+    width: 28px;
+    background-color: $tclr1;
+    border-radius: 50%;
+    color: $clr1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.in-header {
+        height: 32px;
+        width: 32px;
+        cursor: pointer;
+    }
+    &.in-menu {
+        height: 40px;
+        width: 40px;
+        margin-right: 10px;
+        font-size: 17px;
+    }
+}

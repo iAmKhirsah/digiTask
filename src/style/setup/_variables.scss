@@ -1,23 +1,78 @@
-
 // COLOR PALETTE
 $clr1: #fff;
-$clr2: #310e3f;
-$clr3: #d902ee;
-$clr4: #f162ff;
-$clr5: #1fbfb8;
+$clr2: #172b4d;
+$clr3: #5e6c84;
+$clr4: #172c4c;
+$clr5: #f2d600;
 $clr6: #79cbb8;
+$clr7: #b3bac5;
+// SHADOW PALETTE
+$sclr1: #007bbc;
+
+// USER BACKGROUND PALETTE
+// linear-gradient( #8019C6 0%,#2F93CC 100%)
+$bgc-grad-gray: linear-gradient(
+    135deg,
+    #727a9a 0%,
+    #949ab4 25%,
+    #b6bbcf 50%,
+    #d8dbe9 100%
+);
+$bgc-grad-green: linear-gradient(
+    135deg,
+    #0a3431 0%,
+    #1f564b 25%,
+    #357965 50%,
+    #4a9b7f 100%
+);
+$bgc-grad-purple: linear-gradient(
+    135deg,
+    #810576 0%,
+    #aa4494 25%,
+    #d382b1 50%,
+    #fcc1cf 100%
+);
+$bgc-grad-blue: linear-gradient(
+    135deg,
+    #456fe8 0%,
+    #3685e9 25%,
+    #289aeb 50%,
+    #19b0ec 100%
+);
+$bgc-grad-pink: linear-gradient(
+    135deg,
+    #f6c4ed 0%,
+    #efcbeb 25%,
+    #e8d3e8 50%,
+    #e1dae6 100%
+);
+$bgc-grad-turquoise: linear-gradient(
+    135deg,
+    #0b3866 0%,
+    #397885 25%,
+    #67b9a4 50%,
+    #95f9c3 100%
+);
+// BACKGROUND TAG NAMES
+$tclr1: #0079bf;
+$tclr2: #d29034;
+$tclr3: #b04632;
+$tclr4: #4bbf6b;
+$tclr5: #0baecc;
+$tclr6: #838c91;
+$tclr7: #cd5a91;
+$tclr8: #89609e;
+$tclr9: #efe245;
 
 // BACKGROUND COLORS
-$bgc-grad-content: linear-gradient(135deg, rgb(96, 205, 150) 0%,#0291e3 25%,#2F93CC 50%, #8019C6 100%);
-$bgc-grad: linear-gradient(135deg, $clr1 20%,#a45ee6 40%,#a45ee6 60%, #60cd96 80%,$clr1 100%);
-// linear-gradient( #8019C6 0%,#2F93CC 100%)
+
 // FONTS
-$border-font :#3d3d3d;
-$text-font:#29293a ;
-$shadow-font :#bbbbbb;
+$border-font: #3d3d3d;
+$text-font: #29293a;
+$shadow-font: #bbbbbb;
 
 //BUTTONS
-$btn-close:#e74c3c;
+$btn-close: #e74c3c;
 // LAYOUT
 $layoutPadding: 20px;
 

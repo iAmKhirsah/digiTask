@@ -9,7 +9,8 @@
     text-align: center;
     align-items: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
+    color: $clr1;
+    
 
     // left
     .main-header-left {
@@ -21,7 +22,7 @@
             font-size: 20px;
             font-family: WorkSans;
             a {
-                color: white;
+                color: $clr1;
                 text-decoration: none;
             }
         }
@@ -53,7 +54,7 @@
             height: 30px;
             width: 30px;
             line-height: 30px;
-            border-radius: 3px;
+            border-radius: 50%;
         }
         .main-header-bell {
             height: 30px;
@@ -69,34 +70,21 @@
         position: relative;
         input {
             &:focus {
-                background-color: white;
-                color: #172b4d;
+                background-color: $clr1;
+                color: $clr2;
                 &::placeholder {
-                    color: #5e6c85;
+                    color: $clr3;
                 }
                 ~ {
                     .search {
                         i {
-                            color: #5e6c85;
+                            color: $clr3;
                         }
                     }
                 }
             }
         }
     }
-
-    // :focus {
-    //     &input{
-    //         background-color: #fff;
-    //         &::placeholder {
-    //             color: gray;
-    //         }
-    //     }
-    //     &i {
-    //         color: red;
-    //     }
-    // }
-
     input {
         width: 250px;
         border-radius: 3px;
@@ -107,14 +95,14 @@
         margin: 0;
         outline: none;
         background-color: rgba(255, 255, 255, 0.3);
-        color: white;
+        color: $clr1;
         border: 1px solid rgba(255, 255, 255, 0.25);
         padding-right: 8px;
         padding-left: 30px;
         margin-left: 4px;
         margin-right: 4px;
         &::placeholder {
-            color: white;
+            color: $clr1;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
     }

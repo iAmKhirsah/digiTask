@@ -2,13 +2,16 @@
     box-sizing: border-box;
 }
 
-
-html{
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     // background:url('https://img.freepik.com/free-photo/hand-painted-watercolor-background-with-sky-clouds-shape_24972-1095.jpg?size=626&ext=jpg') ;
-    background-color: rgb(75, 191, 107);
+    background: $bgc-grad-green;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
 }
-body{
+body {
     margin: 0;
 }
+

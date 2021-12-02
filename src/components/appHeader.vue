@@ -27,9 +27,9 @@
         <span class="search"><i class="fas fa-search"></i></span>
       </div>
       <div class="main-header-bell"><i class="far fa-bell"></i></div>
-      <div class="main-header-profile" @click="setType('profile')">DR</div>
+      <div class="main-header-profile user-tag-name in-header" @click="setType('profile')">DR</div>
     </div>
-    <header-dynamic class="abs" :type="type" v-if="type"></header-dynamic>
+    <header-dynamic  @closeModal="closeModal" class="abs" :type="type" v-if="type"></header-dynamic>
   </section>
 </template>
 <script>
@@ -49,6 +49,9 @@ export default {
     setType(type) {
       this.type = type;
     },
+    closeModal(){
+       this.setType('')
+    }
   },
   directives: {
     clickOutside: vClickOutside.directive,

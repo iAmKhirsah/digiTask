@@ -2,7 +2,7 @@
   <section class="dynamic-workspace card-layout nav-modal">
     <div class="header-layout">
       <header>Workspaces</header>
-      <button><i class="fas fa-times"></i></button>
+      <button @click="closeModal"><i class="fas fa-times"></i></button>
     </div>
     <div>
       <p class="subtitle">Current Workspace</p>
@@ -38,6 +38,12 @@ export default {
     return {
       boards: null,
     };
+  },
+  methods: {
+    closeModal() {
+      console.log("hello");
+      this.$emit("closeModal");
+    },
   },
 };
 </script>
