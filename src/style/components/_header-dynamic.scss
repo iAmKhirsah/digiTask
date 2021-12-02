@@ -27,9 +27,18 @@
     .workspace-contant {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: start;
         padding: 0 8px;
         margin: 0 8px 12px;
+        p{
+            color: $clr2;
+            font-size: 14px;
+            font-weight: 600;
+            margin-left: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
         .name-tag {
             height: 40px;
             line-height: 40px;

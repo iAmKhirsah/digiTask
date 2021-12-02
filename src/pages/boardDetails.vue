@@ -6,15 +6,16 @@
       @addTask="addTask"
       @updateGroup="updateGroup"
     />
-<!-- 
+    
+<div></div>
+
     <form v-if="isNewGroup" @submit="addGroup">
       <input v-model="newGroup.title" />
       <button>Add List</button>
       <button @click="toggleNewGroup"><i class="fas fa-times"></i></button>
     </form>
-  
 
-    <button v-else @click="toggleNewGroup">Add another List</button> -->
+    <button v-else @click="toggleNewGroup">Add another List</button>
     <router-view></router-view>
   </div>
 </template>
@@ -41,7 +42,6 @@ export default {
   },
   methods: {
     async updateGroup(group) {
-      
       await this.$store.dispatch({ type: "updateGroup", group });
     },
     toggleNewGroup() {

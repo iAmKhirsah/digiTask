@@ -1,14 +1,16 @@
 <template>
   <div class="task-list-container">
-    <div class="task-list-content" v-for="task in group.tasks" :key="task.id">
-      <task-preview :task="task" @editTask="editTask" />
+    <div class="task-list-container-content thin-scrollbar">
+      <div class="task-list-content" v-for="task in group.tasks" :key="task.id">
+        <task-preview :task="task" @editTask="editTask" />
+      </div>
     </div>
     <div class="add-task" @click="openNewTask = true">
-      <form @submit.prevent="addTask" v-if="openNewTask">
+      <form class="add-task-form" @submit.prevent="addTask" v-if="openNewTask">
         <input type="text" v-model="newTask" />
-        <button>Add card</button>
+        <button>Add</button>
       </form>
-      <div v-if="!openNewTask">
+      <div class="add-task-add-card" v-if="!openNewTask">
         <span class="group-add-plus"><i class="fas fa-plus"></i></span
         ><span>Add a card</span>
       </div>

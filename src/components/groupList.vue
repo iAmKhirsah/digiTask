@@ -7,14 +7,6 @@
           {{ group.title }}
         </div>
 
-        <!-- <input
-          :ref="'title_' + group.id"
-          v-else
-          v-model="editingGroup.title"
-          @change="updateGroup"
-          @blur="disableTitleEdit"
-        /> -->
-
         <textarea
           ref="title"
           class="group-title"
