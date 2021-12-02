@@ -1,8 +1,9 @@
 .board-header {
+    position: fixed;
     display: flex;
     align-items: center;
     height: auto;
-    padding: 8px 4px 4px 8px;
+    padding: 8px 0px 4px 4px;
     .board-header-left{
         display:flex;
         gap: 4px;
