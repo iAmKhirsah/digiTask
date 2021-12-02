@@ -2,6 +2,7 @@
   <div v-if="board" class="board-details-container">
     <board-header :board="board" />
     <group-list :boardGroups="board.groups" />
+    <router-view></router-view>
   </div>
 </template>
 <script>

@@ -25,7 +25,7 @@ const routes = [
     component: boardDetails,
     children: [
       {
-        path: ':taskId?',
+        path: 'g/:groupId/t/:taskId',
         name: 'taskDetails',
         component: taskDetails,
       },
