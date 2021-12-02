@@ -4,24 +4,22 @@
       <div class="task-details-container" v-click-outside="closePage">
         <button @click="closePage">X</button>
         <div class="task-details-header">
-          <p>Task.title placeholder</p>
-          <p>in group GROUP NAME PLACEHOLDER</p>
+          <h1>{{ getTask.title }}</h1>
+          <p>in group {{ getGroup.title }}<span></span></p>
         </div>
         <div class="task-details-content-container">
           <div class="task-details-main-content">
-            <div class="task-details-description">
-              <p>Description</p>
-              <form @submit.prevent="saveDesc"></form>
-              <textarea></textarea>
-              <button>Save</button>
-              <button>X</button>
-            </div>
+            <task-description :task="getTask" @updatedTask="updatedTask" />
             <div class="task-details-activity">
               <p>Activity</p>
               <form @submit.prevent="sendMsg">
                 <input type="text" placeholder="Write a comment..." />
               </form>
-              <div>COMMENTS AND ACTIVITIES GO HERE</div>
+              <activity-flow
+                :task="getTask"
+                :group="getGroup"
+                :board="getBoard"
+              />
             </div>
           </div>
           <div class="task-details-sidebar">
@@ -50,6 +48,8 @@
 </template>
 <script>
 import vClickOutside from "v-click-outside";
+import taskDescription from "../components/taskDescription.vue";
+import activityFlow from "../components/activityFlow.vue";
 export default {
   name: "taskDetails",
   data() {
@@ -57,17 +57,40 @@ export default {
       pageOpen: null,
     };
   },
-  created() {
-    console.log(this.$route.params.taskId);
+  async created() {
+    let groupId = this.$route.params.groupId;
+    console.log(groupId);
+    let taskId = this.$route.params.taskId;
+    await this.$store.dispatch({ type: "getTaskDetails", taskId, groupId });
     this.pageOpen = true;
   },
   methods: {
     closePage() {
-      this.$router.go(-1)
-      
+      this.$router.push(`/b/${this.$route.params.boardId}`);
+    },
+    updatedTask(updatedTask) {
+      let group = this.getGroup;
+      let idx = group.tasks.findIndex((task) => task.id === updatedTask.id);
+      group.tasks[idx] = updatedTask;
+      this.$store.dispatch({ type: "updateTask", task: updatedTask });
+      this.$store.dispatch({ type: "updateGroup", group });
     },
   },
-  computed: {},
+  computed: {
+    getTask() {
+      return { ...this.$store.getters.getCurrTask };
+    },
+    getGroup() {
+      return { ...this.$store.getters.getCurrGroup };
+    },
+    getBoard() {
+      return { ...this.$store.getters.getCurrBoard };
+    },
+  },
+  components: {
+    taskDescription,
+    activityFlow,
+  },
   directives: {
     clickOutside: vClickOutside.directive,
   },
