@@ -1,7 +1,15 @@
 <template>
   <div class="boards-container">
-    <div v-for="board in boards" :key="board._id" class="board-card">
-    
+    <div
+      v-for="board in boards"
+      :key="board._id"
+      class="board-card"
+      :style="board.style"
+    >
+      <p>board style is inline in the v for</p>
+      <router-link :to="'/b/' + board._id">
+        <h2>{{ board.title }}</h2>
+      </router-link>
     </div>
   </div>
 </template>
