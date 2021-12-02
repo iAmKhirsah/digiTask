@@ -13,11 +13,12 @@
       </div>
     </div>
 
-  
+  <div class="card-line"></div>
     <div class="user-activity">
       <p>Profile and visibility</p>
       <p>Activity</p>
     </div>
+  <div class="card-line"></div>
 
     <button class="user-info-logout-btn">Log out</button>
   </section>
