@@ -13,6 +13,8 @@ import cover from "./dynamic_components/cover.vue";
 import move from "./dynamic_components/move.vue";
 import archive from "./dynamic_components/archive.vue";
 import share from "./dynamic_components/share.vue";
+import groupEdit from "./dynamic_components/group-edit.vue"
+
 export default {
   name: "editDynamic",
   props: ["type"],
@@ -30,6 +32,7 @@ export default {
       if (this.type === "move") return move;
       if (this.type === "archive") return archive;
       if (this.type === "share") return share;
+      if(this.type==='groupEdit') return groupEdit
     },
   },
   components: {
@@ -42,6 +45,7 @@ export default {
     move,
     archive,
     share,
+    groupEdit
   },
   methods: {},
 };

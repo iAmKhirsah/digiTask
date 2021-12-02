@@ -1,6 +1,6 @@
 <template>
-  <div class="group-list-container">
-    <div v-for="group in boardGroups" :key="group.id" class="group-list-group">
+  <div>
+    <div class="group-list-group">
       <!-- beny -->
       <div class="group-header">
         <div v-if="editingGroup.id !== group.id" @click="groupTitle(group)">
@@ -27,7 +27,7 @@
         />
         <!-- <span class="input" role="textbox"  contenteditable @change="updateGroup">{{group.title}}</span> -->
 
-        <button class="group-header-edit-btn">
+        <button class="group-header-edit-btn" @click="actionOn">
           <i class="fas fa-ellipsis-h"></i>
         </button>
       </div>
@@ -38,18 +38,27 @@
 </template>
 <script>
 import taskList from "./taskList.vue";
+import headerDynamic from "./headerDynamic.vue";
+import vClickOutside from "v-click-outside";
 
 export default {
   name: "groupList",
-  props: ["boardGroups"],
+  props: ["group"],
   components: { taskList },
   data() {
     return {
       editingGroup: {},
       isEditing: false,
+      isActionOn:false
     };
   },
   methods: {
+    actionOn(){
+        this.isActionOn = true
+    },
+    actionOff(){
+
+    },
     editTask(taskId, groupId) {
       let boardId = this.$route.params.boardId;
       let routerLink = `${boardId}/g/${groupId}/t/${taskId}`;

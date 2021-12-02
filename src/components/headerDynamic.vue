@@ -9,6 +9,7 @@ import recent from "./dynamic_components/recent.vue";
 import starred from "./dynamic_components/starred.vue";
 import workSpace from "./dynamic_components/workSpace.vue";
 import invite from "./dynamic_components/invite.vue";
+
 export default {
   name: "headerDynamic",
   props: ["type"],
@@ -22,6 +23,7 @@ export default {
       if (this.type === "starred") return starred;
       if (this.type === "workSpace") return workSpace;
       if (this.type === "invite") return invite;
+      
     },
   },
   components: {
