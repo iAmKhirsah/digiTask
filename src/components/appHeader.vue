@@ -1,5 +1,5 @@
 <template>
-  <section class="main-header-container">
+  <section class="main-header-container" v-click-outside="setType">
     <div class="main-header-left">
       <div class="logo main-header-tabs">
         <router-link to="/workspace">DigiTask</router-link>
@@ -34,6 +34,7 @@
 </template>
 <script>
 import headerDynamic from "./headerDynamic.vue";
+import vClickOutside from "v-click-outside";
 export default {
   name: "appHeader",
   components: {
@@ -48,6 +49,9 @@ export default {
     setType(type) {
       this.type = type;
     },
+  },
+  directives: {
+    clickOutside: vClickOutside.directive,
   },
 };
 </script>
