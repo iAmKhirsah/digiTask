@@ -9,7 +9,6 @@
       <button @click="toggleNewGroup"><i class="fas fa-times"></i></button>
     </form>
     <button v-else @click="toggleNewGroup">Add another List</button>
-
     <router-view></router-view>
   </div>
 </template>
@@ -47,7 +46,12 @@ export default {
         console.log("Couldnt add group", group);
       }
     },
-    async addTask(groupId) {},
+    async addTask(groupId) {
+      try {
+      } catch (err) {
+        console.log("Couldnt add task", err);
+      }
+    },
   },
   computed: {},
   components: { groupList, boardHeader },

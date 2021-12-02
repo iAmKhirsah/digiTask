@@ -28,7 +28,7 @@ export default {
       this.$router.push(routerLink);
     },
     addTask(groupId){
-
+      
     }
   },
 };

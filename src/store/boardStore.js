@@ -13,16 +13,15 @@ export const boardStore = {
     boards: [],
     currTask: {},
     filterBy: { keyWord: '', members: [], dueDate: null, labels: [] },
-    newGroup:{},
-    newTask:{}
-   
+    newGroup: {},
+    newTask: {},
   },
   getters: {
-    getEmptyTask({newTask}){
-     return newTask
+    getEmptyTask({ newTask }) {
+      return newTask;
     },
-    getEmptyGroup({newGroup}){
-    return newGroup
+    getEmptyGroup({ newGroup }) {
+      return newGroup;
     },
     currBoard({ currBoard }) {
       return currBoard;
@@ -47,7 +46,7 @@ export const boardStore = {
     },
     addGroup(state, { group }) {
       state.currBoard.groups.push(group);
-       this.newGroup= boardService.getEmptyGroup()
+      this.newGroup = boardService.getEmptyGroup();
     },
     updateGroup(state, { group }) {
       let idx = state.boards.groups.findIndex(
@@ -96,7 +95,7 @@ export const boardStore = {
         console.log("Couldn't add board", err);
       }
     },
-    async updateBoard({state, commit }, { board=null }) {
+    async updateBoard({ state, commit }, { board = null }) {
       try {
         if (!board) board = state.currBoard;
         await boardService.update(board);
@@ -106,52 +105,51 @@ export const boardStore = {
         console.log('Couldnt update Board', err);
       }
     },
-  
-  async removeBoard({ commit }, { boardId }) {
-    try {
-      await boardService.remove(boardId);
-      commit({ type: 'removeBoard', boardId });
-      //SOCKET FOR DELETING MIGHT BE NEEDED
-    } catch (err) {
-      console.log("Couldn't remove board", err);
-    }
+
+    async removeBoard({ commit }, { boardId }) {
+      try {
+        await boardService.remove(boardId);
+        commit({ type: 'removeBoard', boardId });
+        //SOCKET FOR DELETING MIGHT BE NEEDED
+      } catch (err) {
+        console.log("Couldn't remove board", err);
+      }
+    },
+    async removeGroup({ dispatch, commit }, { groupId }) {
+      try {
+        commit({ type: 'removeGroup', groupId });
+        let board = null; //not sure if its needed
+        await dispatch({ type: 'updateBoard' }, board);
+      } catch (err) {
+        console.log("Coulnd't remove group", err);
+      }
+    },
+    async updateGroup({ dispatch, commit }, { group }) {
+      try {
+        commit({ type: 'updateGroup' }, group);
+        let board = null; //not sure if its needed
+        await dispatch({ type: 'updateBoard' }, board);
+      } catch (err) {}
+    },
+    async addGroup({ dispatch, commit }, { group }) {
+      try {
+        commit({ type: 'addGroup', group });
+        await dispatch({ type: 'updateBoard' });
+      } catch (err) {
+        console.log('couldnt update in addgroup', err);
+      }
+    },
+    async addTask({ dispatch, commit }, { task, groupId }) {
+      try {
+        await boardService.getGroupById(groupId);
+      } catch (err) {
+        console.log('Couldnt add a task', err);
+      }
+    },
+    async getTaskById() {
+      //Not sure if we need it yet
+      try {
+      } catch (err) {}
+    },
   },
-  async removeGroup({ dispatch, commit }, { groupId }) {
-    try {
-      commit({ type: 'removeGroup', groupId });
-      let board = null; //not sure if its needed
-      await dispatch({ type: 'updateBoard' }, board);
-    } catch (err) {
-      console.log("Coulnd't remove group", err);
-    }
-  },
-  async updateGroup({ dispatch, commit }, { group }) {
-    try {
-      commit({ type: 'updateGroup' }, group);
-      let board = null; //not sure if its needed
-      await dispatch({ type: 'updateBoard' }, board);
-    } catch (err) {}
-  },
-  async addGroup({ dispatch, commit }, { group }) {
-    try {
-     
-      commit({ type: 'addGroup' ,group});
-      await dispatch({ type: 'updateBoard' });
-    } catch (err) {
-      console.log('couldnt update in addgroup', err);
-    }
-  },
-  async addTask({dispatch,commit},{task}){
-    try{
-      
-    }catch(err){
-      console.log('Couldnt add a task',err)
-    }
-  },
-  async getTaskById() {
-    //Not sure if we need it yet
-    try {
-    } catch (err) {}
-  },
-}
-}
+};
