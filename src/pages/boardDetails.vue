@@ -8,27 +8,17 @@
       @addTask="addTask"
       @updateGroup="updateGroup"
     />
-<<<<<<< HEAD
     </div>
-=======
-    
-<div></div>
->>>>>>> f01f302cb2ec93336898a48e1c72660e1f047285
 
     <form v-if="isNewGroup" @submit="addGroup">
       <input v-model="newGroup.title" />
       <button>Add List</button>
       <button @click="toggleNewGroup"><i class="fas fa-times"></i></button>
     </form>
-<<<<<<< HEAD
     <!-- <button class="add-list-btn" v-else @click="toggleNewGroup">Add another List</button> -->
 
     <button v-else @click="toggleNewGroup">Add another List</button>
     </div>
-=======
-
-    <button v-else @click="toggleNewGroup">Add another List</button>
->>>>>>> f01f302cb2ec93336898a48e1c72660e1f047285
     <router-view></router-view>
   </div>
 </template>
