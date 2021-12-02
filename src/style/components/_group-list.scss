@@ -41,19 +41,18 @@
         }
     }
 
-    .group-title{
-      width:80%;
-      overflow: hidden;
-     resize: none;
-     
-      
-      &:focus {
-        background-color: $clr1;
-        box-shadow: 0 0 0 2px $sclr1;
-        border-radius: 3px;
-        outline: none;
-        color: $clr4;
-    }
+    .group-title {
+        width: 80%;
+        overflow: hidden;
+        resize: none;
+
+        &:focus {
+            background-color: $clr1;
+            box-shadow: 0 0 0 2px $sclr1;
+            border-radius: 3px;
+            outline: none;
+            color: $clr4;
+        }
     }
     .group-list-group {
         background-color: #ebecf0;
@@ -63,8 +62,9 @@
         padding: 4px;
         margin: 2px 4px;
         flex-direction: column;
-        max-height: 100%;
+        max-height: 860px;
         white-space: normal;
         position: relative;
+        height: 100%;
     }
 }
