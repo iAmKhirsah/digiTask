@@ -63,7 +63,8 @@ export default {
   },
   methods: {
     closePage() {
-      this.pageOpen = false;
+      this.$router.go(-1)
+      
     },
   },
   computed: {},
