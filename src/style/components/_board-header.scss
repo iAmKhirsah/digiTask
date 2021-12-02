@@ -3,7 +3,16 @@
     align-items: center;
     height: auto;
     padding: 8px 4px 4px 8px;
-    
+    .board-header-left{
+        display:flex;
+        gap: 4px;
+    }
+
+    .board-header-right{
+        display:flex;
+        gap: 4px;
+    }
+
     gap: 12px;
     .board-box {
         border-radius: 3px ;
@@ -30,7 +39,7 @@
            padding:0 6px;
            text-align: center;
            line-height: 30px;
-
+            cursor: pointer;
         }
         
         input {
