@@ -1,0 +1,36 @@
+.task-details-overlay {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.185);
+  overflow-y: auto;
+  .task-details-wrapper {
+    display: flex;
+    justify-content: center;
+    .task-details-container {
+      margin: 48px 0 80px;
+      min-height: 600px;
+      border-radius: 2px;
+      position: relative;
+      background-color: white;
+      width: 768px;
+      overflow: hidden;
+      .task-details-content-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .task-details-sidebar {
+          display: flex;
+          align-items: flex-end;
+          flex-direction: column;
+          justify-content: flex-end;
+          > * {
+            width: 120px;
+          }
+        }
+      }
+    }
+  }
+}

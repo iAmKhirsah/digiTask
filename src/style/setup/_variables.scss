@@ -9,7 +9,15 @@ $clr7: #b3bac5;
 // SHADOW PALETTE
 $sclr1: #007bbc;
 
+<<<<<<< HEAD
 // USER BACKGROUND PALETTE
+=======
+
+
+// BACKGROUND COLORS
+$bgc-grad-content: linear-gradient(135deg, rgb(96, 205, 150) 0%,#0291e3 25%,#2F93CC 50%, #8019C6 100%);
+$bgc-grad: linear-gradient(135deg, $clr1 20%,#a45ee6 40%,#a45ee6 60%, #60cd96 80%,$clr1 100%);
+>>>>>>> 0c32171cca82cfe1edc6c6cc4994af2afabbf852
 // linear-gradient( #8019C6 0%,#2F93CC 100%)
 $bgc-grad-gray: linear-gradient(
     135deg,
