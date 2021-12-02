@@ -9,14 +9,13 @@ export const boardService = {
   remove,
   update,
   getBoardById,
-  getEmptyGroup
-  
+  getEmptyGroup,
 };
 loadBoard();
 async function loadBoard() {
   try {
     let loadedBoard = await query();
-    
+
     if (!loadedBoard.length || !loadedBoard) createDemoBoard();
   } catch (err) {
     console.log('loadedBoard');
@@ -25,7 +24,6 @@ async function loadBoard() {
 
 async function query(filterBy = null) {
   try {
-
     //   var queryStr = (!filterBy) ? '' : `?name=${filterBy.name}&sort=anaAref`
     return await storageService.query('boards');
   } catch (err) {
@@ -33,25 +31,21 @@ async function query(filterBy = null) {
   }
 }
 
-async function getTaskById(taskId,boardId){ //Not sure yet
-  try{
-    
-  }catch(err){
-
-  }
+async function getTaskById(taskId, boardId) {
+  //Not sure yet
+  try {
+  } catch (err) {}
 }
 
-async function getBoardById(boardId){
-  try{
-    const board = await storageService.get('boards',boardId)
-    console.log(boardId)
-    return board
-    
-  }catch(err){
-    console.log('Could\'nt get board by id ',err)
+async function getBoardById(boardId) {
+  try {
+    const board = await storageService.get('boards', boardId);
+    console.log(boardId);
+    return board;
+  } catch (err) {
+    console.log("Could'nt get board by id ", err);
   }
 }
-
 async function remove(boardId) {
   try {
     //   return httpService.delete(`review/${reviewId}`)
@@ -81,14 +75,14 @@ async function update(board) {
   }
 }
 
-function getEmptyGroup(){
- const group = {
-   id:utilService.makeId(),
-   title:'',
-   tasks:[]
- }
- console.log(group)
- return group
+function getEmptyGroup() {
+  const group = {
+    id: utilService.makeId(),
+    title: '',
+    tasks: [],
+  };
+  console.log(group);
+  return group;
 }
 
 function createDemoBoard() {

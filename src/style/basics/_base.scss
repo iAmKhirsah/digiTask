@@ -5,13 +5,28 @@
 html {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
+    padding: 0;
     // background:url('https://img.freepik.com/free-photo/hand-painted-watercolor-background-with-sky-clouds-shape_24972-1095.jpg?size=626&ext=jpg') ;
     background: $bgc-grad-green;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100vh;
+    height: 100%;
 }
 body {
     margin: 0;
 }
-
+*::-webkit-scrollbar {
+    height: 13px;
+    
+}
+*::-webkit-scrollbar-track {
+    border-radius:5px;
+    
+    background: hsla(0, 0%, 0%, 0.55);;
+}
+*::-webkit-scrollbar-thumb {
+    
+    border:  10px solid rgba(255, 255, 255, 0.45);;
+    border-radius:5px;
+    
+}

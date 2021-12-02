@@ -4,7 +4,6 @@
       <task-preview :task="task" @editTask="editTask" />
     </div> 
       <div class="add-task" @click="addTask"><span class="group-add-plus"><i class="fas fa-plus"></i></span><span>Add a card</span></div>
-   
   </div>
 </template>
 <script>
