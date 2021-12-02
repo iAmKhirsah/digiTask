@@ -11,6 +11,7 @@
         <button v-else @click="toggleNewGroup">Add another List</button>
         
    
+    <router-view></router-view>
   </div>
 </template>
 <script>

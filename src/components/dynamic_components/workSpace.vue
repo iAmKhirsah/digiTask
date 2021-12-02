@@ -39,5 +39,6 @@ export default {
       boards: null,
     };
   },
+  methods: {},
 };
 </script>

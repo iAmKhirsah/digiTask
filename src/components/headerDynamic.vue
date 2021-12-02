@@ -30,5 +30,6 @@ export default {
     starred,
     workSpace,
   },
+  methods: {},
 };
 </script>
