@@ -1,13 +1,15 @@
 // import { httpService } from './httpService'
 import { storageService } from './asyncStorageService';
 import { userService } from './userService';
+import { utilService } from './utilService';
 
 export const boardService = {
   add,
   query,
   remove,
   update,
-  getBoardById
+  getBoardById,
+  getEmptyGroup
   
 };
 loadBoard();
@@ -53,7 +55,7 @@ async function getBoardById(boardId){
 async function remove(boardId) {
   try {
     //   return httpService.delete(`review/${reviewId}`)
-    return storageService.delete('board', boardId);
+    return storageService.delete('boards', boardId);
   } catch (err) {
     console.log('Had error on boardServices: REMOVE', err);
   }
@@ -64,7 +66,7 @@ async function add(board) {
     board.byMember = userService.getLoggedinUser();
     // board.byMember = await userService.getById(review.aboutUserId)
     // const addedBoard = await httpService.post(`review`, review)
-    const addedBoard = storageService.post('board', board);
+    const addedBoard = storageService.post('boards', board);
     return addedBoard;
   } catch (err) {
     console.log('Had error on boardServices: ADD', err);
@@ -72,12 +74,23 @@ async function add(board) {
 }
 async function update(board) {
   try {
-    const updatedBoard = storageService.put('board', board);
+    const updatedBoard = storageService.put('boards', board);
     return updatedBoard;
   } catch (err) {
     console.log('Had error on boardServices: UPDATE', err);
   }
 }
+
+function getEmptyGroup(){
+ const group = {
+   id:utilService.makeId(),
+   title:'',
+   tasks:[]
+ }
+ console.log(group)
+ return group
+}
+
 function createDemoBoard() {
   const board = {
     _id: 'b101',

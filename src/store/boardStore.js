@@ -1,4 +1,5 @@
 import { boardService } from '../services/boardService.js';
+
 import {
   socketService,
   SOCKET_EVENT_WATCHBOARD,
@@ -12,8 +13,14 @@ export const boardStore = {
     boards: [],
     currTask: {},
     filterBy: { keyWord: '', members: [], dueDate: null, labels: [] },
+   
   },
   getters: {
+    getEmptyGroup(){
+    let newGroup = boardService.getEmptyGroup()
+    console.log(newGroup)
+    return newGroup
+    },
     currBoard({ currBoard }) {
       return currBoard;
     },
@@ -36,17 +43,18 @@ export const boardStore = {
       state.boards.splice(idx, 1);
     },
     addGroup(state, { group }) {
+      
       state.currBoard.groups.push(group);
     },
     updateGroup(state, { group }) {
       let idx = state.boards.groups.findIndex(
-        (currGroup) => currGroup._id === group._id
+        (currGroup) => currGroup.id === group.id
       );
       state.currBoard.groups.splice(idx, 1, group);
     },
     removeGroup(state, { groupId }) {
       let idx = state.currBoard.groups.findIndex(
-        (currGroup) => currGroup._id === groupId
+        (currGroup) => currGroup.id === groupId
       );
       state.currBoard.groups.splice(idx, 1);
     },
@@ -85,9 +93,9 @@ export const boardStore = {
         console.log("Couldn't add board", err);
       }
     },
-    async updateBoard({ commit }, { board }) {
+    async updateBoard({state, commit }, { board=null }) {
       try {
-        if (!board) board = currBoard;
+        if (!board) board = state.currBoard;
         await boardService.update(board);
         commit({ type: 'updateBoard', board });
         socketService.emit(SOCKET_EMIT_UPDATEBOARD, board);
@@ -95,7 +103,7 @@ export const boardStore = {
         console.log('Couldnt update Board', err);
       }
     },
-  },
+  
   async removeBoard({ commit }, { boardId }) {
     try {
       await boardService.remove(boardId);
@@ -123,9 +131,9 @@ export const boardStore = {
   },
   async addGroup({ dispatch, commit }, { group }) {
     try {
-      commit({ type: 'addGroup' }, group);
-      let board = null; //not sure if its needed
-      await dispatch({ type: 'updateBoard' }, board);
+      console.log(group)
+      commit({ type: 'addGroup' ,group});
+      await dispatch({ type: 'updateBoard' });
     } catch (err) {
       console.log('couldnt update in addgroup', err);
     }
@@ -135,4 +143,5 @@ export const boardStore = {
     try {
     } catch (err) {}
   },
-};
+}
+}
