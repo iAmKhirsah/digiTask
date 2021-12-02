@@ -59,7 +59,7 @@ export const boardStore = {
       state.currBoard.groups[idx].tasks.push(newTask);
     },
     updateGroup(state, { group }) {
-      let idx = state.boards.groups.findIndex(
+      const idx = state.currBoard.groups.findIndex(
         (currGroup) => currGroup.id === group.id
       );
       state.currBoard.groups.splice(idx, 1, group);
@@ -136,8 +136,8 @@ export const boardStore = {
     },
     async updateGroup({ dispatch, commit }, { group }) {
       try {
-        commit({ type: 'updateGroup' }, group);
-        let board = null; //not sure if its needed
+        console.log(group)
+        commit({ type: 'updateGroup',group });
         await dispatch({ type: 'updateBoard' });
       } catch (err) {}
     },

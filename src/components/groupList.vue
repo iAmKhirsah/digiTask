@@ -6,16 +6,30 @@
         <div v-if="editingGroup.id !== group.id" @click="groupTitle(group)">
           {{ group.title }}
         </div>
-        <input
+
+        <!-- <input
           :ref="'title_' + group.id"
           v-else
           v-model="editingGroup.title"
           @change="updateGroup"
           @blur="disableTitleEdit"
+        /> -->
+
+        <textarea
+          ref="title"
+          class="group-title"
+          v-else
+          oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+          onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+          v-model="editingGroup.title"
+          maxlength="512"
+          @blur="disableTitleEdit"
         />
-        <!-- <textarea v-model="group.title" class="group-title" @change="updateGroup"/> -->
         <!-- <span class="input" role="textbox"  contenteditable @change="updateGroup">{{group.title}}</span> -->
-        <button>edit</button>
+
+        <button class="group-header-edit-btn">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
       </div>
 
       <task-list :group="group" @editTask="editTask" @addTask="addTask" />
@@ -44,15 +58,16 @@ export default {
     addTask(task, groupId) {
       this.$emit("addTask", task, groupId);
     },
-    updateGroup(group) {
-      console.log("group title changed");
-      this.$emit("updateGroup", group);
-    },
+    // updateGroup(group) {
+    //   console.log("group title changed");
+    //   this.$emit("updateGroup", group);
+    // },
     updateGroup(group) {
       console.log("group title changed");
       this.$emit("updateGroup", { ...group });
     },
     disableTitleEdit() {
+      this.$emit("updateGroup", { ...this.editingGroup });
       this.isEditing = false;
       this.editingGroup = {};
     },
@@ -60,9 +75,17 @@ export default {
       this.isEditing = true;
       this.editingGroup = { ...group };
       this.$nextTick(() => {
-        this.$refs["title_" + group.id][0].focus();
+        this.$refs.title[0].focus();
       });
     },
+  },
+  mounted() {
+    // this.$nextTick(() => {
+    //   this.$refs.title[0].focus();
+    // });
+    //       this.$nextTick(() => {
+    //   this.$refs.title[0].blur();
+    // });
   },
   computed: {},
 };
