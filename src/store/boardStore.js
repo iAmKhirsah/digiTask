@@ -128,7 +128,7 @@ export const boardStore = {
       try {
         commit({ type: 'updateGroup' }, group);
         let board = null; //not sure if its needed
-        await dispatch({ type: 'updateBoard' }, board);
+        await dispatch({ type: 'updateBoard' });
       } catch (err) {}
     },
     async addGroup({ dispatch, commit }, { group }) {
@@ -139,9 +139,8 @@ export const boardStore = {
         console.log('couldnt update in addgroup', err);
       }
     },
-    async addTask({ dispatch, commit }, { task, groupId }) {
+    async addTask({ dispatch, commit }, { task }) {
       try {
-        await boardService.getGroupById(groupId);
       } catch (err) {
         console.log('Couldnt add a task', err);
       }

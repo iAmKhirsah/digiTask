@@ -10,4 +10,19 @@
     border-radius: 5px;
     padding: 4px;
   }
+
+  .group-title{
+      resize:none;
+      height: fit-content;
+      background-color: transparent;
+      border:none;
+   &:focus{
+    background-color: $clr1;
+                box-shadow: 0 0 0 2px $sclr1;
+                border-radius: 3px;
+                outline: none;
+                color: $clr4;
+                overflow: hidden;
+   }
+  }
 }
