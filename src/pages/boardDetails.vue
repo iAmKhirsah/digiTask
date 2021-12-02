@@ -1,19 +1,20 @@
 <template>
   <div v-if="board" class="board-details-container">
     <board-header :board="board" />
-    <group-list :boardGroups="board.groups" @addTask="addTask" @updateGroup="updateGroup" />
+    <group-list
+      :boardGroups="board.groups"
+      @addTask="addTask"
+      @updateGroup="updateGroup"
+    />
 
     <form v-if="isNewGroup" @submit="addGroup">
       <input v-model="newGroup.title" />
       <button>Add List</button>
       <button @click="toggleNewGroup"><i class="fas fa-times"></i></button>
     </form>
-<<<<<<< HEAD
     <!-- <button class="add-list-btn" v-else @click="toggleNewGroup">Add another List</button> -->
 
-=======
     <button v-else @click="toggleNewGroup">Add another List</button>
->>>>>>> 283302f8ca538f12e86d77ce450f013d3a797bbf
     <router-view></router-view>
   </div>
 </template>
@@ -39,9 +40,9 @@ export default {
     this.board = this.$store.getters.currBoard;
   },
   methods: {
-     async updateGroup(group){
-           await this.$store.dispatch({type:"updateGroup",group})
-      },
+    async updateGroup(group) {
+      await this.$store.dispatch({ type: "updateGroup", group });
+    },
     toggleNewGroup() {
       this.isNewGroup = !this.isNewGroup;
     },
@@ -54,8 +55,9 @@ export default {
         console.log("Couldnt add group", group);
       }
     },
-    async addTask(groupId) {
+    async addTask(task, groupId) {
       try {
+        await this.$store.dispatch({ type: "addTask", task, groupId });
       } catch (err) {
         console.log("Couldnt add task", err);
       }
