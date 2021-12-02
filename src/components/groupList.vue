@@ -1,11 +1,6 @@
 <template>
   <div class="group-list-container">
     <div v-for="group in boardGroups" :key="group.id" class="group-list-group">
-<<<<<<< HEAD
-     <!-- beny -->
-      <div class="group-header">
-        <p>{{ group.title }}</p>
-=======
       <div>
         <textarea
           v-model="group.title"
@@ -13,7 +8,6 @@
           @change="updateGroup"
         />
         <!-- <span class="input" role="textbox"  contenteditable @change="updateGroup">{{group.title}}</span> -->
->>>>>>> 283302f8ca538f12e86d77ce450f013d3a797bbf
         <button>edit</button>
       </div>
       <task-list :group="group" @editTask="editTask" @addTask="addTask" />

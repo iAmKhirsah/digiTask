@@ -12,12 +12,7 @@
       <button>Add List</button>
       <button @click="toggleNewGroup"><i class="fas fa-times"></i></button>
     </form>
-<<<<<<< HEAD
-    <!-- <button class="add-list-btn" v-else @click="toggleNewGroup">Add another List</button> -->
-
-=======
     <button v-else @click="toggleNewGroup">Add another List</button>
->>>>>>> 283302f8ca538f12e86d77ce450f013d3a797bbf
     <router-view></router-view>
   </div>
 </template>
