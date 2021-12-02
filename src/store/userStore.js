@@ -4,7 +4,7 @@ export const userStore = {
   strict: true,
   state: {
     users: {},
-    loggedInUser: {},
+    loggedInUser: null,
     boardMembers: {},
   },
   getters: {
@@ -17,7 +17,7 @@ export const userStore = {
   },
   mutations: {
     setLoggedinUser(state, { user }) {
-      state.loggedinUser = user ? { ...user } : null;
+      state.loggedInUser = user ? { ...user } : null;
     },
     setUsers(state, { users }) {
       state.users = users;
