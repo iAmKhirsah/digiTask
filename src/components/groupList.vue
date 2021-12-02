@@ -46,7 +46,6 @@ export default {
       console.log("group title changed");
       this.$emit("updateGroup", group);
     },
-<<<<<<< HEAD
     updateGroup(group){
       console.log('group title changed')
       this.$emit("updateGroup",{...group})
@@ -65,8 +64,6 @@ export default {
         
      
     }
-=======
->>>>>>> 350d54a22307e90579dc74e69e3e859df1e0671a
   },
   computed:{
     
