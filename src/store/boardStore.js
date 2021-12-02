@@ -12,6 +12,7 @@ export const boardStore = {
     currBoard: {},
     boards: [],
     currTask: {},
+    currGroup: {},
     filterBy: { keyWord: '', members: [], dueDate: null, labels: [] },
     newGroup: {},
     newTask: {},
@@ -22,6 +23,12 @@ export const boardStore = {
     },
     getEmptyGroup({ newGroup }) {
       return newGroup;
+    },
+    getCurrTask({ currTask }) {
+      return currTask;
+    },
+    getCurrGroup({ currGroup }) {
+      return currGroup;
     },
     currBoard({ currBoard }) {
       return currBoard;
@@ -58,11 +65,22 @@ export const boardStore = {
       );
       state.currBoard.groups[idx].tasks.push(newTask);
     },
+    getDetails(state, { taskId, groupId }) {
+      let idx = state.currBoard.groups.findIndex(
+        (group) => group.id === groupId
+      );
+      state.currGroup = state.currBoard.groups[idx];
+      state.currTask = state.currGroup.tasks.find((task) => task.id === taskId);
+      console.log(state.currTask);
+    },
     updateGroup(state, { group }) {
       const idx = state.currBoard.groups.findIndex(
         (currGroup) => currGroup.id === group.id
       );
       state.currBoard.groups.splice(idx, 1, group);
+    },
+    updateTask(state, { task }) {
+      state.currTask = task;
     },
     removeGroup(state, { groupId }) {
       let idx = state.currBoard.groups.findIndex(
@@ -136,8 +154,7 @@ export const boardStore = {
     },
     async updateGroup({ dispatch, commit }, { group }) {
       try {
-        console.log(group)
-        commit({ type: 'updateGroup',group });
+        commit({ type: 'updateGroup', group });
         await dispatch({ type: 'updateBoard' });
       } catch (err) {}
     },
@@ -157,10 +174,19 @@ export const boardStore = {
         console.log('Couldnt add a task', err);
       }
     },
-    async getTaskById() {
-      //Not sure if we need it yet
+    async getTaskDetails({ commit }, { taskId, groupId }) {
       try {
-      } catch (err) {}
+        commit({ type: 'getDetails', taskId, groupId });
+      } catch (err) {
+        console.log('Error on board store GETTASKDETAILS', err);
+      }
+    },
+    async updateTask({ commit }, { task }) {
+      try {
+        commit({ type: 'updateTask', task });
+      } catch (err) {
+        console.log('Error on board store UPDATETASK', err);
+      }
     },
   },
 };
