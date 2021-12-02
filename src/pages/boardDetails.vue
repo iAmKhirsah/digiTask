@@ -8,7 +8,7 @@
       <button>Add List</button>
       <button @click="toggleNewGroup"><i class="fas fa-times"></i></button>
     </form>
-    <button v-else @click="toggleNewGroup">Add another List</button>
+    <!-- <button class="add-list-btn" v-else @click="toggleNewGroup">Add another List</button> -->
 
     <router-view></router-view>
   </div>

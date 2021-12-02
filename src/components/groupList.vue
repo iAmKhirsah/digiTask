@@ -1,7 +1,8 @@
 <template>
   <div class="group-list-container">
     <div v-for="group in boardGroups" :key="group.id" class="group-list-group">
-      <div>
+     <!-- beny -->
+      <div class="group-header">
         <p>{{ group.title }}</p>
         <button>edit</button>
       </div>
