@@ -15,22 +15,25 @@
           @blur="disableTitleEdit"
         /> -->
 
-        <textarea   ref="title"
-        class="group-title"
+        <textarea
+          ref="title"
+          class="group-title"
           v-else
           oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-        onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+          onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
           v-model="editingGroup.title"
-         maxlength="512"
-          @blur="disableTitleEdit"/>
+          maxlength="512"
+          @blur="disableTitleEdit"
+        />
         <!-- <span class="input" role="textbox"  contenteditable @change="updateGroup">{{group.title}}</span> -->
 
-        <button class="group-header-edit-btn"><i class="fas fa-ellipsis-h"></i></button>
+        <button class="group-header-edit-btn">
+          <i class="fas fa-ellipsis-h"></i>
+        </button>
       </div>
 
       <task-list :group="group" @editTask="editTask" @addTask="addTask" />
     </div>
-    
   </div>
 </template>
 <script>
@@ -64,7 +67,6 @@ export default {
       this.$emit("updateGroup", { ...group });
     },
     disableTitleEdit() {
-   
       this.$emit("updateGroup", { ...this.editingGroup });
       this.isEditing = false;
       this.editingGroup = {};
@@ -77,14 +79,13 @@ export default {
       });
     },
   },
-  mounted(){
-      // this.$nextTick(() => {
-      //   this.$refs.title[0].focus();
-      // });
-      //       this.$nextTick(() => {
-      //   this.$refs.title[0].blur();
-      // });
- 
+  mounted() {
+    // this.$nextTick(() => {
+    //   this.$refs.title[0].focus();
+    // });
+    //       this.$nextTick(() => {
+    //   this.$refs.title[0].blur();
+    // });
   },
   computed: {},
 };
