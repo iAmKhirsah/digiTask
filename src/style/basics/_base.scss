@@ -17,16 +17,12 @@ body {
 }
 *::-webkit-scrollbar {
     height: 13px;
-    
 }
 *::-webkit-scrollbar-track {
     border-radius:5px;
-    
     background: hsla(0, 0%, 0%, 0.55);;
 }
-*::-webkit-scrollbar-thumb {
-    
+*::-webkit-scrollbar-thumb { 
     border:  10px solid rgba(255, 255, 255, 0.45);;
     border-radius:5px;
-    
 }
