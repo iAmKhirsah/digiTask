@@ -1,21 +1,23 @@
 <template>
   <div class="group-list-container">
     <div v-for="group in boardGroups" :key="group.id" class="group-list-group">
-     <!-- beny -->
+      <!-- beny -->
       <div class="group-header">
-       
-   
-
-        
-        <div v-if="editingGroup.id!==group.id" @click="groupTitle(group)">{{group.title}}</div>
-        <input :ref="'title_'+group.id" v-else v-model="editingGroup.title" @change="updateGroup" @blur="disableTitleEdit"/>
-
+        <div v-if="editingGroup.id !== group.id" @click="groupTitle(group)">
+          {{ group.title }}
+        </div>
+        <input
+          :ref="'title_' + group.id"
+          v-else
+          v-model="editingGroup.title"
+          @change="updateGroup"
+          @blur="disableTitleEdit"
+        />
         <!-- <textarea v-model="group.title" class="group-title" @change="updateGroup"/> -->
         <!-- <span class="input" role="textbox"  contenteditable @change="updateGroup">{{group.title}}</span> -->
-
         <button>edit</button>
       </div>
-      
+
       <task-list :group="group" @editTask="editTask" @addTask="addTask" />
     </div>
   </div>
@@ -29,8 +31,8 @@ export default {
   components: { taskList },
   data() {
     return {
-      editingGroup:{},
-      isEditing:false
+      editingGroup: {},
+      isEditing: false,
     };
   },
   methods: {
@@ -46,27 +48,22 @@ export default {
       console.log("group title changed");
       this.$emit("updateGroup", group);
     },
-    updateGroup(group){
-      console.log('group title changed')
-      this.$emit("updateGroup",{...group})
+    updateGroup(group) {
+      console.log("group title changed");
+      this.$emit("updateGroup", { ...group });
     },
-    disableTitleEdit(){
-      this.isEditing = false
-      this.editingGroup = {}
-      
+    disableTitleEdit() {
+      this.isEditing = false;
+      this.editingGroup = {};
     },
-    groupTitle(group){
-      this.isEditing = true
-      this.editingGroup = {...group}
-        this.$nextTick(() => {
-       this.$refs["title_" + group.id][0].focus()
+    groupTitle(group) {
+      this.isEditing = true;
+      this.editingGroup = { ...group };
+      this.$nextTick(() => {
+        this.$refs["title_" + group.id][0].focus();
       });
-        
-     
-    }
+    },
   },
-  computed:{
-    
-  }
+  computed: {},
 };
 </script>
