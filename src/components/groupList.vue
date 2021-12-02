@@ -1,11 +1,6 @@
 <template>
   <div class="group-list-container">
     <div v-for="group in boardGroups" :key="group.id" class="group-list-group">
-<<<<<<< HEAD
-      <div>
-        <textarea v-model="group.title" class="group-title" @change="updateGroup"/>
-        <!-- <span class="input" role="textbox"  contenteditable @change="updateGroup">{{group.title}}</span> -->
-=======
      <!-- beny -->
       <div class="group-header">
        
@@ -18,8 +13,7 @@
         <!-- <textarea v-model="group.title" class="group-title" @change="updateGroup"/> -->
         <!-- <span class="input" role="textbox"  contenteditable @change="updateGroup">{{group.title}}</span> -->
 
->>>>>>> 0eafb460d0f8c8c8fa3ac7b977f72e778dcb01fd
-        <button>edit</button>
+        <button class="group-header-edit-btn"><i class="fas fa-ellipsis-h"></i></button>
       </div>
       
       <task-list :group="group" @editTask="editTask" @addTask="addTask" />

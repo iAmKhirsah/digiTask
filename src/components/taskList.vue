@@ -1,6 +1,6 @@
 <template>
   <div class="task-list-container">
-    <div v-for="task in group.tasks" :key="task.id">
+    <div class="task-list-content" v-for="task in group.tasks" :key="task.id">
       <task-preview :task="task" @editTask="editTask" />
     </div>
     <div class="add-task" @click="openNewTask = true">
