@@ -129,12 +129,11 @@ export const boardStore = {
     try {
       commit({ type: 'updateGroup' }, group);
       let board = null; //not sure if its needed
-      await dispatch({ type: 'updateBoard' }, board);
+      await dispatch({ type: 'updateBoard' });
     } catch (err) {}
   },
   async addGroup({ dispatch, commit }, { group }) {
     try {
-     
       commit({ type: 'addGroup' ,group});
       await dispatch({ type: 'updateBoard' });
     } catch (err) {

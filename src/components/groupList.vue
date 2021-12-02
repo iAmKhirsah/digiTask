@@ -2,7 +2,8 @@
   <div class="group-list-container">
     <div v-for="group in boardGroups" :key="group.id" class="group-list-group">
       <div>
-        <p>{{ group.title }}</p>
+        <textarea v-model="group.title" class="group-title" @change="updateGroup"/>
+        <!-- <span class="input" role="textbox"  contenteditable @change="updateGroup">{{group.title}}</span> -->
         <button>edit</button>
       </div>
       <task-list :group="group" @editTask="editTask" @addTask="addTask" />
@@ -28,7 +29,11 @@ export default {
       this.$router.push(routerLink);
     },
     addTask(groupId){
-
+      this.$emit("addTask",groupId)
+    },
+    updateGroup(group){
+      console.log('group title changed')
+      this.$emit("updateGroup",group)
     }
   },
 };

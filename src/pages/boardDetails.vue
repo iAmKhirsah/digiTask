@@ -1,7 +1,7 @@
 <template>
   <div v-if="board" class="board-details-container">
     <board-header :board="board" />
-    <group-list :boardGroups="board.groups" @addTask="addTask" />
+    <group-list :boardGroups="board.groups" @addTask="addTask" @updateGroup="updateGroup" />
 
     <form v-if="isNewGroup" @submit="addGroup">
       <input v-model="newGroup.title" />
@@ -36,6 +36,9 @@ export default {
     
   },
   methods: {
+     async updateGroup(group){
+           await this.$store.dispatch({type:"updateGroup",group})
+      },
     toggleNewGroup() {
       this.isNewGroup = !this.isNewGroup;
     },
