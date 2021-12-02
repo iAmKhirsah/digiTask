@@ -10,6 +10,7 @@ export const boardService = {
   update,
   getBoardById,
   getEmptyGroup,
+  getEmptyTask,
 };
 loadBoard();
 async function loadBoard() {
@@ -74,7 +75,14 @@ async function update(board) {
     console.log('Had error on boardServices: UPDATE', err);
   }
 }
-
+function getEmptyTask() {
+  const task = {
+    id: utilService.makeId(),
+    title: '',
+    description: '',
+  };
+  return task
+}
 function getEmptyGroup() {
   const group = {
     id: utilService.makeId(),
