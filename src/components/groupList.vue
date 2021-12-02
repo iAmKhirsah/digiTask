@@ -17,7 +17,6 @@
       </div>
       
       <task-list :group="group" @editTask="editTask" @addTask="addTask" />
-     
     </div>
   </div>
 </template>
@@ -35,15 +34,19 @@ export default {
     };
   },
   methods: {
-    editTask(taskId,groupId) {
-      
+    editTask(taskId, groupId) {
       let boardId = this.$route.params.boardId;
       let routerLink = `${boardId}/g/${groupId}/t/${taskId}`;
       this.$router.push(routerLink);
     },
-    addTask(groupId){
-      this.$emit("addTask",groupId)
+    addTask(task, groupId) {
+      this.$emit("addTask", task, groupId);
     },
+    updateGroup(group) {
+      console.log("group title changed");
+      this.$emit("updateGroup", group);
+    },
+<<<<<<< HEAD
     updateGroup(group){
       console.log('group title changed')
       this.$emit("updateGroup",{...group})
@@ -62,6 +65,8 @@ export default {
         
      
     }
+=======
+>>>>>>> 350d54a22307e90579dc74e69e3e859df1e0671a
   },
   computed:{
     

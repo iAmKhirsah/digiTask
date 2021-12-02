@@ -45,8 +45,18 @@ export const boardStore = {
       state.boards.splice(idx, 1);
     },
     addGroup(state, { group }) {
-      state.currBoard.groups.push(group);
+      let newGroup = boardService.getEmptyGroup();
+      newGroup.title = group.title;
+      state.currBoard.groups.push(newGroup);
       this.newGroup = boardService.getEmptyGroup();
+    },
+    addTask(state, { task, groupId }) {
+      let newTask = boardService.getEmptyTask();
+      newTask.title = task;
+      let idx = state.currBoard.groups.findIndex(
+        (group) => group.id === groupId
+      );
+      state.currBoard.groups[idx].tasks.push(newTask);
     },
     updateGroup(state, { group }) {
       let idx = state.boards.groups.findIndex(
@@ -139,8 +149,10 @@ export const boardStore = {
         console.log('couldnt update in addgroup', err);
       }
     },
-    async addTask({ dispatch, commit }, { task }) {
+    async addTask({ dispatch, commit }, { task, groupId }) {
       try {
+        commit({ type: 'addTask', task, groupId });
+        await dispatch({ type: 'updateBoard' });
       } catch (err) {
         console.log('Couldnt add a task', err);
       }
