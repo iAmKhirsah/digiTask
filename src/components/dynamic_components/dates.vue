@@ -1,22 +1,35 @@
 <template>
-  <div>
+  <div class="dynamic-dates-edit card-layout nav-modal">
     <button><i class="fas fa-times"></i></button>
-    <p>Dates</p>
-    <input type="date" />
-    <p>Start date</p>
-    <input type="checkbox" />
-    <p>Due date</p>
-    <input type="checkbox" />
-    <p>Set due date reminder</p>
-    <select></select>
+    <div class="header-layout">
+      <header>Dates</header>
+    </div>
+    <div>
+      <date-picker
+        class="test"
+        v-model="date"
+        type="date"
+        range
+        inline
+        placeholder="Select date range"
+      ></date-picker>
+    </div>
     <button>Save</button>
-    <button>Remove</button>
   </div>
 </template>
 <script>
-  import DatePicker from 'vue2-datepicker';
-  import 'vue2-datepicker/index.css';
+import datePicker from "vue2-datepicker";
+import "vue2-datepicker/index.css";
 export default {
   name: "dates",
+  data() {
+    return {
+      date: [],
+    };
+  },
+  computed: {},
+  components: {
+    datePicker,
+  },
 };
 </script>
