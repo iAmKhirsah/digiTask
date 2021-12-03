@@ -1,31 +1,23 @@
  
 <template>
-<<<<<<< HEAD
   <div class="add-task" v-click-outside="closeNewTask">
     <div v-if="openNewTask">
       <form class="add-task-form" @submit.prevent="addTask">
-        <input ref="task"  type="text" v-model="newTask" />
-        <button class="add-task-btn" type="submit">Add</button>
-        <button class="add-task-close-btn" type="button" @click="closeNewTask">
-          <i class="fas fa-times"></i>
-        </button>
-=======
-  <div class="add-task"  v-click-outside="closeNewTask"  >
-      <div v-if="openNewTask">
-      <form class="add-task-form" @submit.prevent="addTask" >
-         <textarea
+        <textarea
+        class="textarea"
           ref="task"
-        
           oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
           onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
           v-model="newTask"
           maxlength="512"
-         
         />
-               
-                <button type="submit">Add</button>
+  <div class="add-task-form-btns">
 
->>>>>>> 45142d7230cc605966b926f4f285165941f2467a
+        <button class="add-task-btn" type="submit">Add card</button>
+        <button class="add-task-close-btn" type="button" @click="closeNewTask">
+          <i class="fas fa-times"></i>
+        </button>
+  </div>
       </form>
     </div>
 

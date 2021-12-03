@@ -24,68 +24,45 @@
         </button>
       </div>
 
-      <edit-dynamic
-        v-if="isActionOn"
-        :type="'groupEdit'"
-        @closeModal="actionOff"
-        v-click-outside="actionOff"
-        @openNewTask="openNewTask"
-      />
-      <add-task v-if="isNewTask" @closeNewTask="closeNewTask" @addTask="addTask"  :inGroup="inGroup"/>
-      <task-list
-        :group="group"
-        @editTask="editTask"
-        @addTask="addTask"
-        :isNewTask="isNewTask"
-      />
+      <task-list :group="group" @editTask="editTask" @addTask="addTask" />
     </div>
   </div>
 </template>
 <script>
 import taskList from "./taskList.vue";
-import editDynamic from "./editDynamic.vue";
+import headerDynamic from "./headerDynamic.vue";
 import vClickOutside from "v-click-outside";
-import addTask from "./addTask.vue";
 
 export default {
   name: "groupList",
   props: ["group"],
-  components: { taskList, editDynamic, addTask },
+  components: { taskList },
   data() {
     return {
       editingGroup: {},
       isEditing: false,
-      isActionOn: false,
-      isNewTask: false,
-      inGroup:true,
-      
+      isActionOn:false
     };
   },
   methods: {
-    actionOn() {
-      this.isActionOn = true;
+    actionOn(){
+        this.isActionOn = true
     },
-    actionOff() {
-      if (this.isActionOn) this.isActionOn = false;
+    actionOff(){
+
     },
     editTask(taskId, groupId) {
       let boardId = this.$route.params.boardId;
       let routerLink = `${boardId}/g/${groupId}/t/${taskId}`;
       this.$router.push(routerLink);
     },
-    addTask(task) {
-      this.$emit("addTask", task, this.group.id);
+    addTask(task, groupId) {
+      this.$emit("addTask", task, groupId);
     },
     // updateGroup(group) {
     //   console.log("group title changed");
     //   this.$emit("updateGroup", group);
     // },
-    openNewTask(){
-      this.isNewTask = true
-    },
-    closeNewTask(){
-      this.isNewTask = false
-    },
     updateGroup(group) {
       console.log("group title changed");
       this.$emit("updateGroup", { ...group });
@@ -99,7 +76,7 @@ export default {
       this.isEditing = true;
       this.editingGroup = { ...group };
       this.$nextTick(() => {
-        this.$refs.title.focus();
+        this.$refs.title[0].focus();
       });
     },
   },
@@ -112,8 +89,5 @@ export default {
     // });
   },
   computed: {},
-  directives: {
-    clickOutside: vClickOutside.directive,
-  },
 };
 </script>
