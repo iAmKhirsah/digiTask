@@ -3,7 +3,15 @@
   <div class="add-task"  v-click-outside="closeNewTask"  >
       <div v-if="openNewTask">
       <form class="add-task-form" @submit.prevent="addTask" >
-        <input ref="task" type="text" v-model="newTask" />
+         <textarea
+          ref="task"
+        
+          oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+          onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+          v-model="newTask"
+          maxlength="512"
+         
+        />
                
                 <button type="submit">Add</button>
 
