@@ -47,7 +47,7 @@ import taskList from "./taskList.vue";
 import editDynamic from "./editDynamic.vue";
 import vClickOutside from "v-click-outside";
 import addTask from "./addTask.vue";
-
+ 
 export default {
   name: "groupList",
   props: ["group"],
