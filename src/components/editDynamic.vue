@@ -9,8 +9,7 @@
       @openNewTask="openNewTask"
       @closeNewTask="closeNewTask"
       @openCopyGroup="openCopyGroup"
-      @backToGroupEdit="backToGroupEdit"
-      
+      @backToGroupEdit="backToGroupEdit" 
     ></component>
   </section>
 </template>

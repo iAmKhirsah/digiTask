@@ -1,31 +1,34 @@
 <template>
   <div v-if="board" class="board-details-container" v-dragscroll:nochilddrag>
     <board-header :board="board" />
-    <div class="group-list-container">
-      <div v-for="group in board.groups" :key="group.id">
+    <div class="group-list-container" @drop="onDrop($event)">
+      <Draggable v-for="group in board.groups" :key="group.id">
         <group-list
           :group="group"
           @addTask="addTask"
           @updateGroup="updateGroup"
         />
-      </div>
+      </Draggable>
       <div>
+        <!-- v-on:keydown.enter="addGroup" -->
         <form
           class="add-list-form"
           v-if="isNewGroup"
-          @submit="addGroup"
+          v-on:keydown.enter="addGroup"
           v-click-outside="toggleNewGroup"
         >
           <textarea
             class="textarea-another-list"
             ref="list"
+            @keydown.enter.prevent
             oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
             onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
             v-model="newGroup.title"
             maxlength="512"
+            placeholder="Enter list title..."
           />
           <div class="add-list-form-btns">
-            <button class="add-task-btn" type="submit">Add list</button>
+            <button class="add-task-btn">Add list</button>
             <button
               class="add-task-close-btn"
               type="button"
@@ -50,6 +53,7 @@ import groupList from "../components/groupList.vue";
 import boardHeader from "../components/boardHeader.vue";
 import { dragscroll } from "vue-dragscroll";
 import vClickOutside from "v-click-outside";
+import { Container, Draggable } from 'vue-smooth-dnd'
 
 export default {
   name: "boardDetails",
@@ -59,6 +63,7 @@ export default {
       isNewGroup: false,
       newGroup: {},
       newTask: {},
+      scene:null
     };
   },
   async created() {
@@ -76,14 +81,25 @@ export default {
       this.isNewGroup = !this.isNewGroup;
       if (this.isNewGroup)
         this.$nextTick(() => {
+          this.newGroup.title = "";
           this.$refs.list.focus();
         });
     },
     async addGroup() {
       try {
+        if (this.newGroup.title.match(/^\s*$/) || !this.newGroup.title.length) {
+          this.newGroup.title = "";
+          this.$nextTick(() => {
+            this.$refs.list.focus();
+          });
+          return;
+        }
+
         let group = { ...this.newGroup };
+
         await this.$store.dispatch({ type: "addGroup", group });
         this.newGroup = { ...this.$store.getters.getEmptyGroup };
+        this.newGroup.title;
       } catch (err) {
         console.log("Couldnt add group", group);
       }
@@ -95,9 +111,40 @@ export default {
         console.log("Couldnt add task", err);
       }
     },
+     onColumnDrop (dropResult) {
+      const scene = Object.assign({}, this.scene)
+      scene.children = applyDrag(scene.children, dropResult)
+      this.scene = scene
+    },
+    onCardDrop (columnId, dropResult) {
+      if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
+        const scene = Object.assign({}, this.scene)
+        const column = scene.children.filter(p => p.id === columnId)[0]
+        const columnIndex = scene.children.indexOf(column)
+        const newColumn = Object.assign({}, column)
+        newColumn.children = applyDrag(newColumn.children, dropResult)
+        scene.children.splice(columnIndex, 1, newColumn)
+        this.scene = scene
+      }
+    },
+    getCardPayload (columnId) {
+      return index => {
+        return this.scene.children.filter(p => p.id === columnId)[0].children[index]
+      }
+    }
   },
   computed: {},
-  components: { groupList, boardHeader },
+  mounted() {
+    if (this.$refs.list) {
+      this.$nextTick(() => {
+        this.$refs.list.focus();
+      });
+      this.$nextTick(() => {
+        this.$refs.list.blur();
+      });
+    }
+  },
+  components: { groupList, boardHeader,Container, Draggable },
   directives: {
     dragscroll,
     clickOutside: vClickOutside.directive,
