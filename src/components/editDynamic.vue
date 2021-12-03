@@ -1,6 +1,6 @@
 <template>
   <section>
-    <component :is="renderCmp"></component>
+    <component :is="renderCmp" @closeModal="closeModal"></component>
   </section>
 </template>
 <script>
@@ -47,6 +47,10 @@ export default {
     share,
     groupEdit
   },
-  methods: {},
+  methods: {
+    closeModal(){
+      this.$emit('closeModal')
+    }
+  },
 };
 </script>

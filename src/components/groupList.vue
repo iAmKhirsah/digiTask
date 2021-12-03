@@ -18,11 +18,13 @@
           @blur="disableTitleEdit"
         />
         <!-- <span class="input" role="textbox"  contenteditable @change="updateGroup">{{group.title}}</span> -->
-
+           
         <button class="group-header-edit-btn" @click="actionOn">
           <i class="fas fa-ellipsis-h"></i>
         </button>
       </div>
+     
+<edit-dynamic v-if="isActionOn" :type="'groupEdit'" @closeModal="actionOff"  v-click-outside="actionOff"/>
 
       <task-list :group="group" @editTask="editTask" @addTask="addTask" />
     </div>
@@ -30,13 +32,13 @@
 </template>
 <script>
 import taskList from "./taskList.vue";
-import headerDynamic from "./headerDynamic.vue";
+import editDynamic from "./editDynamic.vue";
 import vClickOutside from "v-click-outside";
 
 export default {
   name: "groupList",
   props: ["group"],
-  components: { taskList },
+  components: { taskList,editDynamic },
   data() {
     return {
       editingGroup: {},
@@ -46,10 +48,14 @@ export default {
   },
   methods: {
     actionOn(){
+      
         this.isActionOn = true
+    
+        
     },
     actionOff(){
-
+      if(this.isActionOn) this.isActionOn = false
+ 
     },
     editTask(taskId, groupId) {
       let boardId = this.$route.params.boardId;
@@ -89,5 +95,8 @@ export default {
     // });
   },
   computed: {},
+    directives: {
+    clickOutside: vClickOutside.directive,
+  },
 };
 </script>

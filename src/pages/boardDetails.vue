@@ -1,7 +1,7 @@
 <template>
-  <div v-if="board" class="board-details-container ">
+  <div v-if="board" class="board-details-container  " v-dragscroll:nochilddrag >
     <board-header :board="board" />
-    <div class="group-list-container">
+    <div class="group-list-container  ">
     <div  v-for="group in board.groups" :key="group.id">
     <group-list
       :group="group"
@@ -17,7 +17,7 @@
     </form>
     <!-- <button class="add-list-btn" v-else @click="toggleNewGroup">Add another List</button> -->
 
-    <button v-else @click="toggleNewGroup">Add another List</button>
+    <button v-else @click="toggleNewGroup" class="add-another-list">Add another List</button>
     </div>
     <router-view></router-view>
   </div>
@@ -25,6 +25,7 @@
 <script>
 import groupList from "../components/groupList.vue";
 import boardHeader from "../components/boardHeader.vue";
+import { dragscroll } from 'vue-dragscroll'
 
 export default {
   name: "boardDetails",
@@ -69,5 +70,8 @@ export default {
   },
   computed: {},
   components: { groupList, boardHeader },
+   directives: {
+    dragscroll
+  }
 };
 </script>

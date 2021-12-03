@@ -5,12 +5,18 @@
         <task-preview :task="task" @editTask="editTask" />
       </div>
     </div>
-    <div class="add-task" @click="openNewTask = true">
-      <form class="add-task-form" @submit.prevent="addTask" v-if="openNewTask">
+    <div class="add-task" v-click-outside="closeNewTask" >
+      <div v-if="openNewTask">
+      <form class="add-task-form" @submit.prevent="addTask" >
         <input type="text" v-model="newTask" />
-        <button>Add</button>
+               
+                <button type="submit">Add</button>
+
       </form>
-      <div class="add-task-add-card" v-if="!openNewTask">
+       <button @click="closeNewTask"><i class="fas fa-times"></i></button>
+      </div>
+      
+      <div class="add-task-add-card" v-if="!openNewTask" @click="openNewTask= true">
         <span class="group-add-plus"><i class="fas fa-plus"></i></span
         ><span>Add a card</span>
       </div>
@@ -19,6 +25,7 @@
 </template>
 <script>
 import taskPreview from "./taskPreview.vue";
+import vClickOutside from "v-click-outside";
 export default {
   name: "taskList",
   props: ["group"],
@@ -35,9 +42,17 @@ export default {
     },
     addTask() {
       this.$emit("addTask", this.newTask, this.group.id);
-      this.newTask = "";
-      this.openNewTask = false;
+     this.newTask = ""
+      
     },
+    closeNewTask(){
+        this.newTask = ""
+      this.openNewTask = false;
+    }
   },
+    directives: {
+    clickOutside: vClickOutside.directive,
+  },
+  
 };
 </script>

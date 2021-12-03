@@ -1,6 +1,6 @@
 <template>
   <div class="dynamic-workspace card-layout nav-modal">
-    <button><i class="fas fa-times"></i></button>
+    <button @click="closeModal"><i class="fas fa-times"></i></button>
       <div class="header-layout">
       <header>List ations</header>
     </div>
@@ -19,5 +19,10 @@
 <script>
 export default {
   name: "group-edit",
+  methods:{
+     closeModal(){
+         this.$emit('closeModal')
+     }
+  }
 };
 </script>
