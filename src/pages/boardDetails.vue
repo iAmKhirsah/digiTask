@@ -17,7 +17,7 @@
     </form>
     <!-- <button class="add-list-btn" v-else @click="toggleNewGroup">Add another List</button> -->
 
-    <button v-else @click="toggleNewGroup" class="add-another-list">Add another List</button>
+    <button v-else @click="toggleNewGroup" class="add-another-list"><i class="fas fa-plus"></i>Add another List</button>
     </div>
     </div>
     <router-view></router-view>
