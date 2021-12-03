@@ -1,28 +1,31 @@
  
 <template>
-  <div class="add-task"  v-click-outside="closeNewTask"  >
-      <div v-if="openNewTask">
-      <form class="add-task-form" @submit.prevent="addTask" >
-         <textarea
+  <div class="add-task" v-click-outside="closeNewTask">
+    <div v-if="openNewTask">
+      <form class="add-task-form" @submit.prevent="addTask">
+        <textarea
+        class="textarea"
           ref="task"
-        
           oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
           onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
           v-model="newTask"
           maxlength="512"
-         
         />
-               
-                <button type="submit">Add</button>
+  <div class="add-task-form-btns">
 
+        <button class="add-task-btn" type="submit">Add card</button>
+        <button class="add-task-close-btn" type="button" @click="closeNewTask">
+          <i class="fas fa-times"></i>
+        </button>
+  </div>
       </form>
-       <button @click="closeNewTask"><i class="fas fa-times"></i></button>
-      </div>
-      
-      <div class="add-task-add-card" v-else @click="newTaskOn">
-        <span class="group-add-plus"><i class="fas fa-plus"></i></span><span>Add a card</span>
-      </div>
     </div>
+
+    <div class="add-task-add-card" v-if="!openNewTask" @click="newTaskOn">
+      <span class="group-add-plus"><i class="fas fa-plus"></i></span
+      ><span>Add a card</span>
+    </div>
+  </div>
 </template>
 <script>
 import vClickOutside from "v-click-outside";
@@ -72,10 +75,9 @@ created(){
  this.$nextTick(() => {
         this.$refs.task.focus();
       });
-      
-   }
+    },
   },
-      directives: {
+  directives: {
     clickOutside: vClickOutside.directive,
   },
 };
