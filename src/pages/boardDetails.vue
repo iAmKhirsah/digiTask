@@ -9,15 +9,16 @@
       @updateGroup="updateGroup"
     />
     </div>
-
-    <form v-if="isNewGroup" @submit="addGroup">
-      <input v-model="newGroup.title" />
+    <div>
+    <form v-if="isNewGroup" @submit="addGroup"  v-click-outside="toggleNewGroup"  >
+      <input ref="list" v-model="newGroup.title" />
       <button>Add List</button>
       <button @click="toggleNewGroup"><i class="fas fa-times"></i></button>
     </form>
     <!-- <button class="add-list-btn" v-else @click="toggleNewGroup">Add another List</button> -->
 
     <button v-else @click="toggleNewGroup" class="add-another-list">Add another List</button>
+    </div>
     </div>
     <router-view></router-view>
   </div>
@@ -26,6 +27,7 @@
 import groupList from "../components/groupList.vue";
 import boardHeader from "../components/boardHeader.vue";
 import { dragscroll } from 'vue-dragscroll'
+import vClickOutside from "v-click-outside";
 
 export default {
   name: "boardDetails",
@@ -50,6 +52,9 @@ export default {
     },
     toggleNewGroup() {
       this.isNewGroup = !this.isNewGroup;
+      if(this.isNewGroup) this.$nextTick(() => {
+        this.$refs.list.focus();
+      });
     },
     async addGroup() {
       try {
@@ -71,7 +76,8 @@ export default {
   computed: {},
   components: { groupList, boardHeader },
    directives: {
-    dragscroll
+    dragscroll,
+    clickOutside: vClickOutside.directive,
   }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <component :is="renderCmp" @closeModal="closeModal"></component>
+    <component :is="renderCmp" @closeModal="closeModal" @openNewTask="openNewTask" @closeNewTask="closeNewTask"></component>
   </section>
 </template>
 <script>
@@ -50,6 +50,12 @@ export default {
   methods: {
     closeModal(){
       this.$emit('closeModal')
+    },
+    openNewTask(){
+      this.$emit('openNewTask')
+    },
+    closeNewTask(){
+ this.$emit('closeNewTask')
     }
   },
 };
