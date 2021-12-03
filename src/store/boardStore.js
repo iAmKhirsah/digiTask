@@ -63,8 +63,9 @@ export const boardStore = {
       newActivity.byMember = activity.user;
       newActivity.task.id = activity.task.id;
       newActivity.task.title = activity.task.title;
-      newActivity.imgUrl = activity.res.url;
-      console.log(newActivity);
+      if (activity.res.url) {
+        newActivity.imgUrl = activity.res.url;
+      }
       state.currBoard.activities.push(newActivity);
     },
     addTask(state, { task, groupId }) {

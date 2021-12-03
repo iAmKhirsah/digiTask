@@ -2,9 +2,9 @@
   <section class="task-details-overlay" v-if="pageOpen">
     <section class="task-details-wrapper">
       <div class="task-details-container" v-click-outside="closePage">
-        <button @click="closePage">X</button>
+        <button @click="closePage" class="task-details-close">X</button>
         <div class="task-details-header">
-          <h1>{{ getTask.title }}</h1>
+          <textarea v-model="getTask.title"></textarea>
           <p>in group {{ getGroup.title }}<span></span></p>
         </div>
         <div class="task-details-addons">
@@ -26,22 +26,94 @@
             </div>
           </div>
           <div class="task-details-sidebar">
-            <p>Add to card</p>
-            <div class="task-details-add-to-card">
-              <div @click="setType('members')">Members</div>
-              <div @click="setType('labels')">Labels</div>
-              <div @click="setType('checklist')">Checklist</div>
-              <div @click="setType('dates')">Dates</div>
-              <div @click="setType('attachment')">Attachment</div>
-              <div @click="setType('cover')">Cover</div>
+            <div class="task-details-sidebar-btns">
+              <h3>Add to card</h3>
+              <div
+                @click="setType('members')"
+                class="task-details-sidebar-button"
+              >
+                <span class="td-sidebar-icon"
+                  ><img src="../assets/icons/avatar.png"
+                /></span>
+                <span class="td-sidebar-text">Members</span>
+              </div>
+              <div
+                @click="setType('labels')"
+                class="task-details-sidebar-button"
+              >
+                <span class="td-sidebar-icon"></span>
+                <span class="td-sidebar-text">Labels</span>
+              </div>
+              <div
+                @click="setType('checklist')"
+                class="task-details-sidebar-button"
+              >
+                <span class="td-sidebar-icon"></span>
+                <span class="td-sidebar-text">Checklist</span>
+              </div>
+              <div
+                @click="setType('dates')"
+                class="task-details-sidebar-button"
+              >
+                <span class="td-sidebar-icon"
+                  ><img src="../assets/icons/time.png"
+                /></span>
+                <span class="td-sidebar-text">Dates</span>
+              </div>
+              <div
+                @click="setType('attachment')"
+                class="task-details-sidebar-button"
+              >
+                <span class="td-sidebar-icon"
+                  ><img src="../assets/icons/attachment.png"
+                /></span>
+                <span class="td-sidebar-text">Attachment</span>
+              </div>
+              <div
+                @click="setType('cover')"
+                class="task-details-sidebar-button"
+              >
+                <span class="td-sidebar-icon"></span>
+                <span class="td-sidebar-text">Cover</span>
+              </div>
             </div>
-            <p>Actions</p>
-            <div class="task-details-actions">
-              <div @click="setType('move')">Move</div>
-              <div>Copy</div>
-              <div><input type="checkbox" /> Watch</div>
-              <div @click="setType('archive')">Archive</div>
-              <div @click="setType('share')">Share</div>
+            <div class="task-details-sidebar-btns">
+              <h3>Actions</h3>
+              <div @click="setType('move')" class="task-details-sidebar-button">
+                <span class="td-sidebar-icon"
+                  ><i class="fas fa-arrow-right"></i
+                ></span>
+                <span class="td-sidebar-text">Move</span>
+              </div>
+              <div class="task-details-sidebar-button">
+                <span class="td-sidebar-icon"
+                  ><img src="../assets/icons/copy.png"
+                /></span>
+                <span class="td-sidebar-text">Copy</span>
+              </div>
+              <div class="task-details-sidebar-button">
+                <span class="td-sidebar-icon"
+                  ><img src="../assets/icons/watch.png"
+                /></span>
+                <span class="td-sidebar-text">Watch</span
+                ><input type="checkbox" />
+              </div>
+              <div
+                @click="setType('archive')"
+                class="task-details-sidebar-button"
+              >
+                <span class="td-sidebar-icon"></span>
+                <span class="td-sidebar-text">Archive</span>
+              </div>
+              <div
+                @click="setType('share')"
+                class="task-details-sidebar-button"
+              >
+                <span class="td-sidebar-icon"
+                  ><img src="../assets/icons/share.png"
+                /></span>
+                <span class="td-sidebar-text">Share</span>
+              </div>
             </div>
           </div>
         </div>

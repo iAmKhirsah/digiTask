@@ -16,20 +16,75 @@
       background-color: white;
       width: 768px;
       overflow: hidden;
+      .task-details-close {
+        border-radius: 50%;
+        color: #42526e;
+        height: 32px;
+        margin: 4px;
+        padding: 4px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 32px;
+      }
+      .task-details-header {
+        margin: 12px 40px 8px 56px;
+        min-height: 32px;
+        position: relative;
+        p {
+          font-size: 14px;
+        }
+      }
       .task-details-content-container {
         display: flex;
-        align-items: center;
         justify-content: space-between;
+        .task-details-main-content {
+          padding: 0 8px 8px 16px;
+          width: 552px;
+        }
         .task-details-sidebar {
-          display: flex;
-          align-items: flex-end;
-          flex-direction: column;
-          justify-content: flex-end;
-          > * {
-            width: 120px;
+          float: right;
+          overflow: hidden;
+          padding: 0 16px 8px 8px;
+          width: calc(100% - 600px);
+          h3 {
+            color: $clr3;
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 16px;
+            line-height: 20px;
+            margin-bottom: -4px;
+            margin-top: 16px;
+          }
+          .task-details-sidebar-btns {
+            margin-bottom: 24px;
+            position: relative;
           }
         }
       }
+    }
+  }
+}
+.task-details-sidebar-button {
+  background-color: #091e420a;
+  border-radius: 3px;
+  cursor: pointer;
+  height: 32px;
+  margin-top: 8px;
+  max-width: 300px;
+  overflow: hidden;
+  padding: 6px 12px;
+  position: relative;
+  .td-sidebar-text {
+    color: $clr2;
+  }
+  .td-sidebar-icon {
+    width: 20px;
+    height: 20px;
+    margin: 0 6px 0 -6px;
+    img {
+      width: 16px;
+      height: 16px;
     }
   }
 }
