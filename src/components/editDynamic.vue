@@ -10,7 +10,7 @@
       @closeNewTask="closeNewTask"
       @openCopyGroup="openCopyGroup"
       @backToGroupEdit="backToGroupEdit"
-      
+      @deleteTask="deleteTask"
     ></component>
   </section>
 </template>
@@ -72,6 +72,9 @@ export default {
     },
     attachment(link) {
       this.$emit("attachment", link, this.task);
+    },
+    deleteTask() {
+      this.$emit("deleteTask", this.task);
     },
     openNewTask() {
       this.$emit("newTaskOpen");

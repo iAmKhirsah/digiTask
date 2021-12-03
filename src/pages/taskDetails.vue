@@ -51,6 +51,7 @@
           :getBoard="getBoard"
           :getTask="getTask"
           @attachment="attachment"
+          @deleteTask="deleteTask"
         />
       </div>
     </section>
@@ -81,6 +82,10 @@ export default {
     setType(type) {
       this.type = type;
     },
+    async deleteTask(task) {
+      await this.$store.dispatch({ type: "removeTask", task });
+      this.closePage();
+    },
     closePage() {
       this.$router.push(`/b/${this.$route.params.boardId}`);
     },
@@ -93,7 +98,8 @@ export default {
     },
     async attachment(link, task) {
       let res = await uploadFile(link);
-      let txt = "attached";
+      console.log(res);
+      let txt = `attached ${res.original_filename}.${res.format} to`;
       let user = this.$store.getters.currUser;
       this.$store.dispatch({
         type: "addActivity",

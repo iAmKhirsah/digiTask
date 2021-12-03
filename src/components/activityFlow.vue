@@ -9,11 +9,11 @@
         </div>
       </div>
       <div v-if="getComments">
-        <p v-for="comment in getComments" :key="comment.id">
+        <div v-for="comment in getComments" :key="comment.id">
           <span><img :src="comment.byMember.imgUrl" alt="" /></span>
           <span>{{ comment.byMember.fullname }}: </span>
           <span>{{ comment.txt }}</span>
-        </p>
+        </div>
       </div>
     </div>
   </div>
@@ -30,8 +30,7 @@ export default {
       return activities;
     },
     getComments() {
-      let idx = this.group.tasks.findIndex((task) => task.id === this.task.id);
-      return this.group.tasks[idx].comments;
+      return this.task.comments;
     },
   },
 };
