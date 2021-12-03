@@ -24,7 +24,21 @@
         </button>
       </div>
 
-      <task-list :group="group" @editTask="editTask" @addTask="addTask" />
+      <edit-dynamic
+        v-if="isActionOn"
+        :type="'groupEdit'"
+        @closeModal="actionOff"
+        v-click-outside="actionOff"
+        @newTaskOpen="newTaskOpen"
+        :group="group"
+      />
+      <add-task v-if="isNewTask" @closeNewTask="closeNewTask" @addTask="addTask" :focusTextArea="focusTextArea" :inGroup="inGroup"/>
+      <task-list
+        :group="group"
+        @editTask="editTask"
+        @addTask="addTask"
+        :isNewTask="isNewTask"
+      />
     </div>
   </div>
 </template>
@@ -41,7 +55,11 @@ export default {
     return {
       editingGroup: {},
       isEditing: false,
-      isActionOn:false
+      isActionOn: false,
+      isNewTask: false,
+      inGroup:true,
+      focusTextArea:true,
+      
     };
   },
   methods: {
@@ -63,6 +81,12 @@ export default {
     //   console.log("group title changed");
     //   this.$emit("updateGroup", group);
     // },
+    newTaskOpen(){
+      this.isNewTask = true
+    },
+    closeNewTask(){
+      this.isNewTask = false
+    },
     updateGroup(group) {
       console.log("group title changed");
       this.$emit("updateGroup", { ...group });

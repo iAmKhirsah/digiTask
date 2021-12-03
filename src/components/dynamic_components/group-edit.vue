@@ -7,7 +7,7 @@
   
     <div>
       <p @click="openNewTask">Add card...</p>
-      <p>Copy list...</p>
+      <p @click="openCopyGroup">Copy list...</p>
         <div class="card-line"></div>
         <p>Sort by...</p>
           <div class="card-line"></div>
@@ -30,6 +30,9 @@ export default {
      },
      closeNewTask(){
          this.$emit('closeNewTask')
+     },
+     openCopyGroup(){
+         this.$emit('openCopyGroup')
      }
   },
   components:{

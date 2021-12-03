@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div class="dynamic-checklist-edit card-layout nav-modal">
     <button><i class="fas fa-times"></i></button>
-    <p>Add Checklist</p>
+    <div class="header-layout">
+      <header>Add checklist</header>
+    </div>
     <p>Title</p>
     <form @submit.prevent="addChecklist">
       <input type="text" />
@@ -10,6 +12,6 @@
 </template>
 <script>
 export default {
-  name: "labels",
+  name: "checklist",
 };
 </script>

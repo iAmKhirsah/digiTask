@@ -1,6 +1,17 @@
 <template>
   <section>
-    <component :is="renderCmp" @closeModal="closeModal" @openNewTask="openNewTask" @closeNewTask="closeNewTask"></component>
+    <component
+      :is="renderCmp"
+      @closeModal="closeModal"
+      :board="board"
+      :task="task"
+      @attachment="attachment"
+      @openNewTask="openNewTask"
+      @closeNewTask="closeNewTask"
+      @openCopyGroup="openCopyGroup"
+      @backToGroupEdit="backToGroupEdit"
+      :group="group"
+    ></component>
   </section>
 </template>
 <script>
@@ -13,13 +24,20 @@ import cover from "./dynamic_components/cover.vue";
 import move from "./dynamic_components/move.vue";
 import archive from "./dynamic_components/archive.vue";
 import share from "./dynamic_components/share.vue";
-import groupEdit from "./dynamic_components/group-edit.vue"
+import groupEdit from "./dynamic_components/group-edit.vue";
 
 export default {
   name: "editDynamic",
-  props: ["type"],
+  props: ["type", "getBoard", "getTask"],
   data() {
-    return {};
+    return {
+      board: {},
+      task: {},
+    };
+  },
+  created() {
+    this.board = this.getBoard;
+    this.task = this.getTask;
   },
   computed: {
     renderCmp() {
@@ -32,7 +50,8 @@ export default {
       if (this.type === "move") return move;
       if (this.type === "archive") return archive;
       if (this.type === "share") return share;
-      if(this.type==='groupEdit') return groupEdit
+      if (this.type === "groupEdit") return groupEdit;
+      if (this.type === "copyGroup") return copyGroup;
     },
   },
   components: {
@@ -45,17 +64,26 @@ export default {
     move,
     archive,
     share,
-    groupEdit
+    groupEdit,
   },
   methods: {
-    closeModal(){
-      this.$emit('closeModal')
+    closeModal() {
+      this.$emit("closeModal");
     },
-    openNewTask(){
-      this.$emit('openNewTask')
+    attachment(link) {
+      this.$emit("attachment", link);
     },
-    closeNewTask(){
- this.$emit('closeNewTask')
+    openNewTask() {
+      this.$emit("newTaskOpen");
+    },
+    closeNewTask() {
+      this.$emit("closeNewTask");
+    },
+    openCopyGroup(){
+      this.type='copyGroup'
+    },
+    backToGroupEdit(){
+      this.type="groupEdit"
     }
   },
 };

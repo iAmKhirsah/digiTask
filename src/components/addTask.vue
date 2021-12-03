@@ -31,28 +31,48 @@
 import vClickOutside from "v-click-outside";
 export default {
   name: "addTask",
-  props: ["isGroup"],
-  created() {},
-  data() {
-    return {
-      newTask: "",
-      openNewTask: false,
-    };
+  props:{
+      inGroup:{
+          type:Boolean,
+          default:false
+      },
+  
   },
-  methods: {
-    addTask() {
-      this.$emit("addTask", this.newTask);
-      this.newTask = "";
-    },
-    closeNewTask() {
-      this.openNewTask = false;
-      this.newTask = "";
-      this.$emit("closeNewTask");
-    },
-    newTaskOn() {
-      this.$emit("openNewTask");
-      this.openNewTask = true;
-      this.$nextTick(() => {
+
+created(){
+    console.log(this.inGroup)
+    if(this.inGroup){
+        this.openNewTask = true
+        this.$nextTick(() => {
+        this.$refs.task.focus();
+      });
+    }
+  
+},
+  data(){
+      return{
+          newTask:'',
+          openNewTask:false
+         
+          
+      }
+  },methods:{
+   addTask(){
+       this.$emit('addTask',this.newTask)
+       this.newTask=''
+        this.$nextTick(() => {
+        this.$refs.task.focus();
+      });
+   },
+   closeNewTask(){
+  this.openNewTask = false
+     this.newTask = ""
+      this.$emit('closeNewTask')
+   },
+   newTaskOn(){
+        this.$emit('openNewTask')
+        this.openNewTask= true
+ this.$nextTick(() => {
         this.$refs.task.focus();
       });
     },
