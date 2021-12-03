@@ -5,54 +5,33 @@
         <task-preview :task="task" @editTask="editTask" />
       </div>
     </div>
-    <div class="add-task" v-click-outside="closeNewTask" >
-      <div v-if="openNewTask">
-      <form class="add-task-form" @submit.prevent="addTask" >
-        <input type="text" v-model="newTask" />
-               
-                <button type="submit">Add</button>
-
-      </form>
-       <button @click="closeNewTask"><i class="fas fa-times"></i></button>
-      </div>
-      
-      <div class="add-task-add-card" v-if="!openNewTask" @click="openNewTask= true">
-        <span class="group-add-plus"><i class="fas fa-plus"></i></span
-        ><span>Add a card</span>
-      </div>
-    </div>
+    <add-task @addTask="addTask"  :isNewTask="isNewTask" v-if="!isNewTask"  />
   </div>
 </template>
 <script>
 import taskPreview from "./taskPreview.vue";
-import vClickOutside from "v-click-outside";
+import addTask from "./addTask.vue"
 export default {
   name: "taskList",
-  props: ["group"],
-  components: { taskPreview },
+  props: ["group","isNewTask"],
+  components: { taskPreview,addTask },
   data() {
     return {
-      newTask: "",
-      openNewTask: false,
+    
     };
   },
   methods: {
     editTask(taskId) {
       this.$emit("editTask", taskId, this.group.id);
     },
-    addTask() {
-      this.$emit("addTask", this.newTask, this.group.id);
-     this.newTask = ""
+    addTask(newTask) {
+      this.$emit("addTask", newTask, this.group.id);
+
       
     },
-    closeNewTask(){
-        this.newTask = ""
-      this.openNewTask = false;
-    }
+ 
   },
-    directives: {
-    clickOutside: vClickOutside.directive,
-  },
+  
   
 };
 </script>

@@ -6,6 +6,11 @@
       :board="board"
       :task="task"
       @attachment="attachment"
+      @openNewTask="openNewTask"
+      @closeNewTask="closeNewTask"
+      @openCopyGroup="openCopyGroup"
+      @backToGroupEdit="backToGroupEdit"
+      :group="group"
     ></component>
   </section>
 </template>
@@ -46,6 +51,7 @@ export default {
       if (this.type === "archive") return archive;
       if (this.type === "share") return share;
       if (this.type === "groupEdit") return groupEdit;
+      if (this.type === "copyGroup") return copyGroup;
     },
   },
   components: {
@@ -67,6 +73,18 @@ export default {
     attachment(link) {
       this.$emit("attachment", link);
     },
+    openNewTask() {
+      this.$emit("newTaskOpen");
+    },
+    closeNewTask() {
+      this.$emit("closeNewTask");
+    },
+    openCopyGroup(){
+      this.type='copyGroup'
+    },
+    backToGroupEdit(){
+      this.type="groupEdit"
+    }
   },
 };
 </script>

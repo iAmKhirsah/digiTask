@@ -1,13 +1,13 @@
 <template>
-  <div class="dynamic-workspace card-layout nav-modal">
+  <div class="dynamic-group-edit card-layout nav-modal">
     <button @click="closeModal"><i class="fas fa-times"></i></button>
       <div class="header-layout">
       <header>List ations</header>
     </div>
-    <div class="card-line"></div>
+  
     <div>
-      <p>Add card...</p>
-      <p>Copy list...</p>
+      <p @click="openNewTask">Add card...</p>
+      <p @click="openCopyGroup">Copy list...</p>
         <div class="card-line"></div>
         <p>Sort by...</p>
           <div class="card-line"></div>
@@ -17,12 +17,26 @@
   </div>
 </template>
 <script>
+import addTask from "../addTask.vue"
 export default {
   name: "group-edit",
   methods:{
      closeModal(){
          this.$emit('closeModal')
+     },
+     openNewTask(){
+         this.$emit('openNewTask')
+         this.closeModal()
+     },
+     closeNewTask(){
+         this.$emit('closeNewTask')
+     },
+     openCopyGroup(){
+         this.$emit('openCopyGroup')
      }
+  },
+  components:{
+      addTask
   }
 };
 </script>
