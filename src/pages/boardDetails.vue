@@ -42,7 +42,7 @@ export default {
     this.newTask = { ...this.$store.getters.getEmptyTask };
     let boardId = this.$route.params.boardId;
     await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
-    this.board = this.$store.getters.currBoard;
+    this.board = this.$store.getters.getCurrBoard;
   },
   methods: {
     async updateGroup(group) {

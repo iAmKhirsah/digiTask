@@ -30,7 +30,7 @@ export const boardStore = {
     getCurrGroup({ currGroup }) {
       return currGroup;
     },
-    currBoard({ currBoard }) {
+    getCurrBoard({ currBoard }) {
       return currBoard;
     },
     boards({ boards }) {
