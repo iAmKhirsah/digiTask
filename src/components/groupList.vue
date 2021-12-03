@@ -44,13 +44,14 @@
 </template>
 <script>
 import taskList from "./taskList.vue";
-import headerDynamic from "./headerDynamic.vue";
+import editDynamic from "./editDynamic.vue";
 import vClickOutside from "v-click-outside";
-
+import addTask from "./addTask.vue";
+ 
 export default {
   name: "groupList",
   props: ["group"],
-  components: { taskList },
+  components: { taskList, editDynamic, addTask },
   data() {
     return {
       editingGroup: {},
@@ -63,19 +64,19 @@ export default {
     };
   },
   methods: {
-    actionOn(){
-        this.isActionOn = true
+    actionOn() {
+      this.isActionOn = true;
     },
-    actionOff(){
-
+    actionOff() {
+      if (this.isActionOn) this.isActionOn = false;
     },
     editTask(taskId, groupId) {
       let boardId = this.$route.params.boardId;
       let routerLink = `${boardId}/g/${groupId}/t/${taskId}`;
       this.$router.push(routerLink);
     },
-    addTask(task, groupId) {
-      this.$emit("addTask", task, groupId);
+    addTask(task) {
+      this.$emit("addTask", task, this.group.id);
     },
     // updateGroup(group) {
     //   console.log("group title changed");
@@ -100,7 +101,7 @@ export default {
       this.isEditing = true;
       this.editingGroup = { ...group };
       this.$nextTick(() => {
-        this.$refs.title[0].focus();
+        this.$refs.title.focus();
       });
     },
   },
@@ -113,5 +114,8 @@ export default {
     // });
   },
   computed: {},
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
 };
 </script>
