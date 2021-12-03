@@ -10,7 +10,7 @@
       @closeNewTask="closeNewTask"
       @openCopyGroup="openCopyGroup"
       @backToGroupEdit="backToGroupEdit"
-      :group="group"
+      
     ></component>
   </section>
 </template>

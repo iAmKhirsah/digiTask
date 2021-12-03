@@ -38,6 +38,7 @@
         @editTask="editTask"
         @addTask="addTask"
         :isNewTask="isNewTask"
+        class="group-single"
       />
     </div>
   </div>
