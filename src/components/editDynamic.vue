@@ -71,7 +71,7 @@ export default {
       this.$emit("closeModal");
     },
     attachment(link) {
-      this.$emit("attachment", link);
+      this.$emit("attachment", link, this.task);
     },
     openNewTask() {
       this.$emit("newTaskOpen");
@@ -79,12 +79,12 @@ export default {
     closeNewTask() {
       this.$emit("closeNewTask");
     },
-    openCopyGroup(){
-      this.type='copyGroup'
+    openCopyGroup() {
+      this.type = "copyGroup";
     },
-    backToGroupEdit(){
-      this.type="groupEdit"
-    }
+    backToGroupEdit() {
+      this.type = "groupEdit";
+    },
   },
 };
 </script>

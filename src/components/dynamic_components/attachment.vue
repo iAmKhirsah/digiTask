@@ -6,10 +6,11 @@
     </div>
     <label>
       <span>Computer</span>
-      <input type="file" id="uploadImg" @change="addAttachment" hidden />
+      <input type="file" @change="addAttachment" hidden />
     </label>
     <div>
       <p>Attach a link</p>
+      <p>PLACEHOLDER FIX THIS @BENY</p>
       <form @submit.prevent="addAttachment">
         <input
           type="text"

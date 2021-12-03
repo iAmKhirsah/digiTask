@@ -91,10 +91,14 @@ export default {
       this.$store.dispatch({ type: "updateTask", task: updatedTask });
       this.$store.dispatch({ type: "updateGroup", group });
     },
-    async attachment(link) {
-      console.log(link);
+    async attachment(link, task) {
       let res = await uploadFile(link);
-      console.log(res);
+      let txt = "attached";
+      let user = this.$store.getters.currUser;
+      this.$store.dispatch({
+        type: "addActivity",
+        activity: { res, task, txt, user },
+      });
     },
   },
   computed: {

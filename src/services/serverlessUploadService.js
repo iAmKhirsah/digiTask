@@ -1,5 +1,5 @@
 export const uploadFile = async (ev) => {
-  const UPLOAD_PRESET = 'dxkxsmmyr'; //insert yours
+  const UPLOAD_PRESET = 'eujddzcb'; //insert yours
   const CLOUD_NAME = 'dxkxsmmyr'; //insert yours
   const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/auto/upload`;
   const FORM_DATA = new FormData();

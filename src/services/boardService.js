@@ -11,6 +11,7 @@ export const boardService = {
   getBoardById,
   getEmptyGroup,
   getEmptyTask,
+  getEmptyActivity,
 };
 loadBoard();
 async function loadBoard() {
@@ -77,20 +78,38 @@ async function update(board) {
 }
 function getEmptyTask() {
   const task = {
-    id: utilService.makeId(),
+    id: 't' + utilService.makeId(),
     title: '',
     description: '',
   };
-  return task
+  return task;
 }
 function getEmptyGroup() {
   const group = {
-    id: utilService.makeId(),
+    id: 'g' + utilService.makeId(),
     title: '',
     tasks: [],
   };
   console.log(group);
   return group;
+}
+function getEmptyActivity() {
+  const activity = {
+    id: 'a' + utilService.makeId(),
+    txt: '',
+    imgUrl: '',
+    createdAt: Date.now(),
+    byMember: {
+      _id: '',
+      fullname: '',
+      imgUrl: '',
+    },
+    task: {
+      id: '',
+      title: '',
+    },
+  };
+  return activity;
 }
 
 function createDemoBoard() {
@@ -151,6 +170,17 @@ function createDemoBoard() {
                 id: 'ZdPnm',
                 txt: 'also @yaronb please CR this',
                 createdAt: 1590999817436.0,
+                byMember: {
+                  _id: 'u101',
+                  fullname: 'Tal Tarablus',
+                  imgUrl:
+                    'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
+                },
+              },
+              {
+                id: 'ZdPnmm2',
+                txt: 'beny fix digiTask pls',
+                createdAt: 1590999917436.0,
                 byMember: {
                   _id: 'u101',
                   fullname: 'Tal Tarablus',

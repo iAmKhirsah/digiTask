@@ -1,11 +1,12 @@
 <template>
   <div>
     <div>
-      <div>
-        <p v-if="getActivities">
-          <span>{{ getActivities.byMember.fullname }} </span>
-          <span>{{ getActivities.txt }}</span> <span>of this card</span>
-        </p>
+      <div v-if="getActivities">
+        <div v-for="activity in getActivities" :key="activity.id">
+          <span>{{ activity.byMember.fullname }} </span>
+          <span>{{ activity.txt }}</span> <span> this card</span>
+          <img v-if="activity.imgUrl" :src="activity.imgUrl" />
+        </div>
       </div>
       <div v-if="getComments">
         <p v-for="comment in getComments" :key="comment.id">
@@ -23,10 +24,10 @@ export default {
   props: ["task", "group", "board"],
   computed: {
     getActivities() {
-      let idx = this.board.activities.findIndex(
+      let activities = this.board.activities.filter(
         (activity) => activity.task.id === this.task.id
       );
-      return this.board.activities[idx];
+      return activities;
     },
     getComments() {
       let idx = this.group.tasks.findIndex((task) => task.id === this.task.id);
