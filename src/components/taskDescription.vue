@@ -1,10 +1,15 @@
 <template>
-  <div>
-    <p>Description</p>
+  <div class="task-description">
+    <div class="task-description-title">Description</div>
     <form @submit.prevent="saveDesc">
-      <textarea v-model="updatedTask.description"></textarea>
-      <button>Save</button>
-      <button @click="clearDesc">X</button>
+      <textarea
+        v-model="updatedTask.description"
+        @click="openButtons = true"
+      ></textarea>
+      <div v-if="openButtons" class="task-description-buttons">
+        <button class="task-description-save">Save</button>
+        <button @click="clearDesc" class="task-description-close">X</button>
+      </div>
     </form>
   </div>
 </template>
@@ -15,6 +20,7 @@ export default {
   data() {
     return {
       updatedTask: "",
+      openButtons: false,
     };
   },
   created() {
@@ -22,10 +28,12 @@ export default {
   },
   methods: {
     saveDesc() {
-      this.$emit("updatedTask", {...this.updatedTask});
+      this.$emit("updatedTask", { ...this.updatedTask });
+      this.openButtons = false;
     },
     clearDesc() {
       this.updatedTask = { ...this.task };
+      this.openButtons = false;
     },
   },
 };

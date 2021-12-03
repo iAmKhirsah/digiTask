@@ -1,12 +1,10 @@
 <template>
-  <div>
+  <div class="dynamic-cover-edit card-layout nav-modal">
     <button><i class="fas fa-times"></i></button>
-    <p>Cover</p>
+    <div class="header-layout">
+      <header>Cover</header>
+    </div>
     <div>
-      <div>
-        <p>Size</p>
-        <div>SIZES</div>
-      </div>
       <div>
         <p>Color</p>
         <div v-for="(color, idx) in colors" :key="idx">

@@ -63,7 +63,9 @@ export const boardStore = {
       newActivity.byMember = activity.user;
       newActivity.task.id = activity.task.id;
       newActivity.task.title = activity.task.title;
-      newActivity.imgUrl = activity.res.url;
+      if (activity.res.url) {
+        newActivity.imgUrl = activity.res.url;
+      }
       state.currBoard.activities.push(newActivity);
     },
     addTask(state, { task, groupId }) {
@@ -90,6 +92,12 @@ export const boardStore = {
     },
     updateTask(state, { task }) {
       state.currTask = task;
+    },
+    removeTask(state, { task }) {
+      let idx = state.currGroup.tasks.findIndex(
+        (currTask) => currTask.id === task.id
+      );
+      state.currGroup.tasks.splice(idx, 1);
     },
     removeGroup(state, { groupId }) {
       let idx = state.currBoard.groups.findIndex(
@@ -183,6 +191,14 @@ export const boardStore = {
         console.log('Couldnt add a task', err);
       }
     },
+    async removeTask({ dispatch, commit }, { task }) {
+      try {
+        commit({ type: 'removeTask', task });
+        await dispatch({ type: 'updateBoard' });
+      } catch (err) {
+        console.log('Error on board store REMOVETASK', err);
+      }
+    },
     async getTaskDetails({ commit }, { taskId, groupId }) {
       try {
         commit({ type: 'getDetails', taskId, groupId });
@@ -199,7 +215,6 @@ export const boardStore = {
     },
     async addActivity({ dispatch, commit }, { activity }) {
       try {
-        console.log(activity);
         await commit({ type: 'addActivity', activity });
         dispatch({ type: 'updateBoard' });
       } catch (err) {
