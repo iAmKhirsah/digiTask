@@ -29,9 +29,10 @@
         :type="'groupEdit'"
         @closeModal="actionOff"
         v-click-outside="actionOff"
-        @openNewTask="openNewTask"
+        @newTaskOpen="newTaskOpen"
+        :group="group"
       />
-      <add-task v-if="isNewTask" @closeNewTask="closeNewTask" @addTask="addTask"  :inGroup="inGroup"/>
+      <add-task v-if="isNewTask" @closeNewTask="closeNewTask" @addTask="addTask" :focusTextArea="focusTextArea" :inGroup="inGroup"/>
       <task-list
         :group="group"
         @editTask="editTask"
@@ -58,6 +59,7 @@ export default {
       isActionOn: false,
       isNewTask: false,
       inGroup:true,
+      focusTextArea:true,
       
     };
   },
@@ -80,7 +82,7 @@ export default {
     //   console.log("group title changed");
     //   this.$emit("updateGroup", group);
     // },
-    openNewTask(){
+    newTaskOpen(){
       this.isNewTask = true
     },
     closeNewTask(){

@@ -5,7 +5,7 @@
         <task-preview :task="task" @editTask="editTask" />
       </div>
     </div>
-    <add-task @addTask="addTask"  :isNewTask="isNewTask" />
+    <add-task @addTask="addTask"  :isNewTask="isNewTask" v-if="!isNewTask"  />
   </div>
 </template>
 <script>
@@ -17,6 +17,7 @@ export default {
   components: { taskPreview,addTask },
   data() {
     return {
+    
     };
   },
   methods: {

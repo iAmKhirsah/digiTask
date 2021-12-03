@@ -19,7 +19,7 @@
        <button @click="closeNewTask"><i class="fas fa-times"></i></button>
       </div>
       
-      <div class="add-task-add-card" v-if="!openNewTask" @click="newTaskOn">
+      <div class="add-task-add-card" v-else @click="newTaskOn">
         <span class="group-add-plus"><i class="fas fa-plus"></i></span><span>Add a card</span>
       </div>
     </div>
@@ -28,21 +28,38 @@
 import vClickOutside from "v-click-outside";
 export default {
   name: "addTask",
-  props:['isGroup'],
-created(){
+  props:{
+      inGroup:{
+          type:Boolean,
+          default:false
+      },
+  
+  },
 
+created(){
+    console.log(this.inGroup)
+    if(this.inGroup){
+        this.openNewTask = true
+        this.$nextTick(() => {
+        this.$refs.task.focus();
+      });
+    }
   
 },
   data(){
       return{
           newTask:'',
           openNewTask:false
+         
           
       }
   },methods:{
    addTask(){
        this.$emit('addTask',this.newTask)
        this.newTask=''
+        this.$nextTick(() => {
+        this.$refs.task.focus();
+      });
    },
    closeNewTask(){
   this.openNewTask = false
