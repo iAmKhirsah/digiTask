@@ -4,11 +4,11 @@
       <Container 
       :data-index="idx" group-name="group-list-container"
        @drop="onDrop($event)">
-        <Draggable v-for="task in group.tasks" :key="task.id">
-          <div class="task-list-content">
+        <Draggable v-for="task in group.tasks" :key="task.id" class="task-list-content">
+         
       <!-- <div class="task-list-content" v-for="task in group.tasks" :key="task.id"> -->
         <task-preview :task="task" @editTask="editTask" />
-      </div>
+ 
         </Draggable>
       </Container>
     </div>
