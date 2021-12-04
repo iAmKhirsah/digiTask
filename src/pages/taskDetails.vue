@@ -26,6 +26,7 @@
           </div>
         </div>
         <div class="task-details-addons">
+          <p>members / labels</p>
           <task-addons :getTask="getTask" :getBoard="getBoard" />
         </div>
         <div class="task-details-content-container">
@@ -58,7 +59,7 @@
             </div>
           </div>
           <div class="task-details-sidebar">
-            <p>Add to card</p>
+            <p class="task-details-subtitle">Add to card</p>
             <div class="task-details-add-to-card">
               <edit-dynamic
                 :type="type"
@@ -68,7 +69,7 @@
                 @attachment="attachment"
                 @deleteTask="deleteTask"
                 @addMember="addMember"
-                @addLabel="addLabel"
+                  @addLabel="addLabel"
                 @closeModal="closeModal"
               />
               <div class="open-edit-dynamic-btn" @click="setType('members')">
@@ -90,7 +91,7 @@
                 <span><i class="far fa-window-maximize"></i></span> Cover
               </div>
             </div>
-            <p>Actions</p>
+            <p class="task-details-subtitle">Actions</p>
             <div class="task-details-actions">
               <div class="open-edit-dynamic-btn" @click="setType('move')">
                 <span><i class="fas fa-arrow-right"></i></span> Move
@@ -120,8 +121,8 @@ import vClickOutside from "v-click-outside";
 import taskDescription from "../components/taskDescription.vue";
 import activityFlow from "../components/activityFlow.vue";
 import editDynamic from "../components/editDynamic.vue";
-import taskAddons from "../components/taskAddons.vue";
 import { uploadFile } from "../services/serverlessUploadService";
+import taskAddons from "../components/taskAddons.vue";
 export default {
   name: "taskDetails",
   data() {
@@ -198,15 +199,6 @@ export default {
       await this.$store.dispatch({ type: "updateTask", task: updatedTask });
       await this.$store.dispatch({ type: "updateGroup", group });
     },
-    async addLabel(label) {
-      try {
-        let task = { ...this.getTask };
-        task.labelIds[task.labelIds.length] = label.id;
-        await this.updatedTask(task);
-      } catch (err) {
-        console.log("Failed on ADDLABEL in TASKDETAILS", err);
-      }
-    },
     async addMember(member) {
       try {
         await this.$store.dispatch({ type: "addMember", member });
@@ -222,6 +214,7 @@ export default {
         console.log("Failed on ADDMEMBER in TASKDETAILS", err);
       }
     },
+    
     async attachment(link, task) {
       try {
         let res = await uploadFile(link);
@@ -255,7 +248,7 @@ export default {
     taskDescription,
     activityFlow,
     editDynamic,
-    taskAddons,
+    taskAddons
   },
   directives: {
     clickOutside: vClickOutside.directive,

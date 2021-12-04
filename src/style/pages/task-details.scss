@@ -139,62 +139,63 @@
               border-radius: 3px;
               box-shadow: 0px 1px 2px 0px #b2b9c6;
 
-              &.members {
-                top: 197px;
-              }
-              &.labels {
-                top: 237px;
-              }
-              &.checklist {
-                top: 277px;
-              }
-              &.dates {
-                top: 95px;
-              }
-              &.attachment {
-                top: 357px;
-              }
-              &.cover {
-                top: 397px;
-              }
-              &.move {
-                top: 466px;
-              }
-              &.copy {
-                top: 308px;
-              }
-              &.archive {
-                top: 384px;
-              }
-              &.share {
-                top: 501px;
-              }
-            }
-          }
-          .task-details-actions {
-            .open-edit-dynamic-btn {
-              background-color: #091e420a;
-              border: none;
-              border-radius: 3px;
-              box-shadow: none;
-              cursor: pointer;
-              height: 32px;
-              margin-top: 8px;
-              max-width: 300px;
-              padding: 6px 12px;
-              width: 168px;
-              font-size: 14px;
-            }
-            span {
-              padding-right: 6px;
-              color: $clr8;
+                            &.members {
+                                top: 197px;
+                            }
+                            &.labels {
+                                top: 237px;
+                            }
+                            &.checklist {
+                                top: 277px;
+                            }
+                            &.dates {
+                                top: 95px;
+                            }
+                            &.attachment {
+                                top: 357px;
+                            }
+                            &.cover {
+                                top: 397px;
+                            }
+                            &.move {
+                                top: 466px;
+                            }
+                            &.copy {
+                                top: 308px;
+                            }
+                            &.archive {
+                                top: 384px;
+                            }
+                            &.share {
+                                top: 501px;
+                            }
+                        }
+                    }
+                    .task-details-actions {
+                        .open-edit-dynamic-btn {
+                            background-color: #091e420a;
+                            border: none;
+                            border-radius: 3px;
+                            box-shadow: none;
+                            cursor: pointer;
+                            height: 32px;
+                            margin-top: 8px;
+                            max-width: 300px;
+                            padding: 6px 12px;
+                            width: 168px;
+                            font-size: 14px;
+                        }
+                        span {
+                            padding-right: 6px;
+                            color: $clr8;
+                        }
+                    }
+                }
             }
           }
         }
       }
-    }
-  }
-}
+
 .task-details-sidebar-button {
   background-color: #091e420a;
   border-radius: 3px;

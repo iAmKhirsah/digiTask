@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="closeModal"><i class="fas fa-times"></i></button>
+    <button class="close" @click="closeModal"><i class="fas fa-times"></i></button>
     <p>Move card</p>
     <div>
       <p>Select destination</p>

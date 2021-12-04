@@ -1,6 +1,6 @@
 <template>
-  <div class="dynamic-attachment-edit card-layout nav-modal">
-    <button @click="closeModal"><i class="fas fa-times"></i></button>
+  <div class="dynamic-attachment-edit">
+    <button class="close" @click="closeModal"><i class="fas fa-times"></i></button>
     <div class="header-layout">
       <header>Attach from...</header>
     </div>
@@ -8,8 +8,8 @@
       <span>Computer</span>
       <input type="file" @change="addAttachment" hidden />
     </label>
-    <div>
-      <p>Attach a link</p>
+    <div class="add-link">
+      <p  class="title">Attach a link</p>
       <p>PLACEHOLDER FIX THIS @BENY</p>
       <form @submit.prevent="addAttachment">
         <input
@@ -17,7 +17,7 @@
           placeholder="Paste any link here..."
           v-model="attachment"
         />
-        <button>Attach</button>
+        <button class="attach">Attach</button>
       </form>
     </div>
   </div>

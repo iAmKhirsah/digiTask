@@ -1,7 +1,7 @@
 <template>
-  <div class="task-preview-container" v-if="task">
+  <div class="task-preview-container" v-if="task" @click="editTask(task.id)">
     <!-- <router-link :to="{ name: 'taskDetails', params: { taskId: task.id } }"> -->
-    <div class="task-preview" @click="editTask(task.id)">
+    <div class="task-preview" >
       <div class="task-preview-content">{{ task.title }}</div>
     </div>
     <!-- </router-link> -->

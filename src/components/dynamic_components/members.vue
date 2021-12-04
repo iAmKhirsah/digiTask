@@ -5,13 +5,13 @@
       <header>Members</header>
     </div>
     <input type="text" placeholder="Search Members" />
-    <p>Board members</p>
+    <h5 class="subtitle">Board members</h5>
     <div v-if="board">
-      <ul v-for="member in board.members" :key="member._id">
-        <li v-if="member" @click="sendMember(member)">
-          <span><img :src="member.imgUrl"></span> <span>{{ member.fullname }}</span>
-        </li>
-      </ul>
+      <div v-for="member in board.members" :key="member._id">
+        <div class="member-info-container" v-if="member" @click="sendMember(member)">
+          <span class="user-tag-name in-header"><img :src="member.imgUrl"></span> <span>{{ member.fullname }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
