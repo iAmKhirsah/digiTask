@@ -16,6 +16,9 @@
 
 // DYNAMIC COMPONENTS
 @import './components/dynamic-components/members'; 
+@import './components/dynamic-components/labels'; 
+@import './components/dynamic-components/checklist'; 
+@import './components/dynamic-components/dates'; 
 
 // PAGES
 @import './pages/task-details.scss';

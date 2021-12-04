@@ -36,8 +36,7 @@ export default {
         this.$emit("attachment", ev);
       } else this.$emit("attachment", this.attachment);
     },
-      closeModal() {
-     
+    closeModal() {
       this.$emit("closeModal");
     },
   },
