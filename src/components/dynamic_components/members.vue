@@ -1,5 +1,5 @@
 <template>
-  <div class="dynamic-members-edit card-layout nav-modal">
+  <div class="dynamic-members-edit">
     <button @click="closeModal"><i class="fas fa-times"></i></button>
     <div class="header-layout">
       <header>Members</header>
@@ -21,7 +21,7 @@ export default {
   props: ["board"],
   methods: {
     sendMember(member) {
-      this.$emit("addMember", {...member});
+      this.$emit("addMember", { ...member });
     },
       closeModal() {
      

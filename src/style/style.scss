@@ -14,5 +14,8 @@
 @import './components/task-preview';
 @import './components/task-description';
 
+// DYNAMIC COMPONENTS
+@import './components/dynamic-components/members'; 
+
 // PAGES
 @import './pages/task-details.scss';
