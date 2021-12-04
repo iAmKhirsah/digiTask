@@ -1,6 +1,6 @@
 <template>
-  <section>
-    <component
+  <section class="dynamic-component-container" :class="type">
+    <component 
       :is="renderCmp"
       @closeModal="closeModal"
       :board="board"

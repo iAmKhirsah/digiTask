@@ -97,6 +97,7 @@
                     flex-direction: column;
                     justify-content: flex-end;
                     margin-right: 65px;
+                    align-self: flex-start;
                     > * {
                         width: 120px;
                     }
@@ -105,9 +106,10 @@
                         font-weight: 600;
                         font-size: 12px;
                         margin-bottom: -4px;
+                        margin-top: 16px;
                     }
                     .task-details-add-to-card {
-                        div {
+                        .open-edit-dynamic-btn {
                             background-color: #091e420a;
                             border: none;
                             border-radius: 3px;
@@ -124,9 +126,48 @@
                             padding-right: 6px;
                             color: $clr8;
                         }
+
+                        .dynamic-component-container {
+                            position: fixed;
+                            width: 304px;
+                            background-color: white;
+                            border-radius: 3px;
+                            box-shadow: 0px 1px 2px 0px #b2b9c6;
+
+                            &.members {
+                                top: 186px;
+                            }
+                            &.labels {
+                                top: 226px;
+                            }
+                            &.checklist {
+                                top: 266px;
+                            }
+                            &.dates {
+                                top: 48px;
+                            }
+                            &.attachment {
+                                top: 346px;
+                            }
+                            &.cover {
+                                top: 386px;
+                            }
+                            &.move {
+                                top: 455px;
+                            }
+                            &.copy {
+                                top: 308px;
+                            }
+                            &.archive{
+                                top: 395px;
+                            }
+                            &.share{
+                                 top: 490px;
+                            }
+                        }
                     }
                     .task-details-actions {
-                        div {
+                        .open-edit-dynamic-btn {
                             background-color: #091e420a;
                             border: none;
                             border-radius: 3px;
