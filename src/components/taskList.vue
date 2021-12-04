@@ -7,6 +7,7 @@
               drag-class="card-ghost"
         group-name="group-list-container"
         :drop-placeholder="dropPlaceholderOptions"
+        
         :get-child-payload="(itemindex) => getChildPayload(itemindex)"
         @drop="onDrop($event)"
       >

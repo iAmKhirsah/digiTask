@@ -1,25 +1,23 @@
 <template>
   <div class="task-description">
-     <p>Description</p>
+    <p>Description</p>
     <div v-click-outside="saveDesc" v-if="descEdit">
-      
-    <form  @submit="saveDesc">
-      <textarea
-       class="group-title"
-        ref="desc"
-        v-click-outside="saveDesc"
-        oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-        onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-        v-model="updatedTask.description"
-        maxlength="512"
-        placeholder="Add a more detailed description..."
-        
-      />
-      <button type="submit" class="task-description-save">Save</button>
-      <button @click="clearDesc" class="task-description-close">X</button>
-    </form>
-  </div>
-  
+      <form @submit="saveDesc">
+        <textarea
+          class="group-title"
+          ref="desc"
+          v-click-outside="saveDesc"
+          oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+          onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+          v-model="updatedTask.description"
+          maxlength="512"
+          placeholder="Add a more detailed description..."
+        />
+        <button type="submit" class="task-description-save">Save</button>
+        <button @click="clearDesc" class="task-description-close">X</button>
+      </form>
+    </div>
+
     <div v-else>
       <p @click="editDesc">{{ emptyDesc }}</p>
     </div>
@@ -40,18 +38,20 @@ export default {
   },
   methods: {
     saveDesc() {
+      console.log("saving");
       this.$emit("saveEdit", { ...this.updatedTask });
     },
     clearDesc() {
-      this.updatedTask.title = { ...this.task.title };
+      this.updatedTask.description = JSON.parse(
+        JSON.stringify(this.task.description)
+      );
       this.$emit("closeDescEdit");
     },
     editDesc() {
       this.$emit("editDesc");
       this.$nextTick(() => {
-          
-          this.$refs.desc.focus();
-        });
+        this.$refs.desc.focus();
+      });
     },
   },
   computed: {
