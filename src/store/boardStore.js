@@ -68,6 +68,13 @@ export const boardStore = {
       }
       state.currBoard.activities.push(newActivity)
     },
+    createLabel(state, { label }) {
+      let newLabel = boardService.getEmptyLabel();
+      newLabel.title = label.title;
+      newLabel.color = label.selectedColor;
+      state.currBoard.labels.push(newLabel);
+      state.currTask.labelIds.push(newLabel.id);
+    },
     addTask(state, { taskRaw }) {
       let newTask = boardService.getEmptyTask()
       newTask.title = taskRaw.task
@@ -83,10 +90,9 @@ export const boardStore = {
     getDetails(state, { taskId, groupId }) {
       let idx = state.currBoard.groups.findIndex(
         (group) => group.id === groupId
-      )
-      state.currGroup = state.currBoard.groups[idx]
-      state.currTask = state.currGroup.tasks.find((task) => task.id === taskId)
-      console.log(state.currTask)
+      );
+      state.currGroup = state.currBoard.groups[idx];
+      state.currTask = state.currGroup.tasks.find((task) => task.id === taskId);
     },
     updateGroup(state, { group }) {
       const idx = state.currBoard.groups.findIndex(
@@ -172,7 +178,6 @@ export const boardStore = {
         console.log('Couldnt update Board', err)
       }
     },
-
     async removeBoard({ commit }, { boardId }) {
       try {
         await boardService.remove(boardId)
@@ -240,6 +245,14 @@ export const boardStore = {
         commit({ type: 'updateTask', task })
       } catch (err) {
         console.log('Error on board store UPDATETASK', err)
+      }
+    },
+    async createLabel({ dispatch, commit }, { label }) {
+      try {
+        commit({ type: 'createLabel', label });
+        await dispatch({ type: 'updateBoard' });
+      } catch (err) {
+        console.log('Error on board storee CREATELABEL');
       }
     },
     async addActivity({ dispatch, commit }, { activity }) {

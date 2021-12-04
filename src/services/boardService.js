@@ -12,6 +12,7 @@ export const boardService = {
   getEmptyGroup,
   getEmptyTask,
   getEmptyActivity,
+  getEmptyLabel,
 };
 loadBoard();
 async function loadBoard() {
@@ -92,8 +93,15 @@ function getEmptyGroup() {
     title: '',
     tasks: [],
   };
-  console.log(group);
   return group;
+}
+function getEmptyLabel(){
+  const label = {
+    id: 'l' + utilService.makeId(),
+    title: '',
+    color: '',
+  }
+  return label
 }
 function getEmptyActivity() {
   const activity = {

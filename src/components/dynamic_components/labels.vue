@@ -10,7 +10,10 @@
       <input type="text" placeholder="Search labels..." />
       <ul v-for="label in board.labels" :key="label.id">
         <li :style="'background-color:' + label.color" @click="addLabel(label)">
-          {{ label.title }} <span>Edit BUTTON GOES HERE</span>
+          <span>
+            {{ label.title }}
+          </span>
+          <span>Edit BUTTON GOES HERE</span>
         </li>
       </ul>
       <button class="create" @click="openCreateMenu">Create a new label</button>
@@ -18,6 +21,9 @@
     <div class="dynamic-labels-edit" v-if="createMenu">
       <button class="close" @click="closeModal">
         <i class="fas fa-times"></i>
+      </button>
+      <button @click="createMenu = false">
+        <i class="fas fa-chevron-left"></i>
       </button>
       <div class="header-layout">
         <header>Create label</header>
@@ -51,13 +57,15 @@
 <script>
 export default {
   name: "labels",
-  props: ["board"],
+  props: ["board", "task"],
   data() {
     return {
+      updatedTask: JSON.parse(JSON.stringify(this.task)),
       newLabel: {
         title: "",
         selectedColor: "#ff9f1a",
       },
+      selectedLabel: "",
       colors: [
         "#61bd4f",
         "#f2d600",
@@ -80,7 +88,10 @@ export default {
       this.$emit("closeModal");
     },
     addLabel(label) {
-      this.$emit("addLabel", label);
+      let idx = this.updatedTask.labelIds.indexOf(label.id);
+      if (idx > -1) this.updatedTask.labelIds.splice(idx, 1);
+      else this.updatedTask.labelIds.push(label.id);
+      this.$emit("updateTask", this.updatedTask);
     },
     openCreateMenu() {
       this.createMenu = true;
@@ -90,6 +101,7 @@ export default {
     },
     createLabel() {
       this.$emit("createLabel", this.newLabel);
+      this.createMenu = false;
     },
   },
 };

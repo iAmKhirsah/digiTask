@@ -3,8 +3,11 @@
     <board-header :board="board" />
     <div class="group-list-container">
       <Container
+         drag-class="card-ghost"
+            drop-class="card-ghost-drop"
         orientation="horizontal"
         :get-child-payload="getChildPayload"
+        :drop-placeholder="dropPlaceholderOptions"
         @drop="onDropGroup"
       >
         <Draggable v-for="(group, idx) in board.groups" :key="idx">
@@ -74,17 +77,11 @@ export default {
       isNewGroup: false,
       newGroup: {},
       newTask: {},
-      scene: null,
-      upperDropPlaceholderOptions: {
-        className: "cards-drop-preview",
-        animationDuration: "150",
-        showOnTop: true,
-      },
-      dropPlaceholderOptions: {
-        className: "drop-preview",
-        animationDuration: "150",
-        showOnTop: true,
-      },
+    dropPlaceholderOptions: {
+    className: "drop-preview",
+    animationDuration: "150",
+    showOnTop: false
+   },
     };
   },
   async created() {

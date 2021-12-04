@@ -3,7 +3,10 @@
     <div class="task-list-container-content thin-scrollbar">
       <Container
         :data-index="idx"
+           drop-class="card-ghost-drop"
+              drag-class="card-ghost"
         group-name="group-list-container"
+        :drop-placeholder="dropPlaceholderOptions"
         :get-child-payload="(itemindex) => getChildPayload(itemindex)"
         @drop="onDrop($event)"
       >
@@ -31,7 +34,12 @@ export default {
   props: ["group", "isNewTask", "idx", "board"],
   components: { taskPreview, addTask, Container, Draggable },
   data() {
-    return {};
+    return {
+      dropPlaceholderOptions: {
+    className: "drop-preview",
+    animationDuration: "150",
+    showOnTop: false
+   },};
   },
   methods: {
     created() {},
@@ -53,6 +61,7 @@ export default {
     getChildPayload(index) {
       return this.board.groups[this.idx].tasks[index];
     },
+    
   },
 };
 </script>

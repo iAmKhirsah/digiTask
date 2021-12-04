@@ -15,12 +15,12 @@
           </div>
         </div>
       </div>
-      <div class="task-addons-labels" v-if="getLabel.length">
-        <p class="subtitles">Labels</p>
-        <div class="task-addons-labels-cards" v-for="label in getLabel" :key="label.id">
-          <div :style="'background-color:' + label.color">
-            <span v-if="label.title">{{ label.title }}</span>
-          </div>
+    </div>
+    <div class="task-addons-labels" v-if="getLabel">
+       <p class="subtitles">Labels</p>
+      <div class="task-addons-labels-cards" v-for="label in getLabel" :key="label.id">
+        <div :style="'background-color:' + label.color">
+          <span v-if="label.title">{{ label.title }}</span>
         </div>
       </div>
     </div>
@@ -33,6 +33,7 @@ export default {
   computed: {
     getLabel() {
       let labels = [];
+      if (!this.getTask.labelIds) return null;
       this.getBoard.labels.forEach((label) => {
         let isLabel = this.getTask.labelIds.some(
           (taskLabelId) => label.id === taskLabelId
