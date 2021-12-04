@@ -4,7 +4,7 @@
     <div class="group-list-container">
       <Container
         orientation="horizontal"
-        behaviour="contain"
+        :get-child-payload="getChildPayload"
         @drop="onDropGroup"
       >
         <Draggable v-for="(group, idx) in board.groups" :key="idx">
@@ -16,6 +16,7 @@
             @updateGroup="updateGroup"
             @onDrop="onDrop"
             @deleteGroup="deleteGroup"
+            :board="board"
           />
         </Draggable>
       </Container>
@@ -92,8 +93,11 @@ export default {
     let boardId = this.$route.params.boardId;
     await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
     this.board = { ...this.$store.getters.getCurrBoard };
+    if(!this.board) this.$router.push('/')
+    if(!this.board.groups.length) return
     this.board.groups.reduce((acc, group) => {
       if (!group.data) group.data = "Draggable" + acc;
+      if(!group.tasks.length) return
       group.tasks.reduce((acc1, task) => {
         if (!task.data) return;
         task.data = "Draggable" + task.id + acc1;
@@ -115,6 +119,7 @@ export default {
           this.$refs.list.focus();
         });
     },
+
     async addGroup() {
       try {
         if (this.newGroup.title.match(/^\s*$/) || !this.newGroup.title.length) {
@@ -136,9 +141,9 @@ export default {
     },
     async deleteGroup(group) {
       try {
-          console.log(group)
-          let groupId = group.id
-          await this.$store.dispatch({type:'removeGroup',groupId})
+        console.log(group);
+        let groupId = group.id;
+        await this.$store.dispatch({ type: "removeGroup", groupId });
       } catch (err) {}
     },
     async addTask(task, groupId) {
@@ -154,8 +159,8 @@ export default {
     },
     async onDrop(groupIdx, dropResult) {
       try {
-        console.log(groupIdx);
-        this.board.groups = this.applyDrag(
+        console.log(this.board);
+        this.board = this.applyDrag(
           this.board.groups[groupIdx],
           dropResult
         );
@@ -192,10 +197,9 @@ export default {
 
       return result;
     },
-    //  getChildPayload(idxs) {
-
-    //   return this.board.groups[idxs.groupIndex].tasks[idxs.itemIndex]
-    // },
+    getChildPayload(groupIndex, itemIndex) {
+      return this.board.groups[groupIndex].tasks[itemIndex];
+    },
   },
   computed: {},
   mounted() {
