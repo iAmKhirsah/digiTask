@@ -7,23 +7,22 @@
         </button>
         <div class="task-details-header">
           <span><i class="fas fa-window-maximize"></i></span>
-          <form v-if="titleEdit" v-on:keydown.enter="saveTask"
-          >
+          <form v-if="titleEdit" v-on:keydown.enter="saveTask">
             <textarea
-            
-            class="textarea-another-list"
-            ref="taskTitle"
-            @keydown.enter.prevent
-            oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-            onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-            v-model="currTask.title"
-            maxlength="512"
-            placeholder="Enter Task title..."
-            v-click-outside="saveTask"
-          />
+              class="textarea-another-list"
+              ref="taskTitle"
+              @keydown.enter.prevent
+              oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+              onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+              v-model="currTask.title"
+              maxlength="512"
+              placeholder="Enter Task title..."
+              v-click-outside="saveTask"
+            />
           </form>
-          <div v-else ><h1 @click="editTitle">{{currTask.title}}</h1>
-          <p>in group {{ getGroup.title }}<span></span></p>
+          <div v-else>
+            <h1 @click="editTitle">{{ currTask.title }}</h1>
+            <p>in group {{ getGroup.title }}<span></span></p>
           </div>
         </div>
         <div class="task-details-addons">
@@ -34,7 +33,13 @@
             <span class="task-description-symbol">
               <i class="fas fa-align-left"></i
             ></span>
-            <task-description :task="getTask" @saveEdit="saveEdit" @editDesc="editDesc" :descEdit="descEdit" @closeDescEdit="closeDescEdit" />
+            <task-description
+              :task="getTask"
+              @saveEdit="saveEdit"
+              @editDesc="editDesc"
+              :descEdit="descEdit"
+              @closeDescEdit="closeDescEdit"
+            />
 
             <div class="task-details-activity">
               <div class="task-details-activity-content">
@@ -55,7 +60,7 @@
           <div class="task-details-sidebar">
             <p>Add to card</p>
             <div class="task-details-add-to-card">
-              <edit-dynamic 
+              <edit-dynamic
                 :type="type"
                 v-if="type"
                 :getBoard="getBoard"
@@ -63,6 +68,7 @@
                 @attachment="attachment"
                 @deleteTask="deleteTask"
                 @addMember="addMember"
+                @closeModal="closeModal"
               />
               <div class="open-edit-dynamic-btn" @click="setType('members')">
                 <span><i class="far fa-user"></i></span> Members
@@ -83,7 +89,7 @@
                 <span><i class="far fa-window-maximize"></i></span> Cover
               </div>
             </div>
-            <p> Actions</p>
+            <p>Actions</p>
             <div class="task-details-actions">
               <div class="open-edit-dynamic-btn" @click="setType('move')">
                 <span><i class="fas fa-arrow-right"></i></span> Move
@@ -104,16 +110,6 @@
             </div>
           </div>
         </div>
-        <edit-dynamic
-          :type="type"
-          v-if="type"
-          :getBoard="getBoard"
-          :getTask="getTask"
-          @attachment="attachment"
-          @deleteTask="deleteTask"
-          @addMember="addMember"
-          @closeModal="closeModal"
-        />
       </div>
     </section>
   </section>
@@ -130,9 +126,9 @@ export default {
     return {
       pageOpen: null,
       type: "",
-      currTask:{},
-      titleEdit:false,
-      descEdit:false,
+      currTask: {},
+      titleEdit: false,
+      descEdit: false,
     };
   },
   async created() {
@@ -141,51 +137,46 @@ export default {
     let taskId = this.$route.params.taskId;
     await this.$store.dispatch({ type: "getTaskDetails", taskId, groupId });
     this.pageOpen = true;
-    this.currTask = this.getTask
+    this.currTask = this.getTask;
   },
   methods: {
-    editTitle(){ 
-      this.titleEdit = true
-      this.descEdit = false
+    editTitle() {
+      this.titleEdit = true;
+      this.descEdit = false;
       this.$nextTick(() => {
-          this.$refs.taskTitle.focus();
-        });
-      
-      
+        this.$refs.taskTitle.focus();
+      });
     },
-    editDesc(){
-      this.descEdit = true
-      this.titleEdit = false
-
+    editDesc() {
+      this.descEdit = true;
+      this.titleEdit = false;
     },
-    closeDescEdit(){
-      this.descEdit=false
+    closeDescEdit() {
+      this.descEdit = false;
     },
-    closeModal(){
-      this.type=''
+    closeModal() {
+      this.type = "";
     },
-    async saveTask(){
-      try{
-       if(!this.editTitle) return
-      this.titleEdit = false
-      let task = {...this.currTask}
-     await this.updatedTask(task)
-      this.currTask = {...this.getTask}
-      }catch(err){
-        console.log('Couldnt SAVE TASK TITLE',err)
+    async saveTask() {
+      try {
+        if (!this.editTitle) return;
+        this.titleEdit = false;
+        let task = { ...this.currTask };
+        await this.updatedTask(task);
+        this.currTask = { ...this.getTask };
+      } catch (err) {
+        console.log("Couldnt SAVE TASK TITLE", err);
       }
     },
-   async saveEdit(task = {...this.getTask}){
-     try{
-       if(!this.editDesc) return
-       this.descEdit = false
-     await this.updatedTask({...task})
-   this.currTask = {...this.getTask}
-     }catch(err){
-       console.log('CANT SAVE EDIT',err)
-     }
-     
-      
+    async saveEdit(task = { ...this.getTask }) {
+      try {
+        if (!this.editDesc) return;
+        this.descEdit = false;
+        await this.updatedTask({ ...task });
+        this.currTask = { ...this.getTask };
+      } catch (err) {
+        console.log("CANT SAVE EDIT", err);
+      }
     },
     setType(type) {
       this.type = type;
@@ -195,15 +186,15 @@ export default {
       this.closePage();
     },
     closePage() {
-      console.log('hello')
+      console.log("hello");
       this.$router.push(`/b/${this.$route.params.boardId}`);
     },
     async updatedTask(updatedTask) {
       let group = this.getGroup;
       let idx = group.tasks.findIndex((task) => task.id === updatedTask.id);
       group.tasks[idx] = updatedTask;
-     await this.$store.dispatch({ type: "updateTask", task: updatedTask });
-     await this.$store.dispatch({ type: "updateGroup", group });
+      await this.$store.dispatch({ type: "updateTask", task: updatedTask });
+      await this.$store.dispatch({ type: "updateGroup", group });
     },
     async addMember(member) {
       try {
