@@ -25,12 +25,12 @@
             <p>in group {{ getGroup.title }}<span></span></p>
           </div>
         </div>
-        <div class="task-details-addons">
-          <p>members / labels</p>
-          <task-addons :getTask="getTask" :getBoard="getBoard" />
-        </div>
+
         <div class="task-details-content-container">
           <div class="task-details-main-content">
+            <div class="task-details-addons">
+              <task-addons :getTask="getTask" :getBoard="getBoard" />
+            </div>
             <span class="task-description-symbol">
               <i class="fas fa-align-left"></i
             ></span>
@@ -69,26 +69,38 @@
                 @attachment="attachment"
                 @deleteTask="deleteTask"
                 @addMember="addMember"
-                  @addLabel="addLabel"
+                @addLabel="addLabel"
                 @closeModal="closeModal"
               />
               <div class="open-edit-dynamic-btn" @click="setType('members')">
-                <span><i class="far fa-user"></i></span> Members
+                <span class="span-settings"><i class="far fa-user"></i></span>
+                Members
               </div>
               <div class="open-edit-dynamic-btn" @click="setType('labels')">
-                <span><i class="fas fa-tag"></i></span> Labels
+                <span class="span-settings"><i class="fas fa-tag"></i></span>
+                Labels
               </div>
               <div class="open-edit-dynamic-btn" @click="setType('checklist')">
-                <span><i class="far fa-check-square"></i></span> Checklist
+                <span class="span-settings"
+                  ><i class="far fa-check-square"></i
+                ></span>
+                Checklist
               </div>
               <div class="open-edit-dynamic-btn" @click="setType('dates')">
-                <span><i class="far fa-clock"></i></span> Dates
+                <span class="span-settings"><i class="far fa-clock"></i></span>
+                Dates
               </div>
               <div class="open-edit-dynamic-btn" @click="setType('attachment')">
-                <span><i class="fas fa-paperclip"></i></span> Attachment
+                <span class="span-settings"
+                  ><i class="fas fa-paperclip"></i
+                ></span>
+                Attachment
               </div>
               <div class="open-edit-dynamic-btn" @click="setType('cover')">
-                <span><i class="far fa-window-maximize"></i></span> Cover
+                <span class="span-settings"
+                  ><i class="far fa-window-maximize"></i
+                ></span>
+                Cover
               </div>
             </div>
             <p class="task-details-subtitle">Actions</p>
@@ -101,7 +113,10 @@
               </div>
               <div class="open-edit-dynamic-btn">
                 <span><i class="far fa-eye"></i></span>
-                <input type="checkbox" /> Watch
+                <span> Watch</span>
+                <!-- <span class="checkbox">
+                  <input type="checkbox" />
+                </span> -->
               </div>
               <div class="open-edit-dynamic-btn" @click="setType('archive')">
                 <span><i class="fas fa-archive"></i></span> Archive
@@ -214,7 +229,7 @@ export default {
         console.log("Failed on ADDMEMBER in TASKDETAILS", err);
       }
     },
-    
+
     async attachment(link, task) {
       try {
         let res = await uploadFile(link);
@@ -248,7 +263,7 @@ export default {
     taskDescription,
     activityFlow,
     editDynamic,
-    taskAddons
+    taskAddons,
   },
   directives: {
     clickOutside: vClickOutside.directive,
