@@ -3,15 +3,18 @@
     <board-header :board="board" />
      <div class="group-list-container" >
      <Container
-     orientation="horizontal" behaviour="contain" @drop="onDrop"
+     orientation="horizontal" behaviour="contain" @drop="onDropGroup"
     >
    
-      <Draggable v-for="(group,$index) in board.groups" :key="$index">
+      <Draggable v-for="(group,idx) in board.groups" :key="idx">
         <group-list
         class="draggable-item"
           :group="group"
+          :idx="idx"
           @addTask="addTask"
           @updateGroup="updateGroup"
+          @onDrop="onDrop"
+         
         />
      </Draggable>
       </Container>  
@@ -141,7 +144,17 @@ export default {
         console.log("Couldnt add task", err);
       }
     },
-    async onDrop(dropResult){
+    async onDrop(groupIdx,dropResult){
+try{
+    console.log(groupIdx)
+            this.board.groups = this.applyDrag(this.board.groups[groupIdx],dropResult)
+            let board = {...this.board}
+           await this.$store.dispatch({type:'updateBoard',board})
+        }catch(err){
+            console.log('Couldnt drag group',err)
+        }
+    },
+    async onDropGroup(dropResult){
         try{
             this.board.groups = this.applyDrag(this.board.groups,dropResult)
             let board = {...this.board}
@@ -168,7 +181,12 @@ export default {
         }
 
         return result
-    }
+    },
+    //  getChildPayload(idxs) {
+ 
+    //   return this.board.groups[idxs.groupIndex].tasks[idxs.itemIndex]
+    // },
+
   },
   computed: {},
   mounted() {

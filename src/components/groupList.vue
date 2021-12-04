@@ -33,6 +33,7 @@
         v-click-outside="actionOff"
         @newTaskOpen="newTaskOpen"
         :group="group"
+        @onDrop="onDrop"
       />
       <add-task v-if="isNewTask" @closeNewTask="closeNewTask" @addTask="addTask" :focusTextArea="focusTextArea" :inGroup="inGroup"/>
       <task-list
@@ -40,6 +41,7 @@
         @editTask="editTask"
         @addTask="addTask"
         :isNewTask="isNewTask"
+        :idx="idx"
         class="group-single"
       />
     </div>
@@ -53,7 +55,7 @@ import addTask from "./addTask.vue";
  
 export default {
   name: "groupList",
-  props: ["group"],
+  props: ["group","idx"],
   components: { taskList, editDynamic, addTask },
   data() {
     return {
@@ -117,6 +119,11 @@ export default {
         this.$refs.title.focus();
       });
     },
+    onDrop(groupIdx,dropResult){
+      if(!groupIdx) groupIdx = this.idx 
+      this.$emit('onDrop',groupIdx,dropResult)
+    },
+
   },
   mounted() {
     // this.$nextTick(() => {
