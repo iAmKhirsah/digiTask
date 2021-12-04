@@ -24,15 +24,26 @@
       </div>
       <div>
         <p>Name</p>
-        <input type="text" v-model="newLabel.title" />
+        <form @submit="createLabel">
+          <input type="text" v-model="newLabel.title" />
+        </form>
       </div>
       <div>
         <p>Select a color</p>
         <div class="dynamic-labels-color-container">
           <div v-for="(color, idx) in colors" :key="idx">
-            <span :style="'background-color:' + color" class="dynamic-labels-color-card"></span>
+            <span
+              :style="'background-color:' + color"
+              class="dynamic-labels-color-card"
+              @click="pickSelectedColor(color)"
+              ><i
+                class="fas fa-check"
+                v-if="newLabel.selectedColor === color"
+              ></i
+            ></span>
           </div>
         </div>
+        <button @click="createLabel">Create</button>
       </div>
     </div>
   </div>
@@ -43,7 +54,10 @@ export default {
   props: ["board"],
   data() {
     return {
-      newLabel: {},
+      newLabel: {
+        title: "",
+        selectedColor: "#ff9f1a",
+      },
       colors: [
         "#61bd4f",
         "#f2d600",
@@ -71,6 +85,10 @@ export default {
     openCreateMenu() {
       this.createMenu = true;
     },
+    pickSelectedColor(color) {
+      this.newLabel.selectedColor = color;
+    },
+    createLabel() {},
   },
 };
 </script>
