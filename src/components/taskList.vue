@@ -43,7 +43,6 @@ export default {
     },
     async onDrop(dropResult) {
       try {
-        
        console.log(dropResult)
         let tasks = this.applyDrag(
           this.board.groups[this.idx].tasks,
