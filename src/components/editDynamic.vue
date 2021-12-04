@@ -11,6 +11,7 @@
       @openCopyGroup="openCopyGroup"
       @backToGroupEdit="backToGroupEdit"
       @deleteTask="deleteTask"
+      @addMember="addMember"
     ></component>
   </section>
 </template>
@@ -75,6 +76,9 @@ export default {
     },
     deleteTask() {
       this.$emit("deleteTask", this.task);
+    },
+    addMember(member) {
+      this.$emit("addMember", member, {...this.task});
     },
     openNewTask() {
       this.$emit("newTaskOpen");

@@ -63,16 +63,17 @@ export const boardStore = {
       newActivity.byMember = activity.user;
       newActivity.task.id = activity.task.id;
       newActivity.task.title = activity.task.title;
-      if (activity.res.url) {
+      if (activity.res) {
         newActivity.imgUrl = activity.res.url;
       }
       state.currBoard.activities.push(newActivity);
     },
-    addTask(state, { task, groupId }) {
+    addTask(state, { taskRaw }) {
       let newTask = boardService.getEmptyTask();
-      newTask.title = task;
+      newTask.title = taskRaw.task;
+      newTask.byMember = taskRaw.user;
       let idx = state.currBoard.groups.findIndex(
-        (group) => group.id === groupId
+        (group) => group.id === taskRaw.groupId
       );
       state.currBoard.groups[idx].tasks.push(newTask);
     },
@@ -183,9 +184,9 @@ export const boardStore = {
         console.log('couldnt update in addgroup', err);
       }
     },
-    async addTask({ dispatch, commit }, { task, groupId }) {
+    async addTask({ dispatch, commit }, { taskRaw }) {
       try {
-        commit({ type: 'addTask', task, groupId });
+        commit({ type: 'addTask', taskRaw });
         await dispatch({ type: 'updateBoard' });
       } catch (err) {
         console.log('Couldnt add a task', err);
@@ -214,8 +215,9 @@ export const boardStore = {
       }
     },
     async addActivity({ dispatch, commit }, { activity }) {
+      console.log(activity);
       try {
-        await commit({ type: 'addActivity', activity });
+        commit({ type: 'addActivity', activity });
         dispatch({ type: 'updateBoard' });
       } catch (err) {
         console.log('Error on board store ADDACTIVITY', err);

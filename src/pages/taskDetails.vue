@@ -124,6 +124,7 @@
           :getTask="getTask"
           @attachment="attachment"
           @deleteTask="deleteTask"
+          @addMember="addMember"
         />
       </div>
     </section>
@@ -168,15 +169,33 @@ export default {
       this.$store.dispatch({ type: "updateTask", task: updatedTask });
       this.$store.dispatch({ type: "updateGroup", group });
     },
+    async addMember(member, task) {
+      try {
+        task.members.push(member);
+        await this.updatedTask(task);
+        let user = this.getUser;
+        let txt = `added ${member.fullname} to ${task.title}`;
+        this.$store.dispatch({
+          type: "addActivity",
+          activity: { task, txt, user },
+        });
+      } catch (err) {
+        console.log("Failed on ADDMEMBER in TASKDETAILS", err);
+      }
+    },
     async attachment(link, task) {
-      let res = await uploadFile(link);
-      console.log(res);
-      let txt = `attached ${res.original_filename}.${res.format} to`;
-      let user = this.$store.getters.currUser;
-      this.$store.dispatch({
-        type: "addActivity",
-        activity: { res, task, txt, user },
-      });
+      try {
+        let res = await uploadFile(link);
+        console.log(res);
+        let txt = `attached ${res.original_filename}.${res.format} to`;
+        let user = this.getUser;
+        this.$store.dispatch({
+          type: "addActivity",
+          activity: { res, task, txt, user },
+        });
+      } catch (err) {
+        console.log("Failed on ATTACHMENT in TASK DETAILS", err);
+      }
     },
   },
   computed: {
@@ -188,6 +207,9 @@ export default {
     },
     getBoard() {
       return { ...this.$store.getters.getCurrBoard };
+    },
+    getUser() {
+      return { ...this.$store.getters.currUser };
     },
   },
   components: {

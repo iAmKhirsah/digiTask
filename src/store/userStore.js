@@ -9,7 +9,8 @@ export const userStore = {
   },
   getters: {
     currUser({ loggedInUser }) {
-      return loggedInUser;
+      // return loggedInUser;
+      return userService.getLoggedinUser();
     },
     users({ users }) {
       return users;

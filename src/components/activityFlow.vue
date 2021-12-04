@@ -4,7 +4,7 @@
       <div v-if="getActivities">
         <div v-for="activity in getActivities" :key="activity.id">
           <span>{{ activity.byMember.fullname }} </span>
-          <span>{{ activity.txt }}</span> <span> this card</span>
+          <span>{{ activity.txt }}</span>
           <img v-if="activity.imgUrl" :src="activity.imgUrl" />
         </div>
       </div>

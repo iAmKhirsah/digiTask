@@ -7,7 +7,6 @@ function makeId(length = 5) {
   }
   return txt;
 }
-function benyIsKingButDeleteThis() {}
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);

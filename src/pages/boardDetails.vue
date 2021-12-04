@@ -1,26 +1,25 @@
 <template>
   <div v-if="board" class="board-details-container" v-dragscroll:nochilddrag>
     <board-header :board="board" />
-     <div class="group-list-container" >
-     <Container
-     orientation="horizontal" behaviour="contain" @drop="onDropGroup"
-    >
-   
-      <Draggable v-for="(group,idx) in board.groups" :key="idx">
-        <group-list
-        class="draggable-item"
-          :group="group"
-          :idx="idx"
-          @addTask="addTask"
-          @updateGroup="updateGroup"
-          @onDrop="onDrop"
-         
-        />
-     </Draggable>
-      </Container>  
-      
+    <div class="group-list-container">
+      <Container
+        orientation="horizontal"
+        behaviour="contain"
+        @drop="onDropGroup"
+      >
+        <Draggable v-for="(group, idx) in board.groups" :key="idx">
+          <group-list
+            class="draggable-item"
+            :group="group"
+            :idx="idx"
+            @addTask="addTask"
+            @updateGroup="updateGroup"
+            @onDrop="onDrop"
+          />
+        </Draggable>
+      </Container>
+
       <div>
-        
         <form
           class="add-list-form"
           v-if="isNewGroup"
@@ -52,11 +51,8 @@
         <button v-else @click="toggleNewGroup" class="add-another-list">
           <i class="fas fa-plus"></i><span>Add another List</span>
         </button>
-       
-      </div>  
-  
+      </div>
     </div>
-  
 
     <router-view></router-view>
   </div>
@@ -66,7 +62,7 @@ import groupList from "../components/groupList.vue";
 import boardHeader from "../components/boardHeader.vue";
 import { dragscroll } from "vue-dragscroll";
 import vClickOutside from "v-click-outside";
-import { Container, Draggable } from 'vue-smooth-dnd'
+import { Container, Draggable } from "vue-smooth-dnd";
 
 export default {
   name: "boardDetails",
@@ -76,17 +72,17 @@ export default {
       isNewGroup: false,
       newGroup: {},
       newTask: {},
-      scene:null,
-       upperDropPlaceholderOptions: {
-        className: 'cards-drop-preview',
-        animationDuration: '150',
-        showOnTop: true
+      scene: null,
+      upperDropPlaceholderOptions: {
+        className: "cards-drop-preview",
+        animationDuration: "150",
+        showOnTop: true,
       },
-        dropPlaceholderOptions: {
-        className: 'drop-preview',
-        animationDuration: '150',
-        showOnTop: true
-      }
+      dropPlaceholderOptions: {
+        className: "drop-preview",
+        animationDuration: "150",
+        showOnTop: true,
+      },
     };
   },
   async created() {
@@ -94,17 +90,17 @@ export default {
     this.newTask = { ...this.$store.getters.getEmptyTask };
     let boardId = this.$route.params.boardId;
     await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
-    this.board = {...this.$store.getters.getCurrBoard};
-    this.board.groups.reduce((acc,group)=>{
-        if(!group.data)group.data = "Draggable" + acc
-        group.tasks.reduce((acc1,task)=>{
-            if(!task.data) return
-            task.data = "Draggable" + task.id + acc1
-            return ++acc1
-        },100)
-        return ++acc
-    },1)
-    console.log(this.board.groups)
+    this.board = { ...this.$store.getters.getCurrBoard };
+    this.board.groups.reduce((acc, group) => {
+      if (!group.data) group.data = "Draggable" + acc;
+      group.tasks.reduce((acc1, task) => {
+        if (!task.data) return;
+        task.data = "Draggable" + task.id + acc1;
+        return ++acc1;
+      }, 100);
+      return ++acc;
+    }, 1);
+    console.log(this.board.groups);
   },
   methods: {
     async updateGroup(group) {
@@ -138,55 +134,60 @@ export default {
       }
     },
     async addTask(task, groupId) {
+      let user = {...this.$store.getters.currUser};
       try {
-        await this.$store.dispatch({ type: "addTask", task, groupId });
+        await this.$store.dispatch({
+          type: "addTask",
+          taskRaw: { task, groupId, user },
+        });
       } catch (err) {
         console.log("Couldnt add task", err);
       }
     },
-    async onDrop(groupIdx,dropResult){
-try{
-    console.log(groupIdx)
-            this.board.groups = this.applyDrag(this.board.groups[groupIdx],dropResult)
-            let board = {...this.board}
-           await this.$store.dispatch({type:'updateBoard',board})
-        }catch(err){
-            console.log('Couldnt drag group',err)
-        }
+    async onDrop(groupIdx, dropResult) {
+      try {
+        console.log(groupIdx);
+        this.board.groups = this.applyDrag(
+          this.board.groups[groupIdx],
+          dropResult
+        );
+        let board = { ...this.board };
+        await this.$store.dispatch({ type: "updateBoard", board });
+      } catch (err) {
+        console.log("Couldnt drag group", err);
+      }
     },
-    async onDropGroup(dropResult){
-        try{
-            this.board.groups = this.applyDrag(this.board.groups,dropResult)
-            let board = {...this.board}
-           await this.$store.dispatch({type:'updateBoard',board})
-        }catch(err){
-            console.log('Couldnt drag group',err)
-        }
-        
+    async onDropGroup(dropResult) {
+      try {
+        this.board.groups = this.applyDrag(this.board.groups, dropResult);
+        let board = { ...this.board };
+        await this.$store.dispatch({ type: "updateBoard", board });
+      } catch (err) {
+        console.log("Couldnt drag group", err);
+      }
     },
-    applyDrag(arr, dragResult){
-        const { removedIndex, addedIndex, payload } = dragResult
-        console.log(removedIndex, addedIndex, payload)
-        if (removedIndex === null && addedIndex === null) return arr
+    applyDrag(arr, dragResult) {
+      const { removedIndex, addedIndex, payload } = dragResult;
+      console.log(removedIndex, addedIndex, payload);
+      if (removedIndex === null && addedIndex === null) return arr;
 
-        const result = [...arr]
-        let itemToAdd = payload
+      const result = [...arr];
+      let itemToAdd = payload;
 
-        if (removedIndex !== null) {
-            itemToAdd = result.splice(removedIndex, 1)[0]
-        }
+      if (removedIndex !== null) {
+        itemToAdd = result.splice(removedIndex, 1)[0];
+      }
 
-        if (addedIndex !== null) {
-            result.splice(addedIndex, 0, itemToAdd)
-        }
+      if (addedIndex !== null) {
+        result.splice(addedIndex, 0, itemToAdd);
+      }
 
-        return result
+      return result;
     },
     //  getChildPayload(idxs) {
- 
+
     //   return this.board.groups[idxs.groupIndex].tasks[idxs.itemIndex]
     // },
-
   },
   computed: {},
   mounted() {
@@ -199,7 +200,7 @@ try{
       });
     }
   },
-  components: { groupList, boardHeader,Container, Draggable },
+  components: { groupList, boardHeader, Container, Draggable },
   directives: {
     dragscroll,
     clickOutside: vClickOutside.directive,

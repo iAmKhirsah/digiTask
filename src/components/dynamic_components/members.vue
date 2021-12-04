@@ -8,7 +8,7 @@
     <p>Board members</p>
     <div v-if="board">
       <ul v-for="member in board.members" :key="member._id">
-        <li v-if="member">
+        <li v-if="member" @click="sendMember(member)">
           <span>{{ member.imgUrl }}</span> <span>{{ member.fullname }}</span>
         </li>
       </ul>
@@ -19,6 +19,10 @@
 export default {
   name: "members",
   props: ["board"],
-  computed: {},
+  methods: {
+    sendMember(member) {
+      this.$emit("addMember", {...member});
+    },
+  },
 };
 </script>

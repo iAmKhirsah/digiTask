@@ -81,6 +81,8 @@ function getEmptyTask() {
     id: 't' + utilService.makeId(),
     title: '',
     description: '',
+    byMember: [],
+    members: [],
   };
   return task;
 }
@@ -145,10 +147,18 @@ function createDemoBoard() {
           {
             id: 'c101',
             title: 'Replace logo',
+            description: '',
+            byMember: [],
+            members: [],
+            comments: [],
           },
           {
             id: 'c102',
             title: 'Add Samples',
+            description: '',
+            byMember: [],
+            members: [],
+            comments: [],
           },
         ],
         style: {},
@@ -160,6 +170,10 @@ function createDemoBoard() {
           {
             id: 'c103',
             title: 'Do that',
+            description: '',
+            byMember: [],
+            members: [],
+            comments: [],
           },
           {
             id: 'c104',
