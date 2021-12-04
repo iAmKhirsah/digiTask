@@ -26,6 +26,7 @@
           </div>
         </div>
         <div class="task-details-addons">
+          <p>members / labels</p>
           <task-addons :getTask="getTask" :getBoard="getBoard" />
         </div>
         <div class="task-details-content-container">
