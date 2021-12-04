@@ -1,6 +1,6 @@
 <template>
-  <div class="dynamic-labels-edit card-layout nav-modal">
-    <button @click="closeModal"><i class="fas fa-times"></i></button>
+  <div class="dynamic-labels-edit">
+    <button class="close" @click="closeModal"><i class="fas fa-times"></i></button>
     <div class="header-layout">
       <header>Labels</header>
     </div>
@@ -10,7 +10,7 @@
         {{ label.title }} <span>Edit BUTTON GOES HERE</span>
       </li>
     </ul>
-    <button>Create a new label</button>
+    <button class="create">Create a new label</button>
   </div>
 </template>
 <script>

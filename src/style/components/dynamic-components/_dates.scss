@@ -1,0 +1,111 @@
+.dynamic-dates-edit {
+    .close {
+        padding: 12px 12px 12px 12px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 2;
+        background-color: transparent;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        color: $clr3;
+        &:hover {
+            color: $clr2;
+        }
+    }
+    header {
+        text-align: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #091e4221;
+        margin: 0px 10px;
+        font-size: 14px;
+        color: $clr3;
+    }
+    .save {
+        margin: 0px 16px;
+        width: 272px;
+        border: none;
+        border-radius: 3px;
+        line-height: 20px;
+        margin-bottom: 8px;
+        padding: 6px 12px;
+        position: relative;
+        text-decoration: none;
+        color: $clr2;
+        background-color: #0079bf;
+        color: white;
+        &:hover {
+            cursor: pointer;
+            background-color: #026aa7;
+        }
+    }
+    .mx-calendar-panel-date {
+        width: 100%;
+        border: none;
+        .mx-calendar-header {
+            .mx-calendar-header-label {
+                button {
+                    color: rgb(23, 43, 77);
+                    font-weight: bold;
+                }
+            }
+        }
+        .mx-calendar-content{
+            .cell{
+                color: #091E42;
+            }
+            .cell.active{
+                color: white;
+            }
+            .cell.not-current-month{
+                color: #ccc
+            }
+        }
+        .active {
+            background-color: rgb(52, 69, 99);
+            border-radius: 3px;
+            &:hover {
+                background-color: rgb(235, 236, 240);
+                color: rgb(52, 69, 99);
+            }
+        }
+        .mx-icon-double-right {
+            display: none;
+        }
+        .mx-icon-double-left {
+            display: none;
+        }
+        .mx-calendar {
+          
+                width: 100%;
+        
+        }
+    }
+}
+
+.mx-datepicker-main{
+    border: none;
+}
+.mx-calendar-panel-year{
+    width: 100%;
+    .cell.active {
+        background-color: rgb(52, 69, 99);
+        border-radius: 3px;
+        &:hover {
+            background-color: rgb(235, 236, 240);
+            color: rgb(52, 69, 99);
+        }
+    }
+}
+.mx-calendar-panel-month{
+    width: 100%;
+    .cell.active {
+        background-color: rgb(52, 69, 99);
+        border-radius: 3px;
+        &:hover {
+            background-color: rgb(235, 236, 240);
+            color: rgb(52, 69, 99);
+        }
+    }
+}

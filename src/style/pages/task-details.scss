@@ -108,6 +108,10 @@
                         font-size: 12px;
                         margin-bottom: -4px;
                         margin-top: 16px;
+                        &.title {
+                            font-weight: bold;
+                            margin-left: 10px;
+                        }
                     }
                     .task-details-add-to-card {
                         .open-edit-dynamic-btn {
@@ -145,7 +149,7 @@
                                 top: 277px;
                             }
                             &.dates {
-                                top: 48px;
+                                top: 95px;
                             }
                             &.attachment {
                                 top: 357px;
@@ -159,11 +163,11 @@
                             &.copy {
                                 top: 308px;
                             }
-                            &.archive{
+                            &.archive {
                                 top: 384px;
                             }
-                            &.share{
-                                 top: 501px;
+                            &.share {
+                                top: 501px;
                             }
                         }
                     }

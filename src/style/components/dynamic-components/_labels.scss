@@ -1,4 +1,4 @@
-.dynamic-members-edit {
+.dynamic-labels-edit {
     .close {
         padding: 12px 12px 12px 12px;
         position: absolute;
@@ -35,6 +35,23 @@
         &:hover {
             background-color: #ebecf0;
             box-shadow: inset 0 0 0 2px #dfe1e6;
+        }
+    }
+    .create {
+        margin: 0px 16px;
+        width: 272px;
+        border: none;
+        border-radius: 3px;
+        line-height: 20px;
+        margin-bottom: 8px;
+        padding: 6px 12px;
+        position: relative;
+        text-decoration: none;
+        color: $clr2;
+        background-color: #091e420a;
+        &:hover {
+            cursor: pointer;
+            background-color: #091e4214;
         }
     }
 }

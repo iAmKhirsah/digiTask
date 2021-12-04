@@ -1,10 +1,10 @@
 <template>
-  <div class="dynamic-dates-edit card-layout nav-modal">
-    <button @click="closeModal"><i class="fas fa-times"></i></button>
+  <div class="dynamic-dates-edit">
+    <button class="close" @click="closeModal"><i class="fas fa-times"></i></button>
     <div class="header-layout">
       <header>Dates</header>
     </div>
-    <div>
+    <div class="time-picker">
       <date-picker
         class="test"
         v-model="date"
@@ -14,7 +14,7 @@
         placeholder="Select date range"
       ></date-picker>
     </div>
-    <button>Save</button>
+    <button class="save">Save</button>
   </div>
 </template>
 <script>
