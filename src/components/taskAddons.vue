@@ -6,7 +6,7 @@
         <img :src="member.imgUrl" :title="member.fullname" />
       </div>
     </div>
-    <div class="task-addons-labels" v-if="getLabel.length">
+    <div class="task-addons-labels" v-if="getLabel">
       <p>Labels</p>
       <div v-for="label in getLabel" :key="label.id">
         <div :style="'background-color:' + label.color">
@@ -23,6 +23,7 @@ export default {
   computed: {
     getLabel() {
       let labels = [];
+      if (!this.getTask.labelIds) return null;
       this.getBoard.labels.forEach((label) => {
         let isLabel = this.getTask.labelIds.some(
           (taskLabelId) => label.id === taskLabelId

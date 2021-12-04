@@ -69,8 +69,9 @@
                 @attachment="attachment"
                 @deleteTask="deleteTask"
                 @addMember="addMember"
-                  @addLabel="addLabel"
+                @updateTask="updatedTask"
                 @closeModal="closeModal"
+                @createLabel="createLabel"
               />
               <div class="open-edit-dynamic-btn" @click="setType('members')">
                 <span><i class="far fa-user"></i></span> Members
@@ -171,6 +172,13 @@ export default {
         console.log("Couldnt SAVE TASK TITLE", err);
       }
     },
+    async createLabel(label) {
+      try {
+        await this.$store.dispatch({ type: "createLabel", label });
+      } catch (err) {
+        console.log("Error on CREATELABEL in TASKDETAILS", err);
+      }
+    },
     async saveEdit(task = { ...this.getTask }) {
       try {
         if (!this.editDesc) return;
@@ -192,7 +200,8 @@ export default {
       console.log("hello");
       this.$router.push(`/b/${this.$route.params.boardId}`);
     },
-    async updatedTask(updatedTask) {
+    async updatedTask(task) {
+      let updatedTask = JSON.parse(JSON.stringify(task));
       let group = this.getGroup;
       let idx = group.tasks.findIndex((task) => task.id === updatedTask.id);
       group.tasks[idx] = updatedTask;
@@ -214,7 +223,6 @@ export default {
         console.log("Failed on ADDMEMBER in TASKDETAILS", err);
       }
     },
-    
     async attachment(link, task) {
       try {
         let res = await uploadFile(link);
@@ -248,7 +256,7 @@ export default {
     taskDescription,
     activityFlow,
     editDynamic,
-    taskAddons
+    taskAddons,
   },
   directives: {
     clickOutside: vClickOutside.directive,

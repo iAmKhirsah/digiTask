@@ -15,7 +15,7 @@
       @openDelete="openDelete"
       @deleteGroup="deleteGroup"
       v-click-outside="closeModal"
-      @addLabel="addLabel"
+      @updateTask="updateTask"
       @createLabel="createLabel"
     ></component>
   </section>
@@ -86,8 +86,8 @@ export default {
     addMember(member) {
       this.$emit("addMember", member);
     },
-    addLabel(label) {
-      this.$emit("addLabel", label);
+    updateTask(task) {
+      this.$emit("updateTask", task);
     },
     openNewTask() {
       this.$emit("newTaskOpen");
@@ -107,9 +107,9 @@ export default {
     deleteGroup() {
       this.$emit("deleteGroup", this.group);
     },
-    createLabel(label){
-      this.$emit('createLabel', label)
-    }
+    createLabel(label) {
+      this.$emit("createLabel", label);
+    },
   },
   directives: {
     clickOutside: vClickOutside.directive,

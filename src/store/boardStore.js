@@ -68,6 +68,13 @@ export const boardStore = {
       }
       state.currBoard.activities.push(newActivity);
     },
+    createLabel(state, { label }) {
+      let newLabel = boardService.getEmptyLabel();
+      newLabel.title = label.title;
+      newLabel.color = label.selectedColor;
+      state.currBoard.labels.push(newLabel);
+      state.currTask.labelIds.push(newLabel.id);
+    },
     addTask(state, { taskRaw }) {
       let newTask = boardService.getEmptyTask();
       newTask.title = taskRaw.task;
@@ -86,7 +93,6 @@ export const boardStore = {
       );
       state.currGroup = state.currBoard.groups[idx];
       state.currTask = state.currGroup.tasks.find((task) => task.id === taskId);
-      console.log(state.currTask);
     },
     updateGroup(state, { group }) {
       const idx = state.currBoard.groups.findIndex(
@@ -95,6 +101,9 @@ export const boardStore = {
       state.currBoard.groups.splice(idx, 1, group);
     },
     updateTask(state, { task }) {
+      // const stateCopy = JSON.parse(JSON.stringify(state));
+      // stateCopy.currTask = task;
+      // state = stateCopy;
       state.currTask = task;
     },
     removeTask(state, { task }) {
@@ -154,7 +163,7 @@ export const boardStore = {
         console.log('Couldnt update Board', err);
       }
     },
- applyDrag(arr, dragResult) {
+    applyDrag(arr, dragResult) {
       const { removedIndex, addedIndex, payload } = dragResult;
       console.log(removedIndex, addedIndex, payload);
       if (removedIndex === null && addedIndex === null) return arr;
@@ -163,7 +172,6 @@ export const boardStore = {
       let itemToAdd = payload;
 
       if (removedIndex !== null) {
-        
         itemToAdd = result.splice(removedIndex, 1)[0];
       }
 
@@ -242,6 +250,14 @@ export const boardStore = {
         console.log('Error on board store UPDATETASK', err);
       }
     },
+    async createLabel({ dispatch, commit }, { label }) {
+      try {
+        commit({ type: 'createLabel', label });
+        await dispatch({ type: 'updateBoard' });
+      } catch (err) {
+        console.log('Error on board storee CREATELABEL');
+      }
+    },
     async addActivity({ dispatch, commit }, { activity }) {
       console.log(activity);
       try {
@@ -251,15 +267,14 @@ export const boardStore = {
         console.log('Error on board store ADDACTIVITY', err);
       }
     },
-   async applyDrag({dispatch,commit},{arr, dragResult}) {
+    async applyDrag({ dispatch, commit }, { arr, dragResult }) {
       const { removedIndex, addedIndex, payload } = dragResult;
       console.log(removedIndex, addedIndex, payload);
-      if (removedIndex === null && addedIndex === null) return ;
+      if (removedIndex === null && addedIndex === null) return;
       const result = [...arr];
       let itemToAdd = payload;
 
       if (removedIndex !== null) {
-        
         itemToAdd = result.splice(removedIndex, 1)[0];
       }
 
