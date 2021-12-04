@@ -1,6 +1,6 @@
 <template>
   <div class="dynamic-attachment-edit card-layout nav-modal">
-    <button><i class="fas fa-times"></i></button>
+    <button @click="closeModal"><i class="fas fa-times"></i></button>
     <div class="header-layout">
       <header>Attach from...</header>
     </div>
@@ -35,6 +35,10 @@ export default {
       if (ev) {
         this.$emit("attachment", ev);
       } else this.$emit("attachment", this.attachment);
+    },
+      closeModal() {
+     
+      this.$emit("closeModal");
     },
   },
 };

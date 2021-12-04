@@ -1,6 +1,6 @@
 <template>
   <div class="dynamic-labels-edit card-layout nav-modal">
-    <button><i class="fas fa-times"></i></button>
+    <button @click="closeModal"><i class="fas fa-times"></i></button>
     <div class="header-layout">
       <header>Labels</header>
     </div>
@@ -18,5 +18,11 @@ export default {
   name: "labels",
   props: ["board"],
   computed: {},
+  methods:{
+      closeModal() {
+     
+      this.$emit("closeModal");
+    },
+  }
 };
 </script>

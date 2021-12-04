@@ -44,7 +44,11 @@ export default {
       },
       goBack(){
           this.$emit('backToGroupEdit')
-      }
+      },
+        closeModal() {
+     
+      this.$emit("closeModal");
+    },
   }
 };
 </script>

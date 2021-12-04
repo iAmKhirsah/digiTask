@@ -43,6 +43,7 @@
                 background-color: transparent;
                 font-size: 18px;
                 color: $clr8;
+                z-index: 10;
                 // need to check
                 &:hover {
                     background-color: #091e4214;

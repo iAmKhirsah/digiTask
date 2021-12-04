@@ -77,6 +77,9 @@ export const boardStore = {
       );
       state.currBoard.groups[idx].tasks.push(newTask);
     },
+    addMember(state, { member }) {
+      state.currTask.members.push(member);
+    },
     getDetails(state, { taskId, groupId }) {
       let idx = state.currBoard.groups.findIndex(
         (group) => group.id === groupId
@@ -190,6 +193,13 @@ export const boardStore = {
         await dispatch({ type: 'updateBoard' });
       } catch (err) {
         console.log('Couldnt add a task', err);
+      }
+    },
+    async addMember({ commit }, { member }) {
+      try {
+        commit({ type: 'addMember', member });
+      } catch (err) {
+        console.log('Error on board store ADDMEMBER');
       }
     },
     async removeTask({ dispatch, commit }, { task }) {

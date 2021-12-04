@@ -136,6 +136,7 @@
 .card-layout {
     background-color: #fff;
     position: fixed;
+    z-index: 10;
     padding-bottom: 12px;
     width: 304px;
     box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
