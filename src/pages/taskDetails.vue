@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="task-details-addons">
-          ADDED MEMBERS GO HERE, ADDED LABELS GO HERE
+          <task-addons :getTask="getTask" :getBoard="getBoard" />
         </div>
         <div class="task-details-content-container">
           <div class="task-details-main-content">
@@ -68,6 +68,7 @@
                 @attachment="attachment"
                 @deleteTask="deleteTask"
                 @addMember="addMember"
+                @addLabel="addLabel"
                 @closeModal="closeModal"
               />
               <div class="open-edit-dynamic-btn" @click="setType('members')">
@@ -119,6 +120,7 @@ import vClickOutside from "v-click-outside";
 import taskDescription from "../components/taskDescription.vue";
 import activityFlow from "../components/activityFlow.vue";
 import editDynamic from "../components/editDynamic.vue";
+import taskAddons from "../components/taskAddons.vue";
 import { uploadFile } from "../services/serverlessUploadService";
 export default {
   name: "taskDetails",
@@ -196,6 +198,15 @@ export default {
       await this.$store.dispatch({ type: "updateTask", task: updatedTask });
       await this.$store.dispatch({ type: "updateGroup", group });
     },
+    async addLabel(label) {
+      try {
+        let task = { ...this.getTask };
+        task.labelIds[task.labelIds.length] = label.id;
+        await this.updatedTask(task);
+      } catch (err) {
+        console.log("Failed on ADDLABEL in TASKDETAILS", err);
+      }
+    },
     async addMember(member) {
       try {
         await this.$store.dispatch({ type: "addMember", member });
@@ -244,6 +255,7 @@ export default {
     taskDescription,
     activityFlow,
     editDynamic,
+    taskAddons,
   },
   directives: {
     clickOutside: vClickOutside.directive,

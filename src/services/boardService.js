@@ -151,6 +151,7 @@ function createDemoBoard() {
             byMember: [],
             members: [],
             comments: [],
+            labelIds: [],
           },
           {
             id: 'c102',
@@ -159,6 +160,7 @@ function createDemoBoard() {
             byMember: [],
             members: [],
             comments: [],
+            labelIds: [],
           },
         ],
         style: {},
@@ -174,6 +176,7 @@ function createDemoBoard() {
             byMember: [],
             members: [],
             comments: [],
+            labelIds: [],
           },
           {
             id: 'c104',
