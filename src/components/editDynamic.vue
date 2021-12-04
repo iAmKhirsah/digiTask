@@ -13,6 +13,7 @@
       @deleteTask="deleteTask"
       @addMember="addMember"
       @openDelete="openDelete"
+      @deleteGroup="deleteGroup"
        v-click-outside="closeModal"
     ></component>
   </section>
@@ -102,6 +103,9 @@ export default {
           this.$emit('openModal','archive')
      
     },
+    deleteGroup(){
+      this.$emit('deleteGroup',this.group)
+    }
   },
     directives: {
     clickOutside: vClickOutside.directive,

@@ -14,7 +14,7 @@
           <p @click="openDelete">Delete...</p>
 
   </div>
-  <archive @deleteTask="deleteGroup" @closeModal="closeModal" :isGroup="true" v-if="type==='openDelete'"/>
+  <archive @deleteGroup="deleteGroup" @closeModal="closeModal" :isGroup="true" v-if="type==='openDelete'"/>
   </div>
 </template>
 <script>
@@ -46,8 +46,8 @@ export default {
      openDelete(){
          this.type = 'openDelete'
      },
-      deleteGroup(task) {
-      this.$emit("deleteGroup", task);
+      deleteGroup() {
+      this.$emit("deleteGroup");
     },
   },
   components:{

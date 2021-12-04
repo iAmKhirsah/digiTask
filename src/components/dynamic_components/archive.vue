@@ -21,6 +21,7 @@ export default {
   methods: {
     deleteThis() {
     this.isGroup ? this.$emit("deleteGroup") : this.$emit("deleteTask")
+    this.closeModal()
       
     },
       closeModal() {

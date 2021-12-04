@@ -14,7 +14,7 @@
         />
   <div class="add-task-form-btns">
 
-        <button class="add-task-btn" >Add card</button>
+        <button class="add-task-btn"  @click="addTask">Add card</button>
         <button class="add-task-close-btn" type="button" @click="closeNewTask">
           <i class="fas fa-times"></i>
         </button>
