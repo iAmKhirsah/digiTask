@@ -15,6 +15,7 @@
             @addTask="addTask"
             @updateGroup="updateGroup"
             @onDrop="onDrop"
+            @deleteGroup="deleteGroup"
           />
         </Draggable>
       </Container>
@@ -133,8 +134,15 @@ export default {
         console.log("Couldnt add group", group);
       }
     },
+    async deleteGroup(group) {
+      try {
+          console.log(group)
+          let groupId = group.id
+          await this.$store.dispatch({type:'removeGroup',groupId})
+      } catch (err) {}
+    },
     async addTask(task, groupId) {
-      let user = {...this.$store.getters.currUser};
+      let user = { ...this.$store.getters.currUser };
       try {
         await this.$store.dispatch({
           type: "addTask",

@@ -9,7 +9,7 @@
     <div v-if="board">
       <ul v-for="member in board.members" :key="member._id">
         <li v-if="member" @click="sendMember(member)">
-          <span>{{ member.imgUrl }}</span> <span>{{ member.fullname }}</span>
+          <span><img :src="member.imgUrl"></span> <span>{{ member.fullname }}</span>
         </li>
       </ul>
     </div>

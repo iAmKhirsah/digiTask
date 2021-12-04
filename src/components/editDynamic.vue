@@ -12,7 +12,11 @@
       @backToGroupEdit="backToGroupEdit"
       @deleteTask="deleteTask"
       @addMember="addMember"
+      @openDelete="openDelete"
+      @deleteGroup="deleteGroup"
        v-click-outside="closeModal"
+      @addLabel="addLabel"
+      
     ></component>
   </section>
 </template>
@@ -31,7 +35,7 @@ import vClickOutside from "v-click-outside";
 
 export default {
   name: "editDynamic",
-  props: ["type", "getBoard", "getTask"],
+  props: ["type", "getBoard", "getTask","group"],
   data() {
     return {
       board: {},
@@ -70,7 +74,7 @@ export default {
     groupEdit,
   },
   methods: {
-    
+   
     closeModal() {
       this.$emit("closeModal");
     },
@@ -83,6 +87,9 @@ export default {
     addMember(member) {
       this.$emit("addMember", member);
     },
+    addLabel(label) {
+      this.$emit("addLabel", label);
+    },
     openNewTask() {
       this.$emit("newTaskOpen");
     },
@@ -90,13 +97,22 @@ export default {
       this.$emit("closeNewTask");
     },
     openCopyGroup() {
-      this.type = "copyGroup";
+      this.$emit('openModal','copyGroup')
+     
     },
     backToGroupEdit() {
-      this.type = "groupEdit";
+      this.$emit('openModal','groupEdit')
+  
+    }, 
+    openDelete(){
+          this.$emit('openModal','archive')
+     
     },
+    deleteGroup(){
+      this.$emit('deleteGroup',this.group)
+    }
   },
-    directives: {
+  directives: {
     clickOutside: vClickOutside.directive,
   },
 };

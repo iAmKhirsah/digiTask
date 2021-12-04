@@ -6,7 +6,7 @@
     </div>
     <input type="text" placeholder="Search labels..." />
     <ul v-for="label in board.labels" :key="label.id">
-      <li :style="'background-color:' + label.color">
+      <li :style="'background-color:' + label.color" @click="addLabel(label)">
         {{ label.title }} <span>Edit BUTTON GOES HERE</span>
       </li>
     </ul>
@@ -18,11 +18,13 @@ export default {
   name: "labels",
   props: ["board"],
   computed: {},
-  methods:{
-      closeModal() {
-     
+  methods: {
+    closeModal() {
       this.$emit("closeModal");
     },
-  }
+    addLabel(label) {
+      this.$emit("addLabel", label);
+    },
+  },
 };
 </script>

@@ -34,6 +34,7 @@
         @newTaskOpen="newTaskOpen"
         :group="group"
         @onDrop="onDrop"
+        @deleteGroup="deleteGroup"
       />
       <add-task v-if="isNewTask" @closeNewTask="closeNewTask" @addTask="addTask" :focusTextArea="focusTextArea" :inGroup="inGroup"/>
       <task-list
@@ -118,11 +119,15 @@ export default {
       this.$nextTick(() => {
         this.$refs.title.focus();
       });
+      
     },
     onDrop(groupIdx,dropResult){
       if(!groupIdx) groupIdx = this.idx 
       this.$emit('onDrop',groupIdx,dropResult)
     },
+    deleteGroup(group){
+      this.$emit('deleteGroup',group)
+    }
 
   },
   mounted() {
