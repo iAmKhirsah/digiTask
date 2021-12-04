@@ -1,6 +1,7 @@
 <template>
   <div class="task-list-container">
     <div class="task-list-container-content thin-scrollbar">
+      
       <div class="task-list-content" v-for="task in group.tasks" :key="task.id">
         <task-preview :task="task" @editTask="editTask" />
       </div>

@@ -9,12 +9,8 @@
       @openNewTask="openNewTask"
       @closeNewTask="closeNewTask"
       @openCopyGroup="openCopyGroup"
-<<<<<<< HEAD
-      @backToGroupEdit="backToGroupEdit" 
-=======
       @backToGroupEdit="backToGroupEdit"
       @deleteTask="deleteTask"
->>>>>>> 8f01ac36bd58a2e71fec2250f066012513edae97
     ></component>
   </section>
 </template>

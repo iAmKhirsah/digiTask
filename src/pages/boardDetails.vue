@@ -1,16 +1,23 @@
 <template>
   <div v-if="board" class="board-details-container" v-dragscroll:nochilddrag>
     <board-header :board="board" />
-    <div class="group-list-container" @drop="onDrop($event)">
-      <Draggable v-for="group in board.groups" :key="group.id">
+     <div class="group-list-container" >
+     <Container
+     orientation="horizontal" behaviour="contain" @drop="onDrop"
+    >
+   
+      <Draggable v-for="(group,$index) in board.groups" :key="$index">
         <group-list
+        class="draggable-item"
           :group="group"
           @addTask="addTask"
           @updateGroup="updateGroup"
         />
-      </Draggable>
+     </Draggable>
+      </Container>  
+      
       <div>
-        <!-- v-on:keydown.enter="addGroup" -->
+        
         <form
           class="add-list-form"
           v-if="isNewGroup"
@@ -28,7 +35,7 @@
             placeholder="Enter list title..."
           />
           <div class="add-list-form-btns">
-            <button class="add-task-btn">Add list</button>
+            <button class="add-task-btn" @click="addGroup">Add list</button>
             <button
               class="add-task-close-btn"
               type="button"
@@ -42,8 +49,11 @@
         <button v-else @click="toggleNewGroup" class="add-another-list">
           <i class="fas fa-plus"></i><span>Add another List</span>
         </button>
-      </div>
+       
+      </div>  
+  
     </div>
+  
 
     <router-view></router-view>
   </div>
@@ -63,7 +73,17 @@ export default {
       isNewGroup: false,
       newGroup: {},
       newTask: {},
-      scene:null
+      scene:null,
+       upperDropPlaceholderOptions: {
+        className: 'cards-drop-preview',
+        animationDuration: '150',
+        showOnTop: true
+      },
+        dropPlaceholderOptions: {
+        className: 'drop-preview',
+        animationDuration: '150',
+        showOnTop: true
+      }
     };
   },
   async created() {
@@ -71,7 +91,17 @@ export default {
     this.newTask = { ...this.$store.getters.getEmptyTask };
     let boardId = this.$route.params.boardId;
     await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
-    this.board = this.$store.getters.getCurrBoard;
+    this.board = {...this.$store.getters.getCurrBoard};
+    this.board.groups.reduce((acc,group)=>{
+        if(!group.data)group.data = "Draggable" + acc
+        group.tasks.reduce((acc1,task)=>{
+            if(!task.data) return
+            task.data = "Draggable" + task.id + acc1
+            return ++acc1
+        },100)
+        return ++acc
+    },1)
+    console.log(this.board.groups)
   },
   methods: {
     async updateGroup(group) {
@@ -111,26 +141,33 @@ export default {
         console.log("Couldnt add task", err);
       }
     },
-     onColumnDrop (dropResult) {
-      const scene = Object.assign({}, this.scene)
-      scene.children = applyDrag(scene.children, dropResult)
-      this.scene = scene
+    async onDrop(dropResult){
+        try{
+            this.board.groups = this.applyDrag(this.board.groups,dropResult)
+            let board = {...this.board}
+           await this.$store.dispatch({type:'updateBoard',board})
+        }catch(err){
+            console.log('Couldnt drag group',err)
+        }
+        
     },
-    onCardDrop (columnId, dropResult) {
-      if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
-        const scene = Object.assign({}, this.scene)
-        const column = scene.children.filter(p => p.id === columnId)[0]
-        const columnIndex = scene.children.indexOf(column)
-        const newColumn = Object.assign({}, column)
-        newColumn.children = applyDrag(newColumn.children, dropResult)
-        scene.children.splice(columnIndex, 1, newColumn)
-        this.scene = scene
-      }
-    },
-    getCardPayload (columnId) {
-      return index => {
-        return this.scene.children.filter(p => p.id === columnId)[0].children[index]
-      }
+    applyDrag(arr, dragResult){
+        const { removedIndex, addedIndex, payload } = dragResult
+        console.log(removedIndex, addedIndex, payload)
+        if (removedIndex === null && addedIndex === null) return arr
+
+        const result = [...arr]
+        let itemToAdd = payload
+
+        if (removedIndex !== null) {
+            itemToAdd = result.splice(removedIndex, 1)[0]
+        }
+
+        if (addedIndex !== null) {
+            result.splice(addedIndex, 0, itemToAdd)
+        }
+
+        return result
     }
   },
   computed: {},
