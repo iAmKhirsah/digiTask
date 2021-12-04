@@ -88,7 +88,9 @@ export default {
     pickSelectedColor(color) {
       this.newLabel.selectedColor = color;
     },
-    createLabel() {},
+    createLabel() {
+      this.$emit("createLabel", this.newLabel);
+    },
   },
 };
 </script>

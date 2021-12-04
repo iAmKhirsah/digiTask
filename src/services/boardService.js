@@ -135,8 +135,8 @@ function createDemoBoard() {
     members: [
       {
         _id: 'u101',
-        fullname: 'Tal Tarablus',
-        imgUrl: 'https://www.google.com',
+        fullname: 'Ilya Shershniov',
+        imgUrl: 'https://www.facebook.com/photo/?fbid=453https://scontent.fsdv3-1.fna.fbcdn.net/v/t1.6435-9/194070638_4538829422812074_2178815096404874815_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=mL_2KeDIcIIAX_QC7-d&_nc_ht=scontent.fsdv3-1.fna&oh=c8da67a4de23a4b28d2d30256527eda2&oe=61D28AC28829416145408&set=a.161884923839901',
       },
     ],
     groups: [

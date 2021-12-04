@@ -1,6 +1,6 @@
 <template>
   <section class="dynamic-component-container" :class="type">
-    <component 
+    <component
       :is="renderCmp"
       @closeModal="closeModal"
       :board="board"
@@ -14,9 +14,9 @@
       @addMember="addMember"
       @openDelete="openDelete"
       @deleteGroup="deleteGroup"
-       v-click-outside="closeModal"
+      v-click-outside="closeModal"
       @addLabel="addLabel"
-      
+      @createLabel="createLabel"
     ></component>
   </section>
 </template>
@@ -35,7 +35,7 @@ import vClickOutside from "v-click-outside";
 
 export default {
   name: "editDynamic",
-  props: ["type", "getBoard", "getTask","group"],
+  props: ["type", "getBoard", "getTask", "group"],
   data() {
     return {
       board: {},
@@ -74,7 +74,6 @@ export default {
     groupEdit,
   },
   methods: {
-   
     closeModal() {
       this.$emit("closeModal");
     },
@@ -97,19 +96,19 @@ export default {
       this.$emit("closeNewTask");
     },
     openCopyGroup() {
-      this.$emit('openModal','copyGroup')
-     
+      this.$emit("openModal", "copyGroup");
     },
     backToGroupEdit() {
-      this.$emit('openModal','groupEdit')
-  
-    }, 
-    openDelete(){
-          this.$emit('openModal','archive')
-     
+      this.$emit("openModal", "groupEdit");
     },
-    deleteGroup(){
-      this.$emit('deleteGroup',this.group)
+    openDelete() {
+      this.$emit("openModal", "archive");
+    },
+    deleteGroup() {
+      this.$emit("deleteGroup", this.group);
+    },
+    createLabel(label){
+      this.$emit('createLabel', label)
     }
   },
   directives: {
