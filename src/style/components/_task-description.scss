@@ -1,0 +1,14 @@
+.task-description{
+    display: flex;
+    gap: 10px;
+    padding: 0px 10px;
+    margin: 0 0 8px 40px;
+    position: relative;
+    flex-direction: column;
+}
+
+.task-description-symbol{
+    position: absolute;
+    top: 16px;
+    left: 20px;
+}

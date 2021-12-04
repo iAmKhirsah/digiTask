@@ -2,8 +2,12 @@
   <section class="task-details-overlay" v-if="pageOpen">
     <section class="task-details-wrapper">
       <div class="task-details-container" v-click-outside="closePage">
-        <button @click="closePage">X</button>
+        <button class="task-details-container-btn" @click="closePage">
+          <i class="fas fa-times"></i>
+        </button>
         <div class="task-details-header">
+          <span><i class="fas fa-window-maximize"></i></span>
+
           <h1>{{ getTask.title }}</h1>
           <p>in group {{ getGroup.title }}<span></span></p>
         </div>
@@ -12,11 +16,17 @@
         </div>
         <div class="task-details-content-container">
           <div class="task-details-main-content">
+            <span class="task-description-symbol"> <i class="fas fa-align-left"></i></span>
             <task-description :task="getTask" @updatedTask="updatedTask" />
+
             <div class="task-details-activity">
-              <p>Activity</p>
+              <div class="task-details-activity-content">
+                <span> <i class="fas fa-align-left"></i></span>
+                <p>Activity</p>
+              </div>
               <form @submit.prevent="sendMsg">
-                <input type="text" placeholder="Write a comment..." />
+                <div class="user-tag-name in-header">DR</div>
+                <textarea type="text" placeholder="Write a comment..." />
               </form>
               <activity-flow
                 :task="getTask"
@@ -28,20 +38,20 @@
           <div class="task-details-sidebar">
             <p>Add to card</p>
             <div class="task-details-add-to-card">
-              <div @click="setType('members')">Members</div>
-              <div @click="setType('labels')">Labels</div>
-              <div @click="setType('checklist')">Checklist</div>
-              <div @click="setType('dates')">Dates</div>
-              <div @click="setType('attachment')">Attachment</div>
-              <div @click="setType('cover')">Cover</div>
+              <div @click="setType('members')"><span><i class="far fa-user"></i></span> Members</div>
+              <div @click="setType('labels')"><span><i class="fas fa-tag"></i></span> Labels</div>
+              <div @click="setType('checklist')"><span><i class="far fa-check-square"></i></span> Checklist</div>
+              <div @click="setType('dates')"><span><i class="far fa-clock"></i></span> Dates</div>
+              <div @click="setType('attachment')"><span><i class="fas fa-paperclip"></i></span> Attachment</div>
+              <div @click="setType('cover')"> <span><i class="far fa-window-maximize"></i></span> Cover</div>
             </div>
             <p>Actions</p>
             <div class="task-details-actions">
-              <div @click="setType('move')">Move</div>
-              <div>Copy</div>
-              <div><input type="checkbox" /> Watch</div>
-              <div @click="setType('archive')">Archive</div>
-              <div @click="setType('share')">Share</div>
+              <div @click="setType('move')"><span><i class="fas fa-arrow-right"></i></span> Move</div>
+              <div><span><i class="far fa-clone"></i></span> Copy</div>
+              <div> <span><i class="far fa-eye"></i></span> <input type="checkbox" /> Watch</div>
+              <div @click="setType('archive')"><span><i class="fas fa-archive"></i></span> Archive</div>
+              <div @click="setType('share')"><span><i class="fas fa-share-alt"></i></span> Share</div>
             </div>
           </div>
         </div>

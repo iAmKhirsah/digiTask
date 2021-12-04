@@ -1,40 +1,152 @@
 .task-details-overlay {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.185);
-  overflow-y: auto;
-  .task-details-wrapper {
-    display: flex;
-    justify-content: center;
-    .task-details-container {
-      margin: 48px 0 80px;
-      min-height: 600px;
-      border-radius: 2px;
-      position: relative;
-      background-color: white;
-      width: 768px;
-      overflow: hidden;
-      .task-details-content-container {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.639);
+    overflow-y: auto;
+    .task-details-wrapper {
+        color: $clr2;
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .task-details-sidebar {
-          display: flex;
-          align-items: flex-end;
-          flex-direction: column;
-          justify-content: flex-end;
-          > * {
-            width: 120px;
-          }
+        justify-content: center;
+        .task-details-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0px 10px;
+            margin: 0 0 8px 40px;
+            position: relative;
+            span {
+                left: -20px;
+                position: absolute;
+            }
         }
-      }
+        .task-details-container {
+            margin: 48px 0 80px;
+            min-height: 600px;
+            border-radius: 2px;
+            position: relative;
+            width: 768px;
+            background-color: #f4f5f7;
+            overflow: hidden;
+
+            .task-details-container-btn {
+                position: absolute;
+                right: 0;
+                top: 0;
+                height: 40px;
+                width: 40px;
+                padding: 4px;
+                margin: 4px;
+                border-radius: 50%;
+                border: none;
+                background-color: transparent;
+                font-size: 18px;
+                color: $clr8;
+                // need to check
+                &:hover {
+                    background-color: #091e4214;
+                    color: $clr8;
+                    cursor: pointer;
+                }
+            }
+            .task-details-content-container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .task-details-main-content {
+                    position: relative;
+                    .task-details-activity {
+                        position: relative;
+                        form {
+                            display: flex;
+                            padding: 0 8px 8px 16px;
+                            div {
+                                position: absolute;
+                                background-color: $tclr1;
+                                font-size: 14px;
+                            }
+                            textarea {
+                                margin: 0px 0px 0px 40px;
+                                padding: 8px 12px;
+                                width: 508px;
+                                height: 36px;
+                            }
+                        }
+                        .task-details-activity-content {
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                            padding: 0px 10px;
+                            margin: 0 0 8px 40px;
+                            position: relative;
+                            span {
+                                left: -20px;
+                                position: absolute;
+                            }
+                        }
+                    }
+                }
+                .task-details-sidebar {
+                    display: flex;
+                    align-items: flex-end;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                    margin-right: 65px;
+                    > * {
+                        width: 120px;
+                    }
+                    p {
+                        color: $clr3;
+                        font-weight: 600;
+                        font-size: 12px;
+                        margin-bottom: -4px;
+                    }
+                    .task-details-add-to-card {
+                        div {
+                            background-color: #091e420a;
+                            border: none;
+                            border-radius: 3px;
+                            box-shadow: none;
+                            cursor: pointer;
+                            height: 32px;
+                            margin-top: 8px;
+                            max-width: 300px;
+                            padding: 6px 12px;
+                            width: 168px;
+                            font-size: 14px;
+                        }
+                        span {
+                            padding-right: 6px;
+                            color: $clr8;
+                        }
+                    }
+                    .task-details-actions {
+                        div {
+                            background-color: #091e420a;
+                            border: none;
+                            border-radius: 3px;
+                            box-shadow: none;
+                            cursor: pointer;
+                            height: 32px;
+                            margin-top: 8px;
+                            max-width: 300px;
+                            padding: 6px 12px;
+                            width: 168px;
+                            font-size: 14px;
+                        }
+                        span {
+                            padding-right: 6px;
+                            color: $clr8;
+                        }
+                    }
+                }
+            }
+        }
     }
-  }
 }
 .mx-calendar-panel-date {
-  &:nth-child(2) {
-    display: none;
-  }
+    &:nth-child(2) {
+        display: none;
+    }
 }

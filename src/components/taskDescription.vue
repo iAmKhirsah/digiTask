@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="task-description">
     <p>Description</p>
     <form @submit.prevent="saveDesc">
       <textarea v-model="updatedTask.description"></textarea>
