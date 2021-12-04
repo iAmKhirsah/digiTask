@@ -1,6 +1,6 @@
 <template>
   <div class="task-description">
-    <div class="task-description-title">Description</div>
+    <p>Description</p>
     <form @submit.prevent="saveDesc">
       <textarea
         v-model="updatedTask.description"
