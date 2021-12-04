@@ -38,8 +38,8 @@ export default {
       let idx = this.boardCopy.members.indexOf(member._id);
       if (idx > -1) this.boardCopy.members.splice(idx, 1);
       else this.boardCopy.members.push(member);
-      this.$emit("addMember", this.boardCopy);
-      // this.$emit("addMember", { ...member });
+      // this.$emit("addMember", this.boardCopy);
+      this.$emit("addMember", member);
     },
     closeModal() {
       this.$emit("closeModal");
