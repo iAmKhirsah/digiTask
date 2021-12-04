@@ -1,6 +1,6 @@
 <template>
-  <div class="dynamic-cover-edit card-layout nav-modal">
-    <button @click="closeModal"><i class="fas fa-times"></i></button>
+  <div class="dynamic-cover-edit">
+    <button class="close" @click="closeModal"><i class="fas fa-times"></i></button>
     <div class="header-layout">
       <header>Cover</header>
     </div>

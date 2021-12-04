@@ -59,7 +59,7 @@
             </div>
           </div>
           <div class="task-details-sidebar">
-            <p>Add to card</p>
+            <p class="task-details-subtitle">Add to card</p>
             <div class="task-details-add-to-card">
               <edit-dynamic
                 :type="type"
@@ -91,7 +91,7 @@
                 <span><i class="far fa-window-maximize"></i></span> Cover
               </div>
             </div>
-            <p>Actions</p>
+            <p class="task-details-subtitle">Actions</p>
             <div class="task-details-actions">
               <div class="open-edit-dynamic-btn" @click="setType('move')">
                 <span><i class="fas fa-arrow-right"></i></span> Move
