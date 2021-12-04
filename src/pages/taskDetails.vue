@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="task-details-addons">
-          <task-addons :getTask="getTask" :getBoard="getBoard"/>
+          <task-addons :getTask="getTask" :getBoard="getBoard" />
         </div>
         <div class="task-details-content-container">
           <div class="task-details-main-content">
@@ -60,57 +60,57 @@
           <div class="task-details-sidebar">
             <p>Add to card</p>
             <div class="task-details-add-to-card">
-              <div @click="setType('members')">
+              <edit-dynamic
+                :type="type"
+                v-if="type"
+                :getBoard="getBoard"
+                :getTask="getTask"
+                @attachment="attachment"
+                @deleteTask="deleteTask"
+                @addMember="addMember"
+                @addLabel="addLabel"
+                @closeModal="closeModal"
+              />
+              <div class="open-edit-dynamic-btn" @click="setType('members')">
                 <span><i class="far fa-user"></i></span> Members
               </div>
-              <div @click="setType('labels')">
+              <div class="open-edit-dynamic-btn" @click="setType('labels')">
                 <span><i class="fas fa-tag"></i></span> Labels
               </div>
-              <div @click="setType('checklist')">
+              <div class="open-edit-dynamic-btn" @click="setType('checklist')">
                 <span><i class="far fa-check-square"></i></span> Checklist
               </div>
-              <div @click="setType('dates')">
+              <div class="open-edit-dynamic-btn" @click="setType('dates')">
                 <span><i class="far fa-clock"></i></span> Dates
               </div>
-              <div @click="setType('attachment')">
+              <div class="open-edit-dynamic-btn" @click="setType('attachment')">
                 <span><i class="fas fa-paperclip"></i></span> Attachment
               </div>
-              <div @click="setType('cover')">
+              <div class="open-edit-dynamic-btn" @click="setType('cover')">
                 <span><i class="far fa-window-maximize"></i></span> Cover
               </div>
             </div>
             <p>Actions</p>
             <div class="task-details-actions">
-              <div @click="setType('move')">
+              <div class="open-edit-dynamic-btn" @click="setType('move')">
                 <span><i class="fas fa-arrow-right"></i></span> Move
               </div>
-              <div>
+              <div class="open-edit-dynamic-btn">
                 <span><i class="far fa-clone"></i></span> Copy
               </div>
-              <div>
+              <div class="open-edit-dynamic-btn">
                 <span><i class="far fa-eye"></i></span>
                 <input type="checkbox" /> Watch
               </div>
-              <div @click="setType('archive')">
+              <div class="open-edit-dynamic-btn" @click="setType('archive')">
                 <span><i class="fas fa-archive"></i></span> Archive
               </div>
-              <div @click="setType('share')">
+              <div class="open-edit-dynamic-btn" @click="setType('share')">
                 <span><i class="fas fa-share-alt"></i></span> Share
               </div>
             </div>
           </div>
         </div>
-        <edit-dynamic
-          :type="type"
-          v-if="type"
-          :getBoard="getBoard"
-          :getTask="getTask"
-          @attachment="attachment"
-          @deleteTask="deleteTask"
-          @addMember="addMember"
-          @addLabel="addLabel"
-          @closeModal="closeModal"
-        />
       </div>
     </section>
   </section>
