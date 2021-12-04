@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button><i class="fas fa-times"></i></button>
+    <button @click="closeModal"><i class="fas fa-times"></i></button>
     <p>Move card</p>
     <div>
       <p>Select destination</p>
@@ -13,5 +13,11 @@
 <script>
 export default {
   name: "move",
+  methods:{
+      closeModal() {
+     
+      this.$emit("closeModal");
+    },
+  }
 };
 </script>

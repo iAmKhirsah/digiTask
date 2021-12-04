@@ -1,6 +1,6 @@
 <template>
   <div class="dynamic-cover-edit card-layout nav-modal">
-    <button><i class="fas fa-times"></i></button>
+    <button @click="closeModal"><i class="fas fa-times"></i></button>
     <div class="header-layout">
       <header>Cover</header>
     </div>
@@ -23,5 +23,11 @@
 <script>
 export default {
   name: "cover",
+  methods:{
+      closeModal() {
+     
+      this.$emit("closeModal");
+    },
+  }
 };
 </script>

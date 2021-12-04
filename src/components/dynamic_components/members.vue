@@ -1,6 +1,6 @@
 <template>
   <div class="dynamic-members-edit card-layout nav-modal">
-    <button><i class="fas fa-times"></i></button>
+    <button @click="closeModal"><i class="fas fa-times"></i></button>
     <div class="header-layout">
       <header>Members</header>
     </div>
@@ -22,6 +22,10 @@ export default {
   methods: {
     sendMember(member) {
       this.$emit("addMember", {...member});
+    },
+      closeModal() {
+     
+      this.$emit("closeModal");
     },
   },
 };

@@ -12,6 +12,7 @@
       @backToGroupEdit="backToGroupEdit"
       @deleteTask="deleteTask"
       @addMember="addMember"
+       v-click-outside="closeModal"
     ></component>
   </section>
 </template>
@@ -26,6 +27,7 @@ import move from "./dynamic_components/move.vue";
 import archive from "./dynamic_components/archive.vue";
 import share from "./dynamic_components/share.vue";
 import groupEdit from "./dynamic_components/group-edit.vue";
+import vClickOutside from "v-click-outside";
 
 export default {
   name: "editDynamic",
@@ -68,6 +70,7 @@ export default {
     groupEdit,
   },
   methods: {
+    
     closeModal() {
       this.$emit("closeModal");
     },
@@ -92,6 +95,9 @@ export default {
     backToGroupEdit() {
       this.type = "groupEdit";
     },
+  },
+    directives: {
+    clickOutside: vClickOutside.directive,
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="dynamic-checklist-edit card-layout nav-modal">
-    <button><i class="fas fa-times"></i></button>
+    <button @click="closeModal"><i class="fas fa-times"></i></button>
     <div class="header-layout">
       <header>Add checklist</header>
     </div>
@@ -13,5 +13,11 @@
 <script>
 export default {
   name: "checklist",
+  methods:{
+      closeModal() {
+     
+      this.$emit("closeModal");
+    },
+  }
 };
 </script>

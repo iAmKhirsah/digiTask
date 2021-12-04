@@ -1,6 +1,6 @@
 <template>
   <div class="dynamic-dates-edit card-layout nav-modal">
-    <button><i class="fas fa-times"></i></button>
+    <button @click="closeModal"><i class="fas fa-times"></i></button>
     <div class="header-layout">
       <header>Dates</header>
     </div>
@@ -26,6 +26,12 @@ export default {
     return {
       date: [],
     };
+  },
+  methods:{
+  closeModal() {
+     
+      this.$emit("closeModal");
+    },
   },
   computed: {},
   components: {

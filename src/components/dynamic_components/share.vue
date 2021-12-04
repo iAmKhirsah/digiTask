@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button><i class="fas fa-times"></i></button>
+    <button @click="closeModal"><i class="fas fa-times"></i></button>
     <p>Share and more...</p>
     <p>POTENTIALLY NOT DOING THIS</p>
   </div>
@@ -8,5 +8,11 @@
 <script>
 export default {
   name: "share",
+  methods:{
+      closeModal() {
+     
+      this.$emit("closeModal");
+    },
+  }
 };
 </script>

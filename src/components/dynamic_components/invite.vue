@@ -44,7 +44,7 @@ export default {
       this.chosenUsers.push(this.users[idx]);
     },
     closeModal() {
-      console.log("hello");
+    
       this.$emit("closeModal");
     },
   },

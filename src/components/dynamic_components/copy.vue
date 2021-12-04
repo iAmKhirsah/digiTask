@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button><i class="fas fa-times"></i></button>
+    <button @click="closeModal"><i class="fas fa-times"></i></button>
     <p>Copy card</p>
     <div>
       <form @submit.prevent="addNewCopy"></form>
@@ -26,6 +26,10 @@ export default {
   name: "copy",
   methods: {
     addNewCopy() {},
+      closeModal() {
+     
+      this.$emit("closeModal");
+    },
   },
 };
 </script>
