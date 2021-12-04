@@ -12,7 +12,8 @@
       @backToGroupEdit="backToGroupEdit"
       @deleteTask="deleteTask"
       @addMember="addMember"
-       v-click-outside="closeModal"
+      @addLabel="addLabel"
+      v-click-outside="closeModal"
     ></component>
   </section>
 </template>
@@ -70,7 +71,6 @@ export default {
     groupEdit,
   },
   methods: {
-    
     closeModal() {
       this.$emit("closeModal");
     },
@@ -82,6 +82,9 @@ export default {
     },
     addMember(member) {
       this.$emit("addMember", member);
+    },
+    addLabel(label) {
+      this.$emit("addLabel", label);
     },
     openNewTask() {
       this.$emit("newTaskOpen");
@@ -96,7 +99,7 @@ export default {
       this.type = "groupEdit";
     },
   },
-    directives: {
+  directives: {
     clickOutside: vClickOutside.directive,
   },
 };

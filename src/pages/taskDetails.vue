@@ -7,34 +7,39 @@
         </button>
         <div class="task-details-header">
           <span><i class="fas fa-window-maximize"></i></span>
-          <form v-if="titleEdit" v-on:keydown.enter="saveTask"
-          >
+          <form v-if="titleEdit" v-on:keydown.enter="saveTask">
             <textarea
-            
-            class="textarea-another-list"
-            ref="taskTitle"
-            @keydown.enter.prevent
-            oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-            onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-            v-model="currTask.title"
-            maxlength="512"
-            placeholder="Enter Task title..."
-            v-click-outside="saveTask"
-          />
+              class="textarea-another-list"
+              ref="taskTitle"
+              @keydown.enter.prevent
+              oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+              onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+              v-model="currTask.title"
+              maxlength="512"
+              placeholder="Enter Task title..."
+              v-click-outside="saveTask"
+            />
           </form>
-          <div v-else ><h1 @click="editTitle">{{currTask.title}}</h1>
-          <p>in group {{ getGroup.title }}<span></span></p>
+          <div v-else>
+            <h1 @click="editTitle">{{ currTask.title }}</h1>
+            <p>in group {{ getGroup.title }}<span></span></p>
           </div>
         </div>
         <div class="task-details-addons">
-          ADDED MEMBERS GO HERE, ADDED LABELS GO HERE
+          <task-addons :getTask="getTask" :getBoard="getBoard"/>
         </div>
         <div class="task-details-content-container">
           <div class="task-details-main-content">
             <span class="task-description-symbol">
               <i class="fas fa-align-left"></i
             ></span>
-            <task-description :task="getTask" @saveEdit="saveEdit" @editDesc="editDesc" :descEdit="descEdit" @closeDescEdit="closeDescEdit" />
+            <task-description
+              :task="getTask"
+              @saveEdit="saveEdit"
+              @editDesc="editDesc"
+              :descEdit="descEdit"
+              @closeDescEdit="closeDescEdit"
+            />
 
             <div class="task-details-activity">
               <div class="task-details-activity-content">
@@ -103,6 +108,7 @@
           @attachment="attachment"
           @deleteTask="deleteTask"
           @addMember="addMember"
+          @addLabel="addLabel"
           @closeModal="closeModal"
         />
       </div>
@@ -114,6 +120,7 @@ import vClickOutside from "v-click-outside";
 import taskDescription from "../components/taskDescription.vue";
 import activityFlow from "../components/activityFlow.vue";
 import editDynamic from "../components/editDynamic.vue";
+import taskAddons from "../components/taskAddons.vue";
 import { uploadFile } from "../services/serverlessUploadService";
 export default {
   name: "taskDetails",
@@ -121,9 +128,9 @@ export default {
     return {
       pageOpen: null,
       type: "",
-      currTask:{},
-      titleEdit:false,
-      descEdit:false,
+      currTask: {},
+      titleEdit: false,
+      descEdit: false,
     };
   },
   async created() {
@@ -132,51 +139,46 @@ export default {
     let taskId = this.$route.params.taskId;
     await this.$store.dispatch({ type: "getTaskDetails", taskId, groupId });
     this.pageOpen = true;
-    this.currTask = this.getTask
+    this.currTask = this.getTask;
   },
   methods: {
-    editTitle(){ 
-      this.titleEdit = true
-      this.descEdit = false
+    editTitle() {
+      this.titleEdit = true;
+      this.descEdit = false;
       this.$nextTick(() => {
-          this.$refs.taskTitle.focus();
-        });
-      
-      
+        this.$refs.taskTitle.focus();
+      });
     },
-    editDesc(){
-      this.descEdit = true
-      this.titleEdit = false
-
+    editDesc() {
+      this.descEdit = true;
+      this.titleEdit = false;
     },
-    closeDescEdit(){
-      this.descEdit=false
+    closeDescEdit() {
+      this.descEdit = false;
     },
-    closeModal(){
-      this.type=''
+    closeModal() {
+      this.type = "";
     },
-    async saveTask(){
-      try{
-       if(!this.editTitle) return
-      this.titleEdit = false
-      let task = {...this.currTask}
-     await this.updatedTask(task)
-      this.currTask = {...this.getTask}
-      }catch(err){
-        console.log('Couldnt SAVE TASK TITLE',err)
+    async saveTask() {
+      try {
+        if (!this.editTitle) return;
+        this.titleEdit = false;
+        let task = { ...this.currTask };
+        await this.updatedTask(task);
+        this.currTask = { ...this.getTask };
+      } catch (err) {
+        console.log("Couldnt SAVE TASK TITLE", err);
       }
     },
-   async saveEdit(task = {...this.getTask}){
-     try{
-       if(!this.editDesc) return
-       this.descEdit = false
-     await this.updatedTask({...task})
-   this.currTask = {...this.getTask}
-     }catch(err){
-       console.log('CANT SAVE EDIT',err)
-     }
-     
-      
+    async saveEdit(task = { ...this.getTask }) {
+      try {
+        if (!this.editDesc) return;
+        this.descEdit = false;
+        await this.updatedTask({ ...task });
+        this.currTask = { ...this.getTask };
+      } catch (err) {
+        console.log("CANT SAVE EDIT", err);
+      }
     },
     setType(type) {
       this.type = type;
@@ -186,15 +188,24 @@ export default {
       this.closePage();
     },
     closePage() {
-      console.log('hello')
+      console.log("hello");
       this.$router.push(`/b/${this.$route.params.boardId}`);
     },
     async updatedTask(updatedTask) {
       let group = this.getGroup;
       let idx = group.tasks.findIndex((task) => task.id === updatedTask.id);
       group.tasks[idx] = updatedTask;
-     await this.$store.dispatch({ type: "updateTask", task: updatedTask });
-     await this.$store.dispatch({ type: "updateGroup", group });
+      await this.$store.dispatch({ type: "updateTask", task: updatedTask });
+      await this.$store.dispatch({ type: "updateGroup", group });
+    },
+    async addLabel(label) {
+      try {
+        let task = { ...this.getTask };
+        task.labelIds[task.labelIds.length] = label.id;
+        await this.updatedTask(task);
+      } catch (err) {
+        console.log("Failed on ADDLABEL in TASKDETAILS", err);
+      }
     },
     async addMember(member) {
       try {
@@ -244,6 +255,7 @@ export default {
     taskDescription,
     activityFlow,
     editDynamic,
+    taskAddons,
   },
   directives: {
     clickOutside: vClickOutside.directive,
