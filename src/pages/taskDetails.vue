@@ -7,8 +7,8 @@
         </button>
         <div class="task-details-header">
           <span><i class="fas fa-window-maximize"></i></span>
+          <textarea v-model="getTask.title"></textarea>
 
-          <h1>{{ getTask.title }}</h1>
           <p>in group {{ getGroup.title }}<span></span></p>
         </div>
         <div class="task-details-addons">
@@ -16,7 +16,9 @@
         </div>
         <div class="task-details-content-container">
           <div class="task-details-main-content">
-            <span class="task-description-symbol"> <i class="fas fa-align-left"></i></span>
+            <span class="task-description-symbol">
+              <i class="fas fa-align-left"></i
+            ></span>
             <task-description :task="getTask" @updatedTask="updatedTask" />
 
             <div class="task-details-activity">
@@ -38,20 +40,43 @@
           <div class="task-details-sidebar">
             <p>Add to card</p>
             <div class="task-details-add-to-card">
-              <div @click="setType('members')"><span><i class="far fa-user"></i></span> Members</div>
-              <div @click="setType('labels')"><span><i class="fas fa-tag"></i></span> Labels</div>
-              <div @click="setType('checklist')"><span><i class="far fa-check-square"></i></span> Checklist</div>
-              <div @click="setType('dates')"><span><i class="far fa-clock"></i></span> Dates</div>
-              <div @click="setType('attachment')"><span><i class="fas fa-paperclip"></i></span> Attachment</div>
-              <div @click="setType('cover')"> <span><i class="far fa-window-maximize"></i></span> Cover</div>
+              <div @click="setType('members')">
+                <span><i class="far fa-user"></i></span> Members
+              </div>
+              <div @click="setType('labels')">
+                <span><i class="fas fa-tag"></i></span> Labels
+              </div>
+              <div @click="setType('checklist')">
+                <span><i class="far fa-check-square"></i></span> Checklist
+              </div>
+              <div @click="setType('dates')">
+                <span><i class="far fa-clock"></i></span> Dates
+              </div>
+              <div @click="setType('attachment')">
+                <span><i class="fas fa-paperclip"></i></span> Attachment
+              </div>
+              <div @click="setType('cover')">
+                <span><i class="far fa-window-maximize"></i></span> Cover
+              </div>
             </div>
             <p>Actions</p>
             <div class="task-details-actions">
-              <div @click="setType('move')"><span><i class="fas fa-arrow-right"></i></span> Move</div>
-              <div><span><i class="far fa-clone"></i></span> Copy</div>
-              <div> <span><i class="far fa-eye"></i></span> <input type="checkbox" /> Watch</div>
-              <div @click="setType('archive')"><span><i class="fas fa-archive"></i></span> Archive</div>
-              <div @click="setType('share')"><span><i class="fas fa-share-alt"></i></span> Share</div>
+              <div @click="setType('move')">
+                <span><i class="fas fa-arrow-right"></i></span> Move
+              </div>
+              <div>
+                <span><i class="far fa-clone"></i></span> Copy
+              </div>
+              <div>
+                <span><i class="far fa-eye"></i></span>
+                <input type="checkbox" /> Watch
+              </div>
+              <div @click="setType('archive')">
+                <span><i class="fas fa-archive"></i></span> Archive
+              </div>
+              <div @click="setType('share')">
+                <span><i class="fas fa-share-alt"></i></span> Share
+              </div>
             </div>
           </div>
         </div>
@@ -61,6 +86,7 @@
           :getBoard="getBoard"
           :getTask="getTask"
           @attachment="attachment"
+          @deleteTask="deleteTask"
         />
       </div>
     </section>
@@ -91,6 +117,10 @@ export default {
     setType(type) {
       this.type = type;
     },
+    async deleteTask(task) {
+      await this.$store.dispatch({ type: "removeTask", task });
+      this.closePage();
+    },
     closePage() {
       this.$router.push(`/b/${this.$route.params.boardId}`);
     },
@@ -101,10 +131,15 @@ export default {
       this.$store.dispatch({ type: "updateTask", task: updatedTask });
       this.$store.dispatch({ type: "updateGroup", group });
     },
-    async attachment(link) {
-      console.log(link);
+    async attachment(link, task) {
       let res = await uploadFile(link);
       console.log(res);
+      let txt = `attached ${res.original_filename}.${res.format} to`;
+      let user = this.$store.getters.currUser;
+      this.$store.dispatch({
+        type: "addActivity",
+        activity: { res, task, txt, user },
+      });
     },
   },
   computed: {

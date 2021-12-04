@@ -10,7 +10,7 @@
       @closeNewTask="closeNewTask"
       @openCopyGroup="openCopyGroup"
       @backToGroupEdit="backToGroupEdit"
-      :group="group"
+      @deleteTask="deleteTask"
     ></component>
   </section>
 </template>
@@ -71,7 +71,10 @@ export default {
       this.$emit("closeModal");
     },
     attachment(link) {
-      this.$emit("attachment", link);
+      this.$emit("attachment", link, this.task);
+    },
+    deleteTask() {
+      this.$emit("deleteTask", this.task);
     },
     openNewTask() {
       this.$emit("newTaskOpen");
@@ -79,12 +82,12 @@ export default {
     closeNewTask() {
       this.$emit("closeNewTask");
     },
-    openCopyGroup(){
-      this.type='copyGroup'
+    openCopyGroup() {
+      this.type = "copyGroup";
     },
-    backToGroupEdit(){
-      this.type="groupEdit"
-    }
+    backToGroupEdit() {
+      this.type = "groupEdit";
+    },
   },
 };
 </script>

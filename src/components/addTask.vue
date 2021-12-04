@@ -2,18 +2,19 @@
 <template>
   <div class="add-task" v-click-outside="closeNewTask">
     <div v-if="openNewTask">
-      <form class="add-task-form" @submit.prevent="addTask">
+      <form class="add-task-form" v-on:keydown.enter="addTask">
         <textarea
         class="textarea"
           ref="task"
           oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
           onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
           v-model="newTask"
+           @keydown.enter.prevent
           maxlength="512"
         />
   <div class="add-task-form-btns">
 
-        <button class="add-task-btn" type="submit">Add card</button>
+        <button class="add-task-btn" >Add card</button>
         <button class="add-task-close-btn" type="button" @click="closeNewTask">
           <i class="fas fa-times"></i>
         </button>
@@ -58,6 +59,12 @@ created(){
       }
   },methods:{
    addTask(){
+       if(!this.newTask.length||this.newTask.match(/^\s*$/)){  
+          this.$nextTick(() => {
+            this.$refs.task.focus();
+       })
+       return
+       }
        this.$emit('addTask',this.newTask)
        this.newTask=''
         this.$nextTick(() => {

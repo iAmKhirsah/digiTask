@@ -3,14 +3,13 @@
     <div class="group-list-group">
       <!-- beny -->
       <div class="group-header">
-        <div v-if="editingGroup.id !== group.id" @click="groupTitle(group)">
+        <div v-if="!isEditing"  @click="groupTitle">
           {{ group.title }}
         </div>
-
+        <form v-else v-on:keydown.enter="changeTitle">
         <textarea
           ref="title"
           class="group-title"
-          v-else
           oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
           onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
           v-model="editingGroup.title"
@@ -19,7 +18,10 @@
         />
         <!-- <span class="input" role="textbox"  contenteditable @change="updateGroup">{{group.title}}</span> -->
 
-        <button class="group-header-edit-btn" @click="actionOn">
+        
+        </form>
+        <button class="group-header-edit-btn" @click="actionOn" >
+          
           <i class="fas fa-ellipsis-h"></i>
         </button>
       </div>
@@ -31,6 +33,7 @@
         v-click-outside="actionOff"
         @newTaskOpen="newTaskOpen"
         :group="group"
+        @onDrop="onDrop"
       />
       <add-task v-if="isNewTask" @closeNewTask="closeNewTask" @addTask="addTask" :focusTextArea="focusTextArea" :inGroup="inGroup"/>
       <task-list
@@ -38,6 +41,8 @@
         @editTask="editTask"
         @addTask="addTask"
         :isNewTask="isNewTask"
+        :idx="idx"
+        class="group-single"
       />
     </div>
   </div>
@@ -50,7 +55,7 @@ import addTask from "./addTask.vue";
  
 export default {
   name: "groupList",
-  props: ["group"],
+  props: ["group","idx"],
   components: { taskList, editDynamic, addTask },
   data() {
     return {
@@ -63,9 +68,18 @@ export default {
       
     };
   },
+  created(){
+
+  },
   methods: {
-    actionOn() {
-      this.isActionOn = true;
+    changeTitle() {
+
+       this.$nextTick(() => {
+        this.$refs.title.blur();
+      });
+    },
+    actionOn(){
+      this.isActionOn = true
     },
     actionOff() {
       if (this.isActionOn) this.isActionOn = false;
@@ -93,17 +107,23 @@ export default {
       this.$emit("updateGroup", { ...group });
     },
     disableTitleEdit() {
+      if(this.editingGroup.title)
       this.$emit("updateGroup", { ...this.editingGroup });
       this.isEditing = false;
       this.editingGroup = {};
     },
-    groupTitle(group) {
+    groupTitle() {
       this.isEditing = true;
-      this.editingGroup = { ...group };
+      this.editingGroup = { ...this.group };
       this.$nextTick(() => {
         this.$refs.title.focus();
       });
     },
+    onDrop(groupIdx,dropResult){
+      if(!groupIdx) groupIdx = this.idx 
+      this.$emit('onDrop',groupIdx,dropResult)
+    },
+
   },
   mounted() {
     // this.$nextTick(() => {

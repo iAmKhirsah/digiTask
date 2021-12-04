@@ -57,6 +57,17 @@ export const boardStore = {
       state.currBoard.groups.push(newGroup);
       this.newGroup = boardService.getEmptyGroup();
     },
+    addActivity(state, { activity }) {
+      let newActivity = boardService.getEmptyActivity();
+      newActivity.txt = activity.txt;
+      newActivity.byMember = activity.user;
+      newActivity.task.id = activity.task.id;
+      newActivity.task.title = activity.task.title;
+      if (activity.res.url) {
+        newActivity.imgUrl = activity.res.url;
+      }
+      state.currBoard.activities.push(newActivity);
+    },
     addTask(state, { task, groupId }) {
       let newTask = boardService.getEmptyTask();
       newTask.title = task;
@@ -81,6 +92,12 @@ export const boardStore = {
     },
     updateTask(state, { task }) {
       state.currTask = task;
+    },
+    removeTask(state, { task }) {
+      let idx = state.currGroup.tasks.findIndex(
+        (currTask) => currTask.id === task.id
+      );
+      state.currGroup.tasks.splice(idx, 1);
     },
     removeGroup(state, { groupId }) {
       let idx = state.currBoard.groups.findIndex(
@@ -174,6 +191,14 @@ export const boardStore = {
         console.log('Couldnt add a task', err);
       }
     },
+    async removeTask({ dispatch, commit }, { task }) {
+      try {
+        commit({ type: 'removeTask', task });
+        await dispatch({ type: 'updateBoard' });
+      } catch (err) {
+        console.log('Error on board store REMOVETASK', err);
+      }
+    },
     async getTaskDetails({ commit }, { taskId, groupId }) {
       try {
         commit({ type: 'getDetails', taskId, groupId });
@@ -186,6 +211,14 @@ export const boardStore = {
         commit({ type: 'updateTask', task });
       } catch (err) {
         console.log('Error on board store UPDATETASK', err);
+      }
+    },
+    async addActivity({ dispatch, commit }, { activity }) {
+      try {
+        await commit({ type: 'addActivity', activity });
+        dispatch({ type: 'updateBoard' });
+      } catch (err) {
+        console.log('Error on board store ADDACTIVITY', err);
       }
     },
   },

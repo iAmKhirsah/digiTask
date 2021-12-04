@@ -18,6 +18,7 @@ export const utilService = {
   makeId,
   getRandomInt,
   debounce,
+  applyDrag
 };
 
 function debounce(func, wait) {
@@ -33,3 +34,23 @@ function debounce(func, wait) {
     timeout = setTimeout(later, wait);
   };
 }
+
+function applyDrag(arr, dragResult){
+  const { removedIndex, addedIndex, payload } = dragResult
+  console.log(removedIndex, addedIndex, payload)
+  if (removedIndex === null && addedIndex === null) return arr
+
+  const result = [...arr]
+  let itemToAdd = payload
+
+  if (removedIndex !== null) {
+      itemToAdd = result.splice(removedIndex, 1)[0]
+  }
+
+  if (addedIndex !== null) {
+      result.splice(addedIndex, 0, itemToAdd)
+  }
+
+  return result
+}
+
