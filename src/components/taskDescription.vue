@@ -43,7 +43,7 @@ export default {
       this.$emit("saveEdit", { ...this.updatedTask });
     },
     clearDesc() {
-      this.updatedTask = { ...this.task };
+      this.updatedTask.title = { ...this.task.title };
       this.$emit("closeDescEdit");
     },
     editDesc() {

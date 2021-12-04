@@ -1,10 +1,10 @@
-import { boardService } from '../services/boardService.js';
+import { boardService } from '../services/boardService.js'
 
 import {
   socketService,
   SOCKET_EVENT_WATCHBOARD,
   SOCKET_EMIT_UPDATEBOARD,
-} from '../services/socketService';
+} from '../services/socketService'
 
 export const boardStore = {
   strict: true,
@@ -19,54 +19,54 @@ export const boardStore = {
   },
   getters: {
     getEmptyTask({ newTask }) {
-      return newTask;
+      return newTask
     },
     getEmptyGroup({ newGroup }) {
-      return newGroup;
+      return newGroup
     },
     getCurrTask({ currTask }) {
-      return currTask;
+      return currTask
     },
     getCurrGroup({ currGroup }) {
-      return currGroup;
+      return currGroup
     },
     getCurrBoard({ currBoard }) {
-      return currBoard;
+      return currBoard
     },
     boards({ boards }) {
-      return boards;
+      return boards
     },
   },
   mutations: {
     setBoards(state, { boards }) {
-      state.boards = boards;
+      state.boards = boards
     },
     setCurrBoard(state, { board }) {
-      state.currBoard = board;
+      state.currBoard = board
     },
     updateBoard(state, { board }) {
-      if (board._id === state.currBoard._id) state.currBoard = board;
+      if (board._id === state.currBoard._id) state.currBoard = board
     },
     removeBoard(state, { boardId }) {
-      let idx = state.boards.findIndex((board) => board._Id === boardId);
-      state.boards.splice(idx, 1);
+      let idx = state.boards.findIndex((board) => board._Id === boardId)
+      state.boards.splice(idx, 1)
     },
     addGroup(state, { group }) {
-      let newGroup = boardService.getEmptyGroup();
-      newGroup.title = group.title;
-      state.currBoard.groups.push(newGroup);
-      this.newGroup = boardService.getEmptyGroup();
+      let newGroup = boardService.getEmptyGroup()
+      newGroup.title = group.title
+      state.currBoard.groups.push(newGroup)
+      this.newGroup = boardService.getEmptyGroup()
     },
     addActivity(state, { activity }) {
-      let newActivity = boardService.getEmptyActivity();
-      newActivity.txt = activity.txt;
-      newActivity.byMember = activity.user;
-      newActivity.task.id = activity.task.id;
-      newActivity.task.title = activity.task.title;
+      let newActivity = boardService.getEmptyActivity()
+      newActivity.txt = activity.txt
+      newActivity.byMember = activity.user
+      newActivity.task.id = activity.task.id
+      newActivity.task.title = activity.task.title
       if (activity.res) {
-        newActivity.imgUrl = activity.res.url;
+        newActivity.imgUrl = activity.res.url
       }
-      state.currBoard.activities.push(newActivity);
+      state.currBoard.activities.push(newActivity)
     },
     createLabel(state, { label }) {
       let newLabel = boardService.getEmptyLabel();
@@ -76,16 +76,16 @@ export const boardStore = {
       state.currTask.labelIds.push(newLabel.id);
     },
     addTask(state, { taskRaw }) {
-      let newTask = boardService.getEmptyTask();
-      newTask.title = taskRaw.task;
-      newTask.byMember = taskRaw.user;
+      let newTask = boardService.getEmptyTask()
+      newTask.title = taskRaw.task
+      newTask.byMember = taskRaw.user
       let idx = state.currBoard.groups.findIndex(
         (group) => group.id === taskRaw.groupId
-      );
-      state.currBoard.groups[idx].tasks.push(newTask);
+      )
+      state.currBoard.groups[idx].tasks.push(newTask)
     },
     addMember(state, { member }) {
-      state.currTask.members.push(member);
+      state.currTask.members.push(member)
     },
     getDetails(state, { taskId, groupId }) {
       let idx = state.currBoard.groups.findIndex(
@@ -97,157 +97,154 @@ export const boardStore = {
     updateGroup(state, { group }) {
       const idx = state.currBoard.groups.findIndex(
         (currGroup) => currGroup.id === group.id
-      );
-      state.currBoard.groups.splice(idx, 1, group);
+      )
+      state.currBoard.groups.splice(idx, 1, group)
     },
     updateTask(state, { task }) {
-      // const stateCopy = JSON.parse(JSON.stringify(state));
-      // stateCopy.currTask = task;
-      // state = stateCopy;
-      state.currTask = task;
+      state.currTask = task
     },
     removeTask(state, { task }) {
       let idx = state.currGroup.tasks.findIndex(
         (currTask) => currTask.id === task.id
-      );
-      state.currGroup.tasks.splice(idx, 1);
+      )
+      state.currGroup.tasks.splice(idx, 1)
     },
     removeGroup(state, { groupId }) {
       let idx = state.currBoard.groups.findIndex(
         (currGroup) => currGroup.id === groupId
-      );
-      state.currBoard.groups.splice(idx, 1);
+      )
+      state.currBoard.groups.splice(idx, 1)
     },
     addBoard(state, { board }) {
-      state.boards.push(board);
+      state.boards.push(board)
+    },
+    applyDrag(state, { content }) {
+      if (
+        content.dropResult.removedIndex === null &&
+        content.dropResult.addedIndex === null
+      )
+        return
+      const { removedIndex, addedIndex, payload } = content.dropResult
+      const idx = content.groupIdx
+      const result = [...state.currBoard.groups[idx].tasks]
+      let itemToAdd = payload
+      if (removedIndex !== null) {
+        itemToAdd = result.splice(removedIndex, 1)[0]
+      }
+      if (addedIndex !== null) {
+        result.splice(addedIndex, 0, itemToAdd)
+      }
+      state.currBoard.groups[idx].tasks = [...result]
     },
   },
   actions: {
     async loadBoards({ commit }) {
       try {
-        const boards = await boardService.query();
-        commit({ type: 'setBoards', boards });
+        const boards = await boardService.query()
+        commit({ type: 'setBoards', boards })
       } catch (err) {
-        console.log('Couldnt load boards', err);
+        console.log('Couldnt load boards', err)
       }
     },
     async loadAndWatchBoard({ commit }, { boardId }) {
       try {
-        const board = await boardService.getBoardById(boardId);
+        const board = await boardService.getBoardById(boardId)
 
-        commit({ type: 'setCurrBoard', board });
-        socketService.off(SOCKET_EVENT_WATCHBOARD);
+        commit({ type: 'setCurrBoard', board })
+        socketService.off(SOCKET_EVENT_WATCHBOARD)
         socketService.on(SOCKET_EVENT_WATCHBOARD, (board) => {
-          console.log('Board changed from socket', board);
-          commit({ type: 'updateBoard', board });
-        });
+          console.log('Board changed from socket', board)
+          commit({ type: 'updateBoard', board })
+        })
       } catch (err) {
-        console.log('Couldnt load board', err);
+        console.log('Couldnt load board', err)
       }
     },
     async addBoard({ commit }, board) {
       try {
-        await boardService.add(board);
-        commit({ type: 'addBoard', board });
+        await boardService.add(board)
+        commit({ type: 'addBoard', board })
       } catch (err) {
-        console.log("Couldn't add board", err);
+        console.log("Couldn't add board", err)
       }
     },
     async updateBoard({ state, commit }, { board = null }) {
       try {
-        if (!board) board = state.currBoard;
-        await boardService.update(board);
-        commit({ type: 'updateBoard', board });
-        socketService.emit(SOCKET_EMIT_UPDATEBOARD, board);
+        if (!board) board = state.currBoard
+        await boardService.update(board)
+        commit({ type: 'updateBoard', board })
+        socketService.emit(SOCKET_EMIT_UPDATEBOARD, board)
       } catch (err) {
-        console.log('Couldnt update Board', err);
+        console.log('Couldnt update Board', err)
       }
-    },
-    applyDrag(arr, dragResult) {
-      const { removedIndex, addedIndex, payload } = dragResult;
-      console.log(removedIndex, addedIndex, payload);
-      if (removedIndex === null && addedIndex === null) return arr;
-
-      const result = [...arr];
-      let itemToAdd = payload;
-
-      if (removedIndex !== null) {
-        itemToAdd = result.splice(removedIndex, 1)[0];
-      }
-
-      if (addedIndex !== null) {
-        result.splice(addedIndex, 0, itemToAdd);
-      }
-
-      return result;
     },
     async removeBoard({ commit }, { boardId }) {
       try {
-        await boardService.remove(boardId);
-        commit({ type: 'removeBoard', boardId });
+        await boardService.remove(boardId)
+        commit({ type: 'removeBoard', boardId })
         //SOCKET FOR DELETING MIGHT BE NEEDED
       } catch (err) {
-        console.log("Couldn't remove board", err);
+        console.log("Couldn't remove board", err)
       }
     },
     async removeGroup({ dispatch, commit }, { groupId }) {
       try {
-        commit({ type: 'removeGroup', groupId });
-        let board = null; //not sure if its needed
-        await dispatch({ type: 'updateBoard' }, board);
+        commit({ type: 'removeGroup', groupId })
+        let board = null //not sure if its needed
+        await dispatch({ type: 'updateBoard' }, board)
       } catch (err) {
-        console.log("Coulnd't remove group", err);
+        console.log("Coulnd't remove group", err)
       }
     },
     async updateGroup({ dispatch, commit }, { group }) {
       try {
-        commit({ type: 'updateGroup', group });
-        await dispatch({ type: 'updateBoard' });
+        commit({ type: 'updateGroup', group })
+        await dispatch({ type: 'updateBoard' })
       } catch (err) {}
     },
     async addGroup({ dispatch, commit }, { group }) {
       try {
-        commit({ type: 'addGroup', group });
-        await dispatch({ type: 'updateBoard' });
+        commit({ type: 'addGroup', group })
+        await dispatch({ type: 'updateBoard' })
       } catch (err) {
-        console.log('couldnt update in addgroup', err);
+        console.log('couldnt update in addgroup', err)
       }
     },
     async addTask({ dispatch, commit }, { taskRaw }) {
       try {
-        commit({ type: 'addTask', taskRaw });
-        await dispatch({ type: 'updateBoard' });
+        commit({ type: 'addTask', taskRaw })
+        await dispatch({ type: 'updateBoard' })
       } catch (err) {
-        console.log('Couldnt add a task', err);
+        console.log('Couldnt add a task', err)
       }
     },
     async addMember({ commit }, { member }) {
       try {
-        commit({ type: 'addMember', member });
+        commit({ type: 'addMember', member })
       } catch (err) {
-        console.log('Error on board store ADDMEMBER');
+        console.log('Error on board store ADDMEMBER')
       }
     },
     async removeTask({ dispatch, commit }, { task }) {
       try {
-        commit({ type: 'removeTask', task });
-        await dispatch({ type: 'updateBoard' });
+        commit({ type: 'removeTask', task })
+        await dispatch({ type: 'updateBoard' })
       } catch (err) {
-        console.log('Error on board store REMOVETASK', err);
+        console.log('Error on board store REMOVETASK', err)
       }
     },
     async getTaskDetails({ commit }, { taskId, groupId }) {
       try {
-        commit({ type: 'getDetails', taskId, groupId });
+        commit({ type: 'getDetails', taskId, groupId })
       } catch (err) {
-        console.log('Error on board store GETTASKDETAILS', err);
+        console.log('Error on board store GETTASKDETAILS', err)
       }
     },
     async updateTask({ commit }, { task }) {
       try {
-        commit({ type: 'updateTask', task });
+        commit({ type: 'updateTask', task })
       } catch (err) {
-        console.log('Error on board store UPDATETASK', err);
+        console.log('Error on board store UPDATETASK', err)
       }
     },
     async createLabel({ dispatch, commit }, { label }) {
@@ -259,30 +256,17 @@ export const boardStore = {
       }
     },
     async addActivity({ dispatch, commit }, { activity }) {
-      console.log(activity);
+      console.log(activity)
       try {
-        commit({ type: 'addActivity', activity });
-        dispatch({ type: 'updateBoard' });
+        commit({ type: 'addActivity', activity })
+        dispatch({ type: 'updateBoard' })
       } catch (err) {
-        console.log('Error on board store ADDACTIVITY', err);
+        console.log('Error on board store ADDACTIVITY', err)
       }
     },
-    async applyDrag({ dispatch, commit }, { arr, dragResult }) {
-      const { removedIndex, addedIndex, payload } = dragResult;
-      console.log(removedIndex, addedIndex, payload);
-      if (removedIndex === null && addedIndex === null) return;
-      const result = [...arr];
-      let itemToAdd = payload;
-
-      if (removedIndex !== null) {
-        itemToAdd = result.splice(removedIndex, 1)[0];
-      }
-
-      if (addedIndex !== null) {
-        result.splice(addedIndex, 0, itemToAdd);
-      }
-
-      return result;
+    async applyDrag({ dispatch, commit }, { content }) {
+      commit({ type: 'applyDrag', content })
+      await dispatch({ type: 'updateBoard' })
     },
   },
-};
+}
