@@ -7,8 +7,9 @@
         </button>
         <div class="task-details-header">
           <span><i class="fas fa-window-maximize"></i></span>
-          <textarea v-model="getTask.title"></textarea>
-
+          <form>
+            <textarea v-model="getTask.title"></textarea>
+          </form>
           <p>in group {{ getGroup.title }}<span></span></p>
         </div>
         <div class="task-details-addons">
@@ -132,15 +133,16 @@ export default {
       this.$store.dispatch({ type: "updateTask", task: updatedTask });
       this.$store.dispatch({ type: "updateGroup", group });
     },
-    async addMember(member, task) {
+    async addMember(member) {
       try {
-        task.members.push(member);
-        await this.updatedTask(task);
+        await this.$store.dispatch({ type: "addMember", member });
+        let currTask = this.getTask;
+        await this.updatedTask(currTask);
         let user = this.getUser;
-        let txt = `added ${member.fullname} to ${task.title}`;
+        let txt = `added ${member.fullname} to ${currTask.title}`;
         this.$store.dispatch({
           type: "addActivity",
-          activity: { task, txt, user },
+          activity: { task: currTask, txt, user },
         });
       } catch (err) {
         console.log("Failed on ADDMEMBER in TASKDETAILS", err);

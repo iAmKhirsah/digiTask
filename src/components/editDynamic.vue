@@ -78,7 +78,7 @@ export default {
       this.$emit("deleteTask", this.task);
     },
     addMember(member) {
-      this.$emit("addMember", member, {...this.task});
+      this.$emit("addMember", member);
     },
     openNewTask() {
       this.$emit("newTaskOpen");
