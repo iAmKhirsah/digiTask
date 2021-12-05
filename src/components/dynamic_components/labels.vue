@@ -2,7 +2,7 @@
   <div>
     <div class="dynamic-labels-edit" v-if="!createMenu">
       <button class="close" @click="closeModal">
-        <i class="fas fa-times"></i>
+    <span class="material-icons"> clear </span>
       </button>
       <div class="header-layout">
         <header>Labels</header>
@@ -26,7 +26,7 @@
     </div>
     <div class="dynamic-labels-edit" v-if="createMenu">
       <button class="close" @click="closeModal">
-        <i class="fas fa-times"></i>
+        <span class="material-icons"> clear </span>
       </button>
       <button @click="createMenu = false">
         <i class="fas fa-chevron-left"></i>

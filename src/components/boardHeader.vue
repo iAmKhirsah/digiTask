@@ -24,8 +24,16 @@
         </div>
       </div>
       <div class="board-header-right">
-        <div>*SHAWARMAWHEEL* Filter</div>
-        <div>*** Show Menu</div>
+        <div class="board-box">
+          <span class="material-icons"> filter_list </span>
+          <span class="filter">Filter</span>
+        </div>
+        <div class="board-box"> 
+        <button class="group-header-edit-btn">
+          <span class="material-icons"> more_horiz </span>
+        </button>
+        <span class="show-more"> Show Menu</span> 
+      </div>
       </div>
     </header>
     <header-dynamic

@@ -2,7 +2,7 @@
   <section class="dynamic-workspace card-layout nav-modal">
     <div class="header-layout">
       <header>Workspaces</header>
-      <button @click="closeModal"><i class="fas fa-times"></i></button>
+      <button @click="closeModal"> <span class="material-icons"> clear </span></button>
     </div>
     <div>
       <p class="subtitle">Current Workspace</p>

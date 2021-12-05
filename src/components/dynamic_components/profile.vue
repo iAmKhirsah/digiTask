@@ -2,7 +2,7 @@
   <section class="dynamic-profile card-layout nav-modal">
     <div class="header-layout">
       <header>Account</header>
-      <button @click="closeModal"><i class="fas fa-times"></i></button>
+      <button @click="closeModal"> <span class="material-icons"> clear </span></button>
     </div>
 
     <div class="user-info">

@@ -50,7 +50,7 @@
               type="button"
               @click="toggleNewGroup"
             >
-              <i class="fas fa-times"></i>
+               <span class="material-icons"> clear </span>
             </button>
           </div>
         </form>

@@ -3,7 +3,7 @@
     <section class="task-details-wrapper">
       <div class="task-details-container" v-click-outside="closePage">
         <button class="task-details-container-btn" @click="closePage">
-          <i class="fas fa-times"></i>
+        <span class="material-icons"> clear </span>
         </button>
         <div class="task-details-header">
           <span><i class="fas fa-window-maximize"></i></span>
