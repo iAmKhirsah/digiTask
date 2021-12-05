@@ -130,12 +130,12 @@ export default {
     },
   },
   mounted() {
-    this.$nextTick(() => {
-      this.$refs.title[0].focus();
-    });
-          this.$nextTick(() => {
-      this.$refs.title[0].blur();
-    });
+    // this.$nextTick(() => {
+    //   this.$refs.title[0].focus();
+    // });
+    //       this.$nextTick(() => {
+    //   this.$refs.title[0].blur();
+    // });
   },
   computed: {},
   directives: {
