@@ -1,171 +1,171 @@
 .nav-modal {
+  color: $clr3;
+  position: absolute;
+  border-radius: 3px;
+
+  .header-layout {
     color: $clr3;
-    position: absolute;
-    border-radius: 3px;
+    padding: 0 12px;
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid rgba(9, 30, 66, 0.13);
+    margin: 0 12px;
+    margin-bottom: 8px;
+    button {
+      cursor: pointer;
+      font-size: 14px;
+      color: $clr3;
+      position: absolute;
+      right: 7px;
+      top: 13px;
+      border: none;
+      background-color: transparent;
+    }
+  }
+  .workspace-contant {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 0 8px;
+    margin: 0 8px 12px;
+    p {
+      color: $clr2;
+      font-size: 14px;
+      font-weight: 600;
+      margin-left: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .name-tag {
+      height: 40px;
+      line-height: 40px;
+      width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(#403294, #0747a6);
+      font-size: 20px;
+      font-weight: bold;
+      color: $clr1;
+      border-radius: 4px;
+    }
+  }
+  .user-activity {
+    p {
+      color: #172b4d;
+      text-align: start;
+      font-size: 14px;
+      margin: 0 0 5px 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 
-    .header-layout {
-        color: $clr3;
-        padding: 0 12px;
-        display: flex;
-        justify-content: center;
-        height: 40px;
-        line-height: 40px;
-        border-bottom: 1px solid rgba(9, 30, 66, 0.13);
-        margin: 0 12px;
-        margin-bottom: 8px;
-        button {
-            cursor: pointer;
-            font-size: 14px;
-            color: $clr3;
-            position: absolute;
-            right: 7px;
-            top: 13px;
-            border: none;
-            background-color: transparent;
-        }
+  .subtitle {
+    text-align: start;
+    font-size: 12px;
+    color: $clr3;
+    font-weight: 600;
+    margin: 12px;
+    line-height: 16px;
+  }
+  &.dynamic-invite {
+    .invite-contant {
+      display: flex;
+      justify-content: space-around;
     }
-    .workspace-contant {
-        display: flex;
-        align-items: center;
-        justify-content: start;
-        padding: 0 8px;
-        margin: 0 8px 12px;
-        p{
-            color: $clr2;
-            font-size: 14px;
-            font-weight: 600;
-            margin-left: 8px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .name-tag {
-            height: 40px;
-            line-height: 40px;
-            width: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(#403294, #0747a6);
-            font-size: 20px;
-            font-weight: bold;
-            color: $clr1;
-            border-radius: 4px;
-        }
+    input {
+      color: $clr1;
+      border: none;
+      font-size: 18px;
+      font-weight: 700;
+      box-shadow: none;
+      background-color: transparent;
+      height: 32px;
+      text-align: center;
+      padding: 0 6px;
+      &:focus {
+        background-color: $clr1;
+        box-shadow: 0 0 0 2px $sclr1;
+        border-radius: 3px;
+        outline: none;
+        color: $clr4;
+      }
     }
-    .user-activity {
-        p {
-            color: #172b4d;
-            text-align: start;
-            font-size: 14px;
-            margin: 0 0 5px 14px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    }
-
-    .subtitle {
-        text-align: start;
+  }
+  .user-info {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px 4px 12px;
+    .user-info-details {
+      text-align: start;
+      color: $clr2;
+      span {
         font-size: 12px;
-        color: $clr3;
-        font-weight: 600;
-        margin: 12px;
-        line-height: 16px;
+        color: $clr7;
+      }
+      div {
+        font-size: 14px;
+      }
     }
-    &.dynamic-invite {
-        .invite-contant {
-            display: flex;
-            justify-content: space-around;
-        }
-        input {
-            color: $clr1;
-            border: none;
-            font-size: 18px;
-            font-weight: 700;
-            box-shadow: none;
-            background-color: transparent;
-            height: 32px;
-            text-align: center;
-            padding: 0 6px;
-            &:focus {
-                background-color: $clr1;
-                box-shadow: 0 0 0 2px $sclr1;
-                border-radius: 3px;
-                outline: none;
-                color: $clr4;
-            }
-        }
-    }
-    .user-info {
-        display: flex;
-        align-items: center;
-        padding: 4px 8px 4px 12px;
-        .user-info-details {
-            text-align: start;
-            color: $clr2;
-            span {
-                font-size: 12px;
-                color: $clr7;
-            }
-            div {
-                font-size: 14px;
-            }
-        }
-    }
-    .user-info-logout-btn {
-        border: none;
-        background-color: transparent;
-        display: flex;
-        align-items: center;
-        padding: 7px 15px;
-        color: $clr2;
-    }
+  }
+  .user-info-logout-btn {
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    padding: 7px 15px;
+    color: $clr2;
+  }
 }
 
 .dynamic-workspace {
-    top: 47px;
-    left: 115px;
+  top: 47px;
+  left: 115px;
 }
 
 .dynamic-profile {
-    right: 3px;
-    top: 47px;
+  right: 3px;
+  top: 47px;
 }
 
 .card-layout {
-    background-color: #fff;
-    position: fixed;
-    z-index: 10;
-    padding-bottom: 12px;
-    width: 304px;
-    box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
+  background-color: #fff;
+  position: fixed;
+  z-index: 10;
+  padding-bottom: 12px;
+  width: 304px;
+  box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
 }
 .card-line {
-    margin: 5px 12px;
-    border-top: 1px solid rgba(9, 30, 66, 0.08);
-    width: 92%;
+  margin: 5px 12px;
+  border-top: 1px solid rgba(9, 30, 66, 0.08);
+  width: 92%;
 }
 
 .user-tag-name {
-    height: 28px;
-    width: 28px;
-    background-color: $tclr1;
-    border-radius: 50%;
-    color: $clr1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 28px;
+  width: 28px;
+  background-color: $tclr1;
+  border-radius: 50%;
+  color: $clr1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    &.in-header {
-        height: 32px;
-        width: 32px;
-        cursor: pointer;
-    }
-    &.in-menu {
-        height: 40px;
-        width: 40px;
-        margin-right: 10px;
-        font-size: 17px;
-    }
+  &.in-header {
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+  }
+  &.in-menu {
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+    font-size: 17px;
+  }
 }
