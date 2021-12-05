@@ -10,6 +10,8 @@
         display: flex;
         justify-content: center;
         .task-details-header {
+            max-width: 650px;
+            word-break: break-all;
             display: flex;
             align-items: center;
             gap: 10px;
