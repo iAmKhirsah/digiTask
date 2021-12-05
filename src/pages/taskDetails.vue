@@ -178,7 +178,11 @@ export default {
     },
     async saveTask() {
       try {
-        if (!this.editTitle) return;
+        if (this.currTask.title.match(/^\s*$/)) {
+          this.currTask.title = this.getTask.title
+          this.titleEdit = false
+          return
+        }
         this.titleEdit = false;
         let task = { ...this.currTask };
         await this.updatedTask(task);

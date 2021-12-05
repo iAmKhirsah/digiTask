@@ -6,6 +6,7 @@
         <div v-if="!isEditing"  @click="groupTitle">
           {{ group.title }}
         </div>
+      
         <form v-else v-on:keydown.enter="changeTitle">
         <textarea
           ref="title"
@@ -15,6 +16,7 @@
           v-model="editingGroup.title"
           maxlength="512"
           @blur="disableTitleEdit"
+          
         />
         <!-- <span class="input" role="textbox"  contenteditable @change="updateGroup">{{group.title}}</span> -->
 
@@ -120,6 +122,7 @@ export default {
       this.editingGroup = { ...this.group };
       this.$nextTick(() => {
         this.$refs.title.focus();
+        this.$refs.title.select()
       });
       
     },
@@ -134,12 +137,12 @@ export default {
 
   },
   mounted() {
-    // this.$nextTick(() => {
-    //   this.$refs.title[0].focus();
-    // });
-    //       this.$nextTick(() => {
-    //   this.$refs.title[0].blur();
-    // });
+    this.$nextTick(() => {
+      this.$refs.title[0].focus();
+    });
+          this.$nextTick(() => {
+      this.$refs.title[0].blur();
+    });
   },
   computed: {},
   directives: {

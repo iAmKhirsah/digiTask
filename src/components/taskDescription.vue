@@ -4,6 +4,7 @@
     <div class="task-description-content" v-click-outside="saveDesc" v-if="descEdit">
       <form  @submit="saveDesc">
         <textarea
+        @focus="$event.target.select()"
           class="textarea-another-list"
           ref="desc"
           v-click-outside="saveDesc"
