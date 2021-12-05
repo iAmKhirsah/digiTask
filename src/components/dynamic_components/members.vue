@@ -27,19 +27,27 @@
 <script>
 export default {
   name: "members",
-  props: ["board"],
+  props: ["board", "task", "user"],
   data() {
     return {
-      boardCopy: JSON.parse(JSON.stringify(this.board)),
+      // boardCopy: JSON.parse(JSON.stringify(this.board)),
+      updatedTask: JSON.parse(JSON.stringify(this.task)),
     };
   },
   methods: {
     sendMember(member) {
-      let idx = this.boardCopy.members.indexOf(member._id);
-      if (idx > -1) this.boardCopy.members.splice(idx, 1);
-      else this.boardCopy.members.push(member);
-      // this.$emit("addMember", this.boardCopy);
-      this.$emit("addMember", member);
+      var txt = "";
+      let idx = this.updatedTask.members.findIndex(
+        (currMember) => currMember._id === member._id
+      );
+      if (idx > -1) {
+        this.updatedTask.members.splice(idx, 1);
+      } else {
+        txt = `${this.user.fullname} added ${member.fullname} to this card`;
+        this.updatedTask.members.push(member);
+        this.$emit("taskActivity", txt);
+      }
+      this.$emit("updateTask", this.updatedTask);
     },
     closeModal() {
       this.$emit("closeModal");

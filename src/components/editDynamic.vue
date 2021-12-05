@@ -5,13 +5,14 @@
       @closeModal="closeModal"
       :board="board"
       :task="task"
+      :user="user"
       @attachment="attachment"
       @openNewTask="openNewTask"
       @closeNewTask="closeNewTask"
       @openCopyGroup="openCopyGroup"
       @backToGroupEdit="backToGroupEdit"
       @deleteTask="deleteTask"
-      @addMember="addMember"
+      @taskActivity="taskActivity"
       @openDelete="openDelete"
       @deleteGroup="deleteGroup"
       v-click-outside="closeModal"
@@ -35,16 +36,18 @@ import vClickOutside from "v-click-outside";
 
 export default {
   name: "editDynamic",
-  props: ["type", "getBoard", "getTask", "group"],
+  props: ["type", "getBoard", "getTask", "group", "getUser"],
   data() {
     return {
       board: {},
       task: {},
+      user: {},
     };
   },
   created() {
     this.board = this.getBoard;
     this.task = this.getTask;
+    this.user = this.getUser;
   },
   computed: {
     renderCmp() {
@@ -83,9 +86,6 @@ export default {
     deleteTask() {
       this.$emit("deleteTask", this.task);
     },
-    addMember(member) {
-      this.$emit("addMember", member);
-    },
     updateTask(task) {
       this.$emit("updateTask", task);
     },
@@ -103,6 +103,10 @@ export default {
     },
     openDelete() {
       this.$emit("openModal", "archive");
+    },
+    taskActivity(txt) {
+      console.log(txt);
+      this.$emit("taskActivity", txt);
     },
     deleteGroup() {
       this.$emit("deleteGroup", this.group);
