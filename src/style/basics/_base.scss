@@ -1,20 +1,28 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
-  // background:url('https://img.freepik.com/free-photo/hand-painted-watercolor-background-with-sky-clouds-shape_24972-1095.jpg?size=626&ext=jpg') ;
-  background: $bgc-grad-gray;
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100%;
-  box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    // background:url('https://img.freepik.com/free-photo/hand-painted-watercolor-background-with-sky-clouds-shape_24972-1095.jpg?size=626&ext=jpg') ;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.background {
+    background: $bgc-grad-blue;
+    z-index: -5;
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 body {
-  margin: 0;
+    margin: 0;
 }
 h1,
 h2,
@@ -23,35 +31,40 @@ h4,
 h5,
 h6,
 p {
-  margin: 0;
+    margin: 0;
 }
 ul li {
-  text-decoration: none;
-  list-style: none;
+    text-decoration: none;
+    list-style: none;
 }
 ul {
-  padding: 0;
-  margin: 0;
+    padding: 0;
+    margin: 0;
 }
 ::-webkit-scrollbar {
-  height: 13px;
+    height: 13px;
 }
 ::-webkit-scrollbar-track {
-  border-radius: 5px;
-  background: hsla(0, 0%, 0%, 0.55);
+    border-radius: 5px;
+    background: hsla(0, 0%, 0%, 0.55);
 }
 ::-webkit-scrollbar-thumb {
-  border: 10px solid rgba(255, 255, 255, 0.45);
-  border-radius: 5px;
+    border: 10px solid rgba(255, 255, 255, 0.45);
+    border-radius: 5px;
 }
 .thin-scrollbar::-webkit-scrollbar {
-  width: 9px;
+    width: 9px;
 }
 .thin-scrollbar::-webkit-scrollbar-track {
-  border-radius: 5px;
-  background: #dadbe2;
+    border-radius: 5px;
+    background: #dadbe2;
 }
 .thin-scrollbar::-webkit-scrollbar-thumb {
-  border: 10px solid #bfc4cf;
-  border-radius: 5px;
+    border: 10px solid #bfc4cf;
+    border-radius: 5px;
+}
+
+@font-face {
+  font-family: 'icomoon' ;
+  src: url('../../src/assets/fonts/icomoon.ttf');
 }

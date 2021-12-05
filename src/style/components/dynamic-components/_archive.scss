@@ -1,4 +1,4 @@
-.dynamic-archive-edit {
+.dynamic-archive-edit{
     .close {
         padding: 12px 12px 12px 12px;
         position: absolute;
@@ -31,13 +31,14 @@
             width: 280px;
             height: 32px;
             margin-top: 10px;
-            background-color: #cf513d;
+            background-color: #CF513D ;
             border: none;
             box-shadow: none;
             cursor: pointer;
             color: white;
             &:hover {
                 background-color: #c53a25;
+
             }
         }
     }

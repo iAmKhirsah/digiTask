@@ -1,4 +1,6 @@
 <template>
+
+
   <div v-if="board" class="board-details-container" v-dragscroll:nochilddrag>
     <board-header :board="board" />
     <div class="group-list-container">
@@ -62,6 +64,7 @@
     </div>
 
     <router-view></router-view>
+ 
   </div>
 </template>
 <script>
