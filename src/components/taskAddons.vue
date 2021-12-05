@@ -18,7 +18,7 @@
     </div>
 
     <div class="task-addons-content-container">
-      <div class="task-addons-labels" v-if="getLabel.length">
+      <div class="task-addons-labels" v-if="getLabel">
         <p class="subtitles">Labels</p>
         <div class="task-addons-members-info">
           <div
@@ -42,7 +42,7 @@ export default {
   computed: {
     getLabel() {
       let labels = [];
-      if (!this.getTask.labelIds) return null;
+      if (!this.getTask.labelIds || !this.getTask.labelIds.length) return null;
       this.getBoard.labels.forEach((label) => {
         let isLabel = this.getTask.labelIds.some(
           (taskLabelId) => label.id === taskLabelId
