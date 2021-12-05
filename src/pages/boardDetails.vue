@@ -6,6 +6,8 @@
          drag-class="card-ghost"
             drop-class="card-ghost-drop"
         orientation="horizontal"
+         drag-handle-selector=".draggable-item"
+     
         :get-child-payload="getChildPayload"
         :drop-placeholder="dropPlaceholderOptions"
         @drop="onDropGroup"

@@ -1,6 +1,6 @@
 <template>
   <section class="dynamic-starred">
-    <button @click="closeModal"><i class="fas fa-times"></i></button>
+    <!-- <button @click="closeModal"><i class="fas fa-times"></i></button> -->
     <div v-for="(board, idx) in starredBoards" :key="idx">
       {{ board }}
     </div>

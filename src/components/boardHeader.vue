@@ -3,7 +3,7 @@
   <header class="board-header" v-click-outside="setType">
     <div class="board-header-left">
       <div class="board-box">
-        <input :style="inputWidth" v-model="board.title" />
+        <input :style="inputWidth" v-model="board.title" @focus="$event.target.select()" />
       </div>
       <div class="board-box star" @click="toggleStar">
         <span v-if="!isStarred"><i class="far fa-star"></i></span>
