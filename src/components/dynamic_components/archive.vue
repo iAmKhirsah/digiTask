@@ -1,7 +1,7 @@
 <template>
   <div class="dynamic-archive-edit">
     <button class="close" @click="closeModal">
-      <i class="fas fa-times"></i>
+       <span class="material-icons"> clear </span>
     </button>
     <div class="header-layout">
       <header>

@@ -1,10 +1,14 @@
 <template>
   <div class="task-description">
     <p>Description</p>
-    <div class="task-description-content" v-click-outside="saveDesc" v-if="descEdit">
-      <form  @submit="saveDesc">
+    <div
+      class="task-description-content"
+      v-click-outside="saveDesc"
+      v-if="descEdit"
+    >
+      <form @submit="saveDesc">
         <textarea
-        @focus="$event.target.select()"
+          @focus="$event.target.select()"
           class="textarea-another-list"
           ref="desc"
           v-click-outside="saveDesc"
@@ -15,14 +19,18 @@
           placeholder="Add a more detailed description..."
         />
         <div class="task-description-buttons">
-        <button type="submit" class="task-description-save">Save</button>
-        <button @click="clearDesc" class="task-description-close">     <i class="fas fa-times"></i></button>
+          <button type="submit" class="task-description-save">Save</button>
+          <button @click="clearDesc" class="task-description-close">
+            <span class="material-icons"> clear </span>
+          </button>
         </div>
       </form>
     </div>
 
     <div v-else>
-      <p class="task-description-placeholder" @click="editDesc">{{ emptyDesc }}</p>
+      <p class="task-description-placeholder" @click="editDesc">
+        {{ emptyDesc }}
+      </p>
     </div>
   </div>
 </template>

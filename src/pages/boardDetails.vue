@@ -1,4 +1,6 @@
 <template>
+
+
   <div v-if="board" class="board-details-container" v-dragscroll:nochilddrag>
     <board-header :board="board" />
     <div class="group-list-container">
@@ -52,7 +54,7 @@
               type="button"
               @click="toggleNewGroup"
             >
-              <i class="fas fa-times"></i>
+               <span class="material-icons"> clear </span>
             </button>
           </div>
         </form>
@@ -64,6 +66,7 @@
     </div>
 
     <router-view></router-view>
+ 
   </div>
 </template>
 <script>

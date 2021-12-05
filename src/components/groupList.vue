@@ -15,13 +15,10 @@
           v-model="editingGroup.title"
           maxlength="512"
           @blur="disableTitleEdit"
-          
         />
       </form>
       <button class="group-header-edit-btn" @click="actionOn">
-      <span class="material-icons">
-more_horiz
-</span>
+        <span class="material-icons"> more_horiz </span>
       </button>
 
       <edit-dynamic
@@ -126,7 +123,7 @@ export default {
       this.editingGroup = { ...this.group };
       this.$nextTick(() => {
         this.$refs.title.focus();
-        this.$refs.title.select()
+        this.$refs.title.select();
       });
     },
     onDrop(groupIdx, dropResult) {

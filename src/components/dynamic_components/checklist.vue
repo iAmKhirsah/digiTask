@@ -1,6 +1,6 @@
 <template>
   <div class="dynamic-checklist-edit">
-    <button class="close" @click="closeModal"><i class="fas fa-times"></i></button>
+    <button class="close" @click="closeModal"> <span class="material-icons"> clear </span></button>
     <div class="header-layout">
       <header>Add checklist</header>
     </div>

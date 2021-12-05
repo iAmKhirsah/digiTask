@@ -19,7 +19,8 @@
             type="button"
             @click="closeNewTask"
           >
-            <i class="fas fa-times"></i>
+            
+            <span class="material-icons"> clear </span>
           </button>
         </div>
       </form>

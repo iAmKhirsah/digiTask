@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="close" @click="closeModal"><i class="fas fa-times"></i></button>
+    <button class="close" @click="closeModal"> <span class="material-icons"> clear </span></button>
     <p>Share and more...</p>
     <p>POTENTIALLY NOT DOING THIS</p>
   </div>

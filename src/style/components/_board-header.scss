@@ -3,21 +3,67 @@
     display: flex;
     align-items: center;
     height: auto;
-    padding: 8px 0px 4px 4px;
-
-    .board-header-left{
-        display:flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 8px 30px 4px 4px;
+    gap: 12px;
+    .board-header-left {
+        display: flex;
         gap: 4px;
+        .members{
+            display: flex;
+            padding: 2px 0px;
+            justify-content: center;
+            align-content: center;
+        }
     }
 
-    .board-header-right{
-        display:flex;
+    .board-header-right {
+        display: flex;
         gap: 4px;
+        .board-box {
+            display: flex;
+            gap: 8px;
+            padding: 6px 14px;
+            height: 32px;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            cursor: pointer;
+            background-color: #ffffff33;
+            &:hover {
+                background-color: #ffffff4d;
+            }
+            .filter {
+                font-size: 14px;
+            }
+            .show-more{
+                font-size: 14px;
+            }
+            .material-icons {
+                font-size: 15px;
+            }
+            .group-header-edit-btn {
+                border: none;
+                color: white;
+                background-color: transparent;
+                padding: 0;
+                display: flex;
+               
+                .material-icons {
+                    font-size: 18px;
+                }
+            }
+            &.clicked {
+                background-color: white;
+                color: $clr9;
+            }
+        }
     }
 
     gap: 12px;
     .board-box {
-        border-radius: 3px ;
+        border-radius: 3px;
         background-color: rgba(255, 255, 255, 0.3);
         &.star {
             color: $clr1;
@@ -28,24 +74,24 @@
             line-height: 30px;
             &:hover {
                 color: $clr5;
-                font-size: 18px ;
+                font-size: 18px;
             }
             .fas {
                 color: $clr5;
             }
         }
 
-        &.invite{
-         color:$clr1;
-           height:32px;
-           padding:0 6px;
-           text-align: center;
-           line-height: 30px;
+        &.invite {
+            color: $clr1;
+            height: 32px;
+            padding: 0 6px;
+            text-align: center;
+            line-height: 30px;
             cursor: pointer;
+            font-size: 14px;
         }
-        
+
         input {
-           
             color: $clr1;
             border: none;
             font-size: 18px;
@@ -55,15 +101,20 @@
             height: 32px;
             text-align: center;
             padding: 0 6px;
+            cursor: pointer;
             &:focus {
                 background-color: $clr1;
                 box-shadow: 0 0 0 2px $sclr1;
                 border-radius: 3px;
                 outline: none;
-               color: $clr4;
+                color: $clr4;
+                &:hover{
+                    background-color: #ffffff;
+                }
+            }
+            &:hover {
+                background-color: #ffffff4d;
             }
         }
     }
 }
-
-
