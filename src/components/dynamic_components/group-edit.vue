@@ -12,7 +12,7 @@
         <p>Sort by...</p>
           <div class="card-line"></div>
           <p @click="openDelete">Delete...</p>
-
+  
   </div>
   <archive @deleteGroup="deleteGroup" @closeModal="closeModal" :isGroup="true" v-if="type==='openDelete'"/>
   </div>
