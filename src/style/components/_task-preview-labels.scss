@@ -12,8 +12,9 @@
 
     margin-right: 4px;
     margin-bottom: 4px;
+    
     .label-preview {
-      min-width: 48px;
+      min-width: 56px;
       text-overflow: ellipsis;
       overflow: hidden;
       max-width: 198px;
@@ -21,11 +22,20 @@
       border-radius: 4px;
       padding: 0 8px;
       color: #fff;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 700;
-      height: 21px;
+      height: 16px;
       white-space: nowrap;
       float: left;
+      line-height: 16px;
+      &.mini{
+          min-width: 40px;
+          max-width: 40px;
+          height:8px;
+          margin-right:4px;
+          margin-bottom: 4px;
+          padding:0;
+      }
     }
   }
 }

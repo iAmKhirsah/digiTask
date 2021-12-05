@@ -4,9 +4,12 @@
       v-for="label in taskLabels"
       :key="label.id"
       class="task-labels-container"
+      
     >
-    <div class="label-preview mini" v-if="isMiniPreview" :style="{background:label.color}"></div>
-      <div class="label-preview" v-else :style="{ background: label.color }">{{label.title}}</div>
+    <!-- <transition name="fade" mode="out-in"> -->
+    <div key="1"  @click.capture="miniPreview" class="label-preview mini" v-if="isMiniPreview" :style="{background:label.color}"></div>
+      <div key="2" @click.capture="miniPreview" class="label-preview" v-else :style="{ background: label.color }">{{label.title}}</div>
+     <!-- </transition> -->
     </div>
   </div>
 </template>
@@ -16,7 +19,7 @@ export default {
   props: ["task", "board","isMiniPreview"],
   data(){
       return {
-          
+    
       }
   },
   methods: {

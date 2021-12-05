@@ -21,6 +21,8 @@
             @updateGroup="updateGroup"
             @onDrop="onDrop"
             @deleteGroup="deleteGroup"
+            @miniPreview="miniPreview"
+            :isMiniPreview="isMiniPreview"
             :board="board"
           />
         </Draggable>
@@ -78,6 +80,7 @@ export default {
       board: null,
       isNewGroup: false,
       newGroup: {},
+      isMiniPreview:false,
       newTask: {},
       dropPlaceholderOptions: {
         className: "drop-preview",
@@ -117,6 +120,9 @@ export default {
           this.newGroup.title = "";
           this.$refs.list.focus();
         });
+    },
+      miniPreview(){
+      this.isMiniPreview = !this.isMiniPreview
     },
 
     async addGroup() {

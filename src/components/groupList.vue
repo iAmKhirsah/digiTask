@@ -46,6 +46,9 @@ more_horiz
         :board="board"
         @editTask="editTask"
         @addTask="addTask"
+        @miniPreview="miniPreview"
+    
+         :isMiniPreview="isMiniPreview"
         :isNewTask="isNewTask"
         :idx="idx"
         class="group-single"
@@ -61,7 +64,7 @@ import addTask from "./addTask.vue";
 
 export default {
   name: "groupList",
-  props: ["group", "idx", "board"],
+  props: ["group", "idx", "board","isMiniPreview"],
   components: { taskList, editDynamic, addTask },
   data() {
     return {
@@ -71,10 +74,14 @@ export default {
       isNewTask: false,
       inGroup: true,
       focusTextArea: true,
+      
     };
   },
   created() {},
   methods: {
+    miniPreview(){
+      this.$emit("miniPreview")
+    },
     changeTitle() {
       this.$nextTick(() => {
         this.$refs.title.blur();

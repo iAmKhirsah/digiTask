@@ -1,7 +1,7 @@
 <template>
-  <div class="task-preview-container" v-if="task" @click="editTask(task.id)">
+  <div class="task-preview-container" v-if="task" >
     <task-preview-label :isMiniPreview="isMiniPreview" @miniPreview="miniPreview" :task="task" :board="board"/>
-    <div class="task-preview" >
+    <div @click="editTask(task.id)" class="task-preview" >
       <div class="task-preview-content">{{ task.title }}</div>
     </div>
     
