@@ -2,7 +2,7 @@
   <div>
     <div class="dynamic-labels-edit" v-if="!createMenu">
       <button class="close" @click="closeModal">
-    <span class="material-icons"> clear </span>
+        <span class="material-icons"> clear </span>
       </button>
       <div class="header-layout">
         <header>Labels</header>
@@ -19,6 +19,10 @@
               {{ label.title }}
             </span>
             <!-- <span>Edit BUTTON GOES HERE</span> -->
+            <span class="pencil-container">
+
+            <span class="material-icons pencil"> mode </span>
+            </span>
           </li>
         </ul>
       </div>

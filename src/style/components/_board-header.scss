@@ -10,6 +10,12 @@
     .board-header-left {
         display: flex;
         gap: 4px;
+        .members{
+            display: flex;
+            padding: 2px 0px;
+            justify-content: center;
+            align-content: center;
+        }
     }
 
     .board-header-right {

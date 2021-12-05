@@ -1,6 +1,6 @@
 <template>
   <section class="dynamic-recent">
-       <button @click="closeModal"> <span class="material-icons"> clear </span></button>
+       <!-- <button @click="closeModal"> <span class="material-icons"> clear </span></button> -->
     <div v-for="(board, idx) in recentBoards" :key="idx">
       {{ board }}
     </div>
