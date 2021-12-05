@@ -28,14 +28,15 @@
           <span class="material-icons"> filter_list </span>
           <span class="filter">Filter</span>
         </div>
-        <div class="board-box"> 
-        <button class="group-header-edit-btn">
-          <span class="material-icons"> more_horiz </span>
-        </button>
-        <span class="show-more"> Show Menu</span> 
-      </div>
+        <div class="board-box">
+          <button class="group-header-edit-btn">
+            <span class="material-icons"> more_horiz </span>
+          </button>
+          <span class="show-more" @click="openShowMenu"> Show Menu</span>
+        </div>
       </div>
     </header>
+    <show-menu :board="board" v-if="showMenuOpen" />
     <header-dynamic
       @closeModal="closeModal"
       :type="type"
@@ -50,6 +51,7 @@
 <script>
 import headerDynamic from "./headerDynamic.vue";
 import vClickOutside from "v-click-outside";
+import showMenu from "../components/showMenu.vue";
 export default {
   name: "boardHeader",
   props: ["board"],
@@ -57,6 +59,7 @@ export default {
     return {
       isStarred: false,
       type: null,
+      showMenuOpen: false,
     };
   },
   created() {},
@@ -66,6 +69,9 @@ export default {
     },
   },
   methods: {
+    openShowMenu() {
+      this.showMenuOpen = true;
+    },
     toggleStar() {
       this.isStarred = !this.isStarred;
     },
@@ -78,6 +84,7 @@ export default {
   },
   components: {
     headerDynamic,
+    showMenu,
   },
   directives: {
     clickOutside: vClickOutside.directive,
