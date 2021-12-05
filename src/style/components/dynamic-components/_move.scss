@@ -1,4 +1,4 @@
-.dynamic-cover-edit {
+.dynamic-move-edit {
     .close {
         padding: 12px 12px 12px 12px;
         position: absolute;
@@ -27,19 +27,5 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
-        button {
-            width: 280px;
-            height: 32px;
-            margin-top: 10px;
-            background-color: #091e420a;
-            border: none;
-            box-shadow: none;
-            cursor: pointer;
-            color: $clr2;
-            &:hover {
-                background-color: #091e4214;
-
-            }
-        }
     }
 }

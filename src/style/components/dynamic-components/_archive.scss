@@ -1,4 +1,4 @@
-.dynamic-cover-edit {
+.dynamic-archive-edit {
     .close {
         padding: 12px 12px 12px 12px;
         position: absolute;
@@ -31,14 +31,13 @@
             width: 280px;
             height: 32px;
             margin-top: 10px;
-            background-color: #091e420a;
+            background-color: #cf513d;
             border: none;
             box-shadow: none;
             cursor: pointer;
-            color: $clr2;
+            color: white;
             &:hover {
-                background-color: #091e4214;
-
+                background-color: #c53a25;
             }
         }
     }

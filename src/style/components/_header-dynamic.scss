@@ -23,6 +23,7 @@
       border: none;
       background-color: transparent;
     }
+   
   }
   .workspace-contant {
     display: flex;
@@ -74,6 +75,9 @@
     line-height: 16px;
   }
   &.dynamic-invite {
+    position: fixed;
+    top: 90px;
+    left: 229px;
     .invite-contant {
       display: flex;
       justify-content: space-around;

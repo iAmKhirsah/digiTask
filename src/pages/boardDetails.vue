@@ -56,7 +56,7 @@
         </form>
 
         <button v-else @click="toggleNewGroup" class="add-another-list">
-          <i class="fas fa-plus"></i><span>Add another List</span>
+           <span class="material-icons"> add </span><span class="title">Add another List</span>
         </button>
       </div>
     </div>

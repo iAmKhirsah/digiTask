@@ -19,7 +19,9 @@
         />
       </form>
       <button class="group-header-edit-btn" @click="actionOn">
-        <i class="fas fa-ellipsis-h"></i>
+      <span class="material-icons">
+more_horiz
+</span>
       </button>
 
       <edit-dynamic

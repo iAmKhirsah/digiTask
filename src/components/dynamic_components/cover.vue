@@ -4,7 +4,7 @@
     <div class="header-layout">
       <header>Cover</header>
     </div>
-    <div>
+    <div class="main-container">
       <div>
         <p>Color</p>
         <div v-for="(color, idx) in colors" :key="idx">
