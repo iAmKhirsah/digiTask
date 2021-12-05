@@ -1,0 +1,32 @@
+.task-label-preview-container{
+    display:flex;
+    flex-wrap: wrap;
+    padding-left: 8px; 
+    &:hover{
+            background-color: rgba(255, 255, 255, 0.3);
+            }
+    .task-labels-container{
+         
+
+        min-width: 40px;
+      
+        margin-right:4px;
+        margin-bottom: 4px;
+        .label-preview{
+            text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 198px;
+            line-height:20px;
+            border-radius: 4px;
+      padding:0 8px;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        height: 21px;
+        white-space: nowrap;
+            float:left;
+          
+    }
+    }
+    
+}
