@@ -3,8 +3,8 @@
     <board-header :board="board" />
     <div class="group-list-container">
       <Container
-         drag-class="card-ghost"
-            drop-class="card-ghost-drop"
+        drag-class="card-ghost"
+        drop-class="card-ghost-drop"
         orientation="horizontal"
          drag-handle-selector=".draggable-item"
      
@@ -79,11 +79,11 @@ export default {
       isNewGroup: false,
       newGroup: {},
       newTask: {},
-    dropPlaceholderOptions: {
-    className: "drop-preview",
-    animationDuration: "150",
-    showOnTop: false
-   },
+      dropPlaceholderOptions: {
+        className: "drop-preview",
+        animationDuration: "150",
+        showOnTop: false,
+      },
     };
   },
   async created() {
@@ -92,11 +92,11 @@ export default {
     let boardId = this.$route.params.boardId;
     await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
     this.board = { ...this.$store.getters.getCurrBoard };
-    if(!this.board) this.$router.push('/')
-    if(!this.board.groups.length) return
+    if (!this.board) this.$router.push("/");
+    if (!this.board.groups.length) return;
     this.board.groups.reduce((acc, group) => {
       if (!group.data) group.data = "Draggable" + acc;
-      if(!group.tasks.length) return
+      if (!group.tasks.length) return;
       group.tasks.reduce((acc1, task) => {
         if (!task.data) return;
         task.data = "Draggable" + task.id + acc1;
@@ -159,10 +159,7 @@ export default {
     async onDrop(groupIdx, dropResult) {
       try {
         console.log(this.board);
-        this.board = this.applyDrag(
-          this.board.groups[groupIdx],
-          dropResult
-        );
+        this.board = this.applyDrag(this.board.groups[groupIdx], dropResult);
         let board = { ...this.board };
         await this.$store.dispatch({ type: "updateBoard", board });
       } catch (err) {

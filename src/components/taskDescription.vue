@@ -1,10 +1,10 @@
 <template>
   <div class="task-description">
     <p>Description</p>
-    <div v-click-outside="saveDesc" v-if="descEdit">
-      <form @submit="saveDesc">
+    <div class="task-description-content" v-click-outside="saveDesc" v-if="descEdit">
+      <form  @submit="saveDesc">
         <textarea
-          class="group-title"
+          class="textarea-another-list"
           ref="desc"
           v-click-outside="saveDesc"
           oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
@@ -13,13 +13,15 @@
           maxlength="512"
           placeholder="Add a more detailed description..."
         />
+        <div class="task-description-buttons">
         <button type="submit" class="task-description-save">Save</button>
-        <button @click="clearDesc" class="task-description-close">X</button>
+        <button @click="clearDesc" class="task-description-close">     <i class="fas fa-times"></i></button>
+        </div>
       </form>
     </div>
 
     <div v-else>
-      <p @click="editDesc">{{ emptyDesc }}</p>
+      <p class="task-description-placeholder" @click="editDesc">{{ emptyDesc }}</p>
     </div>
   </div>
 </template>
