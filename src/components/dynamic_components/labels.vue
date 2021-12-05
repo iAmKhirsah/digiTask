@@ -8,14 +8,20 @@
         <header>Labels</header>
       </div>
       <input type="text" placeholder="Search labels..." />
-      <ul v-for="label in board.labels" :key="label.id">
-        <li :style="'background-color:' + label.color" @click="addLabel(label)">
-          <span>
-            {{ label.title }}
-          </span>
-          <span>Edit BUTTON GOES HERE</span>
-        </li>
-      </ul>
+      <div class="label-list-container">
+        <ul v-for="label in board.labels" :key="label.id">
+          <li
+            :style="'background-color:' + label.color"
+            @click="addLabel(label)"
+            class="label-list-color"
+          >
+            <span>
+              {{ label.title }}
+            </span>
+            <!-- <span>Edit BUTTON GOES HERE</span> -->
+          </li>
+        </ul>
+      </div>
       <button class="create" @click="openCreateMenu">Create a new label</button>
     </div>
     <div class="dynamic-labels-edit" v-if="createMenu">
@@ -101,6 +107,7 @@ export default {
     },
     createLabel() {
       this.$emit("createLabel", this.newLabel);
+      this.newLabel.title = "";
       this.createMenu = false;
     },
   },
