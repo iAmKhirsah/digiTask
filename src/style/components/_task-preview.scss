@@ -31,6 +31,8 @@
                         padding: 5px 10px;
                         overflow-wrap: break-word;
                         max-width: 250px;
+                        color: $clr2;
+                        font-size: 14px;
                     }
                 }
             }
@@ -98,11 +100,27 @@
     padding-left: 10px;
     cursor: pointer;
     width: 98%;
+    position: relative;
     i {
         margin-right: 6px;
     }
     &:hover {
         background-color: #091e4214;
         border-radius: 4px;
+    }
+    .title {
+        color:#6b778c;
+    padding: 0px 24px;
+    font-size: 16.5px;
+
+    }
+    .group-add-plus {
+        position: absolute;
+        top: 3px;
+        left: 7px;
+        .material-icons{
+            color:#6b778c;
+           
+        }
     }
 }
