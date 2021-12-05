@@ -18,7 +18,7 @@
         >
           <div class="task-list-content">
             <!-- <div class="task-list-content" v-for="task in group.tasks" :key="task.id"> -->
-            <task-preview :task="task" @editTask="editTask" />
+            <task-preview :task="task" :board="board" @editTask="editTask" />
           </div>
         </Draggable>
       </Container>

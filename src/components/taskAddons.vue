@@ -16,7 +16,6 @@
         </div>
       </div>
     </div>
-
     <div class="task-addons-content-container">
       <div class="task-addons-labels" v-if="getLabel">
         <p class="subtitles">Labels</p>
