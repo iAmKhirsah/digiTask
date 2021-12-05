@@ -52,7 +52,7 @@
     }
     .group-header-edit-btn {
         position: absolute;
-        top: 6px;
+        top: 3px;
         cursor: pointer;
         background-color: transparent;
         border: none;
@@ -61,8 +61,10 @@
         position: absolute;
         right: 5px;
         border-radius: 3px;
+        color: #6b778c;
         &:hover {
             background-color: #091e4214;
+            color: #172b4d;
         }
     }
 
@@ -79,7 +81,7 @@
         border: none;
         outline: none;
         line-height: 28px;
-        margin-left: 6px;
+
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 16px;
         &:focus {
@@ -117,7 +119,7 @@
             width: 258px;
             height: 28px;
             line-height: 28px;
-            font-weight: 600;
+            font-size: 14px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
             overflow-wrap: break-word;
@@ -127,14 +129,12 @@
             outline: none;
             border-radius: 3px;
             color: $clr4;
-            padding-left: 8px;
-            margin-top: 2px;
-
+            padding-left: 10px;
+            margin-left: 1px;
+            margin-top: 3px;
+            margin-bottom: 2px;
             &:focus {
-                line-height: 28px; 
-                margin-left: 1px;
-                margin-top: 3px;
-                margin-bottom: 2px;
+                line-height: 28px;
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 font-size: 14px;
                 background-color: $clr1;
@@ -144,7 +144,6 @@
                 color: $clr4;
             }
         }
-
         .add-list-form-btns {
             display: flex;
             gap: 6px;
