@@ -133,7 +133,10 @@ function createDemoBoard() {
       fullname: 'Abi Abambi',
       imgUrl: 'http://some-img',
     },
-    style: {},
+    style: {
+      backgroundColor: '',
+      backgroundUrl: '',
+    },
     labels: [
       {
         id: 'l101',
