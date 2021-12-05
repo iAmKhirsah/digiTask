@@ -10,25 +10,22 @@
     .task-labels-container{
          
 
-        min-width: 40px;
-      
-        margin-right:4px;
-        margin-bottom: 4px;
-        .label-preview{
-            text-overflow: ellipsis;
-  overflow: hidden;
-  max-width: 198px;
-            line-height:20px;
-            border-radius: 4px;
-      padding:0 8px;
-        color: #fff;
-        font-size: 14px;
-        font-weight: 700;
-        height: 21px;
-        white-space: nowrap;
-            float:left;
-          
+    margin-right: 4px;
+    margin-bottom: 4px;
+    .label-preview {
+      min-width: 48px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 198px;
+      line-height: 20px;
+      border-radius: 4px;
+      padding: 0 8px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      height: 21px;
+      white-space: nowrap;
+      float: left;
     }
-    }
-    
+  }
 }

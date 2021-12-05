@@ -18,7 +18,7 @@
         >
           <div class="task-list-content">
             <!-- <div class="task-list-content" v-for="task in group.tasks" :key="task.id"> -->
-            <task-preview :task="task" :board="board" @editTask="editTask" />
+            <task-preview :isMiniPreview="isMiniPreview" @miniPreview="miniPreview" :task="task" :board="board" @editTask="editTask" />
           </div>
         </Draggable>
       </Container>
@@ -39,13 +39,17 @@ export default {
       dropPlaceholderOptions: {
     className: "drop-preview",
     animationDuration: "150",
-    showOnTop: false
+    showOnTop: false,
+    isMiniPreview:false
    },};
   },
   methods: {
     created() {},
     editTask(taskId) {
       this.$emit("editTask", taskId, this.group.id);
+    },
+    miniPreview(){
+      this.isMiniPreview = !this.isMiniPreview
     },
     addTask(newTask) {
       this.$emit("addTask", newTask, this.group.id);

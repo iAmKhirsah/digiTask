@@ -1,6 +1,6 @@
 <template>
   <div class="task-preview-container" v-if="task" @click="editTask(task.id)">
-    <task-preview-label :task="task" :board="board"/>
+    <task-preview-label :isMiniPreview="isMiniPreview" @miniPreview="miniPreview" :task="task" :board="board"/>
     <div class="task-preview" >
       <div class="task-preview-content">{{ task.title }}</div>
     </div>
@@ -13,11 +13,14 @@ import taskPreviewLabel from './taskPreviewLabel.vue';
 export default {
   components: { taskPreviewLabel },
   name: "taskPreview",
-  props: ["task","board"],
+  props: ["task","board","isMiniPreview"],
   methods: {
     editTask(taskId) {
       this.$emit("editTask", taskId);
     },
+    miniPreview(){
+      this.$emit("miniPreview")
+    }
     
   },
   components:{
