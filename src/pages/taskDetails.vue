@@ -66,9 +66,11 @@
                 v-if="type"
                 :getBoard="getBoard"
                 :getTask="getTask"
+                :getUser="getUser"
                 @attachment="attachment"
+                @updateBoard="updateBoard"
                 @deleteTask="deleteTask"
-                @addMember="addMember"
+                @taskActivity="taskActivity"
                 @updateTask="updatedTask"
                 @closeModal="closeModal"
                 @createLabel="createLabel"
@@ -227,21 +229,38 @@ export default {
       await this.$store.dispatch({ type: "updateTask", task: updatedTask });
       await this.$store.dispatch({ type: "updateGroup", group });
     },
-    async addMember(member) {
+    async taskActivity(textToAdd) {
       try {
-        await this.$store.dispatch({ type: "addMember", member });
         let currTask = this.getTask;
-        await this.updatedTask(currTask);
         let user = this.getUser;
-        let txt = `added ${member.fullname} to ${currTask.title}`;
+        let txt = textToAdd;
         this.$store.dispatch({
           type: "addActivity",
           activity: { task: currTask, txt, user },
         });
       } catch (err) {
-        console.log("Failed on ADDMEMBER in TASKDETAILS", err);
+        console.log("Failed on TASKACTIVITY in TASKDETAILS", err);
       }
     },
+    async updateBoard(board) {
+      this.$store.dispatch({ type: "updateBoard", board });
+    },
+    // async addMember(member) {
+    //   console.log(member);
+    //   try {
+    //     await this.$store.dispatch({ type: "addMember", member });
+    //     let currTask = this.getTask;
+    //     await this.updatedTask(currTask);
+    //     let user = this.getUser;
+    //     let txt = `added ${member.fullname} to ${currTask.title}`;
+    //     this.$store.dispatch({
+    //       type: "addActivity",
+    //       activity: { task: currTask, txt, user },
+    //     });
+    //   } catch (err) {
+    //     console.log("Failed on ADDMEMBER in TASKDETAILS", err);
+    //   }
+    // },
     async attachment(link, task) {
       try {
         let res = await uploadFile(link);

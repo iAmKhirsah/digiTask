@@ -1,8 +1,12 @@
 <template>
   <div class="activity-content">
-    <div >
+    <div>
       <div v-if="getActivities">
-        <div class="activity-user-content" v-for="activity in getActivities" :key="activity.id">
+        <div
+          class="activity-user-content"
+          v-for="activity in getActivities"
+          :key="activity.id"
+        >
           <span class="user-tag-name in-header">
             <img
               class="image-settings"
@@ -16,17 +20,24 @@
           <span> {{ activity.txt }}</span>
         </div>
 
-
-  
-      <div  v-if="getComments">
-        <div class="activity-user-content" v-for="comment in getComments" :key="comment.id">
-          <span class="user-tag-name in-header"
-            ><img class="image-settings" :src="comment.byMember.imgUrl" alt=""
-          /></span>
-          <span> <strong>{{ comment.byMember.fullname }} </strong></span>
-          <span>{{ comment.txt }}</span>
+        <div v-if="getComments">
+          <div
+            class="activity-user-content"
+            v-for="comment in getComments"
+            :key="comment.id"
+          >
+            <span class="user-tag-name in-header"
+              ><img
+                class="image-settings"
+                :src="comment.byMember.imgUrl"
+                alt=""
+            /></span>
+            <span>
+              <strong>{{ comment.byMember.fullname }} </strong></span
+            >
+            <span>{{ comment.txt }}</span>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   </div>
@@ -40,6 +51,7 @@ export default {
       let activities = this.board.activities.filter(
         (activity) => activity.task.id === this.task.id
       );
+      console.log(activities);
       return activities;
     },
     getComments() {
