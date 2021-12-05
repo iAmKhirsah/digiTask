@@ -2,11 +2,11 @@
   <div>
     <div class="group-list-group">
       <!-- beny -->
-      <div class="group-header">
-        <div v-if="!isEditing"  @click="groupTitle">
-          {{ group.title }}
-        </div>
-        <form v-else v-on:keydown.enter="changeTitle">
+
+      <div class="group-header" v-if="!isEditing" @click="groupTitle">
+        {{ group.title }}
+      </div>
+      <form v-else v-on:keydown.enter="changeTitle">
         <textarea
           ref="title"
           class="group-title"
@@ -16,15 +16,10 @@
           maxlength="512"
           @blur="disableTitleEdit"
         />
-        <!-- <span class="input" role="textbox"  contenteditable @change="updateGroup">{{group.title}}</span> -->
-
-        
-        </form>
-        <button class="group-header-edit-btn" @click="actionOn" >
-          
-          <i class="fas fa-ellipsis-h"></i>
-        </button>
-      </div>
+      </form>
+      <button class="group-header-edit-btn" @click="actionOn">
+        <i class="fas fa-ellipsis-h"></i>
+      </button>
 
       <edit-dynamic
         v-if="isActionOn"
@@ -33,12 +28,17 @@
         v-click-outside="actionOff"
         @newTaskOpen="newTaskOpen"
         :group="group"
-        
         @deleteGroup="deleteGroup"
       />
-      <add-task v-if="isNewTask" @closeNewTask="closeNewTask" @addTask="addTask" :focusTextArea="focusTextArea" :inGroup="inGroup"/>
+      <add-task
+        v-if="isNewTask"
+        @closeNewTask="closeNewTask"
+        @addTask="addTask"
+        :focusTextArea="focusTextArea"
+        :inGroup="inGroup"
+      />
       <task-list
-      @onDrop="onDrop"
+        @onDrop="onDrop"
         :group="group"
         :board="board"
         @editTask="editTask"
@@ -55,10 +55,10 @@ import taskList from "./taskList.vue";
 import editDynamic from "./editDynamic.vue";
 import vClickOutside from "v-click-outside";
 import addTask from "./addTask.vue";
- 
+
 export default {
   name: "groupList",
-  props: ["group","idx","board"],
+  props: ["group", "idx", "board"],
   components: { taskList, editDynamic, addTask },
   data() {
     return {
@@ -66,23 +66,19 @@ export default {
       isEditing: false,
       isActionOn: false,
       isNewTask: false,
-      inGroup:true,
-      focusTextArea:true,
-      
+      inGroup: true,
+      focusTextArea: true,
     };
   },
-  created(){
-
-  },
+  created() {},
   methods: {
     changeTitle() {
-
-       this.$nextTick(() => {
+      this.$nextTick(() => {
         this.$refs.title.blur();
       });
     },
-    actionOn(){
-      this.isActionOn = true
+    actionOn() {
+      this.isActionOn = true;
     },
     actionOff() {
       if (this.isActionOn) this.isActionOn = false;
@@ -99,19 +95,19 @@ export default {
     //   console.log("group title changed");
     //   this.$emit("updateGroup", group);
     // },
-    newTaskOpen(){
-      this.isNewTask = true
+    newTaskOpen() {
+      this.isNewTask = true;
     },
-    closeNewTask(){
-      this.isNewTask = false
+    closeNewTask() {
+      this.isNewTask = false;
     },
     updateGroup(group) {
       console.log("group title changed");
       this.$emit("updateGroup", { ...group });
     },
     disableTitleEdit() {
-      if(this.editingGroup.title)
-      this.$emit("updateGroup", { ...this.editingGroup });
+      if (this.editingGroup.title)
+        this.$emit("updateGroup", { ...this.editingGroup });
       this.isEditing = false;
       this.editingGroup = {};
     },
@@ -121,17 +117,15 @@ export default {
       this.$nextTick(() => {
         this.$refs.title.focus();
       });
-      
     },
-    onDrop(groupIdx,dropResult){
-      if(!groupIdx) groupIdx = this.idx 
-      console.log(groupIdx,dropResult)
-      this.$emit('onDrop',groupIdx,dropResult)
+    onDrop(groupIdx, dropResult) {
+      if (!groupIdx) groupIdx = this.idx;
+      console.log(groupIdx, dropResult);
+      this.$emit("onDrop", groupIdx, dropResult);
     },
-    deleteGroup(group){
-      this.$emit('deleteGroup',group)
-    }
-
+    deleteGroup(group) {
+      this.$emit("deleteGroup", group);
+    },
   },
   mounted() {
     // this.$nextTick(() => {

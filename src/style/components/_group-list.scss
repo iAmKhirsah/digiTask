@@ -40,26 +40,30 @@
         padding: 4px 0px 8px 0px;
         justify-content: space-between;
         align-items: center;
-        margin: 10px 0px 3px 0px;
+        margin: 3px 0px 5px 8px;
         height: 28px;
         div {
             margin-bottom: 5px;
             cursor: pointer;
             margin-left: 8px;
+            max-width: 220px;
+            word-break: break-all;
         }
 
-        .group-header-edit-btn {
-            cursor: pointer;
-            background-color: transparent;
-            border: none;
-            font-size: 14px;
-            padding: 8px;
-            position: absolute;
-            right: 5px;
-            border-radius: 3px;
-            &:hover {
-                background-color: #091e4214;
-            }
+    }
+    .group-header-edit-btn {
+        position: absolute;
+        top: 6px;
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+        font-size: 14px;
+        padding: 8px;
+        position: absolute;
+        right: 5px;
+        border-radius: 3px;
+        &:hover {
+            background-color: #091e4214;
         }
     }
 
@@ -67,7 +71,7 @@
         overflow: hidden;
         overflow-wrap: break-word;
         height: 28px;
-        width: 228px;
+        width: 218px;
         resize: none;
         box-shadow: 0px 1px 2px 0px #b2b9c6;
         border: none;
