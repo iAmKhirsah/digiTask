@@ -84,6 +84,7 @@ function getEmptyTask() {
     description: '',
     byMember: [],
     members: [],
+    labelIds: [],
   };
   return task;
 }
@@ -95,13 +96,13 @@ function getEmptyGroup() {
   };
   return group;
 }
-function getEmptyLabel(){
+function getEmptyLabel() {
   const label = {
     id: 'l' + utilService.makeId(),
     title: '',
     color: '',
-  }
-  return label
+  };
+  return label;
 }
 function getEmptyActivity() {
   const activity = {
@@ -144,7 +145,8 @@ function createDemoBoard() {
       {
         _id: 'u101',
         fullname: 'Ilya Shershniov',
-        imgUrl: 'https://icatcare.org/app/uploads/2018/07/Helping-your-new-cat-or-kitten-settle-in-1.png',
+        imgUrl:
+          'https://icatcare.org/app/uploads/2018/07/Helping-your-new-cat-or-kitten-settle-in-1.png',
       },
     ],
     groups: [

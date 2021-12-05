@@ -265,7 +265,7 @@ export default {
       try {
         let res = await uploadFile(link);
         console.log(res);
-        let txt = `attached ${res.original_filename}.${res.format} to`;
+        let txt = `attached ${res.original_filename}.${res.format} to this card`;
         let user = this.getUser;
         this.$store.dispatch({
           type: "addActivity",
