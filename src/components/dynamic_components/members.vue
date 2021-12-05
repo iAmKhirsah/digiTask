@@ -30,7 +30,7 @@ export default {
   props: ["board", "task", "user"],
   data() {
     return {
-      // boardCopy: JSON.parse(JSON.stringify(this.board)),
+      boardCopy: JSON.parse(JSON.stringify(this.board)),
       updatedTask: JSON.parse(JSON.stringify(this.task)),
     };
   },
@@ -42,6 +42,17 @@ export default {
       );
       if (idx > -1) {
         this.updatedTask.members.splice(idx, 1);
+        this.boardCopy.activities = this.boardCopy.activities.filter(
+          (activity) => {
+            if (
+              activity.byMember._id === member._id &&
+              activity.task.id === this.updatedTask.id
+            )
+              return false;
+            else return true;
+          }
+        );
+        this.$emit("updateBoard", this.boardCopy);
       } else {
         txt = `${this.user.fullname} added ${member.fullname} to this card`;
         this.updatedTask.members.push(member);

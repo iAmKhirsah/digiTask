@@ -68,6 +68,7 @@
                 :getTask="getTask"
                 :getUser="getUser"
                 @attachment="attachment"
+                @updateBoard="updateBoard"
                 @deleteTask="deleteTask"
                 @taskActivity="taskActivity"
                 @updateTask="updatedTask"
@@ -236,6 +237,9 @@ export default {
       } catch (err) {
         console.log("Failed on TASKACTIVITY in TASKDETAILS", err);
       }
+    },
+    async updateBoard(board) {
+      this.$store.dispatch({ type: "updateBoard", board });
     },
     // async addMember(member) {
     //   console.log(member);

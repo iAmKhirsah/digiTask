@@ -18,7 +18,7 @@
     </div>
 
     <div class="task-addons-content-container">
-      <div class="task-addons-labels" v-if="getLabel">
+      <div class="task-addons-labels" v-if="getLabel.length">
         <p class="subtitles">Labels</p>
         <div class="task-addons-members-info">
           <div
