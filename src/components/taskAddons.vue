@@ -16,11 +16,20 @@
         </div>
       </div>
     </div>
-    <div class="task-addons-labels" v-if="getLabel">
-       <p class="subtitles">Labels</p>
-      <div class="task-addons-labels-cards" v-for="label in getLabel" :key="label.id">
-        <div :style="'background-color:' + label.color">
-          <span v-if="label.title">{{ label.title }}</span>
+
+    <div class="task-addons-content-container">
+      <div class="task-addons-labels" v-if="getLabel">
+        <p class="subtitles">Labels</p>
+        <div class="task-addons-members-info">
+          <div
+            class="task-addons-labels-cards"
+            v-for="label in getLabel"
+            :key="label.id"
+          >
+            <div :style="'background-color:' + label.color">
+              <span v-if="label.title">{{ label.title }}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

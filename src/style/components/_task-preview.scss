@@ -40,7 +40,6 @@
     align-items: center;
     padding-left: 6px;
     font-size: 14px;
-    padding-top: 5px;
     padding-bottom: 5px;
 
     .add-task-form {
@@ -61,36 +60,36 @@
             font-size: 16px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
-            .add-task-form-btns{
+
+        .add-task-form-btns {
+            display: flex;
+            gap: 6px;
+            .add-task-btn {
+                height: 30px;
+                background-color: #0079bf;
+                border: none;
+                box-shadow: none;
+                color: #fff;
+                border-radius: 3px;
+                padding: 6px 12px;
+            }
+            .add-task-close-btn {
+                height: 30px;
+                border: none;
+                font-size: 18px;
+                background-color: transparent;
+                cursor: pointer;
+                color: #6b778c;
                 display: flex;
-                gap: 6px;
-                .add-task-btn {
-                    height: 30px;
-                    background-color: #0079bf;
-                    border: none;
-                    box-shadow: none;
-                    color: #fff;
-                    border-radius: 3px;
-                    padding: 6px 12px;
-                }
-                .add-task-close-btn {
-                    height: 30px;
-                    border: none;
-                    font-size: 18px;
-                    background-color: transparent;
-                    cursor: pointer;
-                    color: #6b778c;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    &:hover {
-                        color: $clr2;
-                    }
+                justify-content: center;
+                align-items: center;
+                &:hover {
+                    color: $clr2;
                 }
             }
         }
     }
+}
 
 .add-task-add-card {
     height: 30px;

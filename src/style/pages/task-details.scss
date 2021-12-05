@@ -19,6 +19,36 @@
             span {
                 left: -20px;
                 position: absolute;
+                top: 5px;
+            }
+            h1{
+                margin: 3px 2px;
+                font-size: 20px;
+                font-weight: 500;
+            }
+            .textarea-another-list {
+              
+                width: 650px;
+                height: 33px;
+                font-size: 20px;
+                font-weight: 600;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                overflow: hidden;
+                overflow-wrap: break-word;
+                resize: none;
+                box-shadow: 0px 1px 2px 0px #b2b9c6;
+                border: none;
+                outline: none;
+                border-radius: 3px;
+                color: $clr4;
+                margin-bottom: 16px;
+                margin-top: 1px;
+                &:focus {
+                    background-color: $clr1;
+                    box-shadow: 0 0 0 2px $sclr1;
+                    outline: none;
+                  
+                }
             }
         }
         .task-details-container {
@@ -53,7 +83,7 @@
             }
             .task-details-content-container {
                 display: flex;
-                align-items: center;
+
                 justify-content: space-between;
                 .task-details-main-content {
                     position: relative;
@@ -299,15 +329,13 @@
     }
 }
 
-
-
 .task-addons-labels {
     // background-color: red;
     .task-addons-labels-cards {
         font-weight: 600;
         height: 32px;
         line-height: 32px;
-        width: 65px;
+        width: auto;
         div {
             border-radius: 3px;
             text-align: center;
@@ -317,5 +345,13 @@
                 opacity: 0.8;
             }
         }
+        span {
+            padding: 0px 5px;
+        }
+    }
+    .task-addons-members-info {
+        flex-wrap: wrap;
+        display: flex;
+        gap: 4px;
     }
 }
