@@ -4,11 +4,12 @@
       v-for="label in taskLabels"
       :key="label.id"
       class="task-labels-container"
+      @click.capture="miniPreview"
       
     >
     <!-- <transition name="fade" mode="out-in"> -->
-    <div key="1"  @click.capture="miniPreview" class="label-preview mini" v-if="isMiniPreview" :style="{background:label.color}"></div>
-      <div key="2" @click.capture="miniPreview" class="label-preview" v-else :style="{ background: label.color }">{{label.title}}</div>
+    <div    class="label-preview" :class="labelMini"  :style="{background:label.color}"><span class="label-preview" v-if="!isMiniPreview">{{label.title}}</span></div>
+      <!-- <div   class="label-preview" v-else :style="{ background: label.color , ':hover-opacity':0.3}">{{label.title}}</div> -->
      <!-- </transition> -->
     </div>
   </div>
@@ -44,8 +45,8 @@ export default {
       console.log(labels);
       return labels;
     },
-    labelTitle(){
-
+    labelMini(){
+        return {'mini' : this.isMiniPreview}
     },
     backgroundColor() {},
   },
