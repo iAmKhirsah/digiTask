@@ -15,13 +15,10 @@
           v-model="editingGroup.title"
           maxlength="512"
           @blur="disableTitleEdit"
-          
         />
       </form>
       <button class="group-header-edit-btn" @click="actionOn">
-      <span class="material-icons">
-more_horiz
-</span>
+        <span class="material-icons"> more_horiz </span>
       </button>
 
       <edit-dynamic
@@ -46,6 +43,9 @@ more_horiz
         :board="board"
         @editTask="editTask"
         @addTask="addTask"
+        @miniPreview="miniPreview"
+    
+         :isMiniPreview="isMiniPreview"
         :isNewTask="isNewTask"
         :idx="idx"
         class="group-single"
@@ -61,7 +61,7 @@ import addTask from "./addTask.vue";
 
 export default {
   name: "groupList",
-  props: ["group", "idx", "board"],
+  props: ["group", "idx", "board","isMiniPreview"],
   components: { taskList, editDynamic, addTask },
   data() {
     return {
@@ -71,10 +71,14 @@ export default {
       isNewTask: false,
       inGroup: true,
       focusTextArea: true,
+      
     };
   },
   created() {},
   methods: {
+    miniPreview(){
+      this.$emit("miniPreview")
+    },
     changeTitle() {
       this.$nextTick(() => {
         this.$refs.title.blur();
@@ -119,7 +123,7 @@ export default {
       this.editingGroup = { ...this.group };
       this.$nextTick(() => {
         this.$refs.title.focus();
-        this.$refs.title.select()
+        this.$refs.title.select();
       });
     },
     onDrop(groupIdx, dropResult) {

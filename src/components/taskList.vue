@@ -12,13 +12,14 @@
         @drop="onDrop($event)"
       >
         <Draggable
+        
           v-for="(task, itemIndex) in group.tasks"
           :key="itemIndex"
           class="task-list-content"
         >
           <div class="task-list-content">
             <!-- <div class="task-list-content" v-for="task in group.tasks" :key="task.id"> -->
-            <task-preview :isMiniPreview="isMiniPreview" @miniPreview="miniPreview" :task="task" :board="board" @editTask="editTask" />
+            <task-preview  :isMiniPreview="isMiniPreview" @miniPreview="miniPreview" :task="task" :board="board" @editTask="editTask" />
           </div>
         </Draggable>
       </Container>
@@ -32,15 +33,16 @@ import addTask from "./addTask.vue";
 import { Container, Draggable } from "vue-smooth-dnd";
 export default {
   name: "taskList",
-  props: ["group", "isNewTask", "idx", "board"],
+  props: ["group", "isNewTask", "idx", "board","isMiniPreview"],
   components: { taskPreview, addTask, Container, Draggable },
   data() {
     return {
+  
       dropPlaceholderOptions: {
     className: "drop-preview",
     animationDuration: "150",
     showOnTop: false,
-    isMiniPreview:false
+  
    },};
   },
   methods: {
@@ -49,7 +51,7 @@ export default {
       this.$emit("editTask", taskId, this.group.id);
     },
     miniPreview(){
-      this.isMiniPreview = !this.isMiniPreview
+     this.$emit("miniPreview")
     },
     addTask(newTask) {
       this.$emit("addTask", newTask, this.group.id);

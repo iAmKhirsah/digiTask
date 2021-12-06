@@ -1,7 +1,7 @@
 <template>
   <div class="dynamic-members-edit">
     <button class="close" @click="closeModal">
- <span class="material-icons"> clear </span>
+      <span class="material-icons"> clear </span>
     </button>
     <div class="header-layout">
       <header>Members</header>

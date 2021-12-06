@@ -1,4 +1,6 @@
 <template>
+
+
   <div v-if="board" class="board-details-container" v-dragscroll:nochilddrag>
     <board-header :board="board" />
     
@@ -21,6 +23,8 @@
             @updateGroup="updateGroup"
             @onDrop="onDrop"
             @deleteGroup="deleteGroup"
+            @miniPreview="miniPreview"
+            :isMiniPreview="isMiniPreview"
             :board="board"
           />
         </Draggable>
@@ -63,6 +67,7 @@
     </div>
 
     <router-view></router-view>
+ 
   </div>
 </template>
 <script>
@@ -79,6 +84,7 @@ export default {
       board: null,
       isNewGroup: false,
       newGroup: {},
+      isMiniPreview:false,
       newTask: {},
       dropPlaceholderOptions: {
         className: "drop-preview",
@@ -118,6 +124,9 @@ export default {
           this.newGroup.title = "";
           this.$refs.list.focus();
         });
+    },
+      miniPreview(){
+      this.isMiniPreview = !this.isMiniPreview
     },
 
     async addGroup() {
