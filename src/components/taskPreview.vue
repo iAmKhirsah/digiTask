@@ -5,12 +5,14 @@
       <div class="task-preview-content">{{ task.title }}</div>
     </div>
   <div class="task-preview-info">
-    <span class="notification"></span>
-    <span class="due-date"></span>
-    <span v-if="task.description" class="description"> </span>
-     <span class="comments"></span>
-      <span class="attachments"></span>
-       <span class="members"></span>
+    <span class="task-badges">
+    <!-- <span class="badge notification" ><i class="far fa-bell" aria-hidden="true"></i></span> -->
+    <span class="badge due-date" :class="isDueDate" v-if="task.dueDate"><span class="short-date">{{startDate}} {{dueDate}}</span></span>
+    <span v-if="task.description" class="badge description"> </span>
+     <span class="badge comments"></span>
+      <span class="badge attachments"></span>
+       <span class="badge members"></span>
+       </span>
      <!-- {
             id: 'c104',
             title: 'Help me',
@@ -93,6 +95,36 @@ export default {
       this.$emit("miniPreview")
     }
     
+    
+  },
+  computed:{
+    startDate(){
+      let date = new Date(this.task.dates.startDate)
+      let shortMonth = date.toLocaleString('en-us', { month: 'short' });
+      let day = date.getDate()
+      let stringDate = `${shortMonth}  ${day} - `
+      return stringDate
+
+    },
+    dueDate(){
+      let date = new Date(this.task.dates.dueDate)
+      let shortMonth = date.toLocaleString('en-us', { month: 'short' });
+      let day = date.getDate()
+      let stringDate = `${shortMonth}  ${day}`
+      console.log(stringDate)
+      return stringDate
+    },
+    isDueDate(){
+      let dateNow = Date.now()
+
+      let isDueToday = (dateNow - this.task.dates.dueDate) > 0 && (dateNow - this.task.dates.dueDate) > (1000*60*60*24)
+      let isOverDue = (dateNow - this.task.dates.dueDate) < 0
+
+      
+      
+      return {'due-soon': isDueToday , 'over-due':isOverDue}
+    }
+
   },
   components:{
       taskPreviewLabel

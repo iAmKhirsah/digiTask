@@ -6,3 +6,22 @@
   font-family: 'icomoon';
   content: '\e91c';
 }
+
+.task-preview-info {
+  font-family: 'icomoon';
+  .notification::before {
+  }
+  .due-date::before {
+    content: '\e91b';
+    font-size: 16px;
+  }
+  .description::before {
+    content: '\e922';
+  }
+  .attachments::before {
+    content: '\e908';
+  }
+  .comments::before {
+    content: '\e91e';
+  }
+}

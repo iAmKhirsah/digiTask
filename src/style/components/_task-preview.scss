@@ -94,6 +94,69 @@
     }
 }
 
+.task-preview-info{
+    float: left;
+    margin-left: -2px;
+    max-width: 100%;
+    .task-badges{
+        color: #5e6c84;
+    display: inline-block;
+    margin: 0 4px 4px 0;
+    max-width: 100%;
+    min-height: 20px;
+    overflow: hidden;
+    padding: 2px;
+    position: relative;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    .badge{
+        display: inline-block;
+        margin: 0 0px 4px 8px;
+        max-width: 100%;
+        min-height: 20px;
+        overflow: hidden;
+        padding: 2px;
+        position: relative;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        vertical-align: top;
+
+}
+    .due-date{
+       padding:3px;
+        line-height: 20px;
+        width:56px;
+        height: 24px;
+     
+      
+        font-size:12px;
+        .over-due{
+            background-color: #ec9488;
+            color:#fff;
+            border-radius: 3px;
+        }
+        
+        .due-soon{
+         
+            background-color:#f2d600 ;
+            color:#fff;
+            border-radius: 3px;
+        }
+        .short-date{
+            font-family: Segoe UI;
+            position: absolute;
+            right: 2px;
+            top:2px;
+            padding-right:4px;
+            font-size:12px;
+        }
+    }
+}
+
+    }
+
+
 .add-task-add-card {
     height: 30px;
     line-height: 30px;
