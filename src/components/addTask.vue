@@ -45,7 +45,6 @@ export default {
   },
 
   created() {
-    console.log(this.inGroup);
     if (this.inGroup) {
       this.openNewTask = true;
       this.$nextTick(() => {

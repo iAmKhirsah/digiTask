@@ -18,11 +18,27 @@
             <span>
               {{ label.title }}
             </span>
-            <!-- <span>Edit BUTTON GOES HERE</span> -->
-            <span class="pencil-container">
-
-            <span class="material-icons pencil"> mode </span>
-            </span>
+              <span class="label-edit-button">
+                <span
+                  class="icon-sm icon-pencil"
+                  @click="
+                    labelToEdit(label);
+                    openCreateMenu();
+                  "
+                >
+                </span>
+              </span>
+              <!-- <span class="pencil-container">
+                <span
+                  class="material-icons pencil"
+                  @click="
+                    labelToEdit(label);
+                    openCreateMenu();
+                  "
+                >
+                  mode
+                </span>
+              </span> -->
           </li>
         </ul>
       </div>
@@ -41,7 +57,12 @@
       <div>
         <p>Name</p>
         <form @submit="createLabel">
-          <input type="text" v-model="newLabel.title" />
+          <input type="text" v-model="newLabel.title" v-if="!labelToUpdate" />
+          <input
+            type="text"
+            v-model="labelToUpdate.title"
+            v-if="labelToUpdate"
+          />
         </form>
       </div>
       <div>
@@ -52,14 +73,17 @@
               :style="'background-color:' + color"
               class="dynamic-labels-color-card"
               @click="pickSelectedColor(color)"
-              ><i
-                class="fas fa-check"
-                v-if="newLabel.selectedColor === color"
-              ></i
+              ><i class="fas fa-check" v-if="createOrUpdate === color"></i
             ></span>
           </div>
         </div>
-        <button @click="createLabel">Create</button>
+        <button @click="createLabel('create')" v-if="!labelToUpdate">
+          Create
+        </button>
+        <button @click="createLabel('update')" v-if="labelToUpdate">
+          Save
+        </button>
+        <button @click="deleteLabel" v-if="labelToUpdate">Delete</button>
       </div>
     </div>
   </div>
@@ -75,7 +99,9 @@ export default {
         title: "",
         selectedColor: "#ff9f1a",
       },
+      labelToUpdate: null,
       selectedLabel: "",
+      selectedColor: "",
       colors: [
         "#61bd4f",
         "#f2d600",
@@ -92,13 +118,28 @@ export default {
       createMenu: false,
     };
   },
-  computed: {},
+  computed: {
+    createOrUpdate() {
+      return this.labelToUpdate
+        ? this.selectedColor
+        : this.newLabel.selectedColor;
+    },
+  },
   methods: {
     closeModal() {
       this.$emit("closeModal");
+      this.labelToUpdate = null;
+    },
+    deleteLabel() {
+      this.$emit("deleteLabel", this.labelToUpdate);
+      this.labelToUpdate = {};
+      this.createMenu = false;
+    },
+    labelToEdit(label) {
+      this.labelToUpdate = JSON.parse(JSON.stringify(label));
+      this.selectedColor = this.labelToUpdate.color;
     },
     addLabel(label) {
-      console.log(this.task);
       let idx = this.updatedTask.labelIds.indexOf(label.id);
       if (idx > -1) this.updatedTask.labelIds.splice(idx, 1);
       else this.updatedTask.labelIds.push(label.id);
@@ -109,10 +150,18 @@ export default {
     },
     pickSelectedColor(color) {
       this.newLabel.selectedColor = color;
+      if (this.labelToUpdate) {
+        this.labelToUpdate.color = color;
+      }
     },
-    createLabel() {
-      this.$emit("createLabel", this.newLabel);
-      this.newLabel.title = "";
+    createLabel(type = "") {
+      if (type === "create") {
+        this.$emit("createLabel", this.newLabel);
+        this.newLabel.title = "";
+        this.newLabel.selectedColor = "#ff9f1a";
+      } else this.$emit("createLabel", this.labelToUpdate);
+      this.selectedColor = "";
+      this.labelToUpdate = {};
       this.createMenu = false;
     },
   },

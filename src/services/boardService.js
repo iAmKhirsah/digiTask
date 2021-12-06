@@ -43,7 +43,6 @@ async function getTaskById(taskId, boardId) {
 async function getBoardById(boardId) {
   try {
     const board = await storageService.get('boards', boardId);
-    console.log(boardId);
     return board;
   } catch (err) {
     console.log("Could'nt get board by id ", err);

@@ -87,6 +87,7 @@
                 @updateTask="updatedTask"
                 @closeModal="closeModal"
                 @createLabel="createLabel"
+                @deleteLabel="deleteLabel"
               />
               <div class="open-edit-dynamic-btn" @click="setType('members')">
                 <span class="span-settings"><i class="far fa-user"></i></span>
@@ -171,7 +172,6 @@ export default {
   },
   async created() {
     let groupId = this.$route.params.groupId;
-    console.log(groupId);
     let taskId = this.$route.params.taskId;
     await this.$store.dispatch({ type: "getTaskDetails", taskId, groupId });
     this.pageOpen = true;
@@ -215,6 +215,13 @@ export default {
         await this.$store.dispatch({ type: "createLabel", label });
       } catch (err) {
         console.log("Error on CREATELABEL in TASKDETAILS", err);
+      }
+    },
+    async deleteLabel(label) {
+      try {
+        await this.$store.dispatch({ type: "deleteLabel", label });
+      } catch (err) {
+        console.log("Error on DELETELABEL in TASKDETAILS");
       }
     },
     async saveEdit(task = { ...this.getTask }) {

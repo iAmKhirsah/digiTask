@@ -69,11 +69,28 @@ export const boardStore = {
       state.currBoard.activities.unshift(newActivity);
     },
     createLabel(state, { label }) {
-      let newLabel = boardService.getEmptyLabel();
-      newLabel.title = label.title;
-      newLabel.color = label.selectedColor;
-      state.currBoard.labels.push(newLabel);
-      state.currTask.labelIds.push(newLabel.id);
+      if (label.id) {
+        let idx = state.currBoard.labels.findIndex(
+          (currLabel) => currLabel.id === label.id
+        );
+        state.currBoard.labels[idx] = label;
+      } else {
+        let newLabel = boardService.getEmptyLabel();
+        newLabel.title = label.title;
+        newLabel.color = label.selectedColor;
+        state.currBoard.labels.push(newLabel);
+        state.currTask.labelIds.push(newLabel.id);
+      }
+    },
+    deleteLabel(state, label) {
+      let boardIdx = state.currBoard.labels.findIndex(
+        (currLabel) => currLabel.id === label.id
+      );
+      state.currBoard.labels.splice(boardIdx, 1);
+      let taskIdx = state.currTask.labelIds.findIndex(
+        (currLabel) => currLabel.id === label.id
+      );
+      state.currTask.labelIds.splice(taskIdx, 1);
     },
     addTask(state, { taskRaw }) {
       let newTask = boardService.getEmptyTask();
@@ -84,9 +101,6 @@ export const boardStore = {
       );
       state.currBoard.groups[idx].tasks.push(newTask);
     },
-    // addMember(state, { member }) {
-    //   state.currTask.members.push(member)
-    // },
     getDetails(state, { taskId, groupId }) {
       let idx = state.currBoard.groups.findIndex(
         (group) => group.id === groupId
@@ -218,13 +232,6 @@ export const boardStore = {
         console.log('Couldnt add a task', err);
       }
     },
-    // async addMember({ commit }, { member }) {
-    //   try {
-    //     commit({ type: 'addMember', member })
-    //   } catch (err) {
-    //     console.log('Error on board store ADDMEMBER')
-    //   }
-    // },
     async removeTask({ dispatch, commit }, { task }) {
       try {
         commit({ type: 'removeTask', task });
@@ -252,11 +259,18 @@ export const boardStore = {
         commit({ type: 'createLabel', label });
         await dispatch({ type: 'updateBoard' });
       } catch (err) {
-        console.log('Error on board storee CREATELABEL');
+        console.log('Error on board store CREATELABEL');
+      }
+    },
+    async deleteLabel({ dispatch, commit }, { label }) {
+      try {
+        commit({ type: 'deleteLabel', label });
+        await dispatch({ type: 'updateBoard' });
+      } catch (err) {
+        console.log('Error on board soter DELETELABEL');
       }
     },
     async addActivity({ dispatch, commit }, { activity }) {
-      console.log(activity);
       try {
         commit({ type: 'addActivity', activity });
         dispatch({ type: 'updateBoard' });
