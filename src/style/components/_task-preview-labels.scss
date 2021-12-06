@@ -9,7 +9,7 @@
             }
     .task-labels-container{
          
-
+        
     margin-right: 4px;
     margin-bottom: 4px;
     
@@ -28,6 +28,9 @@
       white-space: nowrap;
       float: left;
       line-height: 16px;
+      &:hover{
+          
+      }
       &.mini{
           min-width: 40px;
           max-width: 40px;
