@@ -8,10 +8,7 @@
       
     >
 
-    <!-- <transition name="fade" mode="out-in"> -->
     <div    class="label-preview" :class="labelMini"  :style="{background:label.color}"><span class="label-preview" v-if="!isMiniPreview">{{label.title}}</span></div>
-      <!-- <div   class="label-preview" v-else :style="{ background: label.color , ':hover-opacity':0.3}">{{label.title}}</div> -->
-     <!-- </transition> -->
     </div>
   </div>
 </template>

@@ -7,8 +7,7 @@
   <div class="task-preview-info">
     <span class="notification"></span>
     <span class="due-date"></span>
-    <span v-if="task.description" class="description"> <i class="fas fa-align-left"></i
-            ></span>
+    <span v-if="task.description" class="description"> </span>
      <span class="comments"></span>
       <span class="attachments"></span>
        <span class="members"></span>
