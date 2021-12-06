@@ -1,13 +1,13 @@
 <template>
   <div v-if="board" class="board-details-container" v-dragscroll:nochilddrag>
     <board-header :board="board" />
+    
     <div class="group-list-container">
       <Container
         drag-class="card-ghost"
         drop-class="card-ghost-drop"
         orientation="horizontal"
-         drag-handle-selector=".draggable-item"
-     
+        drag-handle-selector=".draggable-item"
         :get-child-payload="getChildPayload"
         :drop-placeholder="dropPlaceholderOptions"
         @drop="onDropGroup"
@@ -50,13 +50,14 @@
               type="button"
               @click="toggleNewGroup"
             >
-               <span class="material-icons"> clear </span>
+              <span class="material-icons"> clear </span>
             </button>
           </div>
         </form>
 
         <button v-else @click="toggleNewGroup" class="add-another-list">
-           <span class="material-icons"> add </span><span class="title">Add another List</span>
+          <span class="material-icons"> add </span
+          ><span class="title">Add another List</span>
         </button>
       </div>
     </div>
@@ -197,7 +198,11 @@ export default {
       return this.board.groups[groupIndex].tasks[itemIndex];
     },
   },
-  computed: {},
+  computed: {
+    // background(){
+    //   return this.board.style.backgroundColor ? this.board.style.backgroundColor : this.board.style.backgroundUrl
+    // }
+  },
   mounted() {
     if (this.$refs.list) {
       this.$nextTick(() => {
