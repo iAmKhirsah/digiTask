@@ -46,7 +46,6 @@ export default {
           if (label.id === labelId) labels.push(label);
         });
       });
-      console.log(labels);
       return labels;
     },
     labelMini() {

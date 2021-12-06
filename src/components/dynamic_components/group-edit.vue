@@ -7,7 +7,6 @@
       <div class="header-layout">
         <header>List ations</header>
       </div>
-
       <div >
         <p @click="openNewTask">Add card...</p>
         <p @click="openCopyGroup">Copy list...</p>

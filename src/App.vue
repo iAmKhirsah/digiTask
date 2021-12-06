@@ -24,7 +24,6 @@ export default {
       return this.$store.getters.getCurrBoard;
     },
     getImgOrColor() {
-      console.log(this.getBoard);
       if (this.getBoard)
         return this.getBoard.style.backgroundColor
           ? "background:" + this.getBoard.style.backgroundColor

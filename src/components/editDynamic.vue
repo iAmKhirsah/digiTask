@@ -19,6 +19,7 @@
       v-click-outside="closeModal"
       @updateTask="updateTask"
       @createLabel="createLabel"
+      @deleteLabel="deleteLabel"
     ></component>
   </section>
 </template>
@@ -91,7 +92,6 @@ export default {
       this.$emit("deleteTask", this.task);
     },
     updateTask(task) {
-      console.log(task);
       this.$emit("updateTask", task);
     },
     openNewTask() {
@@ -118,6 +118,9 @@ export default {
     createLabel(label) {
       this.$emit("createLabel", label);
     },
+    deleteLabel(label){
+      this.$emit("deleteLabel", label)
+    }
   },
   directives: {
     clickOutside: vClickOutside.directive,

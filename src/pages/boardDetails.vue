@@ -109,7 +109,6 @@ export default {
       }, 100);
       return ++acc;
     }, 1);
-    console.log(this.board.groups);
   },
   methods: {
     async updateGroup(group) {

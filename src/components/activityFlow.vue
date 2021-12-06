@@ -53,7 +53,6 @@ export default {
       let activities = this.board.activities.filter(
         (activity) => activity.task.id === this.task.id
       );
-      console.log(activities);
       return activities;
     },
     getComments() {
