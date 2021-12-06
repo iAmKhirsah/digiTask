@@ -7,6 +7,7 @@
       :task="task"
       :user="user"
       @attachment="attachment"
+      @attachmentLink="attachmentLink"
       @openNewTask="openNewTask"
       @closeNewTask="closeNewTask"
       @openCopyGroup="openCopyGroup"
@@ -82,6 +83,9 @@ export default {
     },
     attachment(link) {
       this.$emit("attachment", link, this.task);
+    },
+    attachmentLink(link){
+      this.$emit('attachmentLink', link)
     },
     deleteTask() {
       this.$emit("deleteTask", this.task);

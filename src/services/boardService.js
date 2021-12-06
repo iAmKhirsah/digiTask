@@ -89,6 +89,9 @@ function getEmptyTask() {
       startDate: '',
       dueDate: '',
     },
+    style: {
+      bgColor: '',
+    },
   };
   return task;
 }
@@ -173,6 +176,9 @@ function createDemoBoard() {
               startDate: '',
               dueDate: '',
             },
+            style: {
+              bgColor: '',
+            },
           },
           {
             id: 'c102',
@@ -185,6 +191,9 @@ function createDemoBoard() {
             dates: {
               startDate: '',
               dueDate: '',
+            },
+            style: {
+              bgColor: '',
             },
           },
         ],
@@ -205,6 +214,9 @@ function createDemoBoard() {
             dates: {
               startDate: '',
               dueDate: '',
+            },
+            style: {
+              bgColor: '',
             },
           },
           {
@@ -271,7 +283,7 @@ function createDemoBoard() {
                 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
             },
             style: {
-              bgColor: '#26de81',
+              bgColor: '',
             },
           },
         ],

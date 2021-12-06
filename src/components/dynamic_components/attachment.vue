@@ -1,21 +1,22 @@
 <template>
   <div class="dynamic-attachment-edit">
-    <button class="close" @click="closeModal"> <span class="material-icons"> clear </span></button>
+    <button class="close" @click="closeModal">
+      <span class="material-icons"> clear </span>
+    </button>
     <div class="header-layout">
       <header>Attach from...</header>
     </div>
     <label>
       <span>Computer</span>
-      <input type="file" @change="addAttachment" hidden />
+      <input type="file" @change="addLinkAttachment" hidden />
     </label>
     <div class="add-link">
-      <p  class="title">Attach a link</p>
-      <p>PLACEHOLDER FIX THIS @BENY</p>
-      <form @submit.prevent="addAttachment">
+      <p class="title">Attach a link</p>
+      <form @submit.prevent="addLinkAttachment">
         <input
           type="text"
           placeholder="Paste any link here..."
-          v-model="attachment"
+          v-model="attachmentLink"
         />
         <button class="attach">Attach</button>
       </form>
@@ -27,14 +28,15 @@ export default {
   name: "attachment",
   data() {
     return {
-      attachment: "",
+      attachmentLink: "",
     };
   },
   methods: {
     addAttachment(ev) {
-      if (ev) {
-        this.$emit("attachment", ev);
-      } else this.$emit("attachment", this.attachment);
+      this.$emit("attachment", ev);
+    },
+    addLinkAttachment() {
+      this.$emit("attachmentLink", this.attachmentLink);
     },
     closeModal() {
       this.$emit("closeModal");

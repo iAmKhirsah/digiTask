@@ -66,7 +66,7 @@ export const boardStore = {
       if (activity.res) {
         newActivity.imgUrl = activity.res.url;
       }
-      state.currBoard.activities.push(newActivity);
+      state.currBoard.activities.unshift(newActivity);
     },
     createLabel(state, { label }) {
       let newLabel = boardService.getEmptyLabel();

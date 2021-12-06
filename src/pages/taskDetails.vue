@@ -3,8 +3,20 @@
     <section class="task-details-wrapper">
       <div class="task-details-container" v-click-outside="closePage">
         <button class="task-details-container-btn" @click="closePage">
-        <span class="material-icons"> clear </span>
+          <span class="material-icons"> clear </span>
         </button>
+        <div
+          class="task-background-cover"
+          v-if="getTask.style.bgColor"
+          :style="'background:' + getTask.style.bgColor"
+        >
+          <div class="window-cover-menu">
+            <div class="window-cover-menu-button" @click="setType('cover')">
+              <span class="span-settings"></span>
+              Cover
+            </div>
+          </div>
+        </div>
         <div class="task-details-header">
           <span><i class="fas fa-window-maximize"></i></span>
           <form v-if="titleEdit" v-on:keydown.enter="saveTask">
@@ -68,6 +80,7 @@
                 :getTask="getTask"
                 :getUser="getUser"
                 @attachment="attachment"
+                @attachmentLink="attachmentLink"
                 @updateBoard="updateBoard"
                 @deleteTask="deleteTask"
                 @taskActivity="taskActivity"
@@ -99,7 +112,11 @@
                 ></span>
                 Attachment
               </div>
-              <div class="open-edit-dynamic-btn" @click="setType('cover')">
+              <div
+                class="open-edit-dynamic-btn"
+                @click="setType('cover')"
+                v-if="!getTask.style.bgColor"
+              >
                 <span class="span-settings"
                   ><i class="far fa-window-maximize"></i
                 ></span>
@@ -181,9 +198,9 @@ export default {
     async saveTask() {
       try {
         if (this.currTask.title.match(/^\s*$/)) {
-          this.currTask.title = this.getTask.title
-          this.titleEdit = false
-          return
+          this.currTask.title = this.getTask.title;
+          this.titleEdit = false;
+          return;
         }
         this.titleEdit = false;
         let task = { ...this.currTask };
@@ -229,6 +246,10 @@ export default {
       await this.$store.dispatch({ type: "updateTask", task: updatedTask });
       await this.$store.dispatch({ type: "updateGroup", group });
     },
+    async attachmentLink(link) {
+      let txt = `attached ${link} to this card`;
+      this.taskActivity(txt);
+    },
     async taskActivity(textToAdd) {
       try {
         let currTask = this.getTask;
@@ -245,23 +266,8 @@ export default {
     async updateBoard(board) {
       this.$store.dispatch({ type: "updateBoard", board });
     },
-    // async addMember(member) {
-    //   console.log(member);
-    //   try {
-    //     await this.$store.dispatch({ type: "addMember", member });
-    //     let currTask = this.getTask;
-    //     await this.updatedTask(currTask);
-    //     let user = this.getUser;
-    //     let txt = `added ${member.fullname} to ${currTask.title}`;
-    //     this.$store.dispatch({
-    //       type: "addActivity",
-    //       activity: { task: currTask, txt, user },
-    //     });
-    //   } catch (err) {
-    //     console.log("Failed on ADDMEMBER in TASKDETAILS", err);
-    //   }
-    // },
     async attachment(link, task) {
+      console.log(link);
       try {
         let res = await uploadFile(link);
         console.log(res);

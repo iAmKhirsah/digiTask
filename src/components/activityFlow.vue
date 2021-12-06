@@ -8,16 +8,17 @@
           :key="activity.id"
         >
           <span class="user-tag-name in-header">
+            <img class="image-settings" :src="activity.byMember.imgUrl"
+          /></span>
+          <strong> {{ activity.byMember.fullname }} </strong>
+          <span> {{ activity.txt }}</span>
+          <span>
             <img
-              class="image-settings"
               v-if="activity.imgUrl"
               :src="activity.imgUrl"
+              class="activity-attachment-image"
             />
           </span>
-          <span>
-            <strong> {{ activity.byMember.fullname }} </strong>
-          </span>
-          <span> {{ activity.txt }}</span>
         </div>
 
         <div v-if="getComments">
@@ -46,6 +47,7 @@
 export default {
   name: "activityFlow",
   props: ["task", "group", "board"],
+  methods: {},
   computed: {
     getActivities() {
       let activities = this.board.activities.filter(
