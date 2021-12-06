@@ -105,22 +105,20 @@
         margin-right: 6px;
     }
     &:hover {
-        background-color: $clr9;
+        background-color: #091e4214;
         border-radius: 4px;
     }
     .title {
-        color:#6b778c;
-    padding: 0px 24px;
-    font-size: 16.5px;
-
+        color: #6b778c;
+        padding: 0px 24px;
+        font-size: 16.5px;
     }
     .group-add-plus {
         position: absolute;
         top: 3px;
         left: 7px;
-        .material-icons{
-            color:#6b778c;
-           
+        .material-icons {
+            color: #6b778c;
         }
     }
 }

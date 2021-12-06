@@ -1,5 +1,5 @@
 <template>
-  <div class="dynamic-group-edit card-layout nav-modal">
+  <div class="dynamic-group-edit">
     <button @click="closeModal"> <span class="material-icons"> clear </span></button>
       <div class="header-layout">
       <header>List ations</header>
