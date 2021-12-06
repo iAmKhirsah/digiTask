@@ -1,73 +1,71 @@
 <template>
-
-
-  <div v-if="board" class="board-details-container" v-dragscroll:nochilddrag>
-    <board-header :board="board" />
-    
-    <div class="group-list-container">
-      <Container
-        drag-class="card-ghost"
-        drop-class="card-ghost-drop"
-        orientation="horizontal"
-        drag-handle-selector=".draggable-item"
-        :get-child-payload="getChildPayload"
-        :drop-placeholder="dropPlaceholderOptions"
-        @drop="onDropGroup"
-      >
-        <Draggable v-for="(group, idx) in board.groups" :key="idx">
-          <group-list
-            class="draggable-item"
-            :group="group"
-            :idx="idx"
-            @addTask="addTask"
-            @updateGroup="updateGroup"
-            @onDrop="onDrop"
-            @deleteGroup="deleteGroup"
-            @miniPreview="miniPreview"
-            :isMiniPreview="isMiniPreview"
-            :board="board"
-          />
-        </Draggable>
-      </Container>
-
-      <div>
-        <form
-          class="add-list-form"
-          v-if="isNewGroup"
-          v-on:keydown.enter="addGroup"
-          v-click-outside="toggleNewGroup"
+  <div>
+    <div v-if="board" class="board-details-container" v-dragscroll:nochilddrag>
+      <board-header :board="board" @updateBoard="updateBoard" />
+      <div class="group-list-container">
+        <Container
+          drag-class="card-ghost"
+          drop-class="card-ghost-drop"
+          orientation="horizontal"
+          drag-handle-selector=".draggable-item"
+          :get-child-payload="getChildPayload"
+          :drop-placeholder="dropPlaceholderOptions"
+          @drop="onDropGroup"
         >
-          <textarea
-            class="textarea-another-list"
-            ref="list"
-            @keydown.enter.prevent
-            oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-            onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-            v-model="newGroup.title"
-            maxlength="512"
-            placeholder="Enter list title..."
-          />
-          <div class="add-list-form-btns">
-            <button class="add-task-btn" @click="addGroup">Add list</button>
-            <button
-              class="add-task-close-btn"
-              type="button"
-              @click="toggleNewGroup"
-            >
-              <span class="material-icons"> clear </span>
-            </button>
-          </div>
-        </form>
+          <Draggable v-for="(group, idx) in board.groups" :key="idx">
+            <group-list
+              class="draggable-item"
+              :group="group"
+              :idx="idx"
+              @addTask="addTask"
+              @updateGroup="updateGroup"
+              @onDrop="onDrop"
+              @deleteGroup="deleteGroup"
+              @miniPreview="miniPreview"
+              :isMiniPreview="isMiniPreview"
+              :board="board"
+            />
+          </Draggable>
+        </Container>
 
-        <button v-else @click="toggleNewGroup" class="add-another-list">
-          <span class="material-icons"> add </span
-          ><span class="title">Add another List</span>
-        </button>
+        <div>
+          <form
+            class="add-list-form"
+            v-if="isNewGroup"
+            v-on:keydown.enter="addGroup"
+            v-click-outside="toggleNewGroup"
+          >
+            <textarea
+              class="textarea-another-list"
+              ref="list"
+              @keydown.enter.prevent
+              oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+              onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+              v-model="newGroup.title"
+              maxlength="512"
+              placeholder="Enter list title..."
+            />
+            <div class="add-list-form-btns">
+              <button class="add-task-btn" @click="addGroup">Add list</button>
+              <button
+                class="add-task-close-btn"
+                type="button"
+                @click="toggleNewGroup"
+              >
+                <span class="material-icons"> clear </span>
+              </button>
+            </div>
+          </form>
+
+          <button v-else @click="toggleNewGroup" class="add-another-list">
+            <span class="material-icons"> add </span
+            ><span class="title">Add another List</span>
+          </button>
+        </div>
       </div>
-    </div>
 
-    <router-view></router-view>
- 
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 <script>
@@ -84,7 +82,7 @@ export default {
       board: null,
       isNewGroup: false,
       newGroup: {},
-      isMiniPreview:false,
+      isMiniPreview: false,
       newTask: {},
       dropPlaceholderOptions: {
         className: "drop-preview",
@@ -125,10 +123,12 @@ export default {
           this.$refs.list.focus();
         });
     },
-      miniPreview(){
-      this.isMiniPreview = !this.isMiniPreview
+    miniPreview() {
+      this.isMiniPreview = !this.isMiniPreview;
     },
-
+    async updateBoard(board) {
+      this.$store.dispatch({ type: "updateBoard", board });
+    },
     async addGroup() {
       try {
         if (this.newGroup.title.match(/^\s*$/) || !this.newGroup.title.length) {
