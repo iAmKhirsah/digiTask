@@ -35,10 +35,14 @@
     <div class="task-addons-content-container">
       <div class="task-addons-dates" v-if="dueDate || startDate">
         <p class="subtitles">Dates</p>
-        <p>PLACEHOLDER GIVE DUE DATE OR START DATE IF THERES ONLY ONE</p>
+        <p></p>
         <div class="task-addons-dates-cards">
+          <input type="checkbox" />
+          <div class="dates-preview">
           <span v-if="startDate">{{ startDate }} </span
-          ><span v-if="dueDate">- {{ dueDate }}</span>
+          ><span v-if="dueDate">- {{ dueDate }}</span> 
+          <span class="task-due-completed"> completed</span>
+          </div>
         </div>
       </div>
     </div>

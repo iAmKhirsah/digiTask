@@ -10,10 +10,19 @@
 .task-preview-info {
   font-family: 'icomoon';
   .notification::before {
+
   }
-  .due-date::before {
+  
+  .clock-icon {
+    &::before{
+       position: absolute;
+    left: 5px;
+    top:2px;
     content: '\e91b';
     font-size: 16px;
+    }
+   
+
   }
   .description::before {
     content: '\e922';

@@ -7,7 +7,7 @@
   <div class="task-preview-info">
     <span class="task-badges">
     <!-- <span class="badge notification" ><i class="far fa-bell" aria-hidden="true"></i></span> -->
-    <span class="badge due-date" :class="isDueDate" v-if="task.dueDate"><span class="short-date">{{startDate}} {{dueDate}}</span></span>
+    <span class="badge due-date" :class="isDueDate" v-if="validateDates"><span class="clock-icon"></span><span class="short-date">{{startDate}} {{dueDate}}</span></span>
     <span v-if="task.description" class="badge description"> </span>
      <span class="badge comments"></span>
       <span class="badge attachments"></span>
@@ -99,30 +99,34 @@ export default {
   },
   computed:{
     startDate(){
+        let dueTime = new Date(this.task.dates.dueDate).getTime()
+        let startTime = new Date(this.task.dates.startDate).getTime()
+      if(dueTime-startTime < (1000*60*60*24))return
       let date = new Date(this.task.dates.startDate)
       let shortMonth = date.toLocaleString('en-us', { month: 'short' });
       let day = date.getDate()
       let stringDate = `${shortMonth}  ${day} - `
       return stringDate
-
     },
     dueDate(){
+      
       let date = new Date(this.task.dates.dueDate)
       let shortMonth = date.toLocaleString('en-us', { month: 'short' });
       let day = date.getDate()
       let stringDate = `${shortMonth}  ${day}`
-      console.log(stringDate)
+
       return stringDate
     },
     isDueDate(){
       let dateNow = Date.now()
-
-      let isDueToday = (dateNow - this.task.dates.dueDate) > 0 && (dateNow - this.task.dates.dueDate) > (1000*60*60*24)
-      let isOverDue = (dateNow - this.task.dates.dueDate) < 0
-
-      
-      
-      return {'due-soon': isDueToday , 'over-due':isOverDue}
+      let dueTime = new Date(this.task.dates.dueDate).getTime()
+      let isDueToday =  (dueTime - dateNow + 1000*60*60*24) < (1000*60*60*24)
+      let isOverDue = (dueTime - dateNow + 1000*60*60*24) < 0
+      let isDone = this.task.dates.isDone
+      return {'over-due':isOverDue&!isDone, 'due-soon': !isOverDue&&isDueToday&&!isDone , done:isDone}
+    },
+    validateDates(){
+      return this.task.dates.startDate || this.task.dates.dueDate
     }
 
   },
