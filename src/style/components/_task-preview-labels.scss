@@ -1,58 +1,44 @@
-@keyframes example {
-    0% {
-        width: 40px;
-    }
-    50% {
-        width: 56px;
-        height: 8px;
-    }
-    100% {
-        width: 56px;
-        height: 16px;
-    }
-}
-
 .task-label-preview-container {
-    display: flex;
-    flex-wrap: wrap;
-    padding-left: 8px;
-    margin-top: 8px;
-    animation-name: example;
-    animation-duration: 1s;
-    &:hover {
-        background-color: rgba(255, 255, 255, 0.3);
-    }
-    .task-labels-container {
-        margin-right: 4px;
-        margin-bottom: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 8px;
+  margin-top: 8px;
+  animation-name: example;
+  animation-duration: 1s;
+  &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+  }
+  .task-labels-container {
+      margin-right: 4px;
+      margin-bottom: 4px;
 
-        .label-preview {
-            min-width: 56px;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            max-width: 198px;
-            line-height: 20px;
-            border-radius: 4px;
-            padding: 0 8px;
-            color: #fff;
-            font-size: 12px;
-            font-weight: 700;
-            height: 16px;
-            white-space: nowrap;
-            float: left;
-            line-height: 16px;
-           
-            &.mini {
-             
-                min-width: 40px;
-                max-width: 40px;
-                height: 8px;
-                margin-right: 4px;
-                margin-bottom: 4px;
-                padding: 0;
-            }
-        }
+  margin-right: 4px;
+  margin-bottom: 4px;
+  
+  .label-preview {
+    min-width: 52px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 198px;
+    line-height: 20px;
+    border-radius: 4px;
+    padding:0 4px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    height: 16px;
+    white-space: nowrap;
+    float: left;
+    line-height: 16px;
+    &.mini{
+        min-width: 40px;
+        max-width: 40px;
+        height:8px;
+        margin-right:4px;
+        margin-bottom: 4px;
+        padding:0;
     }
+  }
 }
 
 // label_text_disappear .45s ease-in forwards
