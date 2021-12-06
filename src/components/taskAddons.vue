@@ -32,6 +32,16 @@
         </div>
       </div>
     </div>
+    <div class="task-addons-content-container">
+      <div class="task-addons-dates">
+        <p class="subtitles">Dates</p>
+        <div
+          class="task-addons-dates-cards"
+          v-for="(date, idx) in getDates"
+          :key="idx"
+        >{{date}}</div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -51,6 +61,9 @@ export default {
         }
       });
       return labels;
+    },
+    getDates() {
+      return this.getTask.dates;
     },
   },
 };

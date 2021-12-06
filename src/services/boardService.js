@@ -85,6 +85,10 @@ function getEmptyTask() {
     byMember: [],
     members: [],
     labelIds: [],
+    dates: {
+      startDate: '',
+      dueDate: '',
+    },
   };
   return task;
 }
@@ -165,6 +169,10 @@ function createDemoBoard() {
             members: [],
             comments: [],
             labelIds: [],
+            dates: {
+              startDate: '',
+              dueDate: '',
+            },
           },
           {
             id: 'c102',
@@ -174,6 +182,10 @@ function createDemoBoard() {
             members: [],
             comments: [],
             labelIds: [],
+            dates: {
+              startDate: '',
+              dueDate: '',
+            },
           },
         ],
         style: {},
@@ -190,6 +202,10 @@ function createDemoBoard() {
             members: [],
             comments: [],
             labelIds: [],
+            dates: {
+              startDate: '',
+              dueDate: '',
+            },
           },
           {
             id: 'c104',
@@ -243,7 +259,10 @@ function createDemoBoard() {
             ],
             labelIds: ['l101', 'l102'],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dates: {
+              startDate: '2021-12-13',
+              dueDate: '2021-12-21',
+            },
             byMember: {
               _id: 'u101',
               username: 'Tal',

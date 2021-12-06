@@ -87,6 +87,7 @@ export default {
       this.$emit("deleteTask", this.task);
     },
     updateTask(task) {
+      console.log(task);
       this.$emit("updateTask", task);
     },
     openNewTask() {
