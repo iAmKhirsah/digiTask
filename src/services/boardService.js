@@ -87,6 +87,7 @@ function getEmptyTask() {
     dates: {
       startDate: '',
       dueDate: '',
+      isDone:false,
     },
     style: {
       bgColor: '',
@@ -174,6 +175,7 @@ function createDemoBoard() {
             dates: {
               startDate: '',
               dueDate: '',
+              isDone:false,
             },
             style: {
               bgColor: '',
@@ -190,6 +192,7 @@ function createDemoBoard() {
             dates: {
               startDate: '',
               dueDate: '',
+              isDone:false,
             },
             style: {
               bgColor: '',
@@ -213,6 +216,7 @@ function createDemoBoard() {
             dates: {
               startDate: '',
               dueDate: '',
+              isDone:false,
             },
             style: {
               bgColor: '',
@@ -273,6 +277,7 @@ function createDemoBoard() {
             dates: {
               startDate: '2021-12-13',
               dueDate: '2021-12-21',
+              isDone:false,
             },
             byMember: {
               _id: 'u101',

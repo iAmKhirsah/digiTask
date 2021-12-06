@@ -7,10 +7,13 @@
     transform: rotateZ(0deg);
    }
    .drop-preview {
-    background-color: rgba(150, 150, 200, 0.15);
+    background-color: rgba(19, 19, 26, 0.15);
     margin: 5px 5px 5px 3px;
    }
    .smooth-dnd-container {
-   height: fit-content;
+
    min-height: 5px;
+   }
+   .smooth-dnd-draggable-wrapper{
+       max-height: fit-content ;
    }
