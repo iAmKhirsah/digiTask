@@ -9,7 +9,7 @@ import {
 export const boardStore = {
   strict: true,
   state: {
-    currBoard: {},
+    currBoard: null,
     boards: [],
     currTask: {},
     currGroup: {},

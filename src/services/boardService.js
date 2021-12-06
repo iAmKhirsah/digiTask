@@ -134,7 +134,7 @@ function createDemoBoard() {
       imgUrl: 'http://some-img',
     },
     style: {
-      backgroundColor: '',
+      backgroundColor: '#61bd4f',
       backgroundUrl: '',
     },
     labels: [

@@ -28,15 +28,20 @@
           <span class="material-icons"> filter_list </span>
           <span class="filter">Filter</span>
         </div>
-        <div class="board-box">
+        <div class="board-box" @click="openShowMenu">
           <button class="group-header-edit-btn">
             <span class="material-icons"> more_horiz </span>
           </button>
-          <span class="show-more" @click="openShowMenu"> Show Menu</span>
+          <span class="show-more"> Show Menu</span>
         </div>
       </div>
     </header>
-    <show-menu :board="board" v-if="showMenuOpen" />
+    <show-menu
+      :board="board"
+      v-if="showMenuOpen"
+      @closeShowMenu="closeShowMenu"
+      @updateBoard="updateBoard"
+    />
     <header-dynamic
       @closeModal="closeModal"
       :type="type"
@@ -69,8 +74,14 @@ export default {
     },
   },
   methods: {
+    updateBoard(board) {
+      this.$store.dispatch({ type: "updateBoard", board });
+    },
     openShowMenu() {
       this.showMenuOpen = true;
+    },
+    closeShowMenu() {
+      this.showMenuOpen = false;
     },
     toggleStar() {
       this.isStarred = !this.isStarred;
