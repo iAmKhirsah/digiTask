@@ -85,6 +85,13 @@ function getEmptyTask() {
     byMember: [],
     members: [],
     labelIds: [],
+    dates: {
+      startDate: '',
+      dueDate: '',
+    },
+    style: {
+      bgColor: '',
+    },
   };
   return task;
 }
@@ -165,6 +172,13 @@ function createDemoBoard() {
             members: [],
             comments: [],
             labelIds: [],
+            dates: {
+              startDate: '',
+              dueDate: '',
+            },
+            style: {
+              bgColor: '',
+            },
           },
           {
             id: 'c102',
@@ -174,6 +188,13 @@ function createDemoBoard() {
             members: [],
             comments: [],
             labelIds: [],
+            dates: {
+              startDate: '',
+              dueDate: '',
+            },
+            style: {
+              bgColor: '',
+            },
           },
         ],
         style: {},
@@ -190,6 +211,13 @@ function createDemoBoard() {
             members: [],
             comments: [],
             labelIds: [],
+            dates: {
+              startDate: '',
+              dueDate: '',
+            },
+            style: {
+              bgColor: '',
+            },
           },
           {
             id: 'c104',
@@ -243,7 +271,10 @@ function createDemoBoard() {
             ],
             labelIds: ['l101', 'l102'],
             createdAt: 1590999730348,
-            dueDate: 16156215211,
+            dates: {
+              startDate: '2021-12-13',
+              dueDate: '2021-12-21',
+            },
             byMember: {
               _id: 'u101',
               username: 'Tal',
@@ -252,7 +283,7 @@ function createDemoBoard() {
                 'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
             },
             style: {
-              bgColor: '#26de81',
+              bgColor: '',
             },
           },
         ],

@@ -21,7 +21,7 @@
         </div>
         <!-- Ilia we need here another componenet? -->
         <div class="menu-box">
-          <div class="labels">
+          <div class="labels" @click="openModal('label')">
             <div>Labels</div>
             <span class="icon-board"></span>
           </div>
