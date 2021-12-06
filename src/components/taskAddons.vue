@@ -33,13 +33,13 @@
       </div>
     </div>
     <div class="task-addons-content-container">
-      <div class="task-addons-dates">
+      <div class="task-addons-dates" v-if="dueDate || startDate">
         <p class="subtitles">Dates</p>
-        <div
-          class="task-addons-dates-cards"
-          v-for="(date, idx) in getDates"
-          :key="idx"
-        >{{date}}</div>
+        <p>PLACEHOLDER GIVE DUE DATE OR START DATE IF THERES ONLY ONE</p>
+        <div class="task-addons-dates-cards">
+          <span v-if="startDate">{{ startDate }} </span
+          ><span v-if="dueDate">- {{ dueDate }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -64,6 +64,28 @@ export default {
     },
     getDates() {
       return this.getTask.dates;
+    },
+    startDate() {
+      let date = new Date(this.getDates.startDate);
+      if (
+        !this.getDates.startDate ||
+        this.getDates.dueDate === this.getDates.startDate
+      )
+        return;
+      let shortMonth = date.toLocaleString("en-us", { month: "short" });
+      let day = date.getDate();
+      let year = date.getFullYear();
+      let stringDate = `${shortMonth} ${day}, ${year}`;
+      return stringDate;
+    },
+    dueDate() {
+      let date = new Date(this.getDates.dueDate);
+      if (!this.getDates.dueDate) return;
+      let shortMonth = date.toLocaleString("en-us", { month: "short" });
+      let day = date.getDate();
+      let year = date.getFullYear();
+      let stringDate = `${shortMonth}  ${day}, ${year}`;
+      return stringDate;
     },
   },
 };
