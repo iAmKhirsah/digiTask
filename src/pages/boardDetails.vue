@@ -207,9 +207,12 @@ export default {
     },
   },
   computed: {
-    boardGroups(){
-      return this.board.groups
-    }
+    boardGroups() {
+      return this.board.groups;
+    },
+    getCurrBoard() {
+      return this.$store.getCurrBoard;
+    },
     // background(){
     //   return this.board.style.backgroundColor ? this.board.style.backgroundColor : this.board.style.backgroundUrl
     // }
