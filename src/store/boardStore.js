@@ -115,6 +115,12 @@ export const boardStore = {
       state.currBoard.groups.splice(idx, 1, group);
     },
     updateTask(state, { task }) {
+     
+      const idx = state.currBoard.groups.findIndex(
+        (currGroup) => currGroup.id === state.currGroup.id
+      );
+      const taskIdx = state.currBoard.groups[idx].tasks.findIndex((currTask)=>currTask.id === task.id)
+      state.currBoard.groups[idx].tasks.splice(taskIdx, 1, task);
       state.currTask = task;
     },
     removeTask(state, { task }) {
@@ -247,9 +253,10 @@ export const boardStore = {
         console.log('Error on board store GETTASKDETAILS', err);
       }
     },
-    async updateTask({ commit }, { task }) {
+    async updateTask({ commit,dispatch }, { task }) {
       try {
         commit({ type: 'updateTask', task });
+        await dispatch({ type: 'updateBoard' });
       } catch (err) {
         console.log('Error on board store UPDATETASK', err);
       }

@@ -52,13 +52,16 @@ export default {
             else return true;
           }
         );
+        this.$emit("updateTask", this.updatedTask);
         this.$emit("updateBoard", this.boardCopy);
       } else {
         txt = `${this.user.fullname} added ${member.fullname} to this card`;
         this.updatedTask.members.push(member);
         this.$emit("taskActivity", txt);
+       
       }
-      this.$emit("updateTask", this.updatedTask);
+       this.$emit("updateTask", this.updatedTask);
+      
     },
     closeModal() {
       this.$emit("closeModal");

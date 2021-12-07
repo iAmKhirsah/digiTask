@@ -6,7 +6,11 @@
     <div class="header-layout">
       <header>Cover</header>
     </div>
+    
     <div class="main-container">
+      <p>Size</p>
+      <div></div>
+       <button @click="removeCover">Remove Cover</button>
       <p>Color</p>
       <div class="color-button-container">
         <div v-for="(color, idx) in colors" :key="idx" @click="setCover(color)">
@@ -50,6 +54,10 @@ export default {
       this.updatedTask.style.bgColor = color;
       this.$emit('updateTask', this.updatedTask)
     },
+    removeCover(){
+      this.updatedTask.tyle.bgolor = ''
+      this.$emit('updateTask',this.updatedTask)
+    }
   },
 };
 </script>

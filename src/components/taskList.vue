@@ -13,7 +13,7 @@
       >
         <Draggable
         
-          v-for="(task, itemIndex) in group.tasks"
+          v-for="(task, itemIndex) in groupTasks"
           :key="itemIndex"
           class="task-list-content"
         >
@@ -73,7 +73,14 @@ export default {
     getChildPayload(index) {
       return this.board.groups[this.idx].tasks[index];
     },
+  
     
   },
+  computed:{
+    groupTasks(){
+      return this.group.tasks
+    }
+  }
+ 
 };
 </script>

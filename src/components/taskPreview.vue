@@ -1,5 +1,7 @@
 <template>
   <div class="task-preview-container" v-if="task" >
+    <button class="edit-button"></button>
+    <div class="task-cover">  </div>
     <task-preview-label :isMiniPreview="isMiniPreview" @miniPreview="miniPreview" :task="task" :board="board"/>
     <div @click="editTask(task.id)" class="task-preview" >
       <div class="task-preview-content">{{ task.title }}</div>
@@ -10,8 +12,8 @@
     <span class="badge due-date" @click="toggleDueDateDone" :class="isDueDate" v-if="validateDates" ><span class="clock-icon"></span><span class="short-date">{{startDate}} {{dueDate}}</span></span>
     <span v-if="task.description" class="badge description"> </span>
      <span class="badge comments" v-if="hasCommnets"></span>
-       <span class="badge members" v-if="hasMembers" ><span class="user-tag-name" v-for="(member,idx) in task.members" :key="idx"><img class="image-settings"  :src="member.imgUrl"/></span></span>
-       </span>
+       <span class="badge members" v-for="(member,idx) in taskMembers" :key="idx"  ><render-members  :member="member"/></span>
+  </span>
      <!-- {
             id: 'c104',
             title: 'Help me',
@@ -81,9 +83,10 @@
 </template>
 <script>
 import taskPreviewLabel from './taskPreviewLabel.vue';
-
+import renderMembers from './renderMembers.vue'
+import RenderMembers from './renderMembers.vue';
 export default {
-  components: { taskPreviewLabel },
+  components: { taskPreviewLabel ,renderMembers},
   name: "taskPreview",
   props: ["task","board","isMiniPreview"],
   methods: {
@@ -136,11 +139,14 @@ export default {
 
     validateDates(){
       return this.task.dates.startDate || this.task.dates.dueDate
+    },
+    taskMembers(){
+      return this.task.members
     }
 
   },
   components:{
-      taskPreviewLabel
+      taskPreviewLabel, RenderMembers
     }
 };
 </script>
