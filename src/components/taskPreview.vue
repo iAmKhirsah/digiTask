@@ -93,9 +93,12 @@ export default {
     },
     miniPreview(){
       this.$emit("miniPreview")
+    } ,
+    toggleDueDateDone(){
+      let task = JSON.parse(JSON.stringify(this.task))
+      task.dates.isDone = this.isDone
+      this.$emit('updateTask',task)
     }
-    
-    
   },
   computed:{
     startDate(){

@@ -37,11 +37,11 @@
         <p class="subtitles">Dates</p>
         <p></p>
         <div class="task-addons-dates-cards">
-          <input type="checkbox" />
+          <input type="checkbox" v-model="isDone" @change="saveIsDone"/>
           <div class="dates-preview">
           <span v-if="startDate">{{ startDate }} </span
           ><span v-if="dueDate">- {{ dueDate }}</span> 
-          <span class="task-due-completed"> completed</span>
+          <span v-if="getTask.dates.isDone" class="task-due-completed"> complete</span>
           </div>
         </div>
       </div>
@@ -52,6 +52,23 @@
 export default {
   name: "taskAddons",
   props: ["getTask", "getBoard"],
+  data(){
+    return {
+      isDone:false
+    }
+  },
+  created(){
+    this.isDone = this.getTask.dates.isDone
+  },
+  methods:{
+    saveIsDone(){
+      let task = JSON.parse(JSON.stringify(this.getTask))
+      task.dates.isDone = this.isDone
+     
+      task.dates.isDone = this.isDone
+      this.$emit('updatedTask',task)
+    }
+  },
   computed: {
     getLabel() {
       let labels = [];

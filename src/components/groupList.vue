@@ -44,7 +44,7 @@
         @editTask="editTask"
         @addTask="addTask"
         @miniPreview="miniPreview"
-    
+      @updateGroup="updateGroup"
          :isMiniPreview="isMiniPreview"
         :isNewTask="isNewTask"
         :idx="idx"
