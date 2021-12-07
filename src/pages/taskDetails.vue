@@ -54,6 +54,26 @@
               @closeDescEdit="closeDescEdit"
             />
 
+    <div class="task-details-checklist">
+              <div class="task-details-checklist-content">
+                <span class="task-description-symbol">
+                  <i class="fas fa-align-left"></i
+                ></span>
+
+
+                <!-- <div v-if="currTask.checklist && currTask.checklist.length"> -->
+                  <check-list
+                    v-for="checklist in currTask.checklists"
+                    :key="checklist.id"
+                    :checklist="checklist"
+                    :currTask="currTask"
+                    @updatedTask="updatedTask"
+                  ></check-list>
+                <!-- </div> -->
+              </div>
+            </div>
+
+
             <div class="task-details-activity">
               <div class="task-details-activity-content">
                 <span> <i class="fas fa-align-left"></i></span>
@@ -159,6 +179,7 @@ import activityFlow from "../components/activityFlow.vue";
 import editDynamic from "../components/editDynamic.vue";
 import { uploadFile } from "../services/serverlessUploadService";
 import taskAddons from "../components/taskAddons.vue";
+import checkList from "../components/checkList.vue";
 export default {
   name: "taskDetails",
   data() {
@@ -308,6 +329,7 @@ export default {
     activityFlow,
     editDynamic,
     taskAddons,
+     checkList
   },
   directives: {
     clickOutside: vClickOutside.directive,

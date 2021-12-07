@@ -1,0 +1,218 @@
+.task-checklist {
+    display: flex;
+
+    padding: 0px 8px 0 54px;
+    margin: 0 0 8px 0px;
+
+    position: relative;
+    flex-direction: column;
+
+    .checklist-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+        font-size: 16px;
+        .open-edit-dynamic-btn {
+            background-color: #091e420a;
+            border: none;
+            border-radius: 3px;
+            box-shadow: none;
+            cursor: pointer;
+            height: 32px;
+            max-width: 300px;
+            padding: 6px 12px;
+            width: 64px;
+            font-size: 14px;
+            color: $clr2;
+            &:hover {
+                background-color: #091e4214;
+                border: none;
+                box-shadow: none;
+            }
+        }
+    }
+
+    .open-edit-dynamic-btn {
+        background-color: #091e420a;
+        border: none;
+        border-radius: 3px;
+        box-shadow: none;
+        cursor: pointer;
+        height: 32px;
+        margin: 8px 0;
+        padding: 6px 12px;
+        font-size: 14px;
+        color: $clr2;
+        &.remove {
+            margin: 0;
+        }
+        &:hover {
+            background-color: #091e4214;
+            border: none;
+            box-shadow: none;
+        }
+    }
+    .textarea-another-list {
+        background-color: #091e420a;
+        height: 56px;
+        padding: 1px 0px 0px 1px;
+        font-size: 14px;
+        margin-top: 3px;
+        margin-bottom: 2px;
+        overflow: hidden;
+        overflow-wrap: break-word;
+        width: 503px;
+        resize: none;
+        box-shadow: 0px 1px 2px 0px #b2b9c6;
+        border: none;
+        outline: none;
+        font-weight: 600;
+        color: #172b4d;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        &:focus {
+            background-color: $clr1;
+            box-shadow: 0 0 0 2px $sclr1;
+            border-radius: 3px;
+            outline: none;
+            color: $clr2;
+        }
+    }
+    .task-checklist-btns {
+        display: flex;
+        flex-direction: row;
+        .task-checklist-save {
+            background-color: #0079bf;
+            border: none;
+            box-shadow: none;
+            color: #fff;
+            margin: 0 4px 0 0;
+            border-radius: 3px;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+        .task-checklist-close {
+            color: #42526e;
+            border: none;
+            background-color: transparent;
+            outline: none;
+            height: 32px;
+            width: 32px;
+            font-size: 24px;
+            line-height: 32px;
+            cursor: pointer;
+        }
+    }
+    .task-checklist-placeholder {
+        background-color: transparent;
+        font-weight: 600;
+        color: #172b4d;
+        padding: 3px 0px 0px 3px;
+        font-size: 16px;
+    }
+    .checklist-progress {
+        margin: 14px 0 8px 0px;
+
+        position: relative;
+        .checklist-progress-percentage {
+            color: #5e6c84;
+            font-size: 11px;
+            left: -40px;
+            line-height: 10px;
+            position: absolute;
+            text-align: center;
+            top: -1px;
+            width: 32px;
+        }
+        .checklist-progress-bar {
+            background: #091e4214;
+            border-radius: 4px;
+            clear: both;
+            height: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+    }
+}
+
+.checklist-todos {
+    position: relative;
+    margin-left: -43px;
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+    padding: 8px 0px 0 6px;
+    &:hover {
+        background-color: #091e420a;
+    }
+    .todo-preview-container {
+        position: relative;
+        margin-left: -7px;
+        display: flex;
+        gap: 20px;
+        font-size: 14px;
+        padding: 8px 4px;
+        .minus {
+            position: absolute;
+            padding: 1px 3px 1px 4px;
+            right: 6px;
+            top: 7px;
+            cursor: pointer;
+            border-radius: 3px;
+            &:hover {
+                background-color: #c53a25;
+                color: white;
+            }
+        }
+        span {
+            input {
+                background-color: #fafbfc;
+                border-radius: 2px;
+                box-shadow: inset 0 0 0 2px #dfe1e6;
+                cursor: pointer;
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+        .todos-form {
+            .task-checklist-btns {
+                display: flex;
+                flex-direction: row;
+                margin-top: 8px;
+                .task-checklist-save {
+                    background-color: #0079bf;
+                    border: none;
+                    box-shadow: none;
+                    color: #fff;
+                    margin: 0 4px 0 0;
+                    border-radius: 3px;
+                    padding: 6px 12px;
+                    cursor: pointer;
+                }
+                .task-checklist-close {
+                    color: #42526e;
+                    border: none;
+                    background-color: transparent;
+                    outline: none;
+                    height: 32px;
+                    width: 32px;
+                    font-size: 24px;
+                    line-height: 32px;
+                    cursor: pointer;
+                }
+            }
+        }
+        .task-checklist-btns button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+
+.checked {
+    box-shadow: inset 0 0 0 2px #0079bf;
+    background-color: #0079bf;
+    font-size: 12px;
+}
