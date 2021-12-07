@@ -13,6 +13,7 @@ export const boardService = {
   getEmptyTask,
   getEmptyActivity,
   getEmptyLabel,
+  getEmptyBoard,
 };
 loadBoard();
 async function loadBoard() {
@@ -59,11 +60,12 @@ async function remove(boardId) {
 
 async function add(board) {
   try {
-    board.byMember = userService.getLoggedinUser();
+    // board.createdBy = userService.getLoggedinUser();
     // board.byMember = await userService.getById(review.aboutUserId)
     // const addedBoard = await httpService.post(`review`, review)
-    const addedBoard = storageService.post('boards', board);
-    return addedBoard;
+    // const addedBoard = storageService.post('boards', board);
+    storageService.post('boards', board);
+    // return addedBoard;
   } catch (err) {
     console.log('Had error on boardServices: ADD', err);
   }
@@ -87,7 +89,7 @@ function getEmptyTask() {
     dates: {
       startDate: '',
       dueDate: '',
-      isDone:false,
+      isDone: false,
     },
     style: {
       bgColor: '',
@@ -130,7 +132,22 @@ function getEmptyActivity() {
   };
   return activity;
 }
-
+function getEmptyBoard() {
+  const board = {
+    _id: 'b' + utilService.makeId(),
+    title: '',
+    createdAt: Date.now(),
+    createdBy: {},
+    style: {
+      backgroundColor: 'rgb(0, 121, 191)',
+      backgroundUrl: '',
+    },
+    labels: [],
+    groups: [],
+    activities: [],
+  };
+  return board;
+}
 function createDemoBoard() {
   const board = {
     _id: 'b101',
@@ -176,7 +193,7 @@ function createDemoBoard() {
             dates: {
               startDate: '',
               dueDate: '',
-              isDone:false,
+              isDone: false,
             },
             style: {
               bgColor: '',
@@ -194,7 +211,7 @@ function createDemoBoard() {
             dates: {
               startDate: '',
               dueDate: '',
-              isDone:false,
+              isDone: false,
             },
             style: {
               bgColor: '',
@@ -219,7 +236,7 @@ function createDemoBoard() {
             dates: {
               startDate: '',
               dueDate: '',
-              isDone:false,
+              isDone: false,
             },
             style: {
               bgColor: '',
@@ -281,7 +298,7 @@ function createDemoBoard() {
             dates: {
               startDate: '2021-12-13',
               dueDate: '2021-12-21',
-              isDone:false,
+              isDone: false,
             },
             byMember: {
               _id: 'u101',
