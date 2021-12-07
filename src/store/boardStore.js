@@ -115,7 +115,6 @@ export const boardStore = {
       state.currBoard.groups.splice(idx, 1, group);
     },
     updateTask(state, { task }) {
-     
       const idx = state.currBoard.groups.findIndex(
         (currGroup) => currGroup.id === state.currGroup.id
       );
