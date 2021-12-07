@@ -149,25 +149,25 @@
             </div>
             <p class="task-details-subtitle">Actions</p>
             <div class="task-details-actions">
-              <div class="open-edit-dynamic-btn" @click="setType('move')">
+              <!-- <div class="open-edit-dynamic-btn" @click="setType('move')">
                 <span><i class="fas fa-arrow-right"></i></span> Move
-              </div>
+              </div> -->
               <div class="open-edit-dynamic-btn" @click="setType('copy')">
                 <span class="icon-sm icon-copy"></span> Copy
               </div>
-              <div class="open-edit-dynamic-btn">
-                <span><i class="far fa-eye"></i></span>
-                <span> Watch</span>
+              <!-- <div class="open-edit-dynamic-btn"> -->
+                <!-- <span><i class="far fa-eye"></i></span> -->
+                <!-- <span> Watch</span> -->
                 <!-- <span class="checkbox">
                   <input type="checkbox" />
                 </span> -->
-              </div>
+              <!-- </div> -->
               <div class="open-edit-dynamic-btn" @click="setType('archive')">
                 <span><i class="fas fa-archive"></i></span> Archive
               </div>
-              <div class="open-edit-dynamic-btn" @click="setType('share')">
+              <!-- <div class="open-edit-dynamic-btn" @click="setType('share')">
                 <span><i class="fas fa-share-alt"></i></span> Share
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

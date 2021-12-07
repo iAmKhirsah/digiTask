@@ -28,7 +28,7 @@
       <p>Color</p>
       <div class="color-button-container">
         <div v-for="(color, idx) in colors" :key="idx" @click="setCover(color)">
-          <div :style="'background:' + color" class="color-button"></div>
+          <div :style="'background:' + color" class="color-button" :class="{'selected-cover':color===pickedColor}" ></div>
         </div>
       </div>
       <div class="dynamic-attachment-edit">
@@ -58,7 +58,11 @@ export default {
         "#6DECA9",
         "#FF8ED4",
       ],
+      pickedColor:null
     };
+  },
+  created(){
+    this.pickedColor = this.updatedTask.style.bgColor
   },
   methods: {
     selectMode(state){
@@ -71,11 +75,12 @@ export default {
     },
     setCover(color) {
       this.updatedTask.style.bgColor = color;
-      
+      this.pickedColor = color
       this.$emit('updateTask', this.updatedTask)
     },
     removeCover(){
       this.updatedTask.style.bgColor = ''
+      this.pickedColor = ''
       this.$emit('updateTask',this.updatedTask)
     }
   },
@@ -91,7 +96,8 @@ export default {
     },
     taskBgc(){
       return this.updatedTask.style.bgColor
-    }
+    },
+    
       
   }
 };

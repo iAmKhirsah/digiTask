@@ -1,6 +1,11 @@
 <template>
   <section>
-    <component :is="renderCmp" @closeModal="closeModal"></component>
+    <component
+      :is="renderCmp"
+      @closeModal="closeModal"
+      @updateBoard="updateBoard"
+      :board="board"
+    ></component>
   </section>
 </template>
 <script>
@@ -12,7 +17,7 @@ import invite from "./dynamic_components/invite.vue";
 
 export default {
   name: "headerDynamic",
-  props: ["type"],
+  props: ["type",'board'],
   data() {
     return {};
   },
@@ -32,6 +37,10 @@ export default {
     workSpace,
   },
   methods: {
+    updateBoard(board) {
+      console.log(board);
+      this.$emit("updateBoard", board);
+    },
     closeModal() {
       this.$emit("closeModal");
     },
