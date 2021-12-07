@@ -32,7 +32,6 @@ export default {
   async created() {
     await this.$store.dispatch({ type: "loadUsers" });
     this.users = this.$store.getters.users;
-    // this.board = this.$store.getters.getCurrBoard;
     this.boardToUpdate = JSON.parse(JSON.stringify(this.getCurrBoard));
     //Code Below Makes you able to invite people who are not inside the board yet
     // this.users =  users.filter((user)=>{
