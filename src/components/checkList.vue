@@ -48,7 +48,12 @@
         :key="todo.id"
         class="checklist-todos"
       >
-        <todo-preview class="todo-preview-container" :checklist="checklist" :todo="todo" @updatedChecklist="saveChecklist"></todo-preview>
+        <todo-preview
+          class="todo-preview-container"
+          :checklist="checklist"
+          :todo="todo"
+          @updatedChecklist="saveChecklist"
+        ></todo-preview>
       </div>
     </div>
 
@@ -66,9 +71,12 @@
           class="textarea-another-list"
           maxlength="512"
           placeholder="Add an item"
+          v-model="newTask.title"
         />
         <div class="task-checklist-btns">
-          <button type="submit" class="task-checklist-save">Add</button>
+          <button @click="saveTodo" type="submit" class="task-checklist-save">
+            Add
+          </button>
           <button class="task-checklist-close">
             <span @click="closeAddTodo" class="material-icons"> clear </span>
           </button>
@@ -88,20 +96,28 @@ export default {
     return {
       addTodo: false,
       isEditing: false,
-
-   
       currTodo: {},
-
       currentTask: {},
       currChecklist: {},
+      newTask: {
+        title: "",
+      },
     };
   },
   created() {
-   
     this.currentTask = JSON.parse(JSON.stringify(this.currTask));
     this.currChecklist = JSON.parse(JSON.stringify(this.checklist));
   },
   methods: {
+    saveTodo() {
+      if (this.newTask.title.match(/^\s*$/)) {
+        this.addTodo = false;
+        return;
+      }
+      console.log(this.newTask);
+
+      this.addTodo = false;
+    },
     openAddTodo() {
       this.addTodo = true;
     },
@@ -126,6 +142,7 @@ export default {
 
       this.$emit("updatedTask", this.currentTask);
     },
+
     closeAddTodo() {
       this.addTodo = false;
     },
@@ -136,12 +153,12 @@ export default {
     },
   },
   computed: {
-    checklistTitle(){
-      return this.currChecklist.title
+    checklistTitle() {
+      return this.currChecklist.title;
     },
-    checklistTodos(){
-      return this.currChecklist.todos && this.currChecklist.todos.length
-    }
+    checklistTodos() {
+      return this.currChecklist.todos && this.currChecklist.todos.length;
+    },
   },
   directives: {
     clickOutside: vClickOutside.directive,

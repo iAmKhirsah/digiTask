@@ -16,8 +16,13 @@ export const boardStore = {
     filterBy: { keyWord: '', members: [], dueDate: null, labels: [] },
     newGroup: {},
     newTask: {},
+    newChecklist:{},
+    newTodo:{},
   },
   getters: {
+    getEmptyTodo({newTodo}){
+      return newTodo
+    },
     getEmptyTask({ newTask }) {
       return newTask;
     },
