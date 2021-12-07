@@ -47,23 +47,28 @@
       padding: 4px;
       margin: 0 -4px;
       overflow-x: hidden;
+      .selected-cover{
+        box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0079bf;
+      }
       .layout{
         height: 62px;
         position: relative;
         width: 134px;
         border: 1px solid rgba(9, 30, 66, 0.08);
         border-radius:3px;
-      
+       .top-preview-bgc{
+            height: 28px;
+    border-radius: 3px 3px 0 0;
+          }
         &.with-info{  
-
-          padding: 6px 4px 4px 6px;
-
           .line-1{
             display: flex;
-            margin-top: 6px;
-            margin-bottom:4px;
+            
+            
             margin-left:4px;
             .mini-line-1{
+              bottom:6px;
+              position: absolute;
               width: 16px;
               height: 6px;
               background: #6B778C;
@@ -71,6 +76,9 @@
               margin-right: 2px;        
             }
             .mini-line-2{
+              position: absolute;
+              bottom:6px;
+              left:26px;
               width: 16px;
               height: 6px;
               background: #6B778C;
@@ -111,7 +119,6 @@
        
       }
       &.no-info{
-         padding: 6px 4px 4px 6px;
        .line-1{
     height: 4px;
     border-radius: 2px;
