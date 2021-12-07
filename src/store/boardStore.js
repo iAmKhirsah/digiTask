@@ -63,6 +63,7 @@ export const boardStore = {
       newActivity.byMember = activity.user;
       newActivity.task.id = activity.task.id;
       newActivity.task.title = activity.task.title;
+      console.log(activity);
       if (activity.res) {
         newActivity.imgUrl = activity.res.url;
       }

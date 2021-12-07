@@ -8,7 +8,7 @@
     </div>
     <label>
       <span>Computer</span>
-      <input type="file" @change="addLinkAttachment" hidden />
+      <input type="file" @change="addAttachment" hidden />
     </label>
     <div class="add-link">
       <p class="title">Attach a link</p>
