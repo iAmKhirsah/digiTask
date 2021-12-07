@@ -1,5 +1,5 @@
 <template>
-  <section class="user-menu">
+  <section class="user-menu open">
     <div v-if="!type">
       <button class="close" @click="closeShowMenu">
         <span class="material-icons"> clear </span>
@@ -75,6 +75,7 @@ export default {
       this.$emit("closeShowMenu");
     },
   },
+  computed: {},
   components: {
     background,
   },
