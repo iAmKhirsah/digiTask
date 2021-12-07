@@ -58,7 +58,7 @@
     </div>
 
     <!-- v-if -->
-    <div v-if="!addTodo" class="task-checklist-btns">
+    <div v-if="!isAddTodo" class="task-checklist-btns">
       <button @click="openAddTodo" class="open-edit-dynamic-btn">
         Add an item
       </button>
@@ -74,7 +74,7 @@
           v-model="newTask.title"
         />
         <div class="task-checklist-btns">
-          <button @click="saveTodo" type="submit" class="task-checklist-save">
+          <button @click="addTodo" type="submit" class="task-checklist-save">
             Add
           </button>
           <button class="task-checklist-close">
@@ -94,36 +94,38 @@ export default {
   name: "taskChecklist",
   data() {
     return {
-      addTodo: false,
+      isAddTodo: false,
       isEditing: false,
-<<<<<<< HEAD
-=======
-
->>>>>>> f167fe0ae02b3eae949d5894afa75a64261a5047
       currTodo: {},
       currentTask: {},
       currChecklist: {},
       newTask: {
+        id: "",
         title: "",
+        isDone: false,
       },
     };
   },
   created() {
     this.currentTask = JSON.parse(JSON.stringify(this.currTask));
     this.currChecklist = JSON.parse(JSON.stringify(this.checklist));
+    console.log(
+      "file: checkList.vue ~ line 110 ~ this.currChecklist",
+      this.currChecklist
+    );
   },
   methods: {
-    saveTodo() {
-      if (this.newTask.title.match(/^\s*$/)) {
-        this.addTodo = false;
-        return;
-      }
-      console.log(this.newTask);
+    addTodo() {
+      if (this.newTask.title.match(/^\s*$/)) return;
 
-      this.addTodo = false;
+      this.newTask.id = this.$store.getters.getNewId;
+      this.$store.commit({ type: "generateNewId" });
+      this.currChecklist.todos.push(this.newTask);
+      this.saveChecklist(this.currChecklist);
+      this.isAddTodo = false;
     },
     openAddTodo() {
-      this.addTodo = true;
+      this.isAddTodo = true;
     },
     editTitle() {
       this.isEditing = true;
@@ -147,7 +149,7 @@ export default {
     },
 
     closeAddTodo() {
-      this.addTodo = false;
+      this.isAddTodo = false;
     },
 
     closeChecklist() {

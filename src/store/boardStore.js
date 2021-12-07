@@ -1,5 +1,5 @@
 import { boardService } from '../services/boardService.js';
-
+import { utilService } from '../services/utilService.js';
 import {
   socketService,
   SOCKET_EVENT_WATCHBOARD,
@@ -18,8 +18,12 @@ export const boardStore = {
     newTask: {},
     newChecklist:{},
     newTodo:{},
+    newId: utilService.makeId()
   },
   getters: {
+    getNewId({newId}){
+      return newId
+    },
     getEmptyTodo({newTodo}){
       return newTodo
     },
@@ -43,6 +47,9 @@ export const boardStore = {
     },
   },
   mutations: {
+    generateNewId(state){
+      state.newId = utilService.makeId()
+    },
     setBoards(state, { boards }) {
       state.boards = boards;
     },

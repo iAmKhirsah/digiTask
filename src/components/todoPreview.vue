@@ -32,6 +32,7 @@ export default {
       currTodo: {},
     };
   },
+  created() {},
   methods: {
     openEditTodo() {
       this.currTodo = JSON.parse(JSON.stringify(this.todo));
@@ -61,9 +62,9 @@ export default {
     },
   },
   computed: {
-    todoTitle(){
-      return this.currTodo.title
-    }
+    todoTitle() {
+      return this.todo.title;
+    },
   },
 };
 </script>
