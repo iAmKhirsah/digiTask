@@ -40,6 +40,103 @@
         background-color: #091e4214;
       }
     }
+    .size-preview{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 4px;
+      margin: 0 -4px;
+      overflow-x: hidden;
+      .layout{
+        height: 62px;
+        position: relative;
+        width: 134px;
+        border: 1px solid rgba(9, 30, 66, 0.08);
+        border-radius:3px;
+      
+        &.with-info{  
+
+          padding: 6px 4px 4px 6px;
+
+          .line-1{
+            display: flex;
+            margin-top: 6px;
+            margin-bottom:4px;
+            margin-left:4px;
+            .mini-line-1{
+              width: 16px;
+              height: 6px;
+              background: #6B778C;
+              border-radius: 2px;
+              margin-right: 2px;        
+            }
+            .mini-line-2{
+              width: 16px;
+              height: 6px;
+              background: #6B778C;
+              border-radius: 2px;
+              margin-right: 2px;
+            }
+            .mini-circle{
+              position: absolute;
+              width: 10px;
+              height: 10px;
+              right: 4px;
+              bottom: 4px;
+              background: #6B778C;
+              border-radius: 5px;
+            }
+          }
+          .line-2{
+       height: 4px;
+       border-radius: 2px;
+       width: 92px;
+        position: absolute;
+             bottom: 4px;
+             background: rgba(9, 30, 66, 0.6);
+             margin-bottom:12px;
+             margin-left:4px;
+            
+           }
+           .line-3{
+             height: 4px;
+       border-radius: 2px;
+       width: 116px;
+        position: absolute;
+             bottom: 4px;
+             background: rgba(9, 30, 66, 0.6);
+             margin-bottom:20px;
+             margin-left:4px;
+           }
+       
+      }
+      &.no-info{
+         padding: 6px 4px 4px 6px;
+       .line-1{
+    height: 4px;
+    border-radius: 2px;
+    width: 92px;
+     position: absolute;
+          bottom: 4px;
+          background: rgba(9, 30, 66, 0.6);
+          margin-bottom:4px;
+          margin-left:4px;
+         
+        }
+        .line-2{
+          height: 4px;
+    border-radius: 2px;
+    width: 116px;
+     position: absolute;
+          bottom: 4px;
+          background: rgba(9, 30, 66, 0.6);
+          margin-bottom:12px;
+          margin-left:4px;
+        }
+      }
+      }
+      
+    }
     .color-button-container {
       display: grid;
       grid-template-columns: 1fr 1fr;

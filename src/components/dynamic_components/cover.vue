@@ -9,7 +9,20 @@
     
     <div class="main-container">
       <p>Size</p>
-      <div></div>
+      <div class="size-preview">
+        <div class="layout with-info">
+          <div></div>
+          <div class="line-1"><div><div class="mini-line-1"></div><div class="mini-line-2"></div></div><span class="mini-circle"></span></div>
+          <div class="line-2"></div><div class="line-3"></div>
+          
+          </div>
+          <div class="layout no-info">
+            <div class="line-1">
+              </div>
+              <div class="line-2">
+              </div>
+      </div>
+      </div>
        <button @click="removeCover">Remove Cover</button>
       <p>Color</p>
       <div class="color-button-container">
