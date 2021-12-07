@@ -1,9 +1,22 @@
 <template>
   <section>
-    <span><input class="box-input" type="checkbox" /></span>
+    <span
+      ><input
+        class="box-input"
+        type="checkbox"
+        @click="toggleCheck"
+        v-model="isChecked"
+        :class="{ checked: isChecked }"
+    /></span>
     <!-- render vfor todo -->
     <span class="task-todo-minus-btn minus"> </span>
-    <span v-if="!todoEdit" @click="openEditTodo">{{ todo.title }}</span>
+    <span
+      class="todoTitle"
+      v-if="!todoEdit"
+      @click="openEditTodo"
+      :class="{ clear: isClear }"
+      >{{ todoTitle }}</span
+    >
 
     <form v-else class="todos-form">
       <textarea
@@ -23,6 +36,7 @@
   </section>
 </template>
 <script>
+
 export default {
   props: ["todo", "checklist"],
   name: "todoList",
@@ -30,9 +44,22 @@ export default {
     return {
       todoEdit: false,
       currTodo: {},
+      isChecked: false,
+      isClear: false,
     };
   },
+  created() {
+    this.currTodo = JSON.parse(JSON.stringify(this.todo));
+    this.isChecked = this.currTodo.isDone;
+    this.isClear = this.currTodo.isDone;
+  },
   methods: {
+    toggleCheck() {
+      this.isChecked = !this.isChecked;
+      this.isClear = !this.isClear;
+      this.currTodo.isDone = this.isChecked;
+      this.saveTodo();
+    },
     openEditTodo() {
       this.currTodo = JSON.parse(JSON.stringify(this.todo));
       this.todoEdit = true;
@@ -49,15 +76,21 @@ export default {
       let checklist = JSON.parse(JSON.stringify(this.checklist));
 
       let idx = checklist.todos.findIndex((todo) => {
-        return this.todo.id === todo.id;
+        return this.currTodo.id === todo.id;
       });
 
       checklist.todos[idx].title = this.currTodo.title;
       checklist.todos[idx].isDone = this.currTodo.isDone;
+     
 
       this.$emit("updatedChecklist", checklist);
 
       this.todoEdit = false;
+    },
+  },
+  computed: {
+    todoTitle() {
+      return this.todo.title;
     },
   },
 };

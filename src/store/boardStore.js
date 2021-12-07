@@ -1,5 +1,5 @@
 import { boardService } from '../services/boardService.js';
-
+import { utilService } from '../services/utilService.js';
 import {
   socketService,
   SOCKET_EVENT_WATCHBOARD,
@@ -16,8 +16,17 @@ export const boardStore = {
     filterBy: { keyWord: '', members: [], dueDate: null, labels: [] },
     newGroup: {},
     newTask: {},
+    newChecklist: {},
+    newTodo: {},
+    newId: utilService.makeId(),
   },
   getters: {
+    getNewId({ newId }) {
+      return newId;
+    },
+    getEmptyTodo({ newTodo }) {
+      return newTodo;
+    },
     getEmptyTask({ newTask }) {
       return newTask;
     },
@@ -38,6 +47,9 @@ export const boardStore = {
     },
   },
   mutations: {
+    generateNewId(state) {
+      state.newId = utilService.makeId();
+    },
     setBoards(state, { boards }) {
       state.boards = boards;
     },
@@ -45,7 +57,12 @@ export const boardStore = {
       state.currBoard = board;
     },
     updateBoard(state, { board }) {
-      if (board._id === state.currBoard._id) state.currBoard = board;
+      if (board._id === state.currBoard._id) {
+        state.currBoard = board;
+        state.currBoard.groups.forEach((group) => {
+          if (group.id === state.currGroup.id) state.currGroup = group;
+        });
+      }
     },
     removeBoard(state, { boardId }) {
       let idx = state.boards.findIndex((board) => board._Id === boardId);
@@ -119,7 +136,9 @@ export const boardStore = {
       const idx = state.currBoard.groups.findIndex(
         (currGroup) => currGroup.id === state.currGroup.id
       );
-      const taskIdx = state.currBoard.groups[idx].tasks.findIndex((currTask)=>currTask.id === task.id)
+      const taskIdx = state.currBoard.groups[idx].tasks.findIndex(
+        (currTask) => currTask.id === task.id
+      );
       state.currBoard.groups[idx].tasks.splice(taskIdx, 1, task);
       state.currTask = task;
     },
@@ -253,7 +272,7 @@ export const boardStore = {
         console.log('Error on board store GETTASKDETAILS', err);
       }
     },
-    async updateTask({ commit,dispatch }, { task }) {
+    async updateTask({ commit, dispatch }, { task }) {
       try {
         commit({ type: 'updateTask', task });
         await dispatch({ type: 'updateBoard' });

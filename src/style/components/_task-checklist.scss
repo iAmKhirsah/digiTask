@@ -69,7 +69,7 @@
         outline: none;
         font-weight: 600;
         color: #172b4d;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         &:focus {
             background-color: $clr1;
             box-shadow: 0 0 0 2px $sclr1;
@@ -132,6 +132,15 @@
             overflow: hidden;
             position: relative;
         }
+        .progress-bar {
+            width: 0%;
+            background-color: #5ba4cf;
+            height: 100%;
+            transition: all 0.25s;
+            &.complete {
+                background-color: #61bd4f;
+            }
+        }
     }
 }
 
@@ -141,11 +150,17 @@
     display: flex;
     gap: 20px;
     font-size: 14px;
-    padding: 8px 0px 0 6px;
+    padding: 0px 0px 0 6px;
     &:hover {
         background-color: #091e420a;
     }
     .todo-preview-container {
+        .todoTitle {
+            &.clear {
+                text-decoration: line-through;
+            }
+        }
+
         position: relative;
         margin-left: -7px;
         display: flex;
@@ -165,13 +180,18 @@
             }
         }
         span {
-            input {
+            .box-input {
                 background-color: #fafbfc;
                 border-radius: 2px;
                 box-shadow: inset 0 0 0 2px #dfe1e6;
                 cursor: pointer;
                 width: 16px;
                 height: 16px;
+                &.checked {
+                    box-shadow: inset 0 0 0 2px #0079bf;
+                    background-color: #0079bf;
+                    font-size: 12px;
+                }
             }
         }
 
@@ -209,10 +229,4 @@
             align-items: center;
         }
     }
-}
-
-.checked {
-    box-shadow: inset 0 0 0 2px #0079bf;
-    background-color: #0079bf;
-    font-size: 12px;
 }

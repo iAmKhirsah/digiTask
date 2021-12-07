@@ -1,24 +1,47 @@
 <template>
   <div class="dynamic-checklist-edit">
-    <button class="close" @click="closeModal"> <span class="material-icons"> clear </span></button>
+    <button class="close" @click="closeModal">
+      <span class="material-icons"> clear </span>
+    </button>
     <div class="header-layout">
       <header>Add checklist</header>
     </div>
     <p class="title">Title</p>
     <form @submit.prevent="addChecklist">
-      <input type="text" />
-    <button class="add">Add</button>
+      <input v-model="newChecklist.title" type="text" />
+      <button class="add">Add</button>
     </form>
   </div>
 </template>
 <script>
+import { utilService } from "../../services/utilService.js";
 export default {
+  props: ["task"],
   name: "checklist",
-  methods:{
-      closeModal() {
-     
+  data() {
+    return {
+      taskToUpdate: JSON.parse(JSON.stringify(this.task)),
+      newChecklist: {
+        id: "c" + utilService.makeId(),
+        title: "",
+        todos: [],
+      },
+    };
+  },
+  methods: {
+    addChecklist() {
+      this.taskToUpdate.checklists.push(this.newChecklist);
+      this.$emit("updateTask", JSON.parse(JSON.stringify(this.taskToUpdate)));
+      this.$emit("taskActivity", "Added a new Checklist !");
+      this.newChecklist = {
+        id: "c" + utilService.makeId(),
+        title: "",
+        todos: [],
+      };
+    },
+    closeModal() {
       this.$emit("closeModal");
     },
-  }
+  },
 };
 </script>

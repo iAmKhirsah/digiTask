@@ -41,7 +41,11 @@
         <div class="task-details-content-container">
           <div class="task-details-main-content">
             <div class="task-details-addons">
-              <task-addons :getTask="getTask" :getBoard="getBoard" @updatedTask="updatedTask" />
+              <task-addons
+                :getTask="getTask"
+                :getBoard="getBoard"
+                @updatedTask="updatedTask"
+              />
             </div>
             <span class="task-description-symbol">
               <i class="fas fa-align-left"></i
@@ -54,16 +58,15 @@
               @closeDescEdit="closeDescEdit"
             />
 
-    <div class="task-details-checklist">
+            <div class="task-details-checklist">
               <div class="task-details-checklist-content">
                 <span class="task-description-symbol">
                   <i class="fas fa-align-left"></i
                 ></span>
 
-
                 <!-- <div v-if="currTask.checklist && currTask.checklist.length"> -->
                   <check-list
-                    v-for="checklist in currTask.checklists"
+                    v-for="checklist in getTask.checklists"
                     :key="checklist.id"
                     :checklist="checklist"
                     :currTask="currTask"
@@ -72,7 +75,6 @@
                 <!-- </div> -->
               </div>
             </div>
-
 
             <div class="task-details-activity">
               <div class="task-details-activity-content">
@@ -102,6 +104,7 @@
                 @attachment="attachment"
                 @attachmentLink="attachmentLink"
                 @updateBoard="updateBoard"
+                @updateGroup="updateGroup"
                 @deleteTask="deleteTask"
                 @taskActivity="taskActivity"
                 @updateTask="updatedTask"
@@ -149,8 +152,8 @@
               <div class="open-edit-dynamic-btn" @click="setType('move')">
                 <span><i class="fas fa-arrow-right"></i></span> Move
               </div>
-              <div class="open-edit-dynamic-btn">
-                <span><i class="far fa-clone"></i></span> Copy
+              <div class="open-edit-dynamic-btn" @click="setType('copy')">
+                <span class="icon-sm icon-copy"></span> Copy
               </div>
               <div class="open-edit-dynamic-btn">
                 <span><i class="far fa-eye"></i></span>
@@ -266,6 +269,7 @@ export default {
       console.log("hello");
       this.$router.push(`/b/${this.$route.params.boardId}`);
     },
+
     async updatedTask(task) {
       let updatedTask = JSON.parse(JSON.stringify(task));
       let group = this.getGroup;
@@ -274,6 +278,7 @@ export default {
       await this.$store.dispatch({ type: "updateTask", task: updatedTask });
       await this.$store.dispatch({ type: "updateGroup", group });
     },
+
     async attachmentLink(link) {
       let txt = `attached ${link} to this card`;
       this.taskActivity(txt);
@@ -293,6 +298,9 @@ export default {
     },
     async updateBoard(board) {
       this.$store.dispatch({ type: "updateBoard", board });
+    },
+    async updateGroup(group) {
+      this.$store.dispatch({ type: "updateGroup", group });
     },
     async attachment(link, task) {
       console.log(link);
@@ -323,13 +331,16 @@ export default {
     getUser() {
       return { ...this.$store.getters.currUser };
     },
+    // getChecklists(){
+    //   // return [...this.$store.getters.getCurrTask.checkLists]
+    // }
   },
   components: {
     taskDescription,
     activityFlow,
     editDynamic,
     taskAddons,
-     checkList
+    checkList,
   },
   directives: {
     clickOutside: vClickOutside.directive,

@@ -33,18 +33,19 @@
 
     <div class="checklist-progress">
       <!-- progress bar -->
-
-      <span class="checklist-progress-percentage">33%</span>
+      <span class="checklist-progress-percentage">{{ getPercentage }}</span>
       <div class="checklist-progress-bar">
-        <div></div>
+        <div
+          :class="['progress-bar', completedBar]"
+          :style="'width :' + getPercentage"
+        ></div>
       </div>
-      <span></span>
     </div>
 
-    <div v-if="checklistTodos">
+    <div v-if="isChecklistTodos">
       <!-- vfor todos-->
       <div
-        v-for="todo in checklist.todos"
+        v-for="todo in checklistTodos"
         :key="todo.id"
         class="checklist-todos"
       >
@@ -58,7 +59,7 @@
     </div>
 
     <!-- v-if -->
-    <div v-if="!addTodo" class="task-checklist-btns">
+    <div v-if="!isAddTodo" class="task-checklist-btns">
       <button @click="openAddTodo" class="open-edit-dynamic-btn">
         Add an item
       </button>
@@ -71,9 +72,12 @@
           class="textarea-another-list"
           maxlength="512"
           placeholder="Add an item"
+          v-model="newTask.title"
         />
         <div class="task-checklist-btns">
-          <button type="submit" class="task-checklist-save">Add</button>
+          <button @click="addTodo" type="submit" class="task-checklist-save">
+            Add
+          </button>
           <button class="task-checklist-close">
             <span @click="closeAddTodo" class="material-icons"> clear </span>
           </button>
@@ -86,18 +90,22 @@
 <script>
 import vClickOutside from "v-click-outside";
 import todoPreview from "../components/todoPreview.vue";
+import { utilService } from "../services/utilService.js";
 export default {
   props: ["currTask", "checklist"],
   name: "taskChecklist",
   data() {
     return {
-      addTodo: false,
+      isAddTodo: false,
       isEditing: false,
-
       currTodo: {},
-
       currentTask: {},
       currChecklist: {},
+      newTask: {
+        id: "",
+        title: "",
+        isDone: false,
+      },
     };
   },
   created() {
@@ -105,8 +113,17 @@ export default {
     this.currChecklist = JSON.parse(JSON.stringify(this.checklist));
   },
   methods: {
+    addTodo() {
+      if (this.newTask.title.match(/^\s*$/)) return;
+      this.currChecklist = this.checklist;
+      this.newTask.id = utilService.makeId();
+      this.currChecklist.todos.push(this.newTask);
+      this.saveChecklist(this.currChecklist);
+      this.newTask = { id: "", title: "", isDone: false };
+      this.isAddTodo = false;
+    },
     openAddTodo() {
-      this.addTodo = true;
+      this.isAddTodo = true;
     },
     editTitle() {
       this.isEditing = true;
@@ -119,7 +136,7 @@ export default {
     saveChecklist(checklist) {
       if (this.checklist.title.match(/^\s*$/)) return;
       this.isEditing = false;
-      //   this.checklist.title = this.checklistTitle
+
       let idx = this.currentTask.checklists.findIndex((currChecklist) => {
         return this.currChecklist.id === currChecklist.id;
       });
@@ -128,8 +145,9 @@ export default {
 
       this.$emit("updatedTask", this.currentTask);
     },
+
     closeAddTodo() {
-      this.addTodo = false;
+      this.isAddTodo = false;
     },
 
     closeChecklist() {
@@ -141,8 +159,24 @@ export default {
     checklistTitle() {
       return this.currChecklist.title;
     },
-    checklistTodos() {
+    isChecklistTodos() {
       return this.currChecklist.todos && this.currChecklist.todos.length;
+    },
+    checklistTodos() {
+      return this.checklist.todos;
+    },
+    getPercentage() {
+      let isDones = this.checklist.todos.reduce((acc, todo) => {
+        if (todo.isDone) acc++;
+        return acc;
+      }, 0);
+      if (!isDones) return "0% ";
+      return ((isDones * 100) / this.checklist.todos.length).toFixed(0) + "%";
+    },
+    completedBar() {
+      if (this.getPercentage === "100%") {
+        return "complete";
+      }
     },
   },
   directives: {
