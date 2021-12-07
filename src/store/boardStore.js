@@ -18,12 +18,12 @@ export const boardStore = {
     newTask: {},
     newChecklist: {},
     newTodo: {},
-    newId: utilService.makeId(),
+    // newId: utilService.makeId(),
   },
   getters: {
-    getNewId({ newId }) {
-      return newId;
-    },
+    // getNewId({ newId }) {
+    //   return newId;
+    // },
     getEmptyTodo({ newTodo }) {
       return newTodo;
     },

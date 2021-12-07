@@ -93,7 +93,7 @@ function getEmptyTask() {
     },
     style: {
       bgColor: '',
-      isInfo:true,
+      isInfo: true,
     },
   };
   return task;
@@ -143,6 +143,7 @@ function getEmptyBoard() {
       backgroundUrl: '',
     },
     labels: [],
+    members: [],
     groups: [],
     activities: [],
   };
@@ -306,7 +307,7 @@ function createDemoBoard() {
             },
             style: {
               bgColor: '',
-              isInfo:true,
+              isInfo: true,
             },
           },
         ],

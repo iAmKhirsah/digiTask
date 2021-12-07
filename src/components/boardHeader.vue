@@ -44,7 +44,9 @@
     />
     <header-dynamic
       @closeModal="closeModal"
+      @updateBoard="updateBoard"
       :type="type"
+      :board="board"
       v-if="type"
     ></header-dynamic>
   </section>
