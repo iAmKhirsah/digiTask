@@ -46,6 +46,7 @@
       @closeShowMenu="closeShowMenu"
       @updateBoard="updateBoard"
     />
+    
     <header-dynamic
       @closeModal="closeModal"
       @updateBoard="updateBoard"
