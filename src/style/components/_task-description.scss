@@ -58,8 +58,10 @@
         }
     }
     .task-description-placeholder {
+        word-break: break-word;
+        height: fit-content;
         background-color: #091e420a;
-        height: 56px;
+        min-height: 56px;
         padding: 7px 0px 0px 10px;
         font-size: 14px;
     }

@@ -69,7 +69,7 @@
                     v-for="checklist in getTask.checklists"
                     :key="checklist.id"
                     :checklist="checklist"
-                    :currTask="currTask"
+                    :currTask="getTask"
                     @updatedTask="updatedTask"
                   ></check-list>
                 <!-- </div> -->
@@ -271,6 +271,7 @@ export default {
     },
 
     async updatedTask(task) {
+      console.log(task)
       let updatedTask = JSON.parse(JSON.stringify(task));
       let group = this.getGroup;
       let idx = group.tasks.findIndex((task) => task.id === updatedTask.id);
@@ -331,6 +332,7 @@ export default {
     getUser() {
       return { ...this.$store.getters.currUser };
     },
+    
     // getChecklists(){
     //   // return [...this.$store.getters.getCurrTask.checkLists]
     // }

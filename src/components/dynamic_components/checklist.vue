@@ -30,9 +30,10 @@ export default {
   },
   methods: {
     addChecklist() {
+      if (this.newChecklist.title.match(/^\s*$/)) return;
       this.taskToUpdate.checklists.push(this.newChecklist);
       this.$emit("updateTask", JSON.parse(JSON.stringify(this.taskToUpdate)));
-      this.$emit("taskActivity", "Added a new Checklist !");
+      this.$emit("taskActivity", "added a new checklist");
       this.newChecklist = {
         id: "c" + utilService.makeId(),
         title: "",

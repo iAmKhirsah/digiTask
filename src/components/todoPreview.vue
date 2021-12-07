@@ -14,11 +14,11 @@
       class="todoTitle"
       v-if="!todoEdit"
       @click="openEditTodo"
-      :class="{ clear: isClear }"
+      :class="{ clear: isChecked }"
       >{{ todoTitle }}</span
     >
 
-    <form v-else class="todos-form">
+    <form v-else class="todos-form" v-click-outside="closeEditTodo">
       <textarea
         ref="subtitle"
         v-model="currTodo.title"
@@ -36,7 +36,7 @@
   </section>
 </template>
 <script>
-
+import vClickOutside from "v-click-outside";
 export default {
   props: ["todo", "checklist"],
   name: "todoList",
@@ -45,18 +45,16 @@ export default {
       todoEdit: false,
       currTodo: {},
       isChecked: false,
-      isClear: false,
     };
   },
   created() {
     this.currTodo = JSON.parse(JSON.stringify(this.todo));
     this.isChecked = this.currTodo.isDone;
-    this.isClear = this.currTodo.isDone;
+    console.log(this.currTodo)
   },
   methods: {
     toggleCheck() {
       this.isChecked = !this.isChecked;
-      this.isClear = !this.isClear;
       this.currTodo.isDone = this.isChecked;
       this.saveTodo();
     },
@@ -73,17 +71,17 @@ export default {
     },
     saveTodo() {
       if (this.currTodo.title.match(/^\s*$/)) return;
+      console.log('hello')
       let checklist = JSON.parse(JSON.stringify(this.checklist));
-
       let idx = checklist.todos.findIndex((todo) => {
         return this.currTodo.id === todo.id;
       });
-
       checklist.todos[idx].title = this.currTodo.title;
       checklist.todos[idx].isDone = this.currTodo.isDone;
      
-
+      console.log(checklist)
       this.$emit("updatedChecklist", checklist);
+
 
       this.todoEdit = false;
     },
@@ -92,6 +90,10 @@ export default {
     todoTitle() {
       return this.todo.title;
     },
+  },
+    directives: {
+
+    clickOutside: vClickOutside.directive,
   },
 };
 </script>

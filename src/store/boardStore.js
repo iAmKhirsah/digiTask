@@ -168,6 +168,7 @@ export const boardStore = {
       state.currBoard.groups.splice(idx, 1);
     },
     addBoard(state, { board }) {
+      if(!state.boards.length) state.boards = []
       state.boards.push(board);
     },
     applyDrag(state, { content }) {

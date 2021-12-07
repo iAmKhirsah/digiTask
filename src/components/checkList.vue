@@ -5,7 +5,7 @@
       <p class="task-checklist-placeholder" @click="editTitle">
         {{ checklistTitle }}
       </p>
-      <button class="open-edit-dynamic-btn remove">delete</button>
+      <button class="open-edit-dynamic-btn remove" @click="removeCheckList">Delete</button>
     </div>
     <div v-else class="task-checklist-content" v-click-outside="closeChecklist">
       <form>
@@ -32,7 +32,6 @@
     </div>
 
     <div class="checklist-progress">
-      <!-- progress bar -->
       <span class="checklist-progress-percentage">{{ getPercentage }}</span>
       <div class="checklist-progress-bar">
         <div
@@ -43,7 +42,6 @@
     </div>
 
     <div v-if="isChecklistTodos">
-      <!-- vfor todos-->
       <div
         v-for="todo in checklistTodos"
         :key="todo.id"
@@ -58,21 +56,19 @@
       </div>
     </div>
 
-    <!-- v-if -->
     <div v-if="!isAddTodo" class="task-checklist-btns">
       <button @click="openAddTodo" class="open-edit-dynamic-btn">
         Add an item
       </button>
     </div>
 
-    <!-- v-else -->
     <div v-else v-click-outside="closeAddTodo">
       <form>
         <textarea
           class="textarea-another-list"
           maxlength="512"
           placeholder="Add an item"
-          v-model="newTask.title"
+          v-model="newTodo.title"
         />
         <div class="task-checklist-btns">
           <button @click="addTodo" type="submit" class="task-checklist-save">
@@ -101,7 +97,7 @@ export default {
       currTodo: {},
       currentTask: {},
       currChecklist: {},
-      newTask: {
+      newTodo: {
         id: "",
         title: "",
         isDone: false,
@@ -114,12 +110,12 @@ export default {
   },
   methods: {
     addTodo() {
-      if (this.newTask.title.match(/^\s*$/)) return;
-      this.currChecklist = this.checklist;
-      this.newTask.id = utilService.makeId();
-      this.currChecklist.todos.push(this.newTask);
+      if (this.newTodo.title.match(/^\s*$/)) return;
+      
+      this.newTodo.id = utilService.makeId();
+      this.currChecklist.todos.push(this.newTodo);
       this.saveChecklist(this.currChecklist);
-      this.newTask = { id: "", title: "", isDone: false };
+      this.newTodo = { id: "", title: "", isDone: false };
       this.isAddTodo = false;
     },
     openAddTodo() {
@@ -132,20 +128,25 @@ export default {
         this.$refs.title.select();
       });
     },
-
-    saveChecklist(checklist) {
-      if (this.checklist.title.match(/^\s*$/)) return;
-      this.isEditing = false;
-
-      let idx = this.currentTask.checklists.findIndex((currChecklist) => {
-        return this.currChecklist.id === currChecklist.id;
-      });
-
-      this.currentTask.checklists[idx] = checklist;
-
+    removeCheckList(){
+      let idx = this.currentTask.checklists.findIndex((currChecklist) => currChecklist.id === this.checklist.id);
+      this.currentTask = JSON.parse(JSON.stringify(this.currTask));
+       this.currentTask.checklists.splice(idx,1)
       this.$emit("updatedTask", this.currentTask);
     },
 
+    saveChecklist(checklist) {
+      if (this.checklist.title.match(/^\s*$/)) return;
+       this.currentTask = JSON.parse(JSON.stringify(this.currTask));
+      this.isEditing = false;
+      console.log(this.currentTask.checklists)
+      
+      let idx = this.currentTask.checklists.findIndex((currChecklist) => currChecklist.id === checklist.id);
+      if(idx>-1) this.currentTask.checklists[idx] = checklist;
+      else this.currentTask.checklists.push(checklist) 
+      this.$emit("updatedTask", this.currentTask);
+      this.currentTask = JSON.parse(JSON.stringify(this.currTask));
+    },
     closeAddTodo() {
       this.isAddTodo = false;
     },
