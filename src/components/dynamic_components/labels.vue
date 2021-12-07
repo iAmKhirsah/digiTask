@@ -10,8 +10,11 @@
       <div class="header-layout">
         <header>Labels</header>
       </div>
-      <input type="text" placeholder="Search labels..." />
-      <div class="label-list-content">
+     
+      <input type="text" placeholder="Search labels..." /> 
+     
+      <div class="label-list-content"> 
+        <h5 class="subtitle">labels</h5>
         <div class="label-list-container">
           <ul
             v-for="label in board.labels"
