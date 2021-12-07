@@ -63,7 +63,7 @@
 
                 <!-- <div v-if="currTask.checklist && currTask.checklist.length"> -->
                   <check-list
-                    v-for="checklist in currTask.checklists"
+                    v-for="checklist in getTask.checklists"
                     :key="checklist.id"
                     :checklist="checklist"
                     :currTask="currTask"
@@ -275,7 +275,7 @@ export default {
       await this.$store.dispatch({ type: "updateTask", task: updatedTask });
       await this.$store.dispatch({ type: "updateGroup", group });
     },
-    
+
     async attachmentLink(link) {
       let txt = `attached ${link} to this card`;
       this.taskActivity(txt);
@@ -325,6 +325,9 @@ export default {
     getUser() {
       return { ...this.$store.getters.currUser };
     },
+    // getChecklists(){
+    //   // return [...this.$store.getters.getCurrTask.checkLists]
+    // }
   },
   components: {
     taskDescription,
