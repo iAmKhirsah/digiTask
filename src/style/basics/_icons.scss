@@ -30,26 +30,26 @@
   font-family: 'icomoon';
   content: '\e91c';
 }
-.icon-pencil::before{
-  content: "\e928";
+.menu-header-close-button:hover {
+  color: $clr2;
+}
+.icon-pencil::before {
+  content: '\e928';
 }
 
 .task-preview-info {
   font-family: 'icomoon';
   .notification::before {
-
   }
-  
-  .clock-icon {
-    &::before{
-       position: absolute;
-    left: 5px;
-    top:2px;
-    content: '\e91b';
-    font-size: 16px;
-    }
-   
 
+  .clock-icon {
+    &::before {
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      content: '\e91b';
+      font-size: 16px;
+    }
   }
   .description::before {
     content: '\e922';
