@@ -198,6 +198,7 @@ function createDemoBoard() {
             },
             style: {
               bgColor: '',
+              isInfo:true,
             },
           },
           {
@@ -215,6 +216,7 @@ function createDemoBoard() {
             },
             style: {
               bgColor: '',
+              isInfo:true,
             },
           },
         ],
@@ -239,6 +241,7 @@ function createDemoBoard() {
             },
             style: {
               bgColor: '',
+              isInfo:true,
             },
           },
           {
