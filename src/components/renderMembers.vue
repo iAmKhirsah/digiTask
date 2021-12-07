@@ -7,7 +7,6 @@ export default {
     props:['member'],
     computed:{
         memberImg(){
-            console.log(this.member)
             return this.member.imgUrl
         }
     }

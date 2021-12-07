@@ -1,9 +1,9 @@
 <template>
-  <div class="task-preview-container" v-if="task" :style="mainContentBgColor" >
+  <div class="task-preview-container" v-if="task" :style="mainContentBgColor" @click.self="editTask(task.id)" >
     <!-- <button class="edit-button"></button> -->
-    <div v-if="hasCover" class="task-cover" :class="{'small':!infoCover}" :style="bgColor">  </div>
+    <div v-if="hasCover" class="task-cover" :class="{'small':!infoCover}" :style="bgColor" @click="editTask(task.id)">  </div>
     <task-preview-label v-if="infoCover" :isMiniPreview="isMiniPreview" @miniPreview="miniPreview" :task="task" :board="board"/>
-    <div @click="editTask(task.id)" class="task-preview" >
+    <div  class="task-preview" @click="editTask(task.id)">
       <div class="task-preview-content" :class="{'no-info':!infoCover}">{{ task.title }}</div>
     </div>
   <div class="task-preview-info" v-if="hasInfo">

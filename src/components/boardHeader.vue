@@ -76,6 +76,7 @@ export default {
   created() {},
   computed: {
     inputWidth() {
+      if(!this.board.title) return
       return { width: this.board.title.length * 10 + 24 + "px" };
     },
     getBoardMembers() {

@@ -29,7 +29,8 @@ async function loadBoard() {
 async function query(filterBy = null) {
   try {
     //   var queryStr = (!filterBy) ? '' : `?name=${filterBy.name}&sort=anaAref`
-    return await storageService.query('boards');
+    let boards =  await storageService.query('boards');
+    return boards
   } catch (err) {
     console.log('Had error on boardServices: QUERY', err);
   }
@@ -86,6 +87,7 @@ function getEmptyTask() {
     byMember: [],
     members: [],
     labelIds: [],
+    checklists:[],
     dates: {
       startDate: '',
       dueDate: '',
@@ -191,6 +193,7 @@ function createDemoBoard() {
             members: [],
             comments: [],
             labelIds: [],
+            checklists:[],
             dates: {
               startDate: '',
               dueDate: '',
@@ -209,6 +212,7 @@ function createDemoBoard() {
             members: [],
             comments: [],
             labelIds: [],
+            checklists:[],
             dates: {
               startDate: '',
               dueDate: '',
@@ -234,6 +238,7 @@ function createDemoBoard() {
             members: [],
             comments: [],
             labelIds: [],
+            checklists:[],
             dates: {
               startDate: '',
               dueDate: '',
