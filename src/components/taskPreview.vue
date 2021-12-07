@@ -7,11 +7,10 @@
   <div class="task-preview-info">
     <span class="task-badges">
     <!-- <span class="badge notification" ><i class="far fa-bell" aria-hidden="true"></i></span> -->
-    <span class="badge due-date" :class="isDueDate" v-if="validateDates"><span class="clock-icon"></span><span class="short-date">{{startDate}} {{dueDate}}</span></span>
+    <span class="badge due-date" @click="toggleDueDateDone" :class="isDueDate" v-if="validateDates" ><span class="clock-icon"></span><span class="short-date">{{startDate}} {{dueDate}}</span></span>
     <span v-if="task.description" class="badge description"> </span>
-     <span class="badge comments"></span>
-      <span class="badge attachments"></span>
-       <span class="badge members"></span>
+     <span class="badge comments" v-if="hasCommnets"></span>
+       <span class="badge members" v-if="hasMembers" ><span class="user-tag-name" v-for="(member,idx) in task.members" :key="idx"><img class="image-settings"  :src="member.imgUrl"/></span></span>
        </span>
      <!-- {
             id: 'c104',
@@ -93,11 +92,20 @@ export default {
     },
     miniPreview(){
       this.$emit("miniPreview")
+    } ,
+    toggleDueDateDone(){
+      let task = JSON.parse(JSON.stringify(this.task))
+      task.dates.isDone = !task.dates.isDone 
+      this.$emit('updateTask',task)
     }
-    
-    
   },
   computed:{
+    hasCommnets(){
+       return this.task.comments && this.task.comments.length
+    },
+    hasMembers(){
+      return this.task.members && this.task.members.length
+    },
     startDate(){
         let dueTime = new Date(this.task.dates.dueDate).getTime()
         let startTime = new Date(this.task.dates.startDate).getTime()
@@ -125,6 +133,7 @@ export default {
       let isDone = this.task.dates.isDone
       return {'over-due':isOverDue&!isDone, 'due-soon': !isOverDue&&isDueToday&&!isDone , done:isDone}
     },
+
     validateDates(){
       return this.task.dates.startDate || this.task.dates.dueDate
     }

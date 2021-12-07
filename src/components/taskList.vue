@@ -19,7 +19,7 @@
         >
           <div class="task-list-content">
             <!-- <div class="task-list-content" v-for="task in group.tasks" :key="task.id"> -->
-            <task-preview  :isMiniPreview="isMiniPreview" @miniPreview="miniPreview" :task="task" :board="board" @editTask="editTask" />
+            <task-preview @updateTask="updateTask" :isMiniPreview="isMiniPreview" @miniPreview="miniPreview" :task="task" :board="board" @editTask="editTask" />
           </div>
         </Draggable>
       </Container>
@@ -56,7 +56,12 @@ export default {
     addTask(newTask) {
       this.$emit("addTask", newTask, this.group.id);
     },
-
+      updateTask(task){
+        let group = JSON.parse(JSON.stringify(this.group))
+        let idx = group.tasks.findIndex((currTask)=> currTask.id === task.id)
+        group.tasks[idx]= task
+        this.$emit('updateGroup' , group)
+      },
     async onDrop(dropResult) {
       try {
         let content = { groupIdx: this.idx, dropResult };

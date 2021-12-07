@@ -41,7 +41,7 @@
         <div class="task-details-content-container">
           <div class="task-details-main-content">
             <div class="task-details-addons">
-              <task-addons :getTask="getTask" :getBoard="getBoard" />
+              <task-addons :getTask="getTask" :getBoard="getBoard" @updatedTask="updatedTask" />
             </div>
             <span class="task-description-symbol">
               <i class="fas fa-align-left"></i
