@@ -2,7 +2,9 @@
   <section class="dynamic-invite card-layout nav-modal">
     <div class="header-layout">
       <header>Invites</header>
-      <button @click="closeModal"> <span class="material-icons"> clear </span></button>
+       <button class="close" @click="closeModal">
+       <span class="menu-header-close-button"></span>
+    </button>
     </div>
     <div>
       <input class="search" type="text" placeholder="CHANGE INPUT" />
@@ -44,7 +46,6 @@ export default {
       this.chosenUsers.push(this.users[idx]);
     },
     closeModal() {
-    
       this.$emit("closeModal");
     },
   },

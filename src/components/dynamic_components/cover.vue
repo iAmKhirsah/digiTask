@@ -1,7 +1,7 @@
 <template>
   <div class="dynamic-cover-edit">
     <button class="close" @click="closeModal">
-      <span class="material-icons"> clear </span>
+       <span class="menu-header-close-button"></span>
     </button>
     <div class="header-layout">
       <header>Cover</header>

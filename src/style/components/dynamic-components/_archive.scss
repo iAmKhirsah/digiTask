@@ -1,4 +1,7 @@
-.dynamic-archive-edit{
+.dynamic-archive-edit {
+    .header-layout {
+        border-bottom: 1px solid rgba(9, 30, 66, 0.13);
+    }
     .close {
         padding: 12px 12px 12px 12px;
         position: absolute;
@@ -17,7 +20,6 @@
     header {
         text-align: center;
         padding: 10px 0;
-        border-bottom: 1px solid #091e4221;
         margin: 0px 10px;
         font-size: 14px;
         color: $clr3;
@@ -31,14 +33,13 @@
             width: 280px;
             height: 32px;
             margin-top: 10px;
-            background-color: #CF513D ;
+            background-color: #cf513d;
             border: none;
             box-shadow: none;
             cursor: pointer;
             color: white;
             &:hover {
                 background-color: #c53a25;
-
             }
         }
     }

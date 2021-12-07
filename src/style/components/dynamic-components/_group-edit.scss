@@ -4,9 +4,9 @@
     width: 304px;
     box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
     position: absolute;
-    left: 225px;
+    left: 226px;
     top:4px;
-   
+
     .close {
         padding: 12px 12px 12px 12px;
         position: absolute;
@@ -25,16 +25,26 @@
     header {
         text-align: center;
         padding: 10px 0;
-        border-bottom: 1px solid #091e4221;
+        line-height: 20px;
         margin: 0px 10px;
         font-size: 14px;
         color: $clr3;
+    }
+    .dynamic-menu-content{
+        p{
+            padding: 6px 12px;
+            font-size: 14px;
+            &:hover{
+                background-color: #091e420a;
+                cursor: pointer;
+            }
+        }
     }
 }
 
 .dynamic-component-container{
     &.groupEdit{
         position: relative;
-        
+
     }
 }

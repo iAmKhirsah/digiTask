@@ -2,7 +2,9 @@
   <section class="dynamic-profile card-layout nav-modal">
     <div class="header-layout">
       <header>Account</header>
-      <button @click="closeModal"> <span class="material-icons"> clear </span></button>
+      <button @click="closeModal">
+        <span class="material-icons"> clear </span>
+      </button>
     </div>
 
     <div class="user-info">
@@ -13,12 +15,12 @@
       </div>
     </div>
 
-  <div class="card-line"></div>
+    <div class="card-line"></div>
     <div class="user-activity">
       <p>Profile and visibility</p>
       <p>Activity</p>
     </div>
-  <div class="card-line"></div>
+    <div class="card-line"></div>
 
     <button class="user-info-logout-btn">Log out</button>
   </section>

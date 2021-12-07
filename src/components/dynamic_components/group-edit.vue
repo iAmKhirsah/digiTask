@@ -1,13 +1,13 @@
 <template>
   <section class="dynamic-group-edit card-layout nav-modal">
     <div v-if="type !== 'openDelete'">
-      <button class="close" @click="closeModal">
-        <span class="material-icons"> clear </span>
-      </button>
+       <button class="close" @click="closeModal">
+       <span class="menu-header-close-button"></span>
+    </button>
       <div class="header-layout">
         <header>List ations</header>
       </div>
-      <div >
+      <div class="dynamic-menu-content" >
         <p @click="openNewTask">Add card...</p>
         <p @click="openCopyGroup">Copy list...</p>
         <div class="card-line"></div>

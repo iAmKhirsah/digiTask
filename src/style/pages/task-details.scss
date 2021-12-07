@@ -280,10 +280,18 @@
 .dynamic-labels-color-card {
   float: left;
   height: 32px;
-  margin: 0 8px 8px 0;
+  margin: 0 0px 8px 10px;
   padding: 0;
   width: 48px;
   border-radius: 3px;
+  .icon-settings{
+    padding: 0px 0px 0px 15px;
+    line-height: 30px;
+  }
+  &:hover{
+    opacity: 0.8;
+    cursor: pointer;
+  }
 }
 
 .image-settings {

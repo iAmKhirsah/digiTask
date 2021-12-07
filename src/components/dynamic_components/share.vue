@@ -1,6 +1,8 @@
 <template>
   <div>
-    <button class="close" @click="closeModal"> <span class="material-icons"> clear </span></button>
+    <button class="close" @click="closeModal">
+       <span class="menu-header-close-button"></span>
+    </button>
     <p>Share and more...</p>
     <p>POTENTIALLY NOT DOING THIS</p>
   </div>
@@ -8,11 +10,10 @@
 <script>
 export default {
   name: "share",
-  methods:{
-      closeModal() {
-     
+  methods: {
+    closeModal() {
       this.$emit("closeModal");
     },
-  }
+  },
 };
 </script>
