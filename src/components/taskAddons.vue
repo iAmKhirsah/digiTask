@@ -40,7 +40,7 @@
           <input type="checkbox" v-model="isDone" @change="saveIsDone"/>
           <div class="dates-preview">
           <span v-if="startDate">{{ startDate }} </span
-          ><span v-if="dueDate">- {{ dueDate }}</span> 
+          ><span v-if="dueDate"> {{ dueDate }}</span> 
           <span v-if="getTask.dates.isDone" class="task-due-completed"> complete</span>
           </div>
         </div>
@@ -96,7 +96,7 @@ export default {
       let shortMonth = date.toLocaleString("en-us", { month: "short" });
       let day = date.getDate();
       let year = date.getFullYear();
-      let stringDate = `${shortMonth} ${day}, ${year}`;
+      let stringDate = `${shortMonth} ${day} - `;
       return stringDate;
     },
     dueDate() {
