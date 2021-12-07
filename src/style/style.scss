@@ -1,0 +1,40 @@
+// SETUP
+
+@import 'setup/typography';
+@import 'setup/variables';
+
+// BASICS
+
+@import './basics/base';
+@import './basics/icons';
+
+// COMPONENTS
+
+@import './components/app-header';
+@import './components/header-dynamic';
+@import './components/board-header';
+@import './components/group-list';
+@import './components/task-preview';
+@import './components/task-description';
+@import './components/smooth-dnd';
+@import './components/task-preview-labels';
+@import './components/transitions';
+@import './components/user-menu';
+@import './components/background';
+@import './components/activityFlow';
+@import './components/taskAddons';
+@import './components/task-checklist';
+
+// DYNAMIC COMPONENTS
+@import './components/dynamic-components/members';
+@import './components/dynamic-components/labels';
+@import './components/dynamic-components/checklist';
+@import './components/dynamic-components/dates';
+@import './components/dynamic-components/attachment';
+@import './components/dynamic-components/cover';
+@import './components/dynamic-components/move';
+@import './components/dynamic-components/archive';
+@import './components/dynamic-components/group-edit';
+
+// PAGES
+@import './pages/task-details.scss';

@@ -1,0 +1,105 @@
+@keyframes open {
+    0% {
+        min-width: 40px;
+        max-width: 40px;
+        height: 8px;
+        color: transparent;
+    }
+    33% {
+        min-width: 52px;
+        max-width: 198px;
+        height: 8px;
+        color: transparent;
+    }
+    66% {
+        min-width: 52px;
+        max-width: 198px;
+        color: transparent;
+        height: 8px;
+    }
+    100% {
+        min-width: 52px;
+        max-width: 198px;
+        height: 18px;
+        color: white;
+    }
+}
+@keyframes close {
+    0% {
+        min-width: 52px;
+        max-width: 198px;
+        height: 18px;
+        color: white;
+    }
+    33% {
+        min-width: 52px;
+        max-width: 198px;
+        color: transparent;
+        height: 8px;
+    }
+    66% {
+        min-width: 52px;
+        max-width: 198px;
+        height: 8px;
+        color: transparent;
+    }
+    100% {
+        min-width: 40px;
+        max-width: 40px;
+        height: 8px;
+        color: transparent;
+    }
+}
+
+.task-label-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 5px;
+    margin-top: 8px;
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+    .task-labels-container {
+        margin-bottom: 4px;
+        padding: 0px 0px 0 4px;
+        text-align: center;
+
+        .label-preview {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            min-width: 52px;
+            max-width: 198px;
+            height: 18px;
+            line-height: 20px;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+            float: left;
+            line-height: 16px;
+            animation-name: open;
+            animation-duration: 0.5s;
+            .label-title {
+                padding: 4px;
+            }
+            &.mini {
+                animation-name: close;
+                animation-duration: 0.5s;
+                min-width: 40px;
+                max-width: 40px;
+                height: 8px;
+                margin-bottom: 4px;
+            }
+        }
+    }
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+// label_text_disappear .45s ease-in forwards
+// label_text_appear .45s ease-out

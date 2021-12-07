@@ -1,0 +1,336 @@
+<template>
+  <section class="task-details-overlay" v-if="pageOpen">
+    <section class="task-details-wrapper">
+      <div class="task-details-container" v-click-outside="closePage">
+        <button class="task-details-container-btn" @click="closePage">
+          <span class="material-icons"> clear </span>
+        </button>
+        <div
+          class="task-background-cover"
+          v-if="getTask.style.bgColor"
+          :style="'background:' + getTask.style.bgColor"
+        >
+          <div class="window-cover-menu">
+            <div class="window-cover-menu-button" @click="setType('cover')">
+              <span class="span-settings"></span>
+              Cover
+            </div>
+          </div>
+        </div>
+        <div class="task-details-header">
+          <span><i class="fas fa-window-maximize"></i></span>
+          <form v-if="titleEdit" v-on:keydown.enter="saveTask">
+            <textarea
+              class="textarea-another-list"
+              ref="taskTitle"
+              @keydown.enter.prevent
+              oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+              onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+              v-model="currTask.title"
+              maxlength="512"
+              placeholder="Enter Task title..."
+              v-click-outside="saveTask"
+            />
+          </form>
+          <div v-else>
+            <h1 @click="editTitle">{{ currTask.title }}</h1>
+            <p>in group {{ getGroup.title }}<span></span></p>
+          </div>
+        </div>
+
+        <div class="task-details-content-container">
+          <div class="task-details-main-content">
+            <div class="task-details-addons">
+              <task-addons :getTask="getTask" :getBoard="getBoard" />
+            </div>
+            <span class="task-description-symbol">
+              <i class="fas fa-align-left"></i
+            ></span>
+            <task-description
+              :task="getTask"
+              @saveEdit="saveEdit"
+              @editDesc="editDesc"
+              :descEdit="descEdit"
+              @closeDescEdit="closeDescEdit"
+            />
+
+            <div class="task-details-checklist">
+              <div class="task-details-checklist-content">
+                <span class="task-description-symbol">
+                  <i class="fas fa-align-left"></i
+                ></span>
+
+                <!-- <div v-if="currTask.checklist && currTask.checklist.length"> -->
+                  <check-list
+                    v-for="checklist in currTask.checklists"
+                    :key="checklist.id"
+                    :checklist="checklist"
+                    :currTask="currTask"
+                    @updatedTask="updatedTask"
+                  ></check-list>
+                <!-- </div> -->
+              </div>
+            </div>
+
+            <div class="task-details-activity">
+              <div class="task-details-activity-content">
+                <span> <i class="fas fa-align-left"></i></span>
+                <p>Activity</p>
+              </div>
+              <form @submit.prevent="sendMsg">
+                <div class="user-tag-name in-header">DR</div>
+                <textarea type="text" placeholder="Write a comment..." />
+              </form>
+              <activity-flow
+                :task="getTask"
+                :group="getGroup"
+                :board="getBoard"
+              />
+            </div>
+          </div>
+          <div class="task-details-sidebar">
+            <p class="task-details-subtitle">Add to card</p>
+            <div class="task-details-add-to-card">
+              <edit-dynamic
+                :type="type"
+                v-if="type"
+                :getBoard="getBoard"
+                :getTask="getTask"
+                :getUser="getUser"
+                @attachment="attachment"
+                @attachmentLink="attachmentLink"
+                @updateBoard="updateBoard"
+                @deleteTask="deleteTask"
+                @taskActivity="taskActivity"
+                @updateTask="updatedTask"
+                @closeModal="closeModal"
+                @createLabel="createLabel"
+                @deleteLabel="deleteLabel"
+              />
+              <div class="open-edit-dynamic-btn" @click="setType('members')">
+                <span class="span-settings"><i class="far fa-user"></i></span>
+                Members
+              </div>
+              <div class="open-edit-dynamic-btn" @click="setType('labels')">
+                <span class="span-settings"><i class="fas fa-tag"></i></span>
+                Labels
+              </div>
+              <div class="open-edit-dynamic-btn" @click="setType('checklist')">
+                <span class="span-settings"
+                  ><i class="far fa-check-square"></i
+                ></span>
+                Checklist
+              </div>
+              <div class="open-edit-dynamic-btn" @click="setType('dates')">
+                <span class="span-settings"><i class="far fa-clock"></i></span>
+                Dates
+              </div>
+              <div class="open-edit-dynamic-btn" @click="setType('attachment')">
+                <span class="span-settings"
+                  ><i class="fas fa-paperclip"></i
+                ></span>
+                Attachment
+              </div>
+              <div
+                class="open-edit-dynamic-btn"
+                @click="setType('cover')"
+                v-if="!getTask.style.bgColor"
+              >
+                <span class="span-settings"
+                  ><i class="far fa-window-maximize"></i
+                ></span>
+                Cover
+              </div>
+            </div>
+            <p class="task-details-subtitle">Actions</p>
+            <div class="task-details-actions">
+              <div class="open-edit-dynamic-btn" @click="setType('move')">
+                <span><i class="fas fa-arrow-right"></i></span> Move
+              </div>
+              <div class="open-edit-dynamic-btn">
+                <span><i class="far fa-clone"></i></span> Copy
+              </div>
+              <div class="open-edit-dynamic-btn">
+                <span><i class="far fa-eye"></i></span>
+                <span> Watch</span>
+                <!-- <span class="checkbox">
+                  <input type="checkbox" />
+                </span> -->
+              </div>
+              <div class="open-edit-dynamic-btn" @click="setType('archive')">
+                <span><i class="fas fa-archive"></i></span> Archive
+              </div>
+              <div class="open-edit-dynamic-btn" @click="setType('share')">
+                <span><i class="fas fa-share-alt"></i></span> Share
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+</template>
+<script>
+import vClickOutside from "v-click-outside";
+import taskDescription from "../components/taskDescription.vue";
+import activityFlow from "../components/activityFlow.vue";
+import editDynamic from "../components/editDynamic.vue";
+import { uploadFile } from "../services/serverlessUploadService";
+import taskAddons from "../components/taskAddons.vue";
+import checkList from "../components/checkList.vue";
+export default {
+  name: "taskDetails",
+  data() {
+    return {
+      pageOpen: null,
+      type: "",
+      currTask: {},
+      titleEdit: false,
+      descEdit: false,
+    };
+  },
+  async created() {
+    let groupId = this.$route.params.groupId;
+    let taskId = this.$route.params.taskId;
+    await this.$store.dispatch({ type: "getTaskDetails", taskId, groupId });
+    this.pageOpen = true;
+    this.currTask = this.getTask;
+  },
+  methods: {
+    editTitle() {
+      this.titleEdit = true;
+      this.descEdit = false;
+      this.$nextTick(() => {
+        this.$refs.taskTitle.focus();
+      });
+    },
+    editDesc() {
+      this.descEdit = true;
+      this.titleEdit = false;
+    },
+    closeDescEdit() {
+      this.descEdit = false;
+    },
+    closeModal() {
+      this.type = "";
+    },
+    async saveTask() {
+      try {
+        if (this.currTask.title.match(/^\s*$/)) {
+          this.currTask.title = this.getTask.title;
+          this.titleEdit = false;
+          return;
+        }
+        this.titleEdit = false;
+        let task = { ...this.currTask };
+        await this.updatedTask(task);
+        this.currTask = { ...this.getTask };
+      } catch (err) {
+        console.log("Couldnt SAVE TASK TITLE", err);
+      }
+    },
+    async createLabel(label) {
+      try {
+        await this.$store.dispatch({ type: "createLabel", label });
+      } catch (err) {
+        console.log("Error on CREATELABEL in TASKDETAILS", err);
+      }
+    },
+    async deleteLabel(label) {
+      try {
+        await this.$store.dispatch({ type: "deleteLabel", label });
+      } catch (err) {
+        console.log("Error on DELETELABEL in TASKDETAILS");
+      }
+    },
+    async saveEdit(task = { ...this.getTask }) {
+      try {
+        if (!this.editDesc) return;
+        this.descEdit = false;
+        await this.updatedTask({ ...task });
+        this.currTask = { ...this.getTask };
+      } catch (err) {
+        console.log("CANT SAVE EDIT", err);
+      }
+    },
+    setType(type) {
+      this.type = type;
+    },
+    async deleteTask(task) {
+      await this.$store.dispatch({ type: "removeTask", task });
+      this.closePage();
+    },
+    closePage() {
+      console.log("hello");
+      this.$router.push(`/b/${this.$route.params.boardId}`);
+    },
+    async updatedTask(task) {
+      let updatedTask = JSON.parse(JSON.stringify(task));
+      let group = this.getGroup;
+      let idx = group.tasks.findIndex((task) => task.id === updatedTask.id);
+      group.tasks[idx] = updatedTask;
+      await this.$store.dispatch({ type: "updateTask", task: updatedTask });
+      await this.$store.dispatch({ type: "updateGroup", group });
+    },
+    async attachmentLink(link) {
+      let txt = `attached ${link} to this card`;
+      this.taskActivity(txt);
+    },
+    async taskActivity(textToAdd) {
+      try {
+        let currTask = this.getTask;
+        let user = this.getUser;
+        let txt = textToAdd;
+        this.$store.dispatch({
+          type: "addActivity",
+          activity: { task: currTask, txt, user },
+        });
+      } catch (err) {
+        console.log("Failed on TASKACTIVITY in TASKDETAILS", err);
+      }
+    },
+    async updateBoard(board) {
+      this.$store.dispatch({ type: "updateBoard", board });
+    },
+    async attachment(link, task) {
+      console.log(link);
+      try {
+        let res = await uploadFile(link);
+        console.log(res);
+        let txt = `attached ${res.original_filename}.${res.format} to this card`;
+        let user = this.getUser;
+        this.$store.dispatch({
+          type: "addActivity",
+          activity: { res, task, txt, user },
+        });
+      } catch (err) {
+        console.log("Failed on ATTACHMENT in TASK DETAILS", err);
+      }
+    },
+  },
+  computed: {
+    getTask() {
+      return { ...this.$store.getters.getCurrTask };
+    },
+    getGroup() {
+      return { ...this.$store.getters.getCurrGroup };
+    },
+    getBoard() {
+      return { ...this.$store.getters.getCurrBoard };
+    },
+    getUser() {
+      return { ...this.$store.getters.currUser };
+    },
+  },
+  components: {
+    taskDescription,
+    activityFlow,
+    editDynamic,
+    taskAddons,
+    checkList
+  },
+  directives: {
+    clickOutside: vClickOutside.directive,
+  },
+};
+</script>
