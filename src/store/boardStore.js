@@ -74,6 +74,19 @@ export const boardStore = {
       state.currBoard.groups.push(newGroup);
       this.newGroup = boardService.getEmptyGroup();
     },
+    createBoard(state, { board, user }) {
+      let newBoard = boardService.getEmptyBoard();
+      newBoard.createdBy = user;
+      newBoard.title = board.title;
+      if (board.imgUrl) {
+        newBoard.style.backgroundUrl = board.imgUrl;
+      }
+      if (!board.background)
+        newBoard.style.backgroundColor = 'rgb(0, 121, 191)';
+      else newBoard.style.backgroundColor = board.background;
+      boardService.add(newBoard);
+      state.boards.push(newBoard);
+    },
     addActivity(state, { activity }) {
       let newActivity = boardService.getEmptyActivity();
       newActivity.txt = activity.txt;
@@ -302,6 +315,13 @@ export const boardStore = {
         dispatch({ type: 'updateBoard' });
       } catch (err) {
         console.log('Error on board store ADDACTIVITY', err);
+      }
+    },
+    async createBoard({ dispatch, commit }, { board, user }) {
+      try {
+        commit({ type: 'createBoard', board, user });
+      } catch (err) {
+        console.log('Error on board store CREATEBOARD');
       }
     },
     async applyDrag({ dispatch, commit }, { content }) {

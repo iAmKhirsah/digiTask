@@ -24,7 +24,7 @@
 @import './components/activityFlow';
 @import './components/taskAddons';
 @import './components/task-checklist';
-
+@import './components/board-create';
 // DYNAMIC COMPONENTS
 @import './components/dynamic-components/members';
 @import './components/dynamic-components/labels';
@@ -38,3 +38,4 @@
 
 // PAGES
 @import './pages/task-details.scss';
+@import './pages/digi-app.scss';
