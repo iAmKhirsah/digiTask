@@ -1,20 +1,17 @@
 <template>
   <div>
     <div class="dynamic-labels-edit" v-if="!createMenu">
-      <!-- <button class="close" @click="closeModal">
-        <span class="material-icons"> clear </span>
-      </button> -->
-      <button class="icon-sm" @click="closeModal">
+      <button class="close icon-sm" @click="closeModal">
         <span class="menu-header-close-button"></span>
       </button>
       <div class="header-layout">
         <header>Labels</header>
       </div>
-     
-      <input type="text" placeholder="Search labels..." /> 
-     
-      <div class="label-list-content"> 
-        <h5 class="subtitle">labels</h5>
+
+      <input type="text" placeholder="Search labels..." />
+
+      <div class="label-list-content">
+        <h5 class="subtitle">Labels</h5>
         <div class="label-list-container">
           <ul
             v-for="label in board.labels"
@@ -53,10 +50,10 @@
       <!-- <button class="close" @click="closeModal">
         <span class="material-icons"> clear </span>
       </button> -->
-      <button class="icon-sm" @click="closeModal">
+      <button class="icon-sm close" @click="closeModal">
         <span class="menu-header-close-button"></span>
       </button>
-      <button @click="closeCreateMenu" class="icon-sm">
+      <button @click="closeCreateMenu" class="back icon-sm">
         <span class="menu-header-back-button"></span>
       </button>
       <div class="header-layout">
@@ -78,15 +75,22 @@
         <div class="dynamic-labels-color-container">
           <div v-for="(color, idx) in colors" :key="idx">
             <span
-              :style="'background-color:' + color"
+              :style="{
+                'background-color': color,
+              }"
               class="dynamic-labels-color-card"
               @click="pickSelectedColor(color)"
-              ><i class="fas fa-check" v-if="createOrUpdate === color"></i
+              ><span class="icon-settings icon-sm v-sign"></span
             ></span>
           </div>
         </div>
       </div>
-      <button @click="createLabel('create')" v-if="!labelToUpdate">
+
+      <button
+        class="create-label-btn"
+        @click="createLabel('create')"
+        v-if="!labelToUpdate"
+      >
         Create
       </button>
       <button @click="createLabel('update')" v-if="labelToUpdate">Save</button>

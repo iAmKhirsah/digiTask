@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button @click="closeModal">
-      <span class="material-icons"> clear </span>
+     <button class="close" @click="closeModal">
+       <span class="menu-header-close-button"></span>
     </button>
     <p>Copy card</p>
     <div>
