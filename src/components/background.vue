@@ -12,11 +12,11 @@
     <section class="board-background-container">
       <div class="board-background-selection" v-if="!type">
         <div class="board-background-tile" @click="openSection('photos')">
-          <div class="board-background-image"></div>
+          <div class="board-background-image"><img src="../assets/img/background-photos.jpg"></div>
           <div class="title">Photos</div>
         </div>
         <div class="board-background-tile" @click="openSection('colors')">
-          <div class="board-background-image"></div>
+          <div class="board-background-image"><img src="../assets/img/background-colors.jpg"></div>
           <div class="title">Colors</div>
         </div>
       </div>

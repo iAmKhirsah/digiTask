@@ -25,30 +25,27 @@
 <script>
 export default {
   name: "copy",
-  props:['group'],
-  data(){
-      return {
-        newGroupTitle:null
-      }
+  props: ["group"],
+  data() {
+    return {
+      newGroupTitle: null,
+    };
   },
-  created(){
-      this.newGroupTitle = {...this.group.title}
-        this.$nextTick(() => {
-        this.$refs.group.focus();
-        this.$refs.group.select()
-      });
+  created() {
+    this.newGroupTitle = { ...this.group.title };
+    this.$nextTick(() => {
+      this.$refs.group.focus();
+      this.$refs.group.select();
+    });
   },
-  methods:{
-      createGroup(){
-
-      },
-      goBack(){
-          this.$emit('backToGroupEdit')
-      },
-        closeModal() {
-     
+  methods: {
+    createGroup() {},
+    goBack() {
+      this.$emit("backToGroupEdit");
+    },
+    closeModal() {
       this.$emit("closeModal");
     },
-  }
+  },
 };
 </script>

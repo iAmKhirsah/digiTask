@@ -54,16 +54,16 @@ export default {
   computed: {
     renderCmp() {
       if (this.type === "members") return members;
-      if (this.type === "labels") return labels;
-      if (this.type === "checklist") return checklist;
-      if (this.type === "dates") return dates;
-      if (this.type === "attachment") return attachment;
-      if (this.type === "cover") return cover;
-      if (this.type === "move") return move;
-      if (this.type === "archive") return archive;
-      if (this.type === "share") return share;
-      if (this.type === "groupEdit") return groupEdit;
-      if (this.type === "copyGroup") return copyGroup;
+      else if (this.type === "labels") return labels;
+      else if (this.type === "checklist") return checklist;
+      else if (this.type === "dates") return dates;
+      else if (this.type === "attachment") return attachment;
+      else if (this.type === "cover") return cover;
+      else if (this.type === "move") return move;
+      else if (this.type === "archive") return archive;
+      else if (this.type === "share") return share;
+      else if (this.type === "groupEdit") return groupEdit;
+      else if (this.type === "copyGroup") return copyGroup;
     },
   },
   components: {
@@ -85,8 +85,8 @@ export default {
     attachment(link) {
       this.$emit("attachment", link, this.task);
     },
-    attachmentLink(link){
-      this.$emit('attachmentLink', link)
+    attachmentLink(link) {
+      this.$emit("attachmentLink", link);
     },
     deleteTask() {
       this.$emit("deleteTask", this.task);
@@ -118,9 +118,9 @@ export default {
     createLabel(label) {
       this.$emit("createLabel", label);
     },
-    deleteLabel(label){
-      this.$emit("deleteLabel", label)
-    }
+    deleteLabel(label) {
+      this.$emit("deleteLabel", label);
+    },
   },
   directives: {
     clickOutside: vClickOutside.directive,
