@@ -20,7 +20,7 @@
           <button
             type="submit"
             class="task-checklist-save"
-            @click="saveChecklist"
+            @click="saveChecklist(currChecklist)"
           >
             Save
           </button>
@@ -96,6 +96,10 @@ export default {
     return {
       addTodo: false,
       isEditing: false,
+<<<<<<< HEAD
+=======
+
+>>>>>>> f167fe0ae02b3eae949d5894afa75a64261a5047
       currTodo: {},
       currentTask: {},
       currChecklist: {},
@@ -129,13 +133,12 @@ export default {
       });
     },
 
-    saveChecklist(checklist = this.currChecklist) {
+    saveChecklist(checklist) {
       if (this.checklist.title.match(/^\s*$/)) return;
       this.isEditing = false;
-
       //   this.checklist.title = this.checklistTitle
       let idx = this.currentTask.checklists.findIndex((currChecklist) => {
-        return this.checklist.id === currChecklist.id;
+        return this.currChecklist.id === currChecklist.id;
       });
 
       this.currentTask.checklists[idx] = checklist;
