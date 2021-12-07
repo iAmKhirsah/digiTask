@@ -9,8 +9,22 @@
     
     <div class="main-container">
       <p>Size</p>
-      <div></div>
-       <button @click="removeCover">Remove Cover</button>
+      <div class="size-preview">
+        <div class="layout with-info" :class="infoSelected" @click="selectMode(true)" >
+          <div class="top-preview-bgc" :style="sizeBgc"></div>
+          <div class="line-1"><div class="mini-line-1"></div><div class="mini-line-2"></div><span class="mini-circle"></span></div>
+          <div class="line-2"></div><div class="line-3"></div>
+          
+          </div>
+          <div class="layout no-info" @click="selectMode(false)" :style="sizeBgc" :class="noInfoSelected">
+      
+            <div class="line-1">
+              </div>
+              <div class="line-2">
+              </div>
+      </div>
+      </div>
+       <button @click="removeCover" v-if="taskBgc">Remove Cover</button>
       <p>Color</p>
       <div class="color-button-container">
         <div v-for="(color, idx) in colors" :key="idx" @click="setCover(color)">
@@ -47,17 +61,38 @@ export default {
     };
   },
   methods: {
+    selectMode(state){
+      if(!this.updatedTask.style.bgColor) return
+      this.updatedTask.style.isInfo = state
+       this.$emit('updateTask', this.updatedTask)
+    },
     closeModal() {
       this.$emit("closeModal");
     },
     setCover(color) {
       this.updatedTask.style.bgColor = color;
+      
       this.$emit('updateTask', this.updatedTask)
     },
     removeCover(){
-      this.updatedTask.tyle.bgolor = ''
+      this.updatedTask.style.bgColor = ''
       this.$emit('updateTask',this.updatedTask)
     }
   },
+  computed:{
+    sizeBgc(){
+      return {background:this.updatedTask.style.bgColor}
+    },
+    infoSelected(){
+      return {'selected-cover': this.updatedTask.style.isInfo && this.updatedTask.style.bgColor }
+    },
+    noInfoSelected(){
+    return {'selected-cover': !this.updatedTask.style.isInfo && this.updatedTask.style.bgColor}  
+    },
+    taskBgc(){
+      return this.updatedTask.style.bgColor
+    }
+      
+  }
 };
 </script>

@@ -1,12 +1,12 @@
 <template>
-  <div class="task-preview-container" v-if="task" >
+  <div class="task-preview-container" v-if="task"  >
     <button class="edit-button"></button>
     <div class="task-cover">  </div>
     <task-preview-label :isMiniPreview="isMiniPreview" @miniPreview="miniPreview" :task="task" :board="board"/>
     <div @click="editTask(task.id)" class="task-preview" >
       <div class="task-preview-content">{{ task.title }}</div>
     </div>
-  <div class="task-preview-info">
+  <div class="task-preview-info" v-if="hasInfo">
     <span class="task-badges">
     <!-- <span class="badge notification" ><i class="far fa-bell" aria-hidden="true"></i></span> -->
     <span class="badge due-date" @click="toggleDueDateDone" :class="isDueDate" v-if="validateDates" ><span class="clock-icon"></span><span class="short-date">{{startDate}} {{dueDate}}</span></span>
@@ -103,6 +103,9 @@ export default {
     }
   },
   computed:{
+    hasInfo(){
+      return this.hasCommnets || this.hasMembers || this.validateDates || this.taskMembers || this.task.description
+    },
     hasCommnets(){
        return this.task.comments && this.task.comments.length
     },

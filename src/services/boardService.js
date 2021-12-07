@@ -93,6 +93,7 @@ function getEmptyTask() {
     },
     style: {
       bgColor: '',
+      isInfo:true,
     },
   };
   return task;
@@ -305,6 +306,7 @@ function createDemoBoard() {
             },
             style: {
               bgColor: '',
+              isInfo:true,
             },
           },
         ],
