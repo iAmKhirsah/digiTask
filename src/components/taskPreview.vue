@@ -1,10 +1,10 @@
 <template>
-  <div class="task-preview-container" v-if="task"  >
-    <button class="edit-button"></button>
-    <div class="task-cover">  </div>
-    <task-preview-label :isMiniPreview="isMiniPreview" @miniPreview="miniPreview" :task="task" :board="board"/>
+  <div class="task-preview-container" v-if="task" :style="mainContentBgColor" >
+    <!-- <button class="edit-button"></button> -->
+    <div v-if="hasCover" class="task-cover" :class="{'small':!infoCover}" :style="bgColor">  </div>
+    <task-preview-label v-if="infoCover" :isMiniPreview="isMiniPreview" @miniPreview="miniPreview" :task="task" :board="board"/>
     <div @click="editTask(task.id)" class="task-preview" >
-      <div class="task-preview-content">{{ task.title }}</div>
+      <div class="task-preview-content" :class="{'no-info':!infoCover}">{{ task.title }}</div>
     </div>
   <div class="task-preview-info" v-if="hasInfo">
     <span class="task-badges">
@@ -103,8 +103,12 @@ export default {
     }
   },
   computed:{
+    hasCover(){
+      return this.task.style.bgColor
+    },
+    
     hasInfo(){
-      return this.hasCommnets || this.hasMembers || this.validateDates || this.taskMembers || this.task.description
+      return (this.hasCommnets || this.hasMembers || this.validateDates || this.hasMembers || this.task.description) && this.infoCover
     },
     hasCommnets(){
        return this.task.comments && this.task.comments.length
@@ -144,8 +148,20 @@ export default {
       return this.task.dates.startDate || this.task.dates.dueDate
     },
     taskMembers(){
-      return this.task.members
-    }
+      return this.task.members 
+    },
+    bgColor(){
+      return {'background-color':this.task.style.bgColor}
+    },
+    infoCover(){
+      return this.task.style.isInfo
+    },
+    mainContentBgColor(){
+      if(!this.task.style.isInfo){
+        return {'background-color':this.task.style.bgColor}
+      }
+    },
+
 
   },
   components:{

@@ -1,4 +1,15 @@
+
 .task-list-container {
+    
+    .task-cover{
+        height: 32px;
+        border-radius:3px;
+        border-radius: 3px 3px 0 0;
+        &.small{
+            height:22px;
+            border-radius: 3px;
+        }
+    }
   .task-list-container-content {
     max-height: 740px;
     overflow-y: auto;
@@ -13,6 +24,7 @@
     .task-list-content {
       width: 100%;
       .task-preview-container {
+     
         display: flex;
         flex-direction: column;
         height: 100%;
@@ -33,11 +45,19 @@
             max-width: 250px;
             color: $clr2;
             font-size: 14px;
+            &.no-info{
+                font-size: 16px;
+                font-weight: 500;
+                padding-bottom:8px;
+                
+            }
           }
         }
       }
     }
   }
+  
+ 
 }
 .add-task {
   align-items: center;
@@ -65,6 +85,7 @@
     }
 
     .add-task-form-btns {
+        
       display: flex;
       gap: 6px;
       .add-task-btn {

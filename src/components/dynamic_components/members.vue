@@ -34,6 +34,9 @@ export default {
       updatedTask: JSON.parse(JSON.stringify(this.task)),
     };
   },
+  created(){
+    
+  },
   methods: {
     sendMember(member) {
       var txt = "";
