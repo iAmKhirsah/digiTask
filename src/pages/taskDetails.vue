@@ -41,7 +41,11 @@
         <div class="task-details-content-container">
           <div class="task-details-main-content">
             <div class="task-details-addons">
-              <task-addons :getTask="getTask" :getBoard="getBoard" @updatedTask="updatedTask" />
+              <task-addons
+                :getTask="getTask"
+                :getBoard="getBoard"
+                @updatedTask="updatedTask"
+              />
             </div>
             <span class="task-description-symbol">
               <i class="fas fa-align-left"></i
@@ -54,25 +58,23 @@
               @closeDescEdit="closeDescEdit"
             />
 
-    <div class="task-details-checklist">
+            <div class="task-details-checklist">
               <div class="task-details-checklist-content">
                 <span class="task-description-symbol">
                   <i class="fas fa-align-left"></i
                 ></span>
 
-
                 <!-- <div v-if="currTask.checklist && currTask.checklist.length"> -->
-                  <check-list
-                    v-for="checklist in currTask.checklists"
-                    :key="checklist.id"
-                    :checklist="checklist"
-                    :currTask="currTask"
-                    @updatedTask="updatedTask"
-                  ></check-list>
+                <check-list
+                  v-for="checklist in currTask.checklists"
+                  :key="checklist.id"
+                  :checklist="checklist"
+                  :currTask="currTask"
+                  @updatedTask="updatedTask"
+                ></check-list>
                 <!-- </div> -->
               </div>
             </div>
-
 
             <div class="task-details-activity">
               <div class="task-details-activity-content">
@@ -102,6 +104,7 @@
                 @attachment="attachment"
                 @attachmentLink="attachmentLink"
                 @updateBoard="updateBoard"
+                @updateGroup="updateGroup"
                 @deleteTask="deleteTask"
                 @taskActivity="taskActivity"
                 @updateTask="updatedTask"
@@ -275,7 +278,7 @@ export default {
       await this.$store.dispatch({ type: "updateTask", task: updatedTask });
       await this.$store.dispatch({ type: "updateGroup", group });
     },
-    
+
     async attachmentLink(link) {
       let txt = `attached ${link} to this card`;
       this.taskActivity(txt);
@@ -295,6 +298,9 @@ export default {
     },
     async updateBoard(board) {
       this.$store.dispatch({ type: "updateBoard", board });
+    },
+    async updateGroup(group) {
+      this.$store.dispatch({ type: "updateGroup", group });
     },
     async attachment(link, task) {
       console.log(link);
@@ -331,7 +337,7 @@ export default {
     activityFlow,
     editDynamic,
     taskAddons,
-     checkList
+    checkList,
   },
   directives: {
     clickOutside: vClickOutside.directive,

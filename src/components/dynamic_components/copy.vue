@@ -7,7 +7,7 @@
     <div>
       <form @submit.prevent="addNewCopy"></form>
       <p>Title</p>
-      <textarea type="text"></textarea>
+      <textarea type="text" v-model="taskToCopy.title"></textarea>
     </div>
     <div>
       <p>Copy to...</p>
@@ -26,6 +26,7 @@
   </div>
 </template>
 <script>
+import { utilService } from "../../services/utilService";
 export default {
   name: "copy",
   props: ["task", "board"],
@@ -48,15 +49,15 @@ export default {
       let idx = this.updateBoard.groups.findIndex(
         (group) => group.id === this.groupId
       );
-      this.taskToCopy.id = this.updateBoard.groups[idx].push(this.taskToCopy);
-      this.$emit("updateBoard", groupToUpdate);
+      this.taskToCopy.id = "t" + utilService.makeId();
+      let group = this.updateBoard.groups[idx];
+      group.tasks.push(this.taskToCopy);
+      this.$emit("updateGroup", JSON.parse(JSON.stringify(group)));
     },
     closeModal() {
       this.$emit("closeModal");
     },
   },
-  computed: {
-    getNewId() {},
-  },
+  computed: {},
 };
 </script>

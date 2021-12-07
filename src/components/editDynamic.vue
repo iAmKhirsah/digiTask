@@ -17,6 +17,7 @@
       @openDelete="openDelete"
       @deleteGroup="deleteGroup"
       @updateBoard="updateBoard"
+      @updateGroup="updateGroup"
       v-click-outside="closeModal"
       @updateTask="updateTask"
       @createLabel="createLabel"
@@ -103,6 +104,9 @@ export default {
     },
     closeNewTask() {
       this.$emit("closeNewTask");
+    },
+    updateGroup(group){
+      this.$emit('updateGroup', group)
     },
     openCopyGroup() {
       this.$emit("openModal", "copyGroup");
