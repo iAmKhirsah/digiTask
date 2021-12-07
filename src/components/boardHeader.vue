@@ -14,7 +14,11 @@
           <span v-if="!isStarred"><i class="far fa-star"></i></span>
           <span v-else><i class="fas fa-star"></i></span>
         </div>
-        <div v-for="member in board.members" :key="member._id" class="members">
+        <div
+          v-for="member in getBoardMembers"
+          :key="member._id"
+          class="members"
+        >
           <span class="user-tag-name"
             ><img :src="member.imgUrl" class="image-settings"
           /></span>
@@ -73,6 +77,9 @@ export default {
   computed: {
     inputWidth() {
       return { width: this.board.title.length * 10 + 24 + "px" };
+    },
+    getBoardMembers() {
+      return this.$store.getters.getCurrBoard.members;
     },
   },
   methods: {
