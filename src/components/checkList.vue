@@ -20,7 +20,7 @@
           <button
             type="submit"
             class="task-checklist-save"
-            @click="saveChecklist"
+            @click="saveChecklist(currChecklist)"
           >
             Save
           </button>
@@ -48,7 +48,12 @@
         :key="todo.id"
         class="checklist-todos"
       >
-        <todo-preview class="todo-preview-container" :checklist="checklist" :todo="todo" @updatedChecklist="saveChecklist"></todo-preview>
+        <todo-preview
+          class="todo-preview-container"
+          :checklist="checklist"
+          :todo="todo"
+          @updatedChecklist="saveChecklist"
+        ></todo-preview>
       </div>
     </div>
 
@@ -89,7 +94,6 @@ export default {
       addTodo: false,
       isEditing: false,
 
-   
       currTodo: {},
 
       currentTask: {},
@@ -97,7 +101,6 @@ export default {
     };
   },
   created() {
-   
     this.currentTask = JSON.parse(JSON.stringify(this.currTask));
     this.currChecklist = JSON.parse(JSON.stringify(this.checklist));
   },
@@ -113,13 +116,12 @@ export default {
       });
     },
 
-    saveChecklist(checklist = this.currChecklist) {
+    saveChecklist(checklist) {
       if (this.checklist.title.match(/^\s*$/)) return;
       this.isEditing = false;
-
       //   this.checklist.title = this.checklistTitle
       let idx = this.currentTask.checklists.findIndex((currChecklist) => {
-        return this.checklist.id === currChecklist.id;
+        return this.currChecklist.id === currChecklist.id;
       });
 
       this.currentTask.checklists[idx] = checklist;
@@ -136,12 +138,12 @@ export default {
     },
   },
   computed: {
-    checklistTitle(){
-      return this.currChecklist.title
+    checklistTitle() {
+      return this.currChecklist.title;
     },
-    checklistTodos(){
-      return this.currChecklist.todos && this.currChecklist.todos.length
-    }
+    checklistTodos() {
+      return this.currChecklist.todos && this.currChecklist.todos.length;
+    },
   },
   directives: {
     clickOutside: vClickOutside.directive,

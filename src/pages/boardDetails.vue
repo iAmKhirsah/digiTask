@@ -144,7 +144,7 @@ export default {
         this.newGroup = { ...this.$store.getters.getEmptyGroup };
         this.newGroup.title;
       } catch (err) {
-        console.log("Couldnt add group", group);
+        console.log("Couldnt add group", err);
       }
     },
     async deleteGroup(group) {
