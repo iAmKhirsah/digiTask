@@ -149,8 +149,8 @@
               <div class="open-edit-dynamic-btn" @click="setType('move')">
                 <span><i class="fas fa-arrow-right"></i></span> Move
               </div>
-              <div class="open-edit-dynamic-btn">
-                <span><i class="far fa-clone"></i></span> Copy
+              <div class="open-edit-dynamic-btn" @click="setType('copy')">
+                <span class="icon-sm icon-copy"></span> Copy
               </div>
               <div class="open-edit-dynamic-btn">
                 <span><i class="far fa-eye"></i></span>

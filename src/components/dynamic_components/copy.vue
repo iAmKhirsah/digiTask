@@ -1,6 +1,8 @@
 <template>
   <div>
-    <button @click="closeModal"> <span class="material-icons"> clear </span></button>
+    <button @click="closeModal">
+      <span class="material-icons"> clear </span>
+    </button>
     <p>Copy card</p>
     <div>
       <form @submit.prevent="addNewCopy"></form>
@@ -8,28 +10,53 @@
       <textarea type="text"></textarea>
     </div>
     <div>
-      <p>Keep...</p>
-      <input type="checkbox" />
-      <p>Comments(num)</p>
-    </div>
-    <div>
       <p>Copy to...</p>
-      <div>BOARD HERE</div>
-      <div>LIST HERE</div>
-      <div>POSITION?</div>
+      <label>List</label>
+      <select @change="setCopyTo">
+        <option
+          v-for="group in updateBoard.groups"
+          :key="group.id"
+          :value="group.id"
+        >
+          {{ group.title }}
+        </option>
+      </select>
     </div>
-    <button>Create card</button>
+    <button @click="addNewCopy">Create card</button>
   </div>
 </template>
 <script>
 export default {
   name: "copy",
+  props: ["task", "board"],
+  data() {
+    return {
+      groupId: null,
+      updateBoard: null,
+      taskToCopy: null,
+    };
+  },
+  created() {
+    this.updateBoard = JSON.parse(JSON.stringify(this.board));
+    this.taskToCopy = JSON.parse(JSON.stringify(this.task));
+  },
   methods: {
-    addNewCopy() {},
-      closeModal() {
-     
+    setCopyTo(ev) {
+      this.groupId = ev.target.value;
+    },
+    addNewCopy() {
+      let idx = this.updateBoard.groups.findIndex(
+        (group) => group.id === this.groupId
+      );
+      this.taskToCopy.id = this.updateBoard.groups[idx].push(this.taskToCopy);
+      this.$emit("updateBoard", groupToUpdate);
+    },
+    closeModal() {
       this.$emit("closeModal");
     },
+  },
+  computed: {
+    getNewId() {},
   },
 };
 </script>

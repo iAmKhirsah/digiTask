@@ -16,6 +16,7 @@
       @taskActivity="taskActivity"
       @openDelete="openDelete"
       @deleteGroup="deleteGroup"
+      @updateBoard="updateBoard"
       v-click-outside="closeModal"
       @updateTask="updateTask"
       @createLabel="createLabel"
@@ -34,6 +35,7 @@ import move from "./dynamic_components/move.vue";
 import archive from "./dynamic_components/archive.vue";
 import share from "./dynamic_components/share.vue";
 import groupEdit from "./dynamic_components/group-edit.vue";
+import copy from './dynamic_components/copy.vue'
 import vClickOutside from "v-click-outside";
 
 export default {
@@ -60,6 +62,7 @@ export default {
       else if (this.type === "attachment") return attachment;
       else if (this.type === "cover") return cover;
       else if (this.type === "move") return move;
+      else if (this.type === 'copy') return copy
       else if (this.type === "archive") return archive;
       else if (this.type === "share") return share;
       else if (this.type === "groupEdit") return groupEdit;
@@ -67,6 +70,7 @@ export default {
     },
   },
   components: {
+    copy,
     members,
     labels,
     checklist,
@@ -114,6 +118,9 @@ export default {
     },
     deleteGroup() {
       this.$emit("deleteGroup", this.group);
+    },
+    updateBoard(board){
+      this.$emit('updateBoard', board)
     },
     createLabel(label) {
       this.$emit("createLabel", label);
