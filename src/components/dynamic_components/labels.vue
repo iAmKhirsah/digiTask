@@ -47,17 +47,20 @@
       <button class="create" @click="openCreateMenu">Create a new label</button>
     </div>
     <div class="dynamic-labels-edit" v-if="createMenu">
-      <button class="close" @click="closeModal">
+      <!-- <button class="close" @click="closeModal">
         <span class="material-icons"> clear </span>
+      </button> -->
+      <button class="icon-sm" @click="closeModal">
+        <span class="menu-header-close-button"></span>
       </button>
-      <button @click="closeCreateMenu">
-        <i class="fas fa-chevron-left"></i>
+      <button @click="closeCreateMenu" class="icon-sm">
+        <span class="menu-header-back-button"></span>
       </button>
       <div class="header-layout">
         <header>{{ createUpdateTitle }}</header>
       </div>
       <div>
-        <p>Name</p>
+        <p class="subtitle">Name</p>
         <form @submit="createLabel">
           <input type="text" v-model="newLabel.title" v-if="!labelToUpdate" />
           <input
@@ -67,8 +70,8 @@
           />
         </form>
       </div>
+      <p class="subtitle">Select a color</p>
       <div>
-        <p>Select a color</p>
         <div class="dynamic-labels-color-container">
           <div v-for="(color, idx) in colors" :key="idx">
             <span
@@ -79,14 +82,12 @@
             ></span>
           </div>
         </div>
-        <button @click="createLabel('create')" v-if="!labelToUpdate">
-          Create
-        </button>
-        <button @click="createLabel('update')" v-if="labelToUpdate">
-          Save
-        </button>
-        <button @click="deleteLabel" v-if="labelToUpdate">Delete</button>
       </div>
+      <button @click="createLabel('create')" v-if="!labelToUpdate">
+        Create
+      </button>
+      <button @click="createLabel('update')" v-if="labelToUpdate">Save</button>
+      <button @click="deleteLabel" v-if="labelToUpdate">Delete</button>
     </div>
   </div>
 </template>
