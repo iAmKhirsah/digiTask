@@ -3,7 +3,7 @@
     <span><input class="box-input" type="checkbox" /></span>
     <!-- render vfor todo -->
     <span class="task-todo-minus-btn minus"> </span>
-    <span v-if="!todoEdit" @click="openEditTodo">{{ todo.title }}</span>
+    <span v-if="!todoEdit" @click="openEditTodo">{{ todoTitle }}</span>
 
     <form v-else class="todos-form">
       <textarea
@@ -32,6 +32,7 @@ export default {
       currTodo: {},
     };
   },
+  created() {},
   methods: {
     openEditTodo() {
       this.currTodo = JSON.parse(JSON.stringify(this.todo));
@@ -49,7 +50,7 @@ export default {
       let checklist = JSON.parse(JSON.stringify(this.checklist));
 
       let idx = checklist.todos.findIndex((todo) => {
-        return this.todo.id === todo.id;
+        return this.currTodo.id === todo.id;
       });
 
       checklist.todos[idx].title = this.currTodo.title;
@@ -58,6 +59,11 @@ export default {
       this.$emit("updatedChecklist", checklist);
 
       this.todoEdit = false;
+    },
+  },
+  computed: {
+    todoTitle() {
+      return this.todo.title;
     },
   },
 };

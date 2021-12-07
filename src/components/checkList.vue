@@ -20,7 +20,7 @@
           <button
             type="submit"
             class="task-checklist-save"
-            @click="saveChecklist"
+            @click="saveChecklist(currChecklist)"
           >
             Save
           </button>
@@ -48,12 +48,17 @@
         :key="todo.id"
         class="checklist-todos"
       >
-        <todo-preview class="todo-preview-container" :checklist="checklist" :todo="todo" @updatedChecklist="saveChecklist"></todo-preview>
+        <todo-preview
+          class="todo-preview-container"
+          :checklist="checklist"
+          :todo="todo"
+          @updatedChecklist="saveChecklist"
+        ></todo-preview>
       </div>
     </div>
 
     <!-- v-if -->
-    <div v-if="!addTodo" class="task-checklist-btns">
+    <div v-if="!isAddTodo" class="task-checklist-btns">
       <button @click="openAddTodo" class="open-edit-dynamic-btn">
         Add an item
       </button>
@@ -66,9 +71,12 @@
           class="textarea-another-list"
           maxlength="512"
           placeholder="Add an item"
+          v-model="newTask.title"
         />
         <div class="task-checklist-btns">
-          <button type="submit" class="task-checklist-save">Add</button>
+          <button @click="addTodo" type="submit" class="task-checklist-save">
+            Add
+          </button>
           <button class="task-checklist-close">
             <span @click="closeAddTodo" class="material-icons"> clear </span>
           </button>
@@ -86,24 +94,38 @@ export default {
   name: "taskChecklist",
   data() {
     return {
-      addTodo: false,
+      isAddTodo: false,
       isEditing: false,
-
-   
       currTodo: {},
-
       currentTask: {},
       currChecklist: {},
+      newTask: {
+        id: "",
+        title: "",
+        isDone: false,
+      },
     };
   },
   created() {
-   
     this.currentTask = JSON.parse(JSON.stringify(this.currTask));
     this.currChecklist = JSON.parse(JSON.stringify(this.checklist));
+    console.log(
+      "file: checkList.vue ~ line 110 ~ this.currChecklist",
+      this.currChecklist
+    );
   },
   methods: {
+    addTodo() {
+      if (this.newTask.title.match(/^\s*$/)) return;
+
+      this.newTask.id = this.$store.getters.getNewId;
+      this.$store.commit({ type: "generateNewId" });
+      this.currChecklist.todos.push(this.newTask);
+      this.saveChecklist(this.currChecklist);
+      this.isAddTodo = false;
+    },
     openAddTodo() {
-      this.addTodo = true;
+      this.isAddTodo = true;
     },
     editTitle() {
       this.isEditing = true;
@@ -113,21 +135,21 @@ export default {
       });
     },
 
-    saveChecklist(checklist = this.currChecklist) {
+    saveChecklist(checklist) {
       if (this.checklist.title.match(/^\s*$/)) return;
       this.isEditing = false;
-
       //   this.checklist.title = this.checklistTitle
       let idx = this.currentTask.checklists.findIndex((currChecklist) => {
-        return this.checklist.id === currChecklist.id;
+        return this.currChecklist.id === currChecklist.id;
       });
 
       this.currentTask.checklists[idx] = checklist;
 
       this.$emit("updatedTask", this.currentTask);
     },
+
     closeAddTodo() {
-      this.addTodo = false;
+      this.isAddTodo = false;
     },
 
     closeChecklist() {
@@ -136,12 +158,12 @@ export default {
     },
   },
   computed: {
-    checklistTitle(){
-      return this.currChecklist.title
+    checklistTitle() {
+      return this.currChecklist.title;
     },
-    checklistTodos(){
-      return this.currChecklist.todos && this.currChecklist.todos.length
-    }
+    checklistTodos() {
+      return this.currChecklist.todos && this.currChecklist.todos.length;
+    },
   },
   directives: {
     clickOutside: vClickOutside.directive,

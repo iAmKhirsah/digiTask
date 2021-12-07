@@ -266,6 +266,7 @@ export default {
       console.log("hello");
       this.$router.push(`/b/${this.$route.params.boardId}`);
     },
+
     async updatedTask(task) {
       let updatedTask = JSON.parse(JSON.stringify(task));
       let group = this.getGroup;
@@ -274,6 +275,7 @@ export default {
       await this.$store.dispatch({ type: "updateTask", task: updatedTask });
       await this.$store.dispatch({ type: "updateGroup", group });
     },
+    
     async attachmentLink(link) {
       let txt = `attached ${link} to this card`;
       this.taskActivity(txt);
