@@ -12,7 +12,7 @@
           :drop-placeholder="dropPlaceholderOptions"
           @drop="onDropGroup"
         >
-          <Draggable v-for="(group, idx) in board.groups" :key="idx">
+          <Draggable v-for="(group, idx) in boardGroups" :key="idx">
             <group-list
               class="draggable-item"
               :group="group"
@@ -207,6 +207,9 @@ export default {
     },
   },
   computed: {
+    boardGroups(){
+      return this.board.groups
+    }
     // background(){
     //   return this.board.style.backgroundColor ? this.board.style.backgroundColor : this.board.style.backgroundUrl
     // }

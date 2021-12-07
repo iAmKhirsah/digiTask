@@ -19,11 +19,10 @@ export default {
   computed: {
     renderCmp() {
       if (this.type === "profile") return profile;
-      if (this.type === "recent") return recent;
-      if (this.type === "starred") return starred;
-      if (this.type === "workSpace") return workSpace;
-      if (this.type === "invite") return invite;
-      
+      else if (this.type === "recent") return recent;
+      else if (this.type === "starred") return starred;
+      else if (this.type === "workSpace") return workSpace;
+      else if (this.type === "invite") return invite;
     },
   },
   components: {
@@ -32,10 +31,10 @@ export default {
     starred,
     workSpace,
   },
-  methods:{
-    closeModal(){
-      this.$emit('closeModal')
-    }
-  }
+  methods: {
+    closeModal() {
+      this.$emit("closeModal");
+    },
+  },
 };
 </script>
