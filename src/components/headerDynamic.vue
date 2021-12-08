@@ -14,6 +14,7 @@ import recent from "./dynamic_components/recent.vue";
 import starred from "./dynamic_components/starred.vue";
 import workSpace from "./dynamic_components/workSpace.vue";
 import invite from "./dynamic_components/invite.vue";
+import boardCreate from './boardCreate.vue'
 
 export default {
   name: "headerDynamic",
@@ -28,6 +29,7 @@ export default {
       else if (this.type === "starred") return starred;
       else if (this.type === "workSpace") return workSpace;
       else if (this.type === "invite") return invite;
+      else if (this.type === "create") return boardCreate;
     },
   },
   components: {

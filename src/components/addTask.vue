@@ -19,7 +19,6 @@
             type="button"
             @click="closeNewTask"
           >
-            
             <span class="icon-lg close-icon"></span>
           </button>
         </div>
@@ -28,8 +27,9 @@
 
     <div class="add-task-add-card" v-if="!openNewTask" @click="newTaskOn">
       <span class="group-add-plus">
-        <span class="material-icons"> add </span> </span
-      ><span class="title">Add a card</span>
+        <span class="material-icons"> add </span>
+      </span>
+      <span class="title">Add a card</span>
     </div>
   </div>
 </template>

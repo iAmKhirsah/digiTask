@@ -4,7 +4,7 @@
   position: fixed;
   // right: 0;
   right: -50%;
-  transition: right 1s;
+  transition: right 0.3s;
   z-index: 10;
   background-color: #f4f5f7;
   display: flex;
@@ -12,7 +12,7 @@
   flex-wrap: nowrap;
   justify-content: flex-start;
   overflow: hidden;
-  transition: right 1s ;
+
   &.open{
     right: 0%;
   }

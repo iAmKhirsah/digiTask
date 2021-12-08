@@ -2,8 +2,9 @@
     margin: 0 22px;
     height: 95vh;
     overflow-y: hidden;
+    transition: margin 0.3s;
     &.menu-open {
-      margin-right: 345px;
+        margin-right: 345px;
     }
     .add-another-list {
         width: 272px;
