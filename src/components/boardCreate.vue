@@ -47,6 +47,7 @@ export default {
       this.board.background = background;
     },
     createBoard() {
+      this.board.title.match(/^\s*$/)
       this.$emit("createBoard", this.board);
       this.board = {
         title: "",

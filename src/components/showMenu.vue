@@ -59,9 +59,9 @@
           </div>
         </div>
         <!-- Ilya Activities Component -->
-        <!-- <div class="menu-box">
+        <div class="menu-box">
           <div>Activities Component</div>
-        </div> -->
+        </div>
       </div>
     </div>
     <background
