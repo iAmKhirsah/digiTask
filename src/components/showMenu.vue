@@ -1,5 +1,5 @@
 <template>
-  <section class="user-menu open">
+  <section class="user-menu open" v-click-outside="closeShowMenu">
     <div v-if="!type">
    
         <button class="close" @click="closeShowMenu">
@@ -31,7 +31,7 @@
         <div class="menu-box" @click="isDeleting=true">
           <div>Close board...</div>
         </div>
-         <div class="dynamic-archive-edit" v-if="isDeleting"  v-click-outside="closeDeleteModal">
+         <div class=" card-layout " v-if="isDeleting"  v-click-outside="closeDeleteModal">
      <button class="close" @click="closeDeleteModal">
        <span class="menu-header-close-button"></span>
     </button>
@@ -41,10 +41,10 @@
       </header>
     </div>
     <div class="main-container">
-      <p>
+      <p>Are you sure?
         Board will be removed and you wont be able get it back
       </p>
-      <button @click="removeBoard">Delete</button>
+      <button @click="removeBoard" class="delete">Delete</button>
     </div>
   </div>
         
