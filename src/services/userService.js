@@ -1,4 +1,5 @@
 import { storageService } from './asyncStorageService';
+import { utilService } from './utilService';
 // import { httpService } from './http.service'
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser';
 
@@ -8,6 +9,7 @@ export const userService = {
   signup,
   getLoggedinUser,
   getUsers,
+  getEmptyUser,
   getById,
   update,
 };
@@ -88,4 +90,16 @@ function getLoggedinUser() {
   return JSON.parse(
     sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER) || 'null'
   );
+}
+function getEmptyUser() {
+  const user = {
+    _id: '',
+    username: '',
+    fullname: '',
+    imgUrl: '',
+    recentBoards: [],
+    starred: [],
+    mentions: [],
+  };
+  return user;
 }

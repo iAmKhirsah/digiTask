@@ -109,6 +109,7 @@ export default {
       }, 100);
       return ++acc;
     }, 1);
+    this.$store.commit({ type: "setLoggedinUser" });
   },
   methods: {
     async updateGroup(group) {
@@ -127,7 +128,7 @@ export default {
     },
     async updateBoard(board) {
       await this.$store.dispatch({ type: "updateBoard", board });
-      this.board = JSON.parse(JSON.stringify(this.getCurrBoard))
+      this.board = JSON.parse(JSON.stringify(this.getCurrBoard));
     },
     async addGroup() {
       try {
@@ -212,12 +213,12 @@ export default {
       return this.board.groups;
     },
     getCurrBoard() {
-      return this.$store.getters.getCurrBoard
+      return this.$store.getters.getCurrBoard;
     },
-    getBoard(){
-      return this.board
-    }
-   
+    getBoard() {
+      return this.board;
+    },
+
     // background(){
     //   return this.board.style.backgroundColor ? this.board.style.backgroundColor : this.board.style.backgroundUrl
     // }
