@@ -1,8 +1,8 @@
 <template>
-  <section class="user-menu open" v-click-outside="closeShowMenu">
+  <section class="user-menu " >
     <div v-if="!type">
    
-        <button class="close" @click="closeShowMenu">
+        <button class="close" @click="closeMenu">
        <span class="menu-header-close-button"></span>
     </button>
       <div class="header-layout">
@@ -59,16 +59,16 @@
           </div>
         </div>
         <!-- Ilya Activities Component -->
-        <!-- <div class="menu-box">
+        <div class="menu-box">
           <div>Activities Component</div>
-        </div> -->
+        </div>
       </div>
     </div>
     <background
       :board="board"
       @updateBoard="updateBoard"
       @goBack="goBack"
-      @closeShowMenu="closeShowMenu"
+      @closeMenu="closeMenu"
       v-if="type === 'background'"
     />
   </section>
@@ -105,8 +105,11 @@ export default {
     updateBoard(board) {
       this.$emit("updateBoard", board);
     },
-    closeShowMenu() {
-      this.$emit("closeShowMenu");
+    toggleMenu() {
+      this.$emit("toggleMenu");
+    },
+    closeMenu(){
+      this.$emit('closeMenu')
     },
     closeDeleteModal(){
       this.isDeleting = false

@@ -298,9 +298,12 @@ export default {
     },
     async updateBoard(board) {
       this.$store.dispatch({ type: "updateBoard", board });
+     
+     
     },
     async updateGroup(group) {
       this.$store.dispatch({ type: "updateGroup", group });
+    
     },
     async attachment(link, task) {
       console.log(link);
@@ -331,10 +334,13 @@ export default {
     getUser() {
       return { ...this.$store.getters.currUser };
     },
-
-    // getChecklists(){
-    //   // return [...this.$store.getters.getCurrTask.checkLists]
-    // }
+    getTaskCheckLists(){
+      return JSON.parse(JSON.stringify(this.$store.getters.getCurrTask.checklists))
+    },
+    
+    getChecklists(){
+    return this.currTask.checklists.length > 0
+    }
   },
   components: {
     taskDescription,

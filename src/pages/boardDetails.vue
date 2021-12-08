@@ -1,10 +1,19 @@
 <template>
   <div>
-    <div v-if="board" class="board-details-container" v-dragscroll:nochilddrag>
+    <div
+      v-if="board"
+      class="board-details-container"
+      v-dragscroll:nochilddrag
+      :class="menuOpen"
+    >
       <board-header
         :board="getCurrBoard"
         @updateBoard="updateBoard"
         @removeBoard="removeBoard"
+        :showMenuOpen="showMenuOpen"
+        @toggleMenu="toggleMenu"
+        @closeMenu="closeMenu"
+        @openMenu="openMenu"
       />
       <div class="group-list-container">
         <Container
@@ -56,7 +65,7 @@
                 type="button"
                 @click="toggleNewGroup"
               >
-                 <span class="icon-lg close-icon"></span>
+                <span class="icon-lg close-icon"></span>
               </button>
             </div>
           </form>
@@ -93,6 +102,7 @@ export default {
         animationDuration: "150",
         showOnTop: false,
       },
+       showMenuOpen: false,
     };
   },
   async created() {
@@ -215,6 +225,18 @@ export default {
     getChildPayload(groupIndex, itemIndex) {
       return this.board.groups[groupIndex].tasks[itemIndex];
     },
+    toggleMenu(){
+      console.log('yo')
+      this.showMenuOpen = !this.showMenuOpen
+    },
+    closeMenu(){
+       console.log('close')
+      this.showMenuOpen = false
+    },
+    openMenu(){
+       console.log('open')
+      this.showMenuOpen = true
+    }
   },
   computed: {
     boardGroups() {
@@ -226,6 +248,9 @@ export default {
     getBoard() {
       return this.board;
     },
+    menuOpen(){
+      return {'menu-open':this.showMenuOpen}
+    }
 
     // background(){
     //   return this.board.style.backgroundColor ? this.board.style.backgroundColor : this.board.style.backgroundUrl
