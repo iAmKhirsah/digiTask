@@ -102,7 +102,7 @@ export default {
         animationDuration: "150",
         showOnTop: false,
       },
-       showMenuOpen: false,
+      showMenuOpen: false,
     };
   },
   async created() {
@@ -111,6 +111,7 @@ export default {
     let boardId = this.$route.params.boardId;
     await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
     this.board = { ...this.$store.getters.getCurrBoard };
+    console.log(this.board);
     if (!this.board) this.$router.push("/");
     if (!this.board.groups.length) return;
     this.board.groups.reduce((acc, group) => {
@@ -125,6 +126,9 @@ export default {
     }, 1);
     this.$store.commit({ type: "setLoggedinUser" });
     await this.$store.dispatch({ type: "loadBoards" });
+  },
+  destroyed() {
+    this.board = null;
   },
   methods: {
     async removeBoard(boardId) {
@@ -225,18 +229,18 @@ export default {
     getChildPayload(groupIndex, itemIndex) {
       return this.board.groups[groupIndex].tasks[itemIndex];
     },
-    toggleMenu(){
-      console.log('yo')
-      this.showMenuOpen = !this.showMenuOpen
+    toggleMenu() {
+      console.log("yo");
+      this.showMenuOpen = !this.showMenuOpen;
     },
-    closeMenu(){
-       console.log('close')
-      this.showMenuOpen = false
+    closeMenu() {
+      console.log("close");
+      this.showMenuOpen = false;
     },
-    openMenu(){
-       console.log('open')
-      this.showMenuOpen = true
-    }
+    openMenu() {
+      console.log("open");
+      this.showMenuOpen = true;
+    },
   },
   computed: {
     boardGroups() {
@@ -245,12 +249,9 @@ export default {
     getCurrBoard() {
       return this.$store.getters.getCurrBoard;
     },
-    getBoard() {
-      return this.board;
+    menuOpen() {
+      return { "menu-open": this.showMenuOpen };
     },
-    menuOpen(){
-      return {'menu-open':this.showMenuOpen}
-    }
 
     // background(){
     //   return this.board.style.backgroundColor ? this.board.style.backgroundColor : this.board.style.backgroundUrl

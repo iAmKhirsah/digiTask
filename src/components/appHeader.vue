@@ -40,8 +40,12 @@
     </section>
     <header-dynamic
       @closeModal="closeModal"
+      @updateUser="updateUser"
+      @loadBoard="loadBoard"
       class="abs"
       :type="type"
+      :getUser="getUser"
+      :getBoards="getBoards"
       v-if="type"
     ></header-dynamic>
   </div>
@@ -64,19 +68,28 @@ export default {
   },
   async created() {
     await this.$store.dispatch({ type: "loadBoards" });
-    this.boards = this.getBoards
+    this.boards = this.getBoards;
   },
   methods: {
     setType(type) {
       this.type = type;
     },
+    updateUser(user) {
+      this.$store.dispatch({ type: "updateUser", user });
+    },
     closeModal() {
       this.setType("");
+    },
+    loadBoard(boardId) {
+      this.$store.dispatch({type: 'loadAndWatchBoard', boardId});
     },
   },
   computed: {
     getBoards() {
       return this.$store.getters.boards;
+    },
+    getUser() {
+      return this.$store.getters.currUser;
     },
   },
   directives: {

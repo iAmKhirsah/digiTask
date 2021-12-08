@@ -1,23 +1,68 @@
 <template>
-  <section class="dynamic-starred">
-    <button @click="closeModal"> <span class="icon-lg close-icon">  </span></button>
-    <div v-for="(board, idx) in starredBoards" :key="idx">
-      {{ board }}
+  <section class="dynamic-starred card-layout nav-modal">
+    <div class="header-layout">
+      <header>Starred boards</header>
+      <button @click="closeModal">
+        <span class="icon-lg close-icon"> </span>
+      </button>
+    </div>
+    <div v-for="board in getStarredBoards" :key="board._id">
+      <div class="workspace-content" @click="goToBoard(board._id)">
+        <div
+          class="starred-board-background"
+          :style="'background:' + board.style.backgroundColor"
+        ></div>
+        <div>
+          {{ board.title }}
+        </div>
+        <div class="board-box star" @click.stop="starredBoard(board._id)">
+          <span><i class="fas fa-star"></i></span>
+        </div>
+      </div>
     </div>
   </section>
 </template>
 <script>
 export default {
   name: "starred",
+  props: ["getUser", "getBoards", "getCurrBoard"],
   data() {
     return {
       starredBoards: null,
+      user: null,
     };
+  },
+  created() {
+    this.user = JSON.parse(JSON.stringify(this.getUser));
   },
   methods: {
     closeModal() {
-     
       this.$emit("closeModal");
+    },
+    async goToBoard(boardId) {
+      this.$nextTick(() => {
+        this.$router.push(`/b/${boardId}`);
+      });
+    },
+    starredBoard(boardId) {
+      let idx = this.user.starred.indexOf(boardId);
+      this.user.starred.splice(idx, 1);
+      this.$emit("updateUser", this.user);
+    },
+  },
+  computed: {
+    getStarredBoards() {
+      let boards = [];
+      console.log(this.user);
+      console.log(this.getBoards);
+      this.getBoards.forEach((board) => {
+        let starredBoards = this.user.starred.find(
+          (boardId) => boardId === board._id
+        );
+        console.log(starredBoards);
+        starredBoards ? boards.push(board) : "";
+      });
+      return boards;
     },
   },
 };

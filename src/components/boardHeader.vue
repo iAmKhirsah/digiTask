@@ -45,7 +45,6 @@
     </header>
     <show-menu
       :board="board"
-      
       @updateBoard="updateBoard"
       @removeBoard="removeBoard"
       @closeMenu="closeMenu"
@@ -56,7 +55,7 @@
       @closeModal="closeModal"
       @updateBoard="updateBoard"
       :type="type"
-      :board="board"
+      :getCurrBoard="getCurrBoard"
       v-if="type"
     ></header-dynamic>
   </section>
@@ -98,7 +97,6 @@ export default {
     },
     setType(type) {
       this.type = type;
-      
     },
     closeModal() {
       this.setType("");

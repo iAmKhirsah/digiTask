@@ -212,7 +212,6 @@ export const boardStore = {
     async loadAndWatchBoard({ commit }, { boardId }) {
       try {
         const board = await boardService.getBoardById(boardId);
-
         commit({ type: 'setCurrBoard', board });
         socketService.off(SOCKET_EVENT_WATCHBOARD);
         socketService.on(SOCKET_EVENT_WATCHBOARD, (board) => {
