@@ -48,7 +48,6 @@ export default {
   props: ["board"],
   data() {
     return {
-      updatedBoard: JSON.parse(JSON.stringify(this.board)),
       type: "",
       colors: [
         "rgb(0, 121, 191)",
@@ -64,6 +63,9 @@ export default {
       photos: [{}],
     };
   },
+  created(){
+ 
+  },
   methods: {
     openSection(type) {
       this.type = type;
@@ -77,17 +79,18 @@ export default {
       this.$emit("closeShowMenu");
     },
     setBackground(background, type) {
+     let updatedBoard = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
       if (type === "color") {
-        this.updatedBoard.style.backgroundColor = background;
-        this.updatedBoard.style.backgroundUrl = "";
+       updatedBoard.style.backgroundColor = background;
+        updatedBoard.style.backgroundUrl = "";
       } else if (type === "photo") {
-        this.updatedBoard.style.backgroundUrl = background;
-        this.updatedBoard.style.backgroundColor = "";
+        updatedBoard.style.backgroundUrl = background;
+        updatedBoard.style.backgroundColor = "";
       }
       /// BENY REALLY WANTS REGEX HERE SO REMIND HIM CONSTANTLY
       
-      this.$emit("updateBoard", JSON.parse(JSON.stringify(this.updatedBoard)));
-      this.updatedBoard = this.$store.getters.getCurrBoard
+      this.$emit("updateBoard", updatedBoard);
+      
     },
   },
   computed: {
