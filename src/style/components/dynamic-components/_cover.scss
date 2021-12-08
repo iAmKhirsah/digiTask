@@ -1,190 +1,195 @@
 .dynamic-cover-edit {
-  .close {
-    padding: 12px 12px 12px 12px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: 2;
-    background-color: transparent;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    color: $clr3;
-    &:hover {
-      color: $clr2;
-    }
-  }
-  header {
-    text-align: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #091e4221;
-    margin: 0px 10px;
-    font-size: 14px;
-    color: $clr3;
-  }
-  .main-container {
-    padding: 0px 12px 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    button {
-      width: 280px;
-      height: 32px;
-      margin-top: 10px;
-      background-color: #091e420a;
-      border: none;
-      box-shadow: none;
-      cursor: pointer;
-      color: $clr2;
-      &:hover {
-        background-color: #091e4214;
-      }
-    }
-    .size-preview{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      padding: 4px;
-      margin: 0 -4px;
-      overflow-x: hidden;
-      .selected-cover{
-        box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0079bf;
-      }
-      .layout{
-        height: 62px;
-        position: relative;
-        width: 134px;
-        border: 1px solid rgba(9, 30, 66, 0.08);
-        border-radius:3px;
-       .top-preview-bgc{
-            height: 28px;
-    border-radius: 3px 3px 0 0;
-          }
-        &.with-info{  
-          cursor: pointer;
-          &:not(.selected-cover){
-            &:hover{
-           filter: saturate(85%) brightness(85%);
-         }
-         }
-          .line-1{
-            display: flex;
-            
-            
-            margin-left:4px;
-            .mini-line-1{
-              bottom:6px;
-              position: absolute;
-              width: 16px;
-              height: 6px;
-              background: #6B778C;
-              border-radius: 2px;
-              margin-right: 2px;        
-            }
-            .mini-line-2{
-              position: absolute;
-              bottom:6px;
-              left:26px;
-              width: 16px;
-              height: 6px;
-              background: #6B778C;
-              border-radius: 2px;
-              margin-right: 2px;
-            }
-            .mini-circle{
-              position: absolute;
-              width: 10px;
-              height: 10px;
-              right: 4px;
-              bottom: 4px;
-              background: #6B778C;
-              border-radius: 5px;
-            }
-          }
-          .line-2{
-       height: 4px;
-       border-radius: 2px;
-       width: 92px;
+    .close {
+        padding: 12px 12px 12px 12px;
         position: absolute;
-             bottom: 4px;
-             background: rgba(9, 30, 66, 0.6);
-             margin-bottom:12px;
-             margin-left:4px;
-            
-           }
-           .line-3{
-             height: 4px;
-       border-radius: 2px;
-       width: 116px;
-        position: absolute;
-             bottom: 4px;
-             background: rgba(9, 30, 66, 0.6);
-             margin-bottom:20px;
-             margin-left:4px;
-           }
-       
-      }
-      &.no-info{
+        right: 0;
+        top: 0;
+        z-index: 2;
+        background-color: transparent;
+        border: none;
+        font-size: 16px;
         cursor: pointer;
-        &:not(.selected-cover){
-           &:hover{
-          filter: saturate(85%) brightness(85%);
+        color: $clr3;
+        &:hover {
+            color: $clr2;
         }
-        }
-       
-       .line-1{
-    height: 4px;
-    border-radius: 2px;
-    width: 92px;
-     position: absolute;
-          bottom: 4px;
-          background: rgba(9, 30, 66, 0.6);
-          margin-bottom:4px;
-          margin-left:4px;
-         
-        }
-        .line-2{
-          height: 4px;
-    border-radius: 2px;
-    width: 116px;
-     position: absolute;
-          bottom: 4px;
-          background: rgba(9, 30, 66, 0.6);
-          margin-bottom:12px;
-          margin-left:4px;
-        }
-      }
-      }
-      
     }
-    .color-button-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      padding: 4px;
-      margin: 0 -4px;
-      overflow-x: hidden;
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-      .color-button {
-        &.selected-cover{
-          box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0079bf;
-        }
+    header {
+        text-align: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #091e4221;
+        margin: 0px 10px;
+        font-size: 14px;
+        color: $clr3;
+    }
 
-        margin: 0;
-        border-radius: 3px;
-        height: 72px;
-        width: 100%;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        box-shadow: none;
-        width: 50px;
-        height: 32px;
-        cursor: pointer;
-        &:hover{
-          filter: saturate(85%) brightness(85%);
+    .main-container {
+        padding: 0px 12px 12px;
+        display: flex;
+        flex-direction: column;
+        .subtitles {
+          padding: 20px 0 8px 0px;
+          font-weight: 500;
+          color: #5e6c84;
+          font-size: 12px;
+            &.top{
+            padding-top:8px
+            }
         }
-      }
+   
+        button {
+            width: 280px;
+            height: 32px;
+            margin-top: 10px;
+            background-color: #091e420a;
+            border: none;
+            box-shadow: none;
+            cursor: pointer;
+            color: $clr2;
+            &:hover {
+                background-color: #091e4214;
+            }
+        }
+        .size-preview {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            padding: 4px;
+            margin: 0 -4px;
+            overflow-x: hidden;
+            .selected-cover {
+                box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0079bf;
+            }
+            .layout {
+                height: 62px;
+                position: relative;
+                width: 134px;
+                border: 1px solid rgba(9, 30, 66, 0.08);
+                border-radius: 3px;
+                .top-preview-bgc {
+                    height: 28px;
+                    border-radius: 3px 3px 0 0;
+                }
+                &.with-info {
+                    cursor: pointer;
+                    &:not(.selected-cover) {
+                        &:hover {
+                            filter: saturate(85%) brightness(85%);
+                        }
+                    }
+                    .line-1 {
+                        display: flex;
+
+                        margin-left: 4px;
+                        .mini-line-1 {
+                            bottom: 6px;
+                            position: absolute;
+                            width: 16px;
+                            height: 6px;
+                            background: #6b778c;
+                            border-radius: 2px;
+                            margin-right: 2px;
+                        }
+                        .mini-line-2 {
+                            position: absolute;
+                            bottom: 6px;
+                            left: 26px;
+                            width: 16px;
+                            height: 6px;
+                            background: #6b778c;
+                            border-radius: 2px;
+                            margin-right: 2px;
+                        }
+                        .mini-circle {
+                            position: absolute;
+                            width: 10px;
+                            height: 10px;
+                            right: 4px;
+                            bottom: 4px;
+                            background: #6b778c;
+                            border-radius: 5px;
+                        }
+                    }
+                    .line-2 {
+                        height: 4px;
+                        border-radius: 2px;
+                        width: 92px;
+                        position: absolute;
+                        bottom: 4px;
+                        background: rgba(9, 30, 66, 0.6);
+                        margin-bottom: 12px;
+                        margin-left: 4px;
+                    }
+                    .line-3 {
+                        height: 4px;
+                        border-radius: 2px;
+                        width: 116px;
+                        position: absolute;
+                        bottom: 4px;
+                        background: rgba(9, 30, 66, 0.6);
+                        margin-bottom: 20px;
+                        margin-left: 4px;
+                    }
+                }
+                &.no-info {
+                    cursor: pointer;
+                    &:not(.selected-cover) {
+                        &:hover {
+                            filter: saturate(85%) brightness(85%);
+                        }
+                    }
+
+                    .line-1 {
+                        height: 4px;
+                        border-radius: 2px;
+                        width: 92px;
+                        position: absolute;
+                        bottom: 4px;
+                        background: rgba(9, 30, 66, 0.6);
+                        margin-bottom: 4px;
+                        margin-left: 4px;
+                    }
+                    .line-2 {
+                        height: 4px;
+                        border-radius: 2px;
+                        width: 116px;
+                        position: absolute;
+                        bottom: 4px;
+                        background: rgba(9, 30, 66, 0.6);
+                        margin-bottom: 12px;
+                        margin-left: 4px;
+                    }
+                }
+            }
+        }
+        .color-button-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            padding: 4px;
+            margin: 0 -4px;
+            overflow-x: hidden;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            .color-button {
+                &.selected-cover {
+                    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0079bf;
+                }
+
+                margin: 0;
+                border-radius: 3px;
+                height: 72px;
+                width: 100%;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                box-shadow: none;
+                width: 50px;
+                height: 32px;
+                cursor: pointer;
+                &:hover {
+                    filter: saturate(85%) brightness(85%);
+                }
+            }
+        }
     }
-  }
 }

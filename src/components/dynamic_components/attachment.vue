@@ -1,13 +1,13 @@
 <template>
   <div class="dynamic-attachment-edit">
      <button class="close" @click="closeModal">
-       <span class="menu-header-close-button"></span>
+       <span class="menu-header-close-button top-right"></span>
     </button>
     <div class="header-layout">
       <header>Attach from...</header>
     </div>
     <label>
-      <span>Computer</span>
+      <span class="subtitle">Computer</span>
       <input type="file" @change="addAttachment" hidden />
     </label>
     <div class="add-link">

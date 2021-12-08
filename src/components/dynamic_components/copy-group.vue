@@ -3,7 +3,7 @@
     <div class="header-layout">
         <button @click="goBack"><i class="fas fa-chevron-left"></i></button>
       <header>Copy list</header>
-      <button @click="closeModal"> <span class="material-icons"> clear </span></button>
+      <button @click="closeModal"> <span class="icon-lg close-icon">  </span></button>
     </div>
     <div>
       <p class="subtitle">Name</p>

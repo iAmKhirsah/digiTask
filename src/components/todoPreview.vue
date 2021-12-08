@@ -29,7 +29,7 @@
           Save
         </button>
         <button class="task-checklist-close">
-          <span class="material-icons" @click="closeEditTodo"> clear </span>
+          <span class="icon-lg close-icon" @click="closeEditTodo">  </span>
         </button>
       </div>
     </form>

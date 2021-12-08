@@ -14,19 +14,22 @@
           <span v-if="!isStarred"><i class="far fa-star"></i></span>
           <span v-else><i class="fas fa-star"></i></span>
         </div>
-        <div
-          v-for="member in getBoardMembers"
-          :key="member._id"
-          class="members"
-        >
-          <span class="user-tag-name"
-            ><img :src="member.imgUrl" class="image-settings"
-          /></span>
+        <div class="users-container">
+          <div
+            v-for="member in getBoardMembers"
+            :key="member._id"
+            class="members"
+          >
+            <span class="user-tag-name"
+              ><img :src="member.imgUrl" class="image-settings"
+            /></span>
+          </div>
         </div>
         <div>
           <div class="board-box invite" @click="setType('invite')">Invite</div>
         </div>
       </div>
+
       <div class="board-header-right">
         <div class="board-box">
           <span class="material-icons"> filter_list </span>
@@ -34,7 +37,7 @@
         </div>
         <div class="board-box" @click="openShowMenu">
           <button class="group-header-edit-btn">
-            <span class="material-icons"> more_horiz </span>
+            <span class="icon-sm menu-dots"></span>
           </button>
           <span class="show-more"> Show Menu</span>
         </div>
@@ -47,7 +50,7 @@
       @updateBoard="updateBoard"
       @removeBoard="removeBoard"
     />
-    
+
     <header-dynamic
       @closeModal="closeModal"
       @updateBoard="updateBoard"
@@ -78,7 +81,7 @@ export default {
   created() {},
   computed: {
     inputWidth() {
-      if(!this.board.title) return
+      if (!this.board.title) return;
       return { width: this.board.title.length * 10 + 24 + "px" };
     },
     getBoardMembers() {
@@ -87,11 +90,11 @@ export default {
   },
   methods: {
     updateBoard(board) {
-      this.$emit('updateBoard',board)
+      this.$emit("updateBoard", board);
       // this.$store.dispatch({ type: "updateBoard", board });
     },
-    removeBoard(boardId){
-      this.$emit('removeBoard',boardId)
+    removeBoard(boardId) {
+      this.$emit("removeBoard", boardId);
     },
     openShowMenu() {
       this.showMenuOpen = true;

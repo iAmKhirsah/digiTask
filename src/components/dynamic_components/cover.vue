@@ -8,7 +8,7 @@
     </div>
     
     <div class="main-container">
-      <p>Size</p>
+      <p class="subtitles top">Size</p>
       <div class="size-preview">
         <div class="layout with-info" :class="infoSelected" @click="selectMode(true)" >
           <div class="top-preview-bgc" :style="sizeBgc"></div>
@@ -25,14 +25,14 @@
       </div>
       </div>
        <button @click="removeCover" v-if="taskBgc">Remove Cover</button>
-      <p>Color</p>
+      <p class="subtitles">Color</p>
       <div class="color-button-container">
         <div v-for="(color, idx) in colors" :key="idx" @click="setCover(color)">
           <div :style="'background:' + color" class="color-button" :class="{'selected-cover':color===pickedColor}" ></div>
         </div>
       </div>
       <div class="dynamic-attachment-edit">
-        <p>Attachments</p>
+        <p class="subtitles">Attachments</p>
         <button>Upload a cover image</button>
       </div>
       <div>UNSPLASH?</div>

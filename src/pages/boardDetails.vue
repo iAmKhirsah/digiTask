@@ -56,7 +56,7 @@
                 type="button"
                 @click="toggleNewGroup"
               >
-                <span class="material-icons"> clear </span>
+                 <span class="icon-lg close-icon"></span>
               </button>
             </div>
           </form>

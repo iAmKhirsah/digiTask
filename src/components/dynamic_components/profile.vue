@@ -3,7 +3,7 @@
     <div class="header-layout">
       <header>Account</header>
       <button @click="closeModal">
-        <span class="material-icons"> clear </span>
+        <span class="icon-sm close-icon icon-settings"> </span>
       </button>
     </div>
 

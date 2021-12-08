@@ -1,28 +1,31 @@
 <template>
-  <div>
-     <button class="close" @click="closeModal">
-       <span class="menu-header-close-button"></span>
+  <div class="dynamic-copy-edit">
+    <button class="close" @click="closeModal">
+      <span class="menu-header-close-button"></span>
     </button>
-    <p>Copy card</p>
+    <header>Copy card</header>
     <div>
       <form @submit.prevent="addNewCopy"></form>
-      <p>Title</p>
+      <p class="subtitle">Title</p>
       <textarea type="text" v-model="taskToCopy.title"></textarea>
     </div>
     <div>
-      <p>Copy to...</p>
-      <label>List</label>
-      <select @change="setCopyTo">
-        <option
-          v-for="group in updateBoard.groups"
-          :key="group.id"
-          :value="group.id"
-        >
-          {{ group.title }}
-        </option>
-      </select>
+      <p class="subtitle">Copy to...</p>
+      <div class="copy-to">
+        <label class="label-title">List</label>
+
+        <select class="select-settings" @change="setCopyTo">
+          <option
+            v-for="group in updateBoard.groups"
+            :key="group.id"
+            :value="group.id"
+          >
+            {{ group.title }}
+          </option>
+        </select>
+      </div>
     </div>
-    <button @click="addNewCopy">Create card</button>
+    <button @click="addNewCopy" class="create-copy-btn">Create card</button>
   </div>
 </template>
 <script>

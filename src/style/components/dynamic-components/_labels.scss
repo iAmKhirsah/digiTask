@@ -75,10 +75,7 @@
         color: #5e6c84;
         font-size: 12px;
     }
-    .create-label-btn {
-        margin-top: 57px;
-        margin-bottom: 20px;
-    }
+
     .create-label-btn {
       margin: 8px 200px 10px 10px;
         padding: 8px 24px;
@@ -86,6 +83,10 @@
         font-size: 14px;
         background-color: #0079bf;
         color: white;
+        &:hover {
+            cursor: pointer;
+            background-color: #026aa7;
+        }
     }
 }
 
@@ -115,7 +116,7 @@
     transition: padding 85ms, margin 85ms, box-shadow 85ms;
     flex: 1;
     &:hover {
-        box-shadow: -8px 0 #091e422c  ;
+        box-shadow: inset  8px 0 #3434345c  ;
        
         padding-left: 18px;
     }

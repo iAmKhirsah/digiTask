@@ -25,7 +25,8 @@
             Save
           </button>
           <button class="task-checklist-close">
-            <span @click="closeChecklist" class="material-icons"> clear </span>
+            <span @click="closeChecklist" class="icon-lg close-icon"></span>
+            
           </button>
         </div>
       </form>
@@ -75,7 +76,7 @@
             Add
           </button>
           <button class="task-checklist-close">
-            <span @click="closeAddTodo" class="material-icons"> clear </span>
+            <span @click="closeAddTodo" class="icon-lg close-icon">  </span>
           </button>
         </div>
       </form>

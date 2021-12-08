@@ -1,6 +1,6 @@
 <template>
   <section class="dynamic-starred">
-    <button @click="closeModal"> <span class="material-icons"> clear </span></button>
+    <button @click="closeModal"> <span class="icon-lg close-icon">  </span></button>
     <div v-for="(board, idx) in starredBoards" :key="idx">
       {{ board }}
     </div>

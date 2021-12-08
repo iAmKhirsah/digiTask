@@ -21,7 +21,7 @@
         <div class="task-description-buttons">
           <button type="submit" class="task-description-save">Save</button>
           <button @click="clearDesc" class="task-description-close">
-            <span class="material-icons"> clear </span>
+            <span class="icon-lg close-icon">  </span>
           </button>
         </div>
       </form>

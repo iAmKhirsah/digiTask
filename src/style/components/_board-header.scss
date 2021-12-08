@@ -7,14 +7,22 @@
     width: 100%;
     padding: 8px 30px 4px 4px;
     gap: 12px;
+    &.menu-open{
+        padding-right: 366px;
+    }
     .board-header-left {
         display: flex;
         gap: 4px;
-        .members{
+        .members {
             display: flex;
             padding: 2px 0px;
             justify-content: center;
             align-content: center;
+            margin: 0 0 0 -3px;
+        }
+        .users-container {
+            display: flex;
+            padding-left: 4px;
         }
     }
 
@@ -37,7 +45,7 @@
             .filter {
                 font-size: 14px;
             }
-            .show-more{
+            .show-more {
                 font-size: 14px;
             }
             .material-icons {
@@ -49,7 +57,7 @@
                 background-color: transparent;
                 padding: 0;
                 display: flex;
-               
+
                 .material-icons {
                     font-size: 18px;
                 }
@@ -80,6 +88,9 @@
                 color: $clr5;
             }
         }
+        &.hidden{
+            display: none;
+        }
 
         &.invite {
             color: $clr1;
@@ -108,7 +119,7 @@
                 border-radius: 3px;
                 outline: none;
                 color: $clr4;
-                &:hover{
+                &:hover {
                     background-color: #ffffff;
                 }
             }
