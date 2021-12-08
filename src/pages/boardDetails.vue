@@ -1,7 +1,11 @@
 <template>
   <div>
     <div v-if="board" class="board-details-container" v-dragscroll:nochilddrag>
-      <board-header :board="getCurrBoard" @updateBoard="updateBoard" />
+      <board-header
+        :board="getCurrBoard"
+        @updateBoard="updateBoard"
+        @removeBoard="removeBoard"
+      />
       <div class="group-list-container">
         <Container
           drag-class="card-ghost"
@@ -112,6 +116,9 @@ export default {
     this.$store.commit({ type: "setLoggedinUser" });
   },
   methods: {
+    async removeBoard(boardId){
+      await this.$store.dispatch({type:'removeBoard',boardId})
+    },
     async updateGroup(group) {
       await this.$store.dispatch({ type: "updateGroup", group });
     },

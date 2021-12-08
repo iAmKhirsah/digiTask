@@ -52,7 +52,7 @@ async function getBoardById(boardId) {
 async function remove(boardId) {
   try {
     //   return httpService.delete(`review/${reviewId}`)
-    return storageService.delete('boards', boardId);
+    return storageService.remove('boards', boardId);
   } catch (err) {
     console.log('Had error on boardServices: REMOVE', err);
   }
