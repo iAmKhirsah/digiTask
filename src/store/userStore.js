@@ -4,13 +4,13 @@ export const userStore = {
   strict: true,
   state: {
     users: {},
-    loggedInUser: null,
+    loggedInUser: {},
     boardMembers: {},
   },
   getters: {
     currUser({ loggedInUser }) {
-      // return loggedInUser;
-      return userService.getLoggedinUser();
+      return loggedInUser;
+      // return userService.getLoggedinUser();
     },
     users({ users }) {
       return users;
@@ -18,7 +18,7 @@ export const userStore = {
   },
   mutations: {
     setLoggedinUser(state, { user }) {
-      state.loggedInUser = user ? { ...user } : null;
+      state.loggedInUser = user ? { ...user } : userService.getLoggedinUser();
     },
     setUsers(state, { users }) {
       state.users = users;
@@ -32,6 +32,14 @@ export const userStore = {
       } catch (err) {
         console.log('userStore: Error in loadUsers', err);
         throw err;
+      }
+    },
+    async updateUser({ commit }, { user }) {
+      try {
+        let updatedUser = await userService.update(user);
+        commit({ type: 'setLoggedinUser', updatedUser });
+      } catch (err) {
+        console.log('userStore: Error on updating user');
       }
     },
     async getUserById({ commit }) {

@@ -15,7 +15,14 @@ export default {
     async setGuest() {
       await this.$store.dispatch({
         type: "signup",
-        userCred: { username: "Guest", fullname: "Guest" },
+        userCred: {
+          username: "Guest",
+          fullname: "Guest",
+          imgUrl: "",
+          starred: [],
+          recentBoards: [],
+          mentions: [],
+        },
       });
       this.$router.push("/workspace");
     },

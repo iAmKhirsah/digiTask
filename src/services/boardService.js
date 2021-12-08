@@ -19,7 +19,6 @@ loadBoard();
 async function loadBoard() {
   try {
     let loadedBoard = await query();
-
     if (!loadedBoard.length || !loadedBoard) createDemoBoard();
   } catch (err) {
     console.log('loadedBoard');
@@ -154,7 +153,7 @@ function getEmptyBoard() {
 function createDemoBoard() {
   const board = {
     _id: 'b101',
-    title: 'Robot dev proj',
+    title: 'Beny\'s Birthday Party!',
     createdAt: 1589983468418,
     createdBy: {
       _id: 'u101',
@@ -179,6 +178,16 @@ function createDemoBoard() {
         imgUrl:
           'https://icatcare.org/app/uploads/2018/07/Helping-your-new-cat-or-kitten-settle-in-1.png',
       },
+      {
+        _id: 'u102',
+        fullname: 'Daniel Radia',
+        imgUrl: 'https://th-thumbnailer.cdn-si-edu.com/bZAar59Bdm95b057iESytYmmAjI=/1400x1050/filters:focal(594x274:595x275)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/95/db/95db799b-fddf-4fde-91f3-77024442b92d/egypt_kitty_social.jpg',
+      },
+      {
+        _id: 'u103',
+        fullname: 'Beny Kursalin',
+        imgUrl: 'https://www.artmajeur.com/medias/standard/f/r/franc-kaiser/artwork/14103527_7785cbcf-a4a7-430b-b3e5-9031527bcfb2.jpg',
+      }
     ],
     groups: [
       {

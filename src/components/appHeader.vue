@@ -25,7 +25,8 @@
       </div>
       <div class="main-header-right">
         <div class="input-container">
-          <input type="text" placeholder="Search" class="main-header-search" />
+          <filter-app-header class="main-header-search" :boards="boards" />
+          <!-- <input type="text" placeholder="Search" class="main-header-search" /> -->
           <span class="search"><i class="fas fa-search"></i></span>
         </div>
         <div class="main-header-bell"><i class="far fa-bell"></i></div>
@@ -47,16 +48,23 @@
 </template>
 <script>
 import headerDynamic from "./headerDynamic.vue";
+import filterAppHeader from "./filterAppHeader.vue";
 import vClickOutside from "v-click-outside";
 export default {
   name: "appHeader",
   components: {
     headerDynamic,
+    filterAppHeader,
   },
   data() {
     return {
       type: null,
+      boards: null,
     };
+  },
+  async created() {
+    await this.$store.dispatch({ type: "loadBoards" });
+    this.boards = this.getBoards
   },
   methods: {
     setType(type) {
@@ -64,6 +72,11 @@ export default {
     },
     closeModal() {
       this.setType("");
+    },
+  },
+  computed: {
+    getBoards() {
+      return this.$store.getters.boards;
     },
   },
   directives: {

@@ -10,9 +10,9 @@
             @focus="$event.target.select()"
           />
         </div>
-        <div class="board-box star" @click="toggleStar">
-          <span v-if="!isStarred"><i class="far fa-star"></i></span>
-          <span v-else><i class="fas fa-star"></i></span>
+        <div class="board-box star" @click="starredBoard">
+          <span v-if="isStarred"><i class="fas fa-star"></i></span>
+          <span v-else><i class="far fa-star"></i></span>
         </div>
         <div class="users-container">
           <div
@@ -73,25 +73,18 @@ export default {
   props: ["board"],
   data() {
     return {
-      isStarred: false,
       type: null,
       showMenuOpen: false,
+      currUser: null,
     };
   },
-  created() {},
-  computed: {
-    inputWidth() {
-      if (!this.board.title) return;
-      return { width: this.board.title.length * 10 + 24 + "px" };
-    },
-    getBoardMembers() {
-      return this.$store.getters.getCurrBoard.members;
-    },
+  created() {
+    console.log(this.getCurrUser);
+    this.currUser = JSON.parse(JSON.stringify(this.getCurrUser));
   },
   methods: {
     updateBoard(board) {
       this.$emit("updateBoard", board);
-      // this.$store.dispatch({ type: "updateBoard", board });
     },
     removeBoard(boardId) {
       this.$emit("removeBoard", boardId);
@@ -102,14 +95,39 @@ export default {
     closeShowMenu() {
       this.showMenuOpen = false;
     },
-    toggleStar() {
-      this.isStarred = !this.isStarred;
+    starredBoard() {
+      let idx = this.currUser.starred.indexOf(this.getCurrBoard._id);
+      if (idx > -1) this.currUser.starred.splice(idx, 1);
+      else this.currUser.starred.push(this.getCurrBoard._id);
+      this.$store.dispatch({ type: "updateUser", user: this.currUser });
     },
     setType(type) {
       this.type = type;
     },
     closeModal() {
       this.setType("");
+    },
+  },
+  computed: {
+    inputWidth() {
+      if (!this.board.title) return;
+      return { width: this.board.title.length * 10 + 24 + "px" };
+    },
+    getBoardMembers() {
+      return this.$store.getters.getCurrBoard.members;
+    },
+    getCurrUser() {
+      return this.$store.getters.currUser;
+    },
+    getCurrBoard() {
+      return this.$store.getters.getCurrBoard;
+    },
+    isStarred() {
+      if (!this.currUser.starred || !this.currUser.starred.length) return false;
+      let starredBoard = this.currUser.starred.find((starred) => {
+        return starred === this.getCurrBoard._id;
+      });
+      return starredBoard ? true : false;
     },
   },
   components: {
