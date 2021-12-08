@@ -1,10 +1,12 @@
 <template>
   <div>
-    <div v-if="board" class="board-details-container" v-dragscroll:nochilddrag>
+    <div v-if="board" class="board-details-container" v-dragscroll:nochilddrag :class="menuOpen">
       <board-header
         :board="getCurrBoard"
         @updateBoard="updateBoard"
         @removeBoard="removeBoard"
+        :showMenuOpen="showMenuOpen"
+        @toggleMenu="toggleMenu"
       />
       <div class="group-list-container">
         <Container
@@ -93,6 +95,7 @@ export default {
         animationDuration: "150",
         showOnTop: false,
       },
+       showMenuOpen: false,
     };
   },
   async created() {
@@ -215,6 +218,9 @@ export default {
     getChildPayload(groupIndex, itemIndex) {
       return this.board.groups[groupIndex].tasks[itemIndex];
     },
+    toggleMenu(){
+      this.showMenuOpen = !this.showMenuOpen
+    }
   },
   computed: {
     boardGroups() {
@@ -226,6 +232,9 @@ export default {
     getBoard() {
       return this.board;
     },
+    menuOpen(){
+      return {'menu-open':this.showMenuOpen}
+    }
 
     // background(){
     //   return this.board.style.backgroundColor ? this.board.style.backgroundColor : this.board.style.backgroundUrl

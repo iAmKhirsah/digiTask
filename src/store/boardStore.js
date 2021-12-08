@@ -59,14 +59,18 @@ export const boardStore = {
     updateBoard(state, { board }) {
       if (board._id === state.currBoard._id) {
         state.currBoard = board;
+        console.log('1',state.currGroup)
         if (state.currBoard.groups.length)
           state.currBoard.groups.forEach((group) => {
             if (group.id === state.currGroup.id) state.currGroup = group;
-          });
+            console.log('2',group.id === state.currGroup.id)
+          })
         if (state.currGroup.tasks)
           state.currGroup.tasks.forEach((task) => {
             if (task.id === state.currTask.id) state.currTask = task;
-          });
+           
+          })
+        
       }
     },
     removeBoard(state, { boardId }) {
@@ -149,6 +153,7 @@ export const boardStore = {
       const idx = state.currBoard.groups.findIndex(
         (currGroup) => currGroup.id === group.id
       );
+      console.log(state.currGroup)
       state.currBoard.groups.splice(idx, 1, group);
     },
     updateTask(state, { task }) {

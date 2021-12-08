@@ -1,5 +1,5 @@
 <template>
-  <section class="user-menu open" v-click-outside="closeShowMenu">
+  <section class="user-menu " v-click-outside="closeShowMenu">
     <div v-if="!type">
    
         <button class="close" @click="closeShowMenu">
@@ -106,7 +106,7 @@ export default {
       this.$emit("updateBoard", board);
     },
     closeShowMenu() {
-      this.$emit("closeShowMenu");
+      this.$emit("toggleMenu");
     },
     closeDeleteModal(){
       this.isDeleting = false

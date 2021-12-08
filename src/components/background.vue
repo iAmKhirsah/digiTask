@@ -85,7 +85,9 @@ export default {
         this.updatedBoard.style.backgroundColor = "";
       }
       /// BENY REALLY WANTS REGEX HERE SO REMIND HIM CONSTANTLY
+      
       this.$emit("updateBoard", JSON.parse(JSON.stringify(this.updatedBoard)));
+      this.updatedBoard = this.$store.getters.getCurrBoard
     },
   },
   computed: {
