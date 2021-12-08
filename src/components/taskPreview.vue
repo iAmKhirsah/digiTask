@@ -12,8 +12,9 @@
     <span class="badge due-date" @click="toggleDueDateDone" :class="isDueDate" v-if="validateDates" ><span class="clock-icon"></span><span class="short-date">{{startDate}} {{dueDate}}</span></span>
     <span v-if="task.description" class="badge description"> </span>
      <span class="badge comments" v-if="hasCommnets"></span>
+     <span class="badge checklist" v-if="todosLength" :class = todosDone><span class="todos-done">{{renderChecklist}}</span></span>
        <span class="badge members" v-for="(member,idx) in taskMembers" :key="idx"  ><render-members  :member="member"/></span>
-       <span class="badge checklist" :class = todosDone><span class="todos-done">{{renderChecklist}}</span></span>
+      
   </span>
      <!-- {
             id: 'c104',
