@@ -1,9 +1,10 @@
 <template>
   <section class="user-menu open">
     <div v-if="!type">
-      <button class="close" @click="closeShowMenu">
-        <span class="material-icons"> clear </span>
-      </button>
+   
+        <button class="close" @click="closeShowMenu">
+       <span class="menu-header-close-button"></span>
+    </button>
       <div class="header-layout">
         <header>Menu</header>
       </div>

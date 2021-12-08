@@ -12,7 +12,8 @@
   flex-wrap: nowrap;
   justify-content: flex-start;
   overflow: hidden;
-  &.open {
+  transition: right 1s ;
+  &.open{
     right: 0%;
   }
   .close {
@@ -26,6 +27,10 @@
     font-size: 16px;
     cursor: pointer;
     color: $clr2;
+    .menu-header-close-button{
+      font-size: 20px;
+    line-height: 25px;
+    }
   }
   header {
     text-align: center;
