@@ -91,10 +91,8 @@ export default {
       this.$router.push('/workspace')
       }
       catch(err){
-        console.log('Board couldnt be removed',err)
-        
+        console.log('Board couldnt be removed',err)    
       }
-      
     },
     goBack() {
       this.type = "";
