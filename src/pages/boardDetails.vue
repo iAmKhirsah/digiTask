@@ -1,7 +1,11 @@
 <template>
   <div>
     <div v-if="board" class="board-details-container" v-dragscroll:nochilddrag>
-      <board-header :board="getCurrBoard" @updateBoard="updateBoard" />
+      <board-header
+        :board="getCurrBoard"
+        @updateBoard="updateBoard"
+        @removeBoard="removeBoard"
+      />
       <div class="group-list-container">
         <Container
           drag-class="card-ghost"
@@ -111,6 +115,9 @@ export default {
     }, 1);
   },
   methods: {
+    async removeBoard(boardId){
+      await this.$store.dispatch({type:'removeBoard',boardId})
+    },
     async updateGroup(group) {
       await this.$store.dispatch({ type: "updateGroup", group });
     },
@@ -127,7 +134,7 @@ export default {
     },
     async updateBoard(board) {
       await this.$store.dispatch({ type: "updateBoard", board });
-      this.board = JSON.parse(JSON.stringify(this.getCurrBoard))
+      this.board = JSON.parse(JSON.stringify(this.getCurrBoard));
     },
     async addGroup() {
       try {
@@ -212,12 +219,12 @@ export default {
       return this.board.groups;
     },
     getCurrBoard() {
-      return this.$store.getters.getCurrBoard
+      return this.$store.getters.getCurrBoard;
     },
-    getBoard(){
-      return this.board
-    }
-   
+    getBoard() {
+      return this.board;
+    },
+
     // background(){
     //   return this.board.style.backgroundColor ? this.board.style.backgroundColor : this.board.style.backgroundUrl
     // }

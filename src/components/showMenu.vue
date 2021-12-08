@@ -19,6 +19,7 @@
 
         <div class="menu-box" @click="openModal('background')">
           <div>Change background</div>
+          <span class="icon-background" :style="backgroundStyle"></span>
         </div>
         <!-- Ilia we need here another componenet? -->
         <div class="menu-box">
@@ -27,8 +28,15 @@
             <span class="icon-board"></span>
           </div>
         </div>
-        <div class="menu-box">
+        <div class="menu-box" @click="isDeleting=true">
           <div>Close board...</div>
+            <div class="main-container" v-if="isDeleting">
+      <p>
+        All actions will be removed from the activity feed and you won’t be able
+        to re-open the card. There is no undo.
+      </p>
+      <button @click="removeBoard">Delete</button>
+    </div>
         </div>
         <div class="activity-container">
           <div class="menu-box">
@@ -60,9 +68,13 @@ export default {
   data() {
     return {
       type: "",
+      isDeleting:false,
     };
   },
   methods: {
+    removeBoard(){
+      this.$emit('removeBoard',this.board._id)
+    },
     goBack() {
       this.type = "";
     },
@@ -76,7 +88,11 @@ export default {
       this.$emit("closeShowMenu");
     },
   },
-  computed: {},
+  computed: {
+    backgroundStyle(){
+      return {'background': this.board.style.backgroundColor}
+    }
+  },
   components: {
     background,
   },

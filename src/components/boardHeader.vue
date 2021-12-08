@@ -45,6 +45,7 @@
       v-if="showMenuOpen"
       @closeShowMenu="closeShowMenu"
       @updateBoard="updateBoard"
+      @removeBoard="removeBoard"
     />
     
     <header-dynamic
@@ -88,6 +89,9 @@ export default {
     updateBoard(board) {
       this.$emit('updateBoard',board)
       // this.$store.dispatch({ type: "updateBoard", board });
+    },
+    removeBoard(boardId){
+      this.$emit('removeBoard',boardId)
     },
     openShowMenu() {
       this.showMenuOpen = true;
