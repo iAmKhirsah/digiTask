@@ -85,8 +85,16 @@ export default {
     };
   },
   methods: {
-    removeBoard(){
-      this.$emit('removeBoard',this.board._id)
+    async removeBoard(){
+      try{
+        await this.$emit('removeBoard',this.board._id)
+      this.$router.push('/workspace')
+      }
+      catch(err){
+        console.log('Board couldnt be removed',err)
+        
+      }
+      
     },
     goBack() {
       this.type = "";
