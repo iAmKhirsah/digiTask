@@ -76,6 +76,11 @@
   }
   .input-container {
     position: relative;
+    .search {
+      position: absolute;
+      left: 13px;
+      top: 6px;
+    }
     input {
       &:focus {
         background-color: $clr1;
