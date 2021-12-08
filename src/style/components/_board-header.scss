@@ -7,6 +7,8 @@
     width: 100%;
     padding: 8px 30px 4px 4px;
     gap: 12px;
+    transition: padding 0.3s;
+
     &.menu-open{
         padding-right: 366px;
     }
