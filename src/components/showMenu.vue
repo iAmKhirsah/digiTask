@@ -30,14 +30,26 @@
         </div>
         <div class="menu-box" @click="isDeleting=true">
           <div>Close board...</div>
-            <div class="main-container" v-if="isDeleting">
+        </div>
+         <div class="dynamic-archive-edit" v-if="isDeleting"  v-click-outside="closeDeleteModal">
+     <button class="close" @click="closeDeleteModal">
+       <span class="menu-header-close-button"></span>
+    </button>
+    <div class="header-layout">
+      <header>
+         <span>Delete Board</span>
+      </header>
+    </div>
+    <div class="main-container">
       <p>
-        All actions will be removed from the activity feed and you won’t be able
-        to re-open the card. There is no undo.
+        Board will be removed and you wont be able get it back
       </p>
       <button @click="removeBoard">Delete</button>
     </div>
-        </div>
+  </div>
+        
+        <div>
+    </div>
         <div class="activity-container">
           <div class="menu-box">
             <div class="activity">
@@ -63,6 +75,7 @@
 </template>
 <script>
 import background from "../components/background.vue";
+import vClickOutside from "v-click-outside";
 export default {
   props: ["board"],
   data() {
@@ -87,6 +100,9 @@ export default {
     closeShowMenu() {
       this.$emit("closeShowMenu");
     },
+    closeDeleteModal(){
+      this.isDeleting = false
+    }
   },
   computed: {
     backgroundStyle(){
@@ -95,6 +111,9 @@ export default {
   },
   components: {
     background,
+  },
+   directives: {
+    clickOutside: vClickOutside.directive,
   },
 };
 </script>
