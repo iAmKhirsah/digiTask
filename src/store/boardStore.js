@@ -47,9 +47,9 @@ export const boardStore = {
     },
   },
   mutations: {
-    generateNewId(state) {
-      state.newId = utilService.makeId();
-    },
+    // generateNewId(state) {
+    //   state.newId = utilService.makeId();
+    // },
     setBoards(state, { boards }) {
       state.boards = boards;
     },
@@ -59,12 +59,14 @@ export const boardStore = {
     updateBoard(state, { board }) {
       if (board._id === state.currBoard._id) {
         state.currBoard = board;
-        if(state.currBoard.groups.length) state.currBoard.groups.forEach((group) => {
-          if (group.id === state.currGroup.id) state.currGroup = group;
-        });
-        if(state.currGroup.tasks) state.currGroup.tasks.forEach((task)=>{
-          if(task.id===state.currTask.id) state.currTask = task
-        })
+        if (state.currBoard.groups.length)
+          state.currBoard.groups.forEach((group) => {
+            if (group.id === state.currGroup.id) state.currGroup = group;
+          });
+        if (state.currGroup.tasks)
+          state.currGroup.tasks.forEach((task) => {
+            if (task.id === state.currTask.id) state.currTask = task;
+          });
       }
     },
     removeBoard(state, { boardId }) {
@@ -88,6 +90,7 @@ export const boardStore = {
         newBoard.style.backgroundColor = 'rgb(0, 121, 191)';
       else newBoard.style.backgroundColor = board.background;
       boardService.add(newBoard);
+      if (!state.boards.length) state.boards = [];
       state.boards.push(newBoard);
     },
     addActivity(state, { activity }) {
@@ -171,7 +174,7 @@ export const boardStore = {
       state.currBoard.groups.splice(idx, 1);
     },
     addBoard(state, { board }) {
-      if(!state.boards.length) state.boards = []
+      if (!state.boards.length) state.boards = [];
       state.boards.push(board);
     },
     applyDrag(state, { content }) {
