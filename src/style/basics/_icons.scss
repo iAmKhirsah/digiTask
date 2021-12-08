@@ -45,7 +45,11 @@
   width: fit-content;
   .notification::before {
   }
-
+  .checklist{
+    &::before{
+      content: "\e918";
+    }
+  }
   .clock-icon {
     &::before {
       position: absolute;

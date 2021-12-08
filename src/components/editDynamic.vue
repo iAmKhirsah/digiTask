@@ -47,7 +47,7 @@ export default {
       board: {},
       task: {},
       user: {},
-    };
+    }
   },
   created() {
     this.board = this.getBoard;

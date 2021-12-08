@@ -13,6 +13,7 @@
     <span v-if="task.description" class="badge description"> </span>
      <span class="badge comments" v-if="hasCommnets"></span>
        <span class="badge members" v-for="(member,idx) in taskMembers" :key="idx"  ><render-members  :member="member"/></span>
+       <span class="badge checklist" :class = todosDone><span class="todos-done">{{renderChecklist}}</span></span>
   </span>
      <!-- {
             id: 'c104',
@@ -108,7 +109,7 @@ export default {
     },
     
     hasInfo(){
-      return (this.hasCommnets || this.hasMembers || this.validateDates || this.hasMembers || this.task.description) && this.infoCover
+      return (this.hasCommnets || this.hasMembers || this.validateDates || this.hasMembers || this.task.description || this.todosLength) && this.infoCover 
     },
     hasCommnets(){
        return this.task.comments && this.task.comments.length
@@ -156,11 +157,47 @@ export default {
     infoCover(){
       return this.task.style.isInfo
     },
+    taskChecklist(){
+      return this.task.checklists
+    },
+    todosLength(){
+      let todosLength = this.task.checklists.reduce((acc,checklist)=>{
+       acc += checklist.todos.length
+       return acc
+      },0)
+      return todosLength
+    },
+    renderChecklist(){
+   
+      let done = this.task.checklists.reduce((acc,checklist)=>{
+       acc += checklist.todos.reduce((acc,todo)=>{
+         if(todo.isDone) acc++
+         return acc
+       },0)
+       return acc
+      },0)
+      return `${done}/${this.todosLength}`
+    },
     mainContentBgColor(){
       if(!this.task.style.isInfo){
         return {'background-color':this.task.style.bgColor}
       }
     },
+    
+    todosDone(){
+      let todosLength = this.todosLength
+       let doneTodos = this.task.checklists.reduce((acc,checklist)=>{
+       acc += checklist.todos.reduce((acc,todo)=>{
+         if(todo.isDone) acc++
+         return acc
+       },0)
+       return acc
+      },0)
+
+       return {'done-todos': todosLength === doneTodos}
+    }
+    
+
 
 
   },

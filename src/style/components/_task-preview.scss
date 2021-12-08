@@ -120,6 +120,22 @@
   float: left;
   margin-left: -2px;
   max-width: 100%;
+  .checklist{
+    &.done-todos{
+      background-color: #61bd4f;
+    border-radius: 3px;
+    color: #fff;
+    }
+    .todos-done{
+    font-size: 12px;
+    padding: 0 4px 0 2px;
+    vertical-align: top;
+    white-space: nowrap;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
+    margin-left:2px;
+  }
+  }
+  
   .task-badges {
     color: #5e6c84;
     display: inline-block;
