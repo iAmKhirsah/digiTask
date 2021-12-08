@@ -79,7 +79,6 @@ export default {
     };
   },
   created() {
-    console.log(this.getCurrUser);
     this.currUser = JSON.parse(JSON.stringify(this.getCurrUser));
   },
   methods: {

@@ -133,6 +133,7 @@ export const boardStore = {
       let newTask = boardService.getEmptyTask();
       newTask.title = taskRaw.task;
       newTask.byMember = taskRaw.user;
+      console.log(newTask)
       let idx = state.currBoard.groups.findIndex(
         (group) => group.id === taskRaw.groupId
       );
@@ -232,8 +233,7 @@ export const boardStore = {
         if (!board) board = state.currBoard;
         await boardService.update(board);
         commit({ type: 'setCurrBoard', board });
-        console.log(board)
-        // socketService.emit(SOCKET_EMIT_UPDATEBOARD, board);
+        socketService.emit(SOCKET_EMIT_UPDATEBOARD, board);
       } catch (err) {
         console.log('Couldnt update Board', err);
       }
@@ -272,7 +272,7 @@ export const boardStore = {
     },
     async addTask({ dispatch, commit }, { taskRaw }) {
       try {
-        commit({ type: 'addTask', taskRaw });
+        await commit({ type: 'addTask', taskRaw });
         await dispatch({ type: 'updateBoard' });
       } catch (err) {
         console.log('Couldnt add a task', err);

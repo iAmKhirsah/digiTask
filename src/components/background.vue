@@ -88,9 +88,7 @@ export default {
         updatedBoard.style.backgroundColor = "";
       }
       /// BENY REALLY WANTS REGEX HERE SO REMIND HIM CONSTANTLY
-      
       this.$emit("updateBoard", updatedBoard);
-      
     },
   },
   computed: {
