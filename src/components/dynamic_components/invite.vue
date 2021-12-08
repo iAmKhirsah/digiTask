@@ -2,17 +2,19 @@
   <section class="dynamic-invite card-layout nav-modal">
     <div class="header-layout">
       <header>Invites</header>
-       <button class="close" @click="closeModal">
-       <span class="menu-header-close-button"></span>
-    </button>
+      <button class="close" @click="closeModal">
+        <span class="menu-header-close-button"></span>
+      </button>
     </div>
     <div>
-      <input class="search" type="text" placeholder="CHANGE INPUT" />
+      <input type="text" placeholder="Search Members " />
     </div>
+    <div class="card-line"></div>
     <div v-for="(user, idx) in users" :key="idx">
-      <div class="invite-contant" @click="addUser(user)">
-        <p>AVATAR NEEDED</p>
-        <img :src="user.imgUrl" />
+      <div class="invite-content" @click="addUser(user)">
+        <span class="user-tag-name in-header">
+          <img class="image-settings" :src="user.imgUrl"
+        /></span>
         <p class="name-tag">{{ user.username }}</p>
       </div>
     </div>

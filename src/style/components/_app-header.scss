@@ -68,6 +68,7 @@
       line-height: 30px;
       border-radius: 3px;
       &:hover {
+        cursor: pointer;
         background-color: rgba(255, 255, 255, 0.3);
         background: #cf513d;
       }
@@ -114,11 +115,7 @@
     }
   }
 
-  .search {
-    position: absolute;
-    left: 13px;
-    top: 6px;
-  }
+
 }
 
 .abs {

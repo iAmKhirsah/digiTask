@@ -18,7 +18,7 @@
         />
       </form>
       <button class="group-header-edit-btn" @click="actionOn">
-        <span class="material-icons"> more_horiz </span>
+        <span class="icon-sm dots"></span>
       </button>
 
       <edit-dynamic

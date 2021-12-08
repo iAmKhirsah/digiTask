@@ -3,7 +3,7 @@
     <section class="task-details-wrapper">
       <div class="task-details-container" v-click-outside="closePage">
         <button class="task-details-container-btn" @click="closePage">
-          <span class="material-icons"> clear </span>
+          <span class="icon-lg close-icon">  </span>
         </button>
         <div
           class="task-background-cover"
@@ -59,19 +59,19 @@
             />
 
             <div class="task-details-checklist">
-              <div class="task-details-checklist-content" v-if="getChecklists">
-                <span class="task-description-symbol">
-                  <i class="fas fa-align-left"></i
-                ></span>
+              <div class="task-details-checklist-content">
+                <span class="task-checklist-symbol">
+              <span class="icon-lg checklist-icon"></span>
+                  </span>
 
                 <!-- <div v-if="currTask.checklist && currTask.checklist.length"> -->
-                  <check-list
-                    v-for="checklist in getTask.checklists"
-                    :key="checklist.id"
-                    :checklist="checklist"
-                    :currTask="getTask"
-                    @updatedTask="updatedTask"
-                  ></check-list>
+                <check-list
+                  v-for="checklist in getTask.checklists"
+                  :key="checklist.id"
+                  :checklist="checklist"
+                  :currTask="getTask"
+                  @updatedTask="updatedTask"
+                ></check-list>
                 <!-- </div> -->
               </div>
             </div>
@@ -117,13 +117,13 @@
                 Members
               </div>
               <div class="open-edit-dynamic-btn" @click="setType('labels')">
-                <span class="span-settings"><i class="fas fa-tag"></i></span>
+                <span class="span-settings">
+                  <span class="icon-sm label-icon"></span
+                ></span>
                 Labels
               </div>
               <div class="open-edit-dynamic-btn" @click="setType('checklist')">
-                <span class="span-settings"
-                  ><i class="far fa-check-square"></i
-                ></span>
+                <span class="span-settings"><span class="icon-sm checklist-icon"></span></span>
                 Checklist
               </div>
               <div class="open-edit-dynamic-btn" @click="setType('dates')">
@@ -131,8 +131,8 @@
                 Dates
               </div>
               <div class="open-edit-dynamic-btn" @click="setType('attachment')">
-                <span class="span-settings"
-                  ><i class="fas fa-paperclip"></i
+                <span class="span-settings">
+                  <span class="icon-sm attachments"></span
                 ></span>
                 Attachment
               </div>
@@ -141,9 +141,7 @@
                 @click="setType('cover')"
                 v-if="!getTask.style.bgColor"
               >
-                <span class="span-settings"
-                  ><i class="far fa-window-maximize"></i
-                ></span>
+                <span class="span-settings"> <span class="icon-sm covers"></span></span>
                 Cover
               </div>
             </div>
@@ -155,15 +153,16 @@
               <div class="open-edit-dynamic-btn" @click="setType('copy')">
                 <span class="icon-sm icon-copy"></span> Copy
               </div>
+
               <!-- <div class="open-edit-dynamic-btn"> -->
-                <!-- <span><i class="far fa-eye"></i></span> -->
-                <!-- <span> Watch</span> -->
-                <!-- <span class="checkbox">
+              <!-- <span><i class="far fa-eye"></i></span> -->
+              <!-- <span> Watch</span> -->
+              <!-- <span class="checkbox">
                   <input type="checkbox" />
                 </span> -->
               <!-- </div> -->
               <div class="open-edit-dynamic-btn" @click="setType('archive')">
-                <span><i class="fas fa-archive"></i></span> Archive
+                <span class="icon-sm archives"></span> Archive
               </div>
               <!-- <div class="open-edit-dynamic-btn" @click="setType('share')">
                 <span><i class="fas fa-share-alt"></i></span> Share
@@ -271,7 +270,7 @@ export default {
     },
 
     async updatedTask(task) {
-      console.log(task)
+      console.log(task);
       let updatedTask = JSON.parse(JSON.stringify(task));
       let group = this.getGroup;
       let idx = group.tasks.findIndex((task) => task.id === updatedTask.id);

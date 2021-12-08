@@ -1,12 +1,19 @@
 <template>
   <div>
-    <div v-if="board" class="board-details-container" v-dragscroll:nochilddrag :class="menuOpen">
+    <div
+      v-if="board"
+      class="board-details-container"
+      v-dragscroll:nochilddrag
+      :class="menuOpen"
+    >
       <board-header
         :board="getCurrBoard"
         @updateBoard="updateBoard"
         @removeBoard="removeBoard"
         :showMenuOpen="showMenuOpen"
         @toggleMenu="toggleMenu"
+        @closeMenu="closeMenu"
+        @openMenu="openMenu"
       />
       <div class="group-list-container">
         <Container
@@ -58,7 +65,7 @@
                 type="button"
                 @click="toggleNewGroup"
               >
-                <span class="material-icons"> clear </span>
+                <span class="icon-lg close-icon"></span>
               </button>
             </div>
           </form>
@@ -219,7 +226,16 @@ export default {
       return this.board.groups[groupIndex].tasks[itemIndex];
     },
     toggleMenu(){
+      console.log('yo')
       this.showMenuOpen = !this.showMenuOpen
+    },
+    closeMenu(){
+       console.log('close')
+      this.showMenuOpen = false
+    },
+    openMenu(){
+       console.log('open')
+      this.showMenuOpen = true
     }
   },
   computed: {

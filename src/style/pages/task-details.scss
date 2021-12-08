@@ -91,6 +91,11 @@
             position: absolute;
             margin-left: 20px;
           }
+          .task-checklist-symbol{
+            position: absolute;
+            margin-left: 18px;
+            margin-top: 2px;
+          }
           .task-details-activity {
             position: relative;
             form {
@@ -152,7 +157,7 @@
           > * {
             width: 120px;
           }
-          p {
+          .task-details-subtitle {
             color: $clr3;
             font-weight: 600;
             font-size: 12px;
@@ -176,6 +181,10 @@
               padding: 6px 12px;
               width: 168px;
               font-size: 14px;
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              line-height: 0px;
             }
             .span-settings {
               padding-right: 6px;

@@ -22,7 +22,7 @@
         font-size: 14px;
         color: $clr3;
     }
-    span {
+    .top-right {
         cursor: pointer;
         display: block;
         padding: 12px 0px 0 10px;
@@ -30,9 +30,27 @@
     .title {
         border-top: 1px solid #091e4221;
         padding-top: 15px;
+        margin-left: 11px;
+        margin-right: 11px;
+        font-size: 12px;
+        font-weight: 700;
+        color: #5e6c84;
+        padding-left: 4px;
+    }
+    .subtitle {
+        cursor: pointer;
+        display: block;
+        margin: 7px 0px;
+        padding: 6px 15px;
+        position: relative;
+        text-decoration: none;
+        font-size: 14px;
+        &:hover{
+            background-color: #091e420a;
+        }
     }
     form {
-        padding: 12px;
+        padding: 5px 12px 12px 12px;
     }
     input {
         width: 280px;

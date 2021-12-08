@@ -6,7 +6,7 @@
     <div class="header-layout">
       <header>Add checklist</header>
     </div>
-    <p class="title">Title</p>
+    <p class="subtitle">Title</p>
     <form @submit.prevent="addChecklist">
       <input v-model="newChecklist.title" type="text" />
       <button class="add">Add</button>
