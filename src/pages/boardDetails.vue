@@ -114,10 +114,11 @@ export default {
       return ++acc;
     }, 1);
     this.$store.commit({ type: "setLoggedinUser" });
+    await this.$store.dispatch({ type: "loadBoards" });
   },
   methods: {
-    async removeBoard(boardId){
-      await this.$store.dispatch({type:'removeBoard',boardId})
+    async removeBoard(boardId) {
+      await this.$store.dispatch({ type: "removeBoard", boardId });
     },
     async updateGroup(group) {
       await this.$store.dispatch({ type: "updateGroup", group });
