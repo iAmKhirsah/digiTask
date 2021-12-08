@@ -58,7 +58,7 @@
               @closeDescEdit="closeDescEdit"
             />
 
-            <div class="task-details-checklist">
+            <div class="task-details-checklist" v-if="getTaskCheckLists.length">
               <div class="task-details-checklist-content">
                 <span class="task-checklist-symbol">
               <span class="icon-lg checklist-icon"></span>
@@ -270,7 +270,7 @@ export default {
     },
 
     async updatedTask(task) {
-      console.log(task);
+    
       let updatedTask = JSON.parse(JSON.stringify(task));
       let group = this.getGroup;
       let idx = group.tasks.findIndex((task) => task.id === updatedTask.id);
@@ -298,9 +298,12 @@ export default {
     },
     async updateBoard(board) {
       this.$store.dispatch({ type: "updateBoard", board });
+     
+     
     },
     async updateGroup(group) {
       this.$store.dispatch({ type: "updateGroup", group });
+    
     },
     async attachment(link, task) {
       console.log(link);
@@ -320,21 +323,21 @@ export default {
   },
   computed: {
     getTask() {
-      return { ...this.$store.getters.getCurrTask };
+      return this.$store.getters.getCurrTask
     },
     getGroup() {
-      return { ...this.$store.getters.getCurrGroup };
+      return this.$store.getters.getCurrGroup 
     },
     getBoard() {
-      return { ...this.$store.getters.getCurrBoard };
+      return this.$store.getters.getCurrBoard 
     },
     getUser() {
-      return { ...this.$store.getters.currUser };
+      return this.$store.getters.currUser ;
     },
-
-    // getChecklists(){
-    //   // return [...this.$store.getters.getCurrTask.checkLists]
-    // }
+    getTaskCheckLists(){
+      return this.$store.getters.getCurrTask.checklists
+    },
+    
   },
   components: {
     taskDescription,

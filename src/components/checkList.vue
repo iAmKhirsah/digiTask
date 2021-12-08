@@ -108,11 +108,13 @@ export default {
   created() {
     this.currentTask = JSON.parse(JSON.stringify(this.currTask));
     this.currChecklist = JSON.parse(JSON.stringify(this.checklist));
+    console.log(this.checklist)
   },
   methods: {
     addTodo() {
       if (this.newTodo.title.match(/^\s*$/)) return;
-      
+    
+    this.currChecklist = JSON.parse(JSON.stringify(this.checklist));
       this.newTodo.id = utilService.makeId();
       this.currChecklist.todos.push(this.newTodo);
       this.saveChecklist(this.currChecklist);
@@ -146,7 +148,7 @@ export default {
       if(idx>-1) this.currentTask.checklists[idx] = checklist;
       else this.currentTask.checklists.push(checklist) 
       this.$emit("updatedTask", this.currentTask);
-      this.currentTask = JSON.parse(JSON.stringify(this.currTask));
+     
     },
     closeAddTodo() {
       this.isAddTodo = false;

@@ -1,7 +1,7 @@
 
 <template>
   <section>
-    <header class="board-header" v-click-outside="setType">
+    <header class="board-header" :class="menuOpen" v-click-outside="setType">
       <div class="board-header-left">
         <div class="board-box">
           <input
@@ -35,7 +35,7 @@
           <span class="material-icons"> filter_list </span>
           <span class="filter">Filter</span>
         </div>
-        <div class="board-box" @click="openShowMenu">
+        <div class="board-box" @click="openMenu" :class="hideButton">
           <button class="group-header-edit-btn">
             <span class="icon-sm menu-dots"></span>
           </button>
@@ -45,10 +45,11 @@
     </header>
     <show-menu
       :board="board"
-      v-if="showMenuOpen"
-      @closeShowMenu="closeShowMenu"
+      
       @updateBoard="updateBoard"
       @removeBoard="removeBoard"
+      @closeMenu="closeMenu"
+      :class="hideMenu"
     />
 
     <header-dynamic
@@ -70,11 +71,11 @@ import vClickOutside from "v-click-outside";
 import showMenu from "../components/showMenu.vue";
 export default {
   name: "boardHeader",
-  props: ["board"],
+  props: ["board", "showMenuOpen"],
   data() {
     return {
       type: null,
-      showMenuOpen: false,
+
       currUser: null,
     };
   },
@@ -89,12 +90,6 @@ export default {
     removeBoard(boardId) {
       this.$emit("removeBoard", boardId);
     },
-    openShowMenu() {
-      this.showMenuOpen = true;
-    },
-    closeShowMenu() {
-      this.showMenuOpen = false;
-    },
     starredBoard() {
       let idx = this.currUser.starred.indexOf(this.getCurrBoard._id);
       if (idx > -1) this.currUser.starred.splice(idx, 1);
@@ -103,9 +98,19 @@ export default {
     },
     setType(type) {
       this.type = type;
+      
     },
     closeModal() {
       this.setType("");
+    },
+    closeMenu() {
+      this.$emit("closeMenu");
+    },
+    toggleMenu() {
+      this.$emit("toggleMenu");
+    },
+    openMenu() {
+      this.$emit("openMenu");
     },
   },
   computed: {
@@ -128,6 +133,15 @@ export default {
         return starred === this.getCurrBoard._id;
       });
       return starredBoard ? true : false;
+    },
+    menuOpen() {
+      return { "menu-open": this.showMenuOpen };
+    },
+    hideMenu() {
+      return { hidden: !this.showMenuOpen, open: this.showMenuOpen };
+    },
+    hideButton() {
+      return { hidden: this.showMenuOpen };
     },
   },
   components: {

@@ -33,15 +33,9 @@ export default {
       showSearch: false,
     };
   },
-  created() {
-    this.setFilter = utilService.debounce(this.setFilter, 1000);
-    // this.boards = this.getBoards;
-    console.log(this.boards);
-    // this.boardFilter = JSON.parse(JSON.stringify(this.board))
-  },
+  created() {},
   methods: {
     setFilter() {
-      // this.$emit("filter", this.filterBy);
       this.showSearch = true;
     },
     goToTask(task) {
