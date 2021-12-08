@@ -1,12 +1,16 @@
 <template>
-  <div class="workspace">
-    <div class="board-create-background" v-if="createMenu"></div>
+  <div class="workspace-content">
+    <!-- <div class="board-create-background" v-if="createMenu"></div> -->
     <board-create
       v-if="createMenu"
       @closeCreateMenu="closeCreateMenu"
       @createBoard="createBoard"
     />
     <div class="workspace-container" v-if="!createMenu">
+      <div class="workspace-title">
+        <span class="trello-logo"><i class="fab fa-trello"></i></span>
+        <h1>Workspace</h1>
+      </div>
       <div class="boards-container">
         <div class="boards-containers-my-boards">
           <div
@@ -23,8 +27,9 @@
             </router-link>
           </div>
           <div class="board-card-add">
-            <div class="board-card-title-add" @click="openCreateMenu">
+            <div class="board-card-title" @click="openCreateMenu">
               Create new board
+              <span class="material-icons plus"> add </span>
             </div>
           </div>
         </div>

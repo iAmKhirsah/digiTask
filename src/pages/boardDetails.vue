@@ -106,26 +106,25 @@ export default {
     };
   },
   async created() {
-    this.newGroup = { ...this.$store.getters.getEmptyGroup };
+    try{
+      this.newGroup = { ...this.$store.getters.getEmptyGroup };
     this.newTask = { ...this.$store.getters.getEmptyTask };
     let boardId = this.$route.params.boardId;
+    await this.$store.dispatch({ type: "loadBoards" });
     await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
-    this.board = { ...this.$store.getters.getCurrBoard };
+    // this.board = { ...this.$store.getters.getCurrBoard };
     console.log(this.board);
+    this.board = JSON.parse(JSON.stringify(this.getCurrBoard))
     if (!this.board) this.$router.push("/");
     if (!this.board.groups.length) return;
-    this.board.groups.reduce((acc, group) => {
-      if (!group.data) group.data = "Draggable" + acc;
-      if (!group.tasks.length) return;
-      group.tasks.reduce((acc1, task) => {
-        if (!task.data) return;
-        task.data = "Draggable" + task.id + acc1;
-        return ++acc1;
-      }, 100);
-      return ++acc;
-    }, 1);
     this.$store.commit({ type: "setLoggedinUser" });
-    await this.$store.dispatch({ type: "loadBoards" });
+    
+    }
+    catch(err){
+      console.log('Couldnt create and watch board ',err)
+      this.$router.push('/workspace')
+    }
+    
   },
   destroyed() {
     this.board = null;
@@ -149,8 +148,13 @@ export default {
       this.isMiniPreview = !this.isMiniPreview;
     },
     async updateBoard(board) {
-      await this.$store.dispatch({ type: "updateBoard", board });
+      try{
+        await this.$store.dispatch({ type: "updateBoard", board });
       this.board = JSON.parse(JSON.stringify(this.getCurrBoard));
+      }catch(err){
+        console.log('Couldnt update board',err)
+      }
+      
     },
     async addGroup() {
       try {

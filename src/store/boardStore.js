@@ -59,18 +59,14 @@ export const boardStore = {
     updateBoard(state, { board }) {
       if (board._id === state.currBoard._id) {
         state.currBoard = board;
-        console.log('1',state.currGroup)
         if (state.currBoard.groups.length)
           state.currBoard.groups.forEach((group) => {
             if (group.id === state.currGroup.id) state.currGroup = group;
-            console.log('2',group.id === state.currGroup.id)
           })
         if (state.currGroup.tasks)
           state.currGroup.tasks.forEach((task) => {
-            if (task.id === state.currTask.id) state.currTask = task;
-           
+            if (task.id === state.currTask.id) state.currTask = task;  
           })
-        
       }
     },
     removeBoard(state, { boardId }) {
@@ -103,6 +99,7 @@ export const boardStore = {
       newActivity.byMember = activity.user;
       newActivity.task.id = activity.task.id;
       newActivity.task.title = activity.task.title;
+     
       if (activity.res) {
         newActivity.imgUrl = activity.res.url;
       }
@@ -152,7 +149,6 @@ export const boardStore = {
       const idx = state.currBoard.groups.findIndex(
         (currGroup) => currGroup.id === group.id
       );
-      console.log(state.currGroup)
       state.currBoard.groups.splice(idx, 1, group);
     },
     updateTask(state, { task }) {
@@ -234,8 +230,9 @@ export const boardStore = {
       try {
         if (!board) board = state.currBoard;
         await boardService.update(board);
-        commit({ type: 'updateBoard', board });
-        socketService.emit(SOCKET_EMIT_UPDATEBOARD, board);
+        commit({ type: 'setCurrBoard', board });
+        console.log(board)
+        // socketService.emit(SOCKET_EMIT_UPDATEBOARD, board);
       } catch (err) {
         console.log('Couldnt update Board', err);
       }

@@ -4,7 +4,7 @@
       :is="renderCmp"
       @closeModal="closeModal"
       :board="board"
-      :task="task"
+      :task="getTask"
       :user="user"
       @attachment="attachment"
       @attachmentLink="attachmentLink"

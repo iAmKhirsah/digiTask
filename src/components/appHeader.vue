@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="main-header-container" v-click-outside="setType">
+    <section class="main-header-container">
       <div class="main-header-left">
         <span class="trello-logo"><i class="fab fa-trello"></i></span>
         <div class="logo main-header-tabs">
@@ -18,10 +18,7 @@
           Starred
           <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
         </div>
-        <div class="main-header-tabs">
-          Create
-          <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
-        </div>
+        <div class="main-header-tabs" @click="setType('create')">Create</div>
       </div>
       <div class="main-header-right">
         <div class="input-container">

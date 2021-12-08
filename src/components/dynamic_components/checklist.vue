@@ -20,7 +20,7 @@ export default {
   name: "checklist",
   data() {
     return {
-      taskToUpdate: JSON.parse(JSON.stringify(this.task)),
+      taskToUpdate: {},
       newChecklist: {
         id: "c" + utilService.makeId(),
         title: "",
@@ -28,9 +28,13 @@ export default {
       },
     };
   },
+  created(){
+    this.taskToUpdate = JSON.parse(JSON.stringify(this.$store.getters.getCurrTask))
+  },
   methods: {
     addChecklist() {
       if (this.newChecklist.title.match(/^\s*$/)) return;
+      
       this.taskToUpdate.checklists.push(this.newChecklist);
       this.$emit("updateTask", JSON.parse(JSON.stringify(this.taskToUpdate)));
       this.$emit("taskActivity", "added a new checklist");

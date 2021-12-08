@@ -45,12 +45,13 @@ export default {
     };
   },
   created() {
-    this.updatedTask = { ...this.task };
+    this.updatedTask = JSON.parse(JSON.stringify(this.task))
   },
   methods: {
     saveDesc() {
-      console.log("saving");
-      this.$emit("saveEdit", { ...this.updatedTask });
+      let task = JSON.parse(JSON.stringify(this.task))
+      task.description = this.updatedTask.description
+      this.$emit("saveEdit", task);
     },
     clearDesc() {
       this.updatedTask.description = JSON.parse(
@@ -71,6 +72,7 @@ export default {
         ? this.updatedTask.description
         : "Add a more detailed description...";
     },
+
   },
   directives: {
     clickOutside: vClickOutside.directive,
