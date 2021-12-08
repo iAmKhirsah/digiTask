@@ -86,7 +86,8 @@ export default {
   },
   methods: {
     updateBoard(board) {
-      this.$store.dispatch({ type: "updateBoard", board });
+      this.$emit('updateBoard',board)
+      // this.$store.dispatch({ type: "updateBoard", board });
     },
     openShowMenu() {
       this.showMenuOpen = true;

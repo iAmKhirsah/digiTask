@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="board" class="board-details-container" v-dragscroll:nochilddrag>
-      <board-header :board="board" @updateBoard="updateBoard" />
+      <board-header :board="getCurrBoard" @updateBoard="updateBoard" />
       <div class="group-list-container">
         <Container
           drag-class="card-ghost"
@@ -23,7 +23,7 @@
               @deleteGroup="deleteGroup"
               @miniPreview="miniPreview"
               :isMiniPreview="isMiniPreview"
-              :board="board"
+              :board="getCurrBoard"
             />
           </Draggable>
         </Container>
@@ -126,7 +126,8 @@ export default {
       this.isMiniPreview = !this.isMiniPreview;
     },
     async updateBoard(board) {
-      this.$store.dispatch({ type: "updateBoard", board });
+      await this.$store.dispatch({ type: "updateBoard", board });
+      this.board = JSON.parse(JSON.stringify(this.getCurrBoard))
     },
     async addGroup() {
       try {
@@ -211,8 +212,12 @@ export default {
       return this.board.groups;
     },
     getCurrBoard() {
-      return this.$store.getCurrBoard;
+      return this.$store.getters.getCurrBoard
     },
+    getBoard(){
+      return this.board
+    }
+   
     // background(){
     //   return this.board.style.backgroundColor ? this.board.style.backgroundColor : this.board.style.backgroundUrl
     // }

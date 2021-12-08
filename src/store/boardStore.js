@@ -59,9 +59,12 @@ export const boardStore = {
     updateBoard(state, { board }) {
       if (board._id === state.currBoard._id) {
         state.currBoard = board;
-        state.currBoard.groups.forEach((group) => {
+        if(state.currBoard.groups.length) state.currBoard.groups.forEach((group) => {
           if (group.id === state.currGroup.id) state.currGroup = group;
         });
+        if(state.currGroup.tasks) state.currGroup.tasks.forEach((task)=>{
+          if(task.id===state.currTask.id) state.currTask = task
+        })
       }
     },
     removeBoard(state, { boardId }) {
