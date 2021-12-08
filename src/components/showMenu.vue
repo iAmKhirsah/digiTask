@@ -31,11 +31,11 @@
         <div class="menu-box" @click="isDeleting=true">
           <div>Close board...</div>
         </div>
-         <div class=" card-layout " v-if="isDeleting"  v-click-outside="closeDeleteModal">
+         <div class=" dynamic-archive-edit card-layout nav-modal " v-if="isDeleting"  v-click-outside="closeDeleteModal">
      <button class="close" @click="closeDeleteModal">
        <span class="menu-header-close-button"></span>
     </button>
-    <div class="header-layout">
+    <div>
       <header>
          <span>Delete Board</span>
       </header>
