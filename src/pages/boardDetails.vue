@@ -125,6 +125,8 @@ export default {
   },
   destroyed() {
     this.board = null;
+  // destroyed(){
+  //   this.board = {}
   },
   methods: {
     async removeBoard(boardId) {
@@ -162,7 +164,8 @@ export default {
           });
           return;
         }
-        let group = { ...this.newGroup };
+        // let group = { ...this.newGroup };
+        let group = this.newGroup 
         await this.$store.dispatch({ type: "addGroup", group });
         this.newGroup = { ...this.$store.getters.getEmptyGroup };
         this.newGroup.title;
@@ -172,7 +175,6 @@ export default {
     },
     async deleteGroup(group) {
       try {
-        console.log(group);
         let groupId = group.id;
         await this.$store.dispatch({ type: "removeGroup", groupId });
       } catch (err) {}
@@ -190,9 +192,8 @@ export default {
     },
     async onDrop(groupIdx, dropResult) {
       try {
-        console.log(this.board);
         this.board = this.applyDrag(this.board.groups[groupIdx], dropResult);
-        let board = { ...this.board };
+        let board = {...this.board} ;
         await this.$store.dispatch({ type: "updateBoard", board });
       } catch (err) {
         console.log("Couldnt drag group", err);
@@ -201,7 +202,7 @@ export default {
     async onDropGroup(dropResult) {
       try {
         this.board.groups = this.applyDrag(this.board.groups, dropResult);
-        let board = { ...this.board };
+        let board = {...this.board }
         await this.$store.dispatch({ type: "updateBoard", board });
       } catch (err) {
         console.log("Couldnt drag group", err);
@@ -209,35 +210,27 @@ export default {
     },
     applyDrag(arr, dragResult) {
       const { removedIndex, addedIndex, payload } = dragResult;
-      console.log(removedIndex, addedIndex, payload);
       if (removedIndex === null && addedIndex === null) return arr;
-
       const result = [...arr];
       let itemToAdd = payload;
-
       if (removedIndex !== null) {
         itemToAdd = result.splice(removedIndex, 1)[0];
       }
-
       if (addedIndex !== null) {
         result.splice(addedIndex, 0, itemToAdd);
       }
-
       return result;
     },
     getChildPayload(groupIndex, itemIndex) {
       return this.board.groups[groupIndex].tasks[itemIndex];
     },
     toggleMenu() {
-      console.log("yo");
       this.showMenuOpen = !this.showMenuOpen;
     },
     closeMenu() {
-      console.log("close");
       this.showMenuOpen = false;
     },
     openMenu() {
-      console.log("open");
       this.showMenuOpen = true;
     },
   },
@@ -265,6 +258,7 @@ export default {
       });
     }
   },
+
   components: { groupList, boardHeader, Container, Draggable },
   directives: {
     dragscroll,
