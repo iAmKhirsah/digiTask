@@ -4,6 +4,7 @@ import {
   socketService,
   SOCKET_EVENT_WATCHBOARD,
   SOCKET_EMIT_UPDATEBOARD,
+  SOCKET_EVENT_UPDATEDBOARD,
 } from '../services/socketService';
 
 export const boardStore = {
@@ -57,7 +58,15 @@ export const boardStore = {
       state.currBoard = board;
     },
     updateBoard(state, { board }) {
+      console.log(board._id === state.currBoard._id);
+      console.log(
+        'board._id',
+        board._id,
+        'state.currBoard._id',
+        state.currBoard._id
+      );
       if (board._id === state.currBoard._id) {
+        console.log('im here');
         state.currBoard = board;
         if (state.currBoard.groups.length)
           state.currBoard.groups.forEach((group) => {
@@ -79,22 +88,22 @@ export const boardStore = {
       state.currBoard.groups.push(newGroup);
       this.newGroup = boardService.getEmptyGroup();
     },
-     async createBoard(state, { board, user }) {
-      try{
+    async createBoard(state, { board, user }) {
+      try {
         let emptyBoard = boardService.getEmptyBoard();
         emptyBoard.createdBy = user;
         emptyBoard.title = board.title;
-      if (board.imgUrl) {
-        emptyBoard.style.backgroundUrl = board.imgUrl;
-      }
-      if (!board.background)
-      emptyBoard.style.backgroundColor = 'rgb(0, 121, 191)';
-      else emptyBoard.style.backgroundColor = board.background;
-      let newBoard = await boardService.add(emptyBoard);
-      if (!state.boards.length) state.boards = [];
-      state.boards.push(newBoard);
-      }catch(err){
-        console.log('Couldnt create board',err)
+        if (board.imgUrl) {
+          emptyBoard.style.backgroundUrl = board.imgUrl;
+        }
+        if (!board.background)
+          emptyBoard.style.backgroundColor = 'rgb(0, 121, 191)';
+        else emptyBoard.style.backgroundColor = board.background;
+        let newBoard = await boardService.add(emptyBoard);
+        if (!state.boards.length) state.boards = [];
+        state.boards.push(newBoard);
+      } catch (err) {
+        console.log('Couldnt create board', err);
       }
     },
     addActivity(state, { activity }) {
@@ -137,21 +146,21 @@ export const boardStore = {
       let newTask = boardService.getEmptyTask();
       newTask.title = taskRaw.task;
       newTask.byMember = taskRaw.user;
-      console.log(newTask)
+      console.log(newTask);
       let idx = state.currBoard.groups.findIndex(
         (group) => group.id === taskRaw.groupId
       );
       state.currBoard.groups[idx].tasks.push(newTask);
     },
-    getDetails(state, {boardId, taskId, groupId }) {
-      console.log(boardId)
-      let boardIdx = state.boards.findIndex((board)=>board._id===boardId)
-      console.log('BoardIdx',boardIdx)
-      state.currBoard = state.boards[boardIdx]
+    getDetails(state, { boardId, taskId, groupId }) {
+      console.log(boardId);
+      let boardIdx = state.boards.findIndex((board) => board._id === boardId);
+      console.log('BoardIdx', boardIdx);
+      state.currBoard = state.boards[boardIdx];
       let idx = state.currBoard.groups.findIndex(
         (group) => group.id === groupId
       );
-      console.log('idx',idx)
+      console.log('idx', idx);
       state.currGroup = state.currBoard.groups[idx];
       state.currTask = state.currGroup.tasks.find((task) => task.id === taskId);
     },
@@ -227,11 +236,19 @@ export const boardStore = {
         const board = await boardService.getBoardById(boardId);
         console.log(board);
         commit({ type: 'setCurrBoard', board });
-        socketService.off(SOCKET_EVENT_WATCHBOARD);
-        socketService.on(SOCKET_EVENT_WATCHBOARD, (board) => {
-          console.log('Board changed from socket', board);
-          commit({ type: 'updateBoard', board });
-        }); 
+        // socketService.off(SOCKET_EVENT_WATCHBOARD);
+        // socketService.on(SOCKET_EVENT_WATCHBOARD, (board) => {
+        //   console.log('Board changed from socket', board);
+        //   commit({ type: 'updateBoard', board });
+        // });
+        socketService.emit(SOCKET_EVENT_WATCHBOARD, boardId);
+        socketService.off(SOCKET_EVENT_UPDATEDBOARD);
+        socketService.on(SOCKET_EVENT_UPDATEDBOARD, (updatedBoard) => {
+          console.log('im on socket event updatedboard', updatedBoard);
+          // console.log(updatedBoard);
+          commit({ type: 'updateBoard', board: updatedBoard });
+          // commit({ type: 'setCurrBoard', board: updatedBoard });
+        });
       } catch (err) {
         console.log('Couldnt load board', err);
       }
@@ -247,9 +264,11 @@ export const boardStore = {
     async updateBoard({ state, commit }, { board = null }) {
       try {
         if (!board) board = state.currBoard;
-        let newBoard = await boardService.update(board);
-        commit({ type: 'updateBoard', board:newBoard });
-        socketService.emit(SOCKET_EMIT_UPDATEBOARD, newBoard);
+        // let newBoard = await boardService.update(board);
+        await boardService.update(board);
+        commit({ type: 'updateBoard', board: board });
+        // console.log(newBoard);
+        socketService.emit(SOCKET_EMIT_UPDATEBOARD, board);
       } catch (err) {
         console.log('Couldnt update Board', err);
       }
@@ -302,9 +321,9 @@ export const boardStore = {
         console.log('Error on board store REMOVETASK', err);
       }
     },
-    async getTaskDetails({ commit }, {boardId, taskId, groupId }) {
+    async getTaskDetails({ commit }, { boardId, taskId, groupId }) {
       try {
-        commit({ type: 'getDetails',boardId, taskId, groupId });
+        commit({ type: 'getDetails', boardId, taskId, groupId });
       } catch (err) {
         console.log('Error on board store GETTASKDETAILS', err);
       }
@@ -341,21 +360,21 @@ export const boardStore = {
         console.log('Error on board store ADDACTIVITY', err);
       }
     },
-    async createBoard({ dispatch, commit }, { board}) {
+    async createBoard({ dispatch, commit }, { board }) {
       try {
         let emptyBoard = boardService.getEmptyBoard();
         // emptyBoard.createdBy = user;
         emptyBoard.title = board.title;
-      if (board.imgUrl) {
-        emptyBoard.style.backgroundUrl = board.imgUrl;
-      }
-      if (!board.background)
-      emptyBoard.style.backgroundColor = 'rgb(0, 121, 191)';
-      else emptyBoard.style.backgroundColor = board.background;
-      let newBoard = await boardService.add(emptyBoard);
-      console.log(newBoard)
-       commit({type:'addBoard',board:newBoard})
-       console.log('now im here')
+        if (board.imgUrl) {
+          emptyBoard.style.backgroundUrl = board.imgUrl;
+        }
+        if (!board.background)
+          emptyBoard.style.backgroundColor = 'rgb(0, 121, 191)';
+        else emptyBoard.style.backgroundColor = board.background;
+        let newBoard = await boardService.add(emptyBoard);
+        console.log(newBoard);
+        commit({ type: 'addBoard', board: newBoard });
+        console.log('now im here');
       } catch (err) {
         console.log('Error on board store CREATEBOARD');
       }
