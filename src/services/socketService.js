@@ -7,10 +7,11 @@ import io from 'socket.io-client'
 // export const SOCKET_EVENT_REVIEW_ABOUT_YOU = 'review-about-you';
 export const SOCKET_EVENT_WATCHBOARD = 'board-watch'
 export const SOCKET_EMIT_UPDATEBOARD = 'board-updated'
+export const SOCKET_EVENT_UPDATEDBOARD = 'updated-board'
 
 const baseUrl = (process.env.NODE_ENV === 'production')? '' : '//localhost:3000'
-// export const socketService = createSocketService()
-export const socketService = createDummySocketService()
+export const socketService = createSocketService()
+// export const socketService = createDummySocketService()
 
 window.socketService = socketService
 
