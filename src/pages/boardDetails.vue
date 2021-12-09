@@ -267,7 +267,6 @@ export default {
   watch: {
     "$route.params.boardId": {
       async handler() {
-        // if (this.board._id !== boardId) this.board = this.getCurrBoard;
         if (this.board._id !== this.$route.params.boardId) {
           console.log(this.board._id !== this.$route.params.boardId);
           console.log(this.$route.params.boardId);
