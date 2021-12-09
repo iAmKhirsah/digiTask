@@ -193,3 +193,9 @@
         }
     }
 }
+
+.textarea{
+    &.add-task{
+        min-height: 66px;
+    }
+}

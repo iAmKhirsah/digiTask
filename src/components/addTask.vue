@@ -4,12 +4,13 @@
     <div v-if="openNewTask">
       <form class="add-task-form" v-on:keydown.enter="addTask">
         <textarea
-          class="textarea"
+          class="textarea add-task"
           ref="task"
           oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
           onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
           v-model="newTask"
           @keydown.enter.prevent
+         placeholder="Enter a title for this card..."
           maxlength="512"
         />
         <div class="add-task-form-btns">

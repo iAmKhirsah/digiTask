@@ -215,7 +215,7 @@ export const boardStore = {
         socketService.on(SOCKET_EVENT_WATCHBOARD, (board) => {
           console.log('Board changed from socket', board);
           commit({ type: 'updateBoard', board });
-        });
+        }); 
       } catch (err) {
         console.log('Couldnt load board', err);
       }

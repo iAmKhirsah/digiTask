@@ -12,9 +12,9 @@ const baseUrl = (process.env.NODE_ENV === 'production')? '' : '//localhost:3000'
 // export const socketService = createSocketService()
 export const socketService = createDummySocketService()
 
-// window.socketService = socketService
+window.socketService = socketService
 
-// socketService.setup()
+socketService.setup()
 
 
 function createSocketService() {
@@ -66,9 +66,10 @@ function createDummySocketService() {
         listener(data)
       })
     },
-    debugMsg() {
-      this.emit('chat addMsg', {from: 'Someone', txt: 'Aha it worked!'})
-    },
+    // debugMsg() {
+    //   this.emit('chat addMsg', {from: 'Someone', txt: 'Aha it worked!'})
+    // },
+    
   }
   return socketService
 }
