@@ -38,7 +38,8 @@
   </div>
 </template>
 <script>
-import boardCreate from "../components/boardCreate.vue";
+
+import boardCreate from '../components/boardCreate.vue'
 export default {
   name: "digiApp",
   data() {
@@ -59,8 +60,8 @@ export default {
       this.createMenu = false;
     },
     createBoard(board) {
-      let user = this.$store.getters.currUser;
-      this.$store.dispatch({ type: "createBoard", board, user });
+    
+    this.$store.dispatch({ type: "createBoard", board,user:this.$store.getters.currUser});
     },
   },
   components: {

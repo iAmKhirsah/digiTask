@@ -8,8 +8,9 @@
             :style="inputWidth"
             v-model="board.title"
             @focus="$event.target.select()"
-            v-click-outside="updateBoard(board)"
+           @blur="updateBoard(board)"
           />
+          <!-- v-click-outside="updateBoard(board)" -->
         </div>
         <div class="board-box star" @click="starredBoard">
           <span v-if="isStarred"><i class="fas fa-star"></i></span>
@@ -77,6 +78,7 @@ export default {
     return {
       type: null,
       currUser: null,
+      currBoard:null
     };
   },
   created() {

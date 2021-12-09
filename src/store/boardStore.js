@@ -79,19 +79,25 @@ export const boardStore = {
       state.currBoard.groups.push(newGroup);
       this.newGroup = boardService.getEmptyGroup();
     },
-    createBoard(state, { board, user }) {
-      let newBoard = boardService.getEmptyBoard();
-      newBoard.createdBy = user;
-      newBoard.title = board.title;
+     async createBoard(state, { board, user }) {
+      try{
+        let emptyBoard = boardService.getEmptyBoard();
+        emptyBoard.createdBy = user;
+        emptyBoard.title = board.title;
       if (board.imgUrl) {
-        newBoard.style.backgroundUrl = board.imgUrl;
+        emptyBoard.style.backgroundUrl = board.imgUrl;
       }
       if (!board.background)
-        newBoard.style.backgroundColor = 'rgb(0, 121, 191)';
-      else newBoard.style.backgroundColor = board.background;
-      boardService.add(newBoard);
+      emptyBoard.style.backgroundColor = 'rgb(0, 121, 191)';
+      else emptyBoard.style.backgroundColor = board.background;
+      let newBoard = await boardService.add(emptyBoard);
       if (!state.boards.length) state.boards = [];
       state.boards.push(newBoard);
+      }catch(err){
+        console.log('Couldnt create board',err)
+      }
+
+      
     },
     addActivity(state, { activity }) {
       let newActivity = boardService.getEmptyActivity();
@@ -327,7 +333,7 @@ export const boardStore = {
     },
     async createBoard({ dispatch, commit }, { board, user }) {
       try {
-        commit({ type: 'createBoard', board, user });
+       commit({type:'createBoard',board,user})
       } catch (err) {
         console.log('Error on board store CREATEBOARD');
       }

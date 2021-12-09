@@ -1,4 +1,4 @@
-// import { httpService } from './httpService'
+import { httpService } from './httpService'
 import { storageService } from './asyncStorageService';
 import { userService } from './userService';
 import { utilService } from './utilService';
@@ -28,8 +28,9 @@ async function loadBoard() {
 async function query(filterBy = null) {
   try {
     //   var queryStr = (!filterBy) ? '' : `?name=${filterBy.name}&sort=anaAref`
-    let boards =  await storageService.query('boards');
-    return boards
+    // let boards =  await storageService.query('boards');
+    return await httpService.get('board')
+    // return boards
   } catch (err) {
     console.log('Had error on boardServices: QUERY', err);
   }
@@ -43,16 +44,17 @@ async function getTaskById(taskId, boardId) {
 
 async function getBoardById(boardId) {
   try {
-    const board = await storageService.get('boards', boardId);
-    return board;
+    // const board = await storageService.get('boards', boardId);
+    // return board;
+    return await httpService.get(`board/${boardId}`)
   } catch (err) {
     console.log("Could'nt get board by id ", err);
   }
 }
 async function remove(boardId) {
   try {
-    //   return httpService.delete(`review/${reviewId}`)
-    return storageService.remove('boards', boardId);
+      return httpService.delete(`board/${boardId}`)
+    // return storageService.remove('boards', boardId);
   } catch (err) {
     console.log('Had error on boardServices: REMOVE', err);
   }
@@ -64,14 +66,16 @@ async function add(board) {
     // board.byMember = await userService.getById(review.aboutUserId)
     // const addedBoard = await httpService.post(`review`, review)
     // const addedBoard = storageService.post('boards', board);
-    storageService.post('boards', board);
+    // storageService.post('boards', board);
     // return addedBoard;
+    return await httpService.post(`board`,board)
   } catch (err) {
     console.log('Had error on boardServices: ADD', err);
   }
 }
 async function update(board) {
   try {
+    return await httpService.put(`board/${board._id}`,board)
     const updatedBoard = storageService.put('boards', board);
     return updatedBoard;
   } catch (err) {
@@ -135,7 +139,6 @@ function getEmptyActivity() {
 }
 function getEmptyBoard() {
   const board = {
-    _id: 'b' + utilService.makeId(),
     title: '',
     createdAt: Date.now(),
     createdBy: {},
