@@ -4,7 +4,11 @@
       :is="renderCmp"
       @closeModal="closeModal"
       @updateBoard="updateBoard"
-      :board="board"
+      @updateUser="updateUser"
+      @loadBoard="loadBoard"
+      :getCurrBoard="getCurrBoard"
+      :getUser="getUser"
+      :getBoards="getBoards"
     ></component>
   </section>
 </template>
@@ -18,7 +22,7 @@ import boardCreate from './boardCreate.vue'
 
 export default {
   name: "headerDynamic",
-  props: ["type",'board'],
+  props: ["type", "getCurrBoard", "getUser", "getBoards"],
   data() {
     return {};
   },
@@ -43,8 +47,14 @@ export default {
       console.log(board);
       this.$emit("updateBoard", board);
     },
+    loadBoard(boardId) {
+      this.$emit("loadBoard", boardId);
+    },
     closeModal() {
       this.$emit("closeModal");
+    },
+    updateUser(user) {
+      this.$emit("updateUser", user);
     },
   },
 };

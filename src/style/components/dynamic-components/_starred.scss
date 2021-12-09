@@ -1,0 +1,25 @@
+.starred-board-background {
+  display: inline-block;
+  flex: 0 0 auto;
+  background-size: cover;
+  border-radius: 3px;
+  height: 32px;
+  width: 40px;
+  position: relative;
+  opacity: 1;
+}
+.star {
+  color: $clr1;
+  cursor: pointer;
+  height: 32px;
+  width: 32px;
+  text-align: center;
+  line-height: 30px;
+  &:hover {
+    color: $clr5;
+    font-size: 18px;
+  }
+  .fas {
+    color: $clr5;
+  }
+}

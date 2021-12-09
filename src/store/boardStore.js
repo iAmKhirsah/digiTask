@@ -62,11 +62,11 @@ export const boardStore = {
         if (state.currBoard.groups.length)
           state.currBoard.groups.forEach((group) => {
             if (group.id === state.currGroup.id) state.currGroup = group;
-          })
+          });
         if (state.currGroup.tasks)
           state.currGroup.tasks.forEach((task) => {
-            if (task.id === state.currTask.id) state.currTask = task;  
-          })
+            if (task.id === state.currTask.id) state.currTask = task;
+          });
       }
     },
     removeBoard(state, { boardId }) {
@@ -99,7 +99,7 @@ export const boardStore = {
       newActivity.byMember = activity.user;
       newActivity.task.id = activity.task.id;
       newActivity.task.title = activity.task.title;
-     
+
       if (activity.res) {
         newActivity.imgUrl = activity.res.url;
       }
@@ -133,6 +133,7 @@ export const boardStore = {
       let newTask = boardService.getEmptyTask();
       newTask.title = taskRaw.task;
       newTask.byMember = taskRaw.user;
+      console.log(newTask)
       let idx = state.currBoard.groups.findIndex(
         (group) => group.id === taskRaw.groupId
       );
@@ -208,7 +209,7 @@ export const boardStore = {
     async loadAndWatchBoard({ commit }, { boardId }) {
       try {
         const board = await boardService.getBoardById(boardId);
-
+        console.log(board);
         commit({ type: 'setCurrBoard', board });
         socketService.off(SOCKET_EVENT_WATCHBOARD);
         socketService.on(SOCKET_EVENT_WATCHBOARD, (board) => {
@@ -232,8 +233,7 @@ export const boardStore = {
         if (!board) board = state.currBoard;
         await boardService.update(board);
         commit({ type: 'setCurrBoard', board });
-        console.log(board)
-        // socketService.emit(SOCKET_EMIT_UPDATEBOARD, board);
+        socketService.emit(SOCKET_EMIT_UPDATEBOARD, board);
       } catch (err) {
         console.log('Couldnt update Board', err);
       }
@@ -272,7 +272,7 @@ export const boardStore = {
     },
     async addTask({ dispatch, commit }, { taskRaw }) {
       try {
-        commit({ type: 'addTask', taskRaw });
+        await commit({ type: 'addTask', taskRaw });
         await dispatch({ type: 'updateBoard' });
       } catch (err) {
         console.log('Couldnt add a task', err);

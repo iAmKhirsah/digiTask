@@ -2,7 +2,7 @@
   <section class="user-menu " >
     <div v-if="!type">
    
-        <button class="close" @click="closeMenu">
+        <button class="close" @click="closeShowMenu">
        <span class="menu-header-close-button"></span>
     </button>
       <div class="header-layout">
@@ -33,7 +33,7 @@
         </div>
          <div class=" dynamic-archive-edit card-layout nav-modal " v-if="isDeleting"  v-click-outside="closeDeleteModal">
      <button class="close" @click="closeDeleteModal">
-       <span class="menu-header-close-button"></span>
+       <span class="menu-header-close-button" ></span>
     </button>
     <div>
       <header>
@@ -68,7 +68,7 @@
       :board="board"
       @updateBoard="updateBoard"
       @goBack="goBack"
-      @closeMenu="closeMenu"
+      @closeShowMenu="closeShowMenu"
       v-if="type === 'background'"
     />
   </section>
@@ -91,7 +91,8 @@ export default {
       this.$router.push('/workspace')
       }
       catch(err){
-        console.log('Board couldnt be removed',err)    
+        console.log('Board couldnt be removed',err)
+    
       }
     },
     goBack() {
@@ -106,7 +107,7 @@ export default {
     toggleMenu() {
       this.$emit("toggleMenu");
     },
-    closeMenu(){
+    closeShowMenu(){
       this.$emit('closeMenu')
     },
     closeDeleteModal(){

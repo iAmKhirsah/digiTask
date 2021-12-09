@@ -37,8 +37,12 @@
     </section>
     <header-dynamic
       @closeModal="closeModal"
+      @updateUser="updateUser"
+      @loadBoard="loadBoard"
       class="abs"
       :type="type"
+      :getUser="getUser"
+      :getBoards="getBoards"
       v-if="type"
     ></header-dynamic>
   </div>
@@ -67,13 +71,23 @@ export default {
     setType(type) {
       this.type = type;
     },
+    updateUser(user) {
+      this.$store.dispatch({ type: "updateUser", user });
+    },
     closeModal() {
       this.setType("");
+    },
+    loadBoard(boardId) {
+      console.log(boardId);
+      this.$store.dispatch({type: 'loadAndWatchBoard', boardId});
     },
   },
   computed: {
     getBoards() {
       return this.$store.getters.boards;
+    },
+    getUser() {
+      return this.$store.getters.currUser;
     },
   },
   directives: {
