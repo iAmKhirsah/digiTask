@@ -6,9 +6,9 @@
         <div class="board-box">
           <input
             :style="inputWidth"
-            v-model="board.title"
+            v-model="boardTitle"
             @focus="$event.target.select()"
-           @blur="updateBoard(board)"
+           @blur="updateTitle"
           />
           <!-- v-click-outside="updateBoard(board)" -->
         </div>
@@ -47,7 +47,7 @@
       </div>
     </header>
     <show-menu
-      :board="board"
+      :board="getCurrBoard"
       @updateBoard="updateBoard"
       @removeBoard="removeBoard"
       @closeMenu="closeMenu"
@@ -78,11 +78,13 @@ export default {
     return {
       type: null,
       currUser: null,
-      currBoard:null
+      currBoard:null,
+      boardTitle:''
     };
   },
   created() {
     this.currUser = JSON.parse(JSON.stringify(this.getCurrUser));
+    this.boardTitle = JSON.parse(JSON.stringify(this.board.title))
   },
   methods: {
     updateBoard(board) {
@@ -91,11 +93,21 @@ export default {
     removeBoard(boardId) {
       this.$emit("removeBoard", boardId);
     },
+    updateTitle(){
+      if(this.boardTitle.match(/^\s*$/)) {
+        this.boardTitle = JSON.parse(JSON.stringify(this.getCurrBoard.title))
+        return
+      }
+      let board= JSON.parse(JSON.stringify(this.getCurrBoard))
+      board.title = this.boardTitle
+      this.updateBoard(board)
+    },
     starredBoard() {
       let idx = this.currUser.starred.indexOf(this.getCurrBoard._id);
       if (idx > -1) this.currUser.starred.splice(idx, 1);
       else this.currUser.starred.push(this.getCurrBoard._id);
-      this.$store.dispatch({ type: "updateUser", user: this.currUser });
+      let user = JSON.parse(JSON.stringify(this.currUser))
+      this.$store.dispatch({ type: "updateUser", user });
     },
     setType(type) {
       this.type = type;
@@ -116,7 +128,7 @@ export default {
   computed: {
     inputWidth() {
       if (!this.board.title) return;
-      return { width: this.board.title.length * 10 + 24 + "px" };
+      return { width: this.boardTitle.length * 10 + 24 + "px" };
     },
     getBoardMembers() {
       return this.$store.getters.getCurrBoard.members;

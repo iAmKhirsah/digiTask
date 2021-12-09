@@ -87,7 +87,7 @@ export default {
       this.$emit("closeShowMenu");
     },
     setBackground(background, type) {
-      let updatedBoard = this.currBoard;
+      let updatedBoard = JSON.parse(JSON.stringify(this.getCurrBoard));
       if (type === "color") {
         updatedBoard.style.backgroundColor = background;
         updatedBoard.style.backgroundUrl = "";
@@ -97,7 +97,7 @@ export default {
       }
       /// BENY REALLY WANTS REGEX HERE SO REMIND HIM CONSTANTLY
 
-      this.$emit("updateBoard", JSON.parse(JSON.stringify(updatedBoard)));
+      this.$emit("updateBoard", updatedBoard);
       // this.$emit("updateBoard", updatedBoard);
     },
   },

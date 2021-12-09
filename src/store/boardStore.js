@@ -161,6 +161,7 @@ export const boardStore = {
         (currGroup) => currGroup.id === group.id
       );
       state.currBoard.groups.splice(idx, 1, group);
+      state.currGroup = state.currBoard.groups[idx];
     },
     updateTask(state, { task }) {
       const idx = state.currBoard.groups.findIndex(
@@ -247,9 +248,9 @@ export const boardStore = {
     async updateBoard({ state, commit }, { board = null }) {
       try {
         if (!board) board = state.currBoard;
-        await boardService.update(board);
-        commit({ type: 'setCurrBoard', board });
-        socketService.emit(SOCKET_EMIT_UPDATEBOARD, board);
+        let newBoard = await boardService.update(board);
+        commit({ type: 'updateBoard', board:newBoard });
+        socketService.emit(SOCKET_EMIT_UPDATEBOARD, newBoard);
       } catch (err) {
         console.log('Couldnt update Board', err);
       }
