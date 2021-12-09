@@ -58,7 +58,15 @@ export const boardStore = {
       state.currBoard = board;
     },
     updateBoard(state, { board }) {
+      console.log(board._id === state.currBoard._id);
+      console.log(
+        'board._id',
+        board._id,
+        'state.currBoard._id',
+        state.currBoard._id
+      );
       if (board._id === state.currBoard._id) {
+        console.log('im here');
         state.currBoard = board;
         if (state.currBoard.groups.length)
           state.currBoard.groups.forEach((group) => {
@@ -227,11 +235,13 @@ export const boardStore = {
         //   console.log('Board changed from socket', board);
         //   commit({ type: 'updateBoard', board });
         // });
-        socketService.emit(SOCKET_EVENT_WATCHBOARD, boardId)
+        socketService.emit(SOCKET_EVENT_WATCHBOARD, boardId);
         socketService.off(SOCKET_EVENT_UPDATEDBOARD);
         socketService.on(SOCKET_EVENT_UPDATEDBOARD, (updatedBoard) => {
           console.log('im on socket event updatedboard', updatedBoard);
+          // console.log(updatedBoard);
           commit({ type: 'updateBoard', board: updatedBoard });
+          // commit({ type: 'setCurrBoard', board: updatedBoard });
         });
       } catch (err) {
         console.log('Couldnt load board', err);
@@ -248,9 +258,11 @@ export const boardStore = {
     async updateBoard({ state, commit }, { board = null }) {
       try {
         if (!board) board = state.currBoard;
-        let newBoard = await boardService.update(board);
-        commit({ type: 'updateBoard', board:newBoard });
-        socketService.emit(SOCKET_EMIT_UPDATEBOARD, newBoard);
+        // let newBoard = await boardService.update(board);
+        await boardService.update(board);
+        commit({ type: 'updateBoard', board: board });
+        // console.log(newBoard);
+        socketService.emit(SOCKET_EMIT_UPDATEBOARD, board);
       } catch (err) {
         console.log('Couldnt update Board', err);
       }

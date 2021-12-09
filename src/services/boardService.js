@@ -74,6 +74,7 @@ async function add(board) {
   }
 }
 async function update(board) {
+  console.log(board);
   try {
     return await httpService.put(`board/${board._id}`,board)
     const updatedBoard = storageService.put('boards', board);
