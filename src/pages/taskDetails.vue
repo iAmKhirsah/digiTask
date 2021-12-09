@@ -113,7 +113,7 @@
                 @deleteLabel="deleteLabel"
               />
               <div class="open-edit-dynamic-btn" @click="setType('members')">
-                <span class="span-settings"><i class="far fa-user"></i></span>
+                <span class="span-settings icon-sm member-icon"></span>
                 Members
               </div>
               <div class="open-edit-dynamic-btn" @click="setType('labels')">
@@ -141,7 +141,7 @@
                 @click="setType('cover')"
                 v-if="!getTask.style.bgColor"
               >
-                <span class="span-settings"> <span class="icon-sm covers"></span></span>
+                <span class="span-settings"> <span class="icon-sm cover-icon"></span></span>
                 Cover
               </div>
             </div>
@@ -162,7 +162,7 @@
                 </span> -->
               <!-- </div> -->
               <div class="open-edit-dynamic-btn" @click="setType('archive')">
-                <span class="icon-sm archives"></span> Archive
+                <span class="icon-sm archive-icon"></span> Archive
               </div>
               <!-- <div class="open-edit-dynamic-btn" @click="setType('share')">
                 <span><i class="fas fa-share-alt"></i></span> Share

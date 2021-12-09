@@ -1,209 +1,206 @@
 <template>
-  <div class="task-preview-container" v-if="task" :style="mainContentBgColor" @click.self="editTask(task.id)" >
+  <div
+    class="task-preview-container"
+    v-if="task"
+    :style="mainContentBgColor"
+    @click.self="editTask(task.id)"
+  >
     <!-- <button class="edit-button"></button> -->
-    <div v-if="hasCover" class="task-cover" :class="{'small':!infoCover}" :style="bgColor" @click="editTask(task.id)">  </div>
-    <task-preview-label v-if="infoCover" :isMiniPreview="isMiniPreview" @miniPreview="miniPreview" :task="task" :board="board"/>
-    <div  class="task-preview" @click="editTask(task.id)">
-      <div class="task-preview-content" :class="{'no-info':!infoCover}">{{ task.title }}</div>
+    <div
+      v-if="hasCover"
+      class="task-cover"
+      :class="{ small: !infoCover }"
+      :style="bgColor"
+      @click="editTask(task.id)"
+    ></div>
+    <task-preview-label
+      v-if="infoCover"
+      :isMiniPreview="isMiniPreview"
+      @miniPreview="miniPreview"
+      :task="task"
+      :board="board"
+    />
+    <div class="task-preview" @click="editTask(task.id)">
+      <div class="task-preview-content" :class="{ 'no-info': !infoCover }">
+        {{ task.title }}
+      </div>
+      <span
+        class="icon-settings pencil icon-sm edit-pencil-icon"
+        @click.stop="openEditModal"
+      >
+        <div class="quick-edit-menu" v-if="isOpenEditModal">
+          <edit-modal @closeEditModal="closeEditModal"></edit-modal>
+        </div>
+      </span>
     </div>
-  <div class="task-preview-info" v-if="hasInfo">
-    <span class="task-badges">
-    <!-- <span class="badge notification" ><i class="far fa-bell" aria-hidden="true"></i></span> -->
-    <span class="badge due-date" @click="toggleDueDateDone" :class="isDueDate" v-if="validateDates" ><span class="clock-icon"></span><span class="short-date">{{startDate}} {{dueDate}}</span></span>
-    <span v-if="task.description" class="badge description"> </span>
-     <span class="badge comments" v-if="hasCommnets"></span>
-     <span class="badge checklist" v-if="todosLength" :class = todosDone><span class="todos-done">{{renderChecklist}}</span></span>
-       <span class="badge members" v-for="(member,idx) in taskMembers" :key="idx"  ><render-members  :member="member"/></span>
-      
-  </span>
-     <!-- {
-            id: 'c104',
-            title: 'Help me',
-            description: 'description',
-            comments: [
-              {
-                id: 'ZdPnm',
-                txt: 'also @yaronb please CR this',
-                createdAt: 1590999817436.0,
-                byMember: {
-                  _id: 'u101',
-                  fullname: 'Tal Tarablus',
-                  imgUrl:
-                    'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-                },
-              },
-              {
-                id: 'ZdPnmm2',
-                txt: 'beny fix digiTask pls',
-                createdAt: 1590999917436.0,
-                byMember: {
-                  _id: 'u101',
-                  fullname: 'Tal Tarablus',
-                  imgUrl:
-                    'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-                },
-              },
-            ],
-            checklists: [
-              {
-                id: 'YEhmF',
-                title: 'Checklist',
-                todos: [
-                  {
-                    id: '212jX',
-                    title: 'To Do 1',
-                    isDone: false,
-                  },
-                ],
-              },
-            ],
-            members: [
-              {
-                _id: 'u101',
-                username: 'Tal',
-                fullname: 'Tal Tarablus',
-                imgUrl:
-                  'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-              },
-            ],
-            labelIds: ['l101', 'l102'],
-            createdAt: 1590999730348,
-            dueDate: 16156215211,
-            byMember: {
-              _id: 'u101',
-              username: 'Tal',
-              fullname: 'Tal Tarablus',
-              imgUrl:
-                'http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg',
-            },
-            style: {
-              bgColor: '#26de81',
-            }, -->
-
-  </div>
+    <div class="task-preview-info" v-if="hasInfo">
+      <span class="task-badges">
+        <!-- <span class="badge notification" ><i class="far fa-bell" aria-hidden="true"></i></span> -->
+        <span
+          class="badge due-date"
+          @click="toggleDueDateDone"
+          :class="isDueDate"
+          v-if="validateDates"
+          ><span class="clock-icon"></span
+          ><span class="short-date">{{ startDate }} {{ dueDate }}</span></span
+        >
+        <span v-if="task.description" class="badge description"> </span>
+        <span class="badge comments" v-if="hasCommnets"></span>
+        <span class="badge checklist" v-if="todosLength" :class="todosDone"
+          ><span class="todos-done">{{ renderChecklist }}</span></span
+        >
+        <span
+          class="badge members"
+          v-for="(member, idx) in taskMembers"
+          :key="idx"
+          ><render-members :member="member"
+        /></span>
+      </span>
+    </div>
   </div>
 </template>
 <script>
-import taskPreviewLabel from './taskPreviewLabel.vue';
-import renderMembers from './renderMembers.vue'
-import RenderMembers from './renderMembers.vue';
+import taskPreviewLabel from "./taskPreviewLabel.vue";
+import renderMembers from "./renderMembers.vue";
+import editModal from "./editModal.vue";
 export default {
-  components: { taskPreviewLabel ,renderMembers},
   name: "taskPreview",
-  props: ["task","board","isMiniPreview"],
+  props: ["task", "board", "isMiniPreview"],
+  data() {
+    return {
+      isOpenEditModal: false,
+    };
+  },
   methods: {
+    openEditModal() {
+      console.log("hi");
+      this.isOpenEditModal = true;
+    },
+    closeEditModal() {
+      console.log("bye");
+      this.isOpenEditModal = false;
+    },
     editTask(taskId) {
       this.$emit("editTask", taskId);
     },
-    miniPreview(){
-      this.$emit("miniPreview")
-    } ,
-    toggleDueDateDone(){
-      let task = JSON.parse(JSON.stringify(this.task))
-      task.dates.isDone = !task.dates.isDone 
-      this.$emit('updateTask',task)
-    }
+    miniPreview() {
+      this.$emit("miniPreview");
+    },
+    toggleDueDateDone() {
+      let task = JSON.parse(JSON.stringify(this.task));
+      task.dates.isDone = !task.dates.isDone;
+      this.$emit("updateTask", task);
+    },
   },
-  computed:{
-    hasCover(){
-      return this.task.style.bgColor
-    },
-    
-    hasInfo(){
-      return (this.hasCommnets || this.hasMembers || this.validateDates || this.hasMembers || this.task.description || this.todosLength) && this.infoCover 
-    },
-    hasCommnets(){
-       return this.task.comments && this.task.comments.length
-    },
-    hasMembers(){
-      return this.task.members && this.task.members.length
-    },
-    startDate(){
-        let dueTime = new Date(this.task.dates.dueDate).getTime()
-        let startTime = new Date(this.task.dates.startDate).getTime()
-      if(dueTime-startTime < (1000*60*60*24))return
-      let date = new Date(this.task.dates.startDate)
-      let shortMonth = date.toLocaleString('en-us', { month: 'short' });
-      let day = date.getDate()
-      let stringDate = `${shortMonth}  ${day} - `
-      return stringDate
-    },
-    dueDate(){
-      
-      let date = new Date(this.task.dates.dueDate)
-      let shortMonth = date.toLocaleString('en-us', { month: 'short' });
-      let day = date.getDate()
-      let stringDate = `${shortMonth}  ${day}`
-
-      return stringDate
-    },
-    isDueDate(){
-      let dateNow = Date.now()
-      let dueTime = new Date(this.task.dates.dueDate).getTime()
-      let isDueToday =  (dueTime - dateNow + 1000*60*60*24) < (1000*60*60*24)
-      let isOverDue = (dueTime - dateNow + 1000*60*60*24) < 0
-      let isDone = this.task.dates.isDone
-      return {'over-due':isOverDue&!isDone, 'due-soon': !isOverDue&&isDueToday&&!isDone , done:isDone}
+  computed: {
+    hasCover() {
+      return this.task.style.bgColor;
     },
 
-    validateDates(){
-      return this.task.dates.startDate || this.task.dates.dueDate
+    hasInfo() {
+      return (
+        (this.hasCommnets ||
+          this.hasMembers ||
+          this.validateDates ||
+          this.hasMembers ||
+          this.task.description ||
+          this.todosLength) &&
+        this.infoCover
+      );
     },
-    taskMembers(){
-      return this.task.members 
+    hasCommnets() {
+      return this.task.comments && this.task.comments.length;
     },
-    bgColor(){
-      return {'background-color':this.task.style.bgColor}
+    hasMembers() {
+      return this.task.members && this.task.members.length;
     },
-    infoCover(){
-      return this.task.style.isInfo
+    startDate() {
+      let dueTime = new Date(this.task.dates.dueDate).getTime();
+      let startTime = new Date(this.task.dates.startDate).getTime();
+      if (dueTime - startTime < 1000 * 60 * 60 * 24) return;
+      let date = new Date(this.task.dates.startDate);
+      let shortMonth = date.toLocaleString("en-us", { month: "short" });
+      let day = date.getDate();
+      let stringDate = `${shortMonth}  ${day} - `;
+      return stringDate;
     },
-    taskChecklist(){
-      return this.task.checklists
+    dueDate() {
+      let date = new Date(this.task.dates.dueDate);
+      let shortMonth = date.toLocaleString("en-us", { month: "short" });
+      let day = date.getDate();
+      let stringDate = `${shortMonth}  ${day}`;
+
+      return stringDate;
     },
-    todosLength(){
-      let todosLength = this.task.checklists.reduce((acc,checklist)=>{
-       acc += checklist.todos.length
-       return acc
-      },0)
-      return todosLength
+    isDueDate() {
+      let dateNow = Date.now();
+      let dueTime = new Date(this.task.dates.dueDate).getTime();
+      let isDueToday =
+        dueTime - dateNow + 1000 * 60 * 60 * 24 < 1000 * 60 * 60 * 24;
+      let isOverDue = dueTime - dateNow + 1000 * 60 * 60 * 24 < 0;
+      let isDone = this.task.dates.isDone;
+      return {
+        "over-due": isOverDue & !isDone,
+        "due-soon": !isOverDue && isDueToday && !isDone,
+        done: isDone,
+      };
     },
-    renderChecklist(){
-   
-      let done = this.task.checklists.reduce((acc,checklist)=>{
-       acc += checklist.todos.reduce((acc,todo)=>{
-         if(todo.isDone) acc++
-         return acc
-       },0)
-       return acc
-      },0)
-      return `${done}/${this.todosLength}`
+
+    validateDates() {
+      return this.task.dates.startDate || this.task.dates.dueDate;
     },
-    mainContentBgColor(){
-      if(!this.task.style.isInfo){
-        return {'background-color':this.task.style.bgColor}
+    taskMembers() {
+      return this.task.members;
+    },
+    bgColor() {
+      return { "background-color": this.task.style.bgColor };
+    },
+    infoCover() {
+      return this.task.style.isInfo;
+    },
+    taskChecklist() {
+      return this.task.checklists;
+    },
+    todosLength() {
+      let todosLength = this.task.checklists.reduce((acc, checklist) => {
+        acc += checklist.todos.length;
+        return acc;
+      }, 0);
+      return todosLength;
+    },
+    renderChecklist() {
+      let done = this.task.checklists.reduce((acc, checklist) => {
+        acc += checklist.todos.reduce((acc, todo) => {
+          if (todo.isDone) acc++;
+          return acc;
+        }, 0);
+        return acc;
+      }, 0);
+      return `${done}/${this.todosLength}`;
+    },
+    mainContentBgColor() {
+      if (!this.task.style.isInfo) {
+        return { "background-color": this.task.style.bgColor };
       }
     },
-    
-    todosDone(){
-      let todosLength = this.todosLength
-       let doneTodos = this.task.checklists.reduce((acc,checklist)=>{
-       acc += checklist.todos.reduce((acc,todo)=>{
-         if(todo.isDone) acc++
-         return acc
-       },0)
-       return acc
-      },0)
 
-       return {'done-todos': todosLength === doneTodos}
-    }
-    
+    todosDone() {
+      let todosLength = this.todosLength;
+      let doneTodos = this.task.checklists.reduce((acc, checklist) => {
+        acc += checklist.todos.reduce((acc, todo) => {
+          if (todo.isDone) acc++;
+          return acc;
+        }, 0);
+        return acc;
+      }, 0);
 
-
-
+      return { "done-todos": todosLength === doneTodos };
+    },
   },
-  components:{
-      taskPreviewLabel, RenderMembers
-    }
+  components: {
+    taskPreviewLabel,
+    renderMembers,
+    editModal,
+  },
 };
 </script>

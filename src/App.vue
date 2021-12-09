@@ -15,8 +15,6 @@ export default {
   },
   data() {
     return {
-
-      
       routes: ["/", "/workspace", "/signup"],
       noBgc: false,
     };

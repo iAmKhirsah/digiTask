@@ -74,17 +74,18 @@
     content: '\e908';
     color: #42526e;
 }
-.archives::before {
+.archive-icon::before {
     content: '\e907';
-    color: #42526e;
+    
 }
-.covers::before {
+.cover-icon::before {
     content: '\e914';
-    color: #42526e;
+}
+.dates-icon::before {
+    content: "\e91b";
 }
 .label-icon::before {
     content: '\e93f';
-    color: #42526e;
 }
 .menu-dots::before {
     content: '\e952';
@@ -105,9 +106,22 @@
 }
 .checklist-icon::before {
     content: '\e91a';
- 
 }
- .add-member-icon::before{
-     content: '\e902';
-     color: #42526e;
- }
+.add-member-icon::before {
+    content: '\e902';
+}
+.edit-pencil-icon::before {
+    content: '\e928';
+    color: #42526e;
+}
+
+.card-icon::before {
+    content: '\e912';
+    color: #fff;
+}
+.member-icon::before {
+    content: "\e946";
+}
+
+
+
