@@ -196,6 +196,12 @@ export default {
       },0)
 
        return {'done-todos': todosLength === doneTodos}
+    },
+    getBoard(){
+      return this.$store.getters.getCurrBoard
+    },
+    getTask(){
+      return this.$store.getters.getTask
     }
     
 
