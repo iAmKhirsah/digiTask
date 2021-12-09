@@ -8,6 +8,7 @@
             :style="inputWidth"
             v-model="board.title"
             @focus="$event.target.select()"
+            v-click-outside="updateBoard(board)"
           />
         </div>
         <div class="board-box star" @click="starredBoard">
