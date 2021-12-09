@@ -39,20 +39,19 @@
           <span class="tab-title">Archive</span>
         </div>
       </div>
+      <component :is="renderCmp" :board="getBoard" :task="getTask"></component>
     </div>
-    <edit-dynamic :type="type" />
   </div>
 </template>
 
 <script>
 import vClickOutside from "v-click-outside";
-// import members from "./dynamic_components/members.vue";
-// import labels from "./dynamic_components/labels.vue";
-// import dates from "./dynamic_components/dates.vue";
-// import cover from "./dynamic_components/cover.vue";
-// import archive from "./dynamic_components/archive.vue";
-// import copy from "./dynamic_components/copy.vue";
-import editDynamic from "./editDynamic.vue";
+import members from "./dynamic_components/members.vue";
+import labels from "./dynamic_components/labels.vue";
+import dates from "./dynamic_components/dates.vue";
+import cover from "./dynamic_components/cover.vue";
+import archive from "./dynamic_components/archive.vue";
+import copy from "./dynamic_components/copy.vue";
 export default {
   name: "editModal",
   directives: {
@@ -72,23 +71,22 @@ export default {
     },
   },
   computed: {
-    // renderCmp() {
-    //   if (this.type === "members") return members;
-    //   else if (this.type === "labels") return labels;
-    //   else if (this.type === "dates") return dates;
-    //   else if (this.type === "cover") return cover;
-    //   else if (this.type === 'copy') return copy
-    //   else if (this.type === "archive") return archive;
-    // },
+    renderCmp() {
+      if (this.type === "members") return members;
+      else if (this.type === "labels") return labels;
+      else if (this.type === "dates") return dates;
+      else if (this.type === "cover") return cover;
+      else if (this.type === "copy") return copy;
+      else if (this.type === "archive") return archive;
+    },
   },
   components: {
-    editDynamic,
-    // members,
-    // labels,
-    // dates,
-    // cover,
-    // archive,
-    // copy,
+    members,
+    labels,
+    dates,
+    cover,
+    archive,
+    copy,
   },
 };
 </script>
