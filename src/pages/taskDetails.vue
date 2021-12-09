@@ -26,10 +26,10 @@
               @keydown.enter.prevent
               oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
               onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-              v-model="currTask.title"
+              v-model="taskTitle"
               maxlength="512"
               placeholder="Enter Task title..."
-              v-click-outside="saveTask"
+              v-click-outside="saveTitle"
             />
           </form>
           <div v-else>
@@ -189,6 +189,7 @@ export default {
       pageOpen: null,
       type: "",
       currTask: {},
+      taskTitle:'',
       titleEdit: false,
       descEdit: false,
     };
@@ -200,8 +201,10 @@ export default {
     let boardId = this.$route.params.boardId
     console.log(boardId)
     await this.$store.dispatch({ type: "getTaskDetails", boardId, taskId, groupId });
+    
+    this.currTask = JSON.parse(JSON.stringify(this.getTask))
+    this.taskTitle = this.currTask.title
     this.pageOpen = true;
-    this.currTask = this.getTask;
     }catch(err){
      console.log('Couldnt load task',err)
     }
@@ -215,6 +218,10 @@ export default {
         this.$refs.taskTitle.focus();
       });
     },
+    saveTitle(){
+      this.currTask.title = this.taskTitle
+      this.saveTask()
+    },
     editDesc() {
       this.descEdit = true;
       this.titleEdit = false;
@@ -227,15 +234,16 @@ export default {
     },
     async saveTask() {
       try {
-        if (this.currTask.title.match(/^\s*$/)) {
-          this.currTask.title = this.getTask.title;
+        if (this.taskTitle.match(/^\s*$/)) {
+          this.taskTitle = this.currTask.title;
           this.titleEdit = false;
           return;
         }
         this.titleEdit = false;
-        let task = { ...this.currTask };
-        await this.updatedTask(task);
-        this.currTask = { ...this.getTask };
+        // let task = JSON.parse(JSON.stringify(this.currTask))
+        // await this.updatedTask(task);
+         await this.updatedTask(this.currTask);
+        // this.currTask = JSON.parse(JSON.stringify(this.getTask)) 
       } catch (err) {
         console.log("Couldnt SAVE TASK TITLE", err);
       }
@@ -304,12 +312,12 @@ export default {
       }
     },
     async updateBoard(board) {
-      this.$store.dispatch({ type: "updateBoard", board });
+      await this.$store.dispatch({ type: "updateBoard", board });
      
      
     },
     async updateGroup(group) {
-      this.$store.dispatch({ type: "updateGroup", group });
+      await this.$store.dispatch({ type: "updateGroup", group });
     
     },
     async attachment(link, task) {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-if="board"
+      v-if="getCurrBoard"
       class="board-details-container"
       v-dragscroll:nochilddrag
       :class="menuOpen"
@@ -112,8 +112,7 @@ export default {
       let boardId = this.$route.params.boardId;
       await this.$store.dispatch({ type: "loadBoards" });
       await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
-      this.board = await { ...this.$store.getters.getCurrBoard };
-      console.log(this.board);
+      this.board = this.getCurrBoard
       // this.board = JSON.parse(JSON.stringify(this.getCurrBoard))
       if (!this.board) this.$router.push("/");
       if (!this.board.groups.length) return;
@@ -133,7 +132,8 @@ export default {
       await this.$store.dispatch({ type: "removeBoard", boardId });
     },
     async updateGroup(group) {
-      await this.$store.dispatch({ type: "updateGroup", group });
+      let updatedGroup = JSON.parse(JSON.stringify(group))
+      await this.$store.dispatch({ type: "updateGroup", updatedGroup });
     },
     toggleNewGroup() {
       this.isNewGroup = !this.isNewGroup;
@@ -149,8 +149,8 @@ export default {
     async updateBoard(board) {
       try {
         await this.$store.dispatch({ type: "updateBoard", board });
-        // this.board = JSON.parse(JSON.stringify(this.getCurrBoard));
-        this.board = { ...this.getCurrBoard };
+        this.board = JSON.parse(JSON.stringify(this.getCurrBoard));
+        // this.board = this.getCurrBoard 
       } catch (err) {
         console.log("Couldnt update board", err);
       }
@@ -236,8 +236,9 @@ export default {
   },
   computed: {
     boardGroups() {
-      return this.board.groups;
+      return this.$store.getters.getCurrBoard.groups;
     },
+
     getCurrBoard() {
       return this.$store.getters.getCurrBoard;
     },
