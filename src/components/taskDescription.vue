@@ -1,6 +1,6 @@
 <template>
   <div class="task-description">
-    <p>Description</p>
+    <p class="task-description-title">Description</p>
     <div
       class="task-description-content"
       v-click-outside="saveDesc"

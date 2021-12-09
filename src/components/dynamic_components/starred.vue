@@ -3,7 +3,7 @@
     <div class="header-layout">
       <header>Starred boards</header>
       <button @click="closeModal">
-        <span class="icon-lg close-icon"> </span>
+        <span class="icon-sm close-icon"> </span>
       </button>
     </div>
     <div v-for="board in getStarredBoards" :key="board._id">
@@ -12,7 +12,7 @@
           class="starred-board-background"
           :style="'background:' + board.style.backgroundColor"
         ></div>
-        <div>
+        <div class="board-title">
           {{ board.title }}
         </div>
         <div class="board-box star" @click.stop="starredBoard(board._id)">

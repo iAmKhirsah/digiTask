@@ -18,7 +18,7 @@
           Starred
           <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
         </div>
-        <div class="main-header-tabs" @click="setType('create')">Create</div>
+        <div class="main-header-tabs create" @click="setType('create')">Create</div>
       </div>
       <div class="main-header-right">
         <div class="input-container">

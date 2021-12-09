@@ -1,10 +1,13 @@
 .task-description {
     display: flex;
-    gap: 10px;
+    gap: 16px;
     padding: 0px 8px 0 15px;
-    margin: 0 0 8px 40px;
+    margin: 0 0 37px 40px;
     position: relative;
     flex-direction: column;
+    .task-description-title{
+font-weight: 600;
+    }
 
     .task-description-content {
         .task-description-buttons {

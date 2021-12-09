@@ -14,6 +14,7 @@
           <span v-if="isStarred"><i class="fas fa-star"></i></span>
           <span v-else><i class="far fa-star"></i></span>
         </div>
+        <div class="divider"></div>
         <div class="users-container">
           <div
             v-for="member in getBoardMembers"
@@ -26,7 +27,7 @@
           </div>
         </div>
         <div>
-          <div class="board-box invite" @click="setType('invite')">Invite</div>
+          <div class="board-box invite" @click="setType('invite')"> <span class="icon-sm add-member-icon"></span> Invite</div>
         </div>
       </div>
 

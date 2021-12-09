@@ -79,7 +79,7 @@
             <div class="task-details-activity">
               <div class="task-details-activity-content">
                 <span> <i class="fas fa-align-left"></i></span>
-                <p>Activity</p>
+                <p class="task-activity-title">Activity</p>
               </div>
               <form @submit.prevent="sendMsg">
                 <div class="user-tag-name in-header">DR</div>

@@ -9,12 +9,14 @@
     gap: 12px;
     transition: padding 0.3s;
 
-    &.menu-open{
+    &.menu-open {
         padding-right: 366px;
     }
     .board-header-left {
         display: flex;
         gap: 4px;
+        justify-content: center;
+        align-items: flex-start;
         .members {
             display: flex;
             padding: 2px 0px;
@@ -25,6 +27,7 @@
         .users-container {
             display: flex;
             padding-left: 4px;
+            margin-right: 4px;
         }
     }
 
@@ -90,18 +93,26 @@
                 color: $clr5;
             }
         }
-        &.hidden{
+        &.hidden {
             display: none;
         }
 
         &.invite {
-            color: $clr1;
+            color: #000;
             height: 32px;
             padding: 0 6px;
             text-align: center;
             line-height: 30px;
             cursor: pointer;
             font-size: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 72px;
+            background-color: #fff;
+            &:hover {
+                background-color: #ffffffe6;
+            }
         }
 
         input {

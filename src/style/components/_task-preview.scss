@@ -64,6 +64,7 @@
   padding-left: 6px;
   font-size: 14px;
   padding-bottom: 5px;
+  margin-top: 2px;
 
   .add-task-form {
     gap: 6px;
@@ -80,7 +81,7 @@
       resize: none;
       height: 30px;
       width: 255px;
-      min-height: 66px;
+      // min-height: 66px;
       font-size: 16px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
@@ -271,7 +272,10 @@
     top: 3px;
     left: 7px;
     .material-icons {
+      font-size: 20px ;
       color: #6b778c;
+      line-height: 25px;
+
     }
   }
 }
