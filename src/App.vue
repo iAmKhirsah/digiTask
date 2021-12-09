@@ -2,7 +2,7 @@
   <main>
     <div :class="isDefault" :style="getImgOrColor"></div>
     <div id="app">
-      <app-header></app-header>
+      <app-header v-if="header"></app-header>
       <router-view></router-view>
     </div>
   </main>
@@ -15,10 +15,10 @@ export default {
   },
   data() {
     return {
-
-      
       routes: ["/", "/workspace", "/signup"],
+      homeRoute: "/",
       noBgc: false,
+      header: true,
     };
   },
   computed: {
@@ -40,6 +40,8 @@ export default {
       handler() {
         if (this.routes.includes(this.$route.path)) this.noBgc = true;
         else this.noBgc = false;
+        if (this.$route.path === this.homeRoute) this.header = false;
+        else this.header = true;
       },
       immediate: true,
     },
