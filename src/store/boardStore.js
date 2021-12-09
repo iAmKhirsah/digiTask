@@ -166,6 +166,12 @@ export const boardStore = {
       const idx = state.currBoard.groups.findIndex(
         (currGroup) => currGroup.id === state.currGroup.id
       );
+      // const idx = state.currBoard.groups.findIndex(
+      //   (currGroup) => {
+      //     return currGroup.tasks.some((currTask)=> currTask.id===task.id)
+          
+      //   }
+      // );
       const taskIdx = state.currBoard.groups[idx].tasks.findIndex(
         (currTask) => currTask.id === task.id
       );
