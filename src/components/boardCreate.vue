@@ -39,13 +39,9 @@
     <button @click="createBoard" class="create-btn">Create board</button>
   </div>
 </template>
-
-
-
    
 <script>
 import vClickOutside from "v-click-outside";
-
 export default {
   name: "boardCreate",
   data() {
@@ -70,7 +66,7 @@ export default {
     setBackground(background) {
       this.board.background = background;
     },
-    createBoard() {
+ createBoard() {
       this.board.title.match(/^\s*$/);
       this.$emit("createBoard", this.board);
       this.board = {

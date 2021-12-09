@@ -33,7 +33,7 @@
             />
           </form>
           <div v-else>
-            <h1 @click="editTitle">{{ currTask.title }}</h1>
+            <h1 @click="editTitle">{{ getTask.title }}</h1>
             <p>in group {{ getGroup.title }}<span></span></p>
           </div>
         </div>
@@ -194,11 +194,18 @@ export default {
     };
   },
   async created() {
-    let groupId = this.$route.params.groupId;
+    try{
+      let groupId = this.$route.params.groupId;
     let taskId = this.$route.params.taskId;
-    await this.$store.dispatch({ type: "getTaskDetails", taskId, groupId });
+    let boardId = this.$route.params.boardId
+    console.log(boardId)
+    await this.$store.dispatch({ type: "getTaskDetails", boardId, taskId, groupId });
     this.pageOpen = true;
     this.currTask = this.getTask;
+    }catch(err){
+     console.log('Couldnt load task',err)
+    }
+    
   },
   methods: {
     editTitle() {

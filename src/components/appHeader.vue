@@ -22,7 +22,7 @@
       </div>
       <div class="main-header-right">
         <div class="input-container">
-          <filter-app-header class="main-header-search" :boards="boards" />
+          <filter-app-header class="main-header-search" :boards="getBoards" />
           <!-- <input type="text" placeholder="Search" class="main-header-search" /> -->
           <span class="search"><i class="fas fa-search"></i></span>
         </div>

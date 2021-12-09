@@ -54,8 +54,6 @@ export default {
   computed: {
     getStarredBoards() {
       let boards = [];
-      console.log(this.user);
-      console.log(this.getBoards);
       this.getBoards.forEach((board) => {
         let starredBoards = this.user.starred.find(
           (boardId) => boardId === board._id

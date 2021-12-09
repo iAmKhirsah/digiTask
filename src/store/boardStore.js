@@ -79,19 +79,23 @@ export const boardStore = {
       state.currBoard.groups.push(newGroup);
       this.newGroup = boardService.getEmptyGroup();
     },
-    createBoard(state, { board, user }) {
-      let newBoard = boardService.getEmptyBoard();
-      newBoard.createdBy = user;
-      newBoard.title = board.title;
+     async createBoard(state, { board, user }) {
+      try{
+        let emptyBoard = boardService.getEmptyBoard();
+        emptyBoard.createdBy = user;
+        emptyBoard.title = board.title;
       if (board.imgUrl) {
-        newBoard.style.backgroundUrl = board.imgUrl;
+        emptyBoard.style.backgroundUrl = board.imgUrl;
       }
       if (!board.background)
-        newBoard.style.backgroundColor = 'rgb(0, 121, 191)';
-      else newBoard.style.backgroundColor = board.background;
-      boardService.add(newBoard);
+      emptyBoard.style.backgroundColor = 'rgb(0, 121, 191)';
+      else emptyBoard.style.backgroundColor = board.background;
+      let newBoard = await boardService.add(emptyBoard);
       if (!state.boards.length) state.boards = [];
       state.boards.push(newBoard);
+      }catch(err){
+        console.log('Couldnt create board',err)
+      }
     },
     addActivity(state, { activity }) {
       let newActivity = boardService.getEmptyActivity();
@@ -139,10 +143,15 @@ export const boardStore = {
       );
       state.currBoard.groups[idx].tasks.push(newTask);
     },
-    getDetails(state, { taskId, groupId }) {
+    getDetails(state, {boardId, taskId, groupId }) {
+      console.log(boardId)
+      let boardIdx = state.boards.findIndex((board)=>board._id===boardId)
+      console.log('BoardIdx',boardIdx)
+      state.currBoard = state.boards[boardIdx]
       let idx = state.currBoard.groups.findIndex(
         (group) => group.id === groupId
       );
+      console.log('idx',idx)
       state.currGroup = state.currBoard.groups[idx];
       state.currTask = state.currGroup.tasks.find((task) => task.id === taskId);
     },
@@ -175,7 +184,7 @@ export const boardStore = {
       state.currBoard.groups.splice(idx, 1);
     },
     addBoard(state, { board }) {
-      if (!state.boards.length) state.boards = [];
+      // if (!state.boards.length) state.boards = [];
       state.boards.push(board);
     },
     applyDrag(state, { content }) {
@@ -286,9 +295,9 @@ export const boardStore = {
         console.log('Error on board store REMOVETASK', err);
       }
     },
-    async getTaskDetails({ commit }, { taskId, groupId }) {
+    async getTaskDetails({ commit }, {boardId, taskId, groupId }) {
       try {
-        commit({ type: 'getDetails', taskId, groupId });
+        commit({ type: 'getDetails',boardId, taskId, groupId });
       } catch (err) {
         console.log('Error on board store GETTASKDETAILS', err);
       }
@@ -325,9 +334,21 @@ export const boardStore = {
         console.log('Error on board store ADDACTIVITY', err);
       }
     },
-    async createBoard({ dispatch, commit }, { board, user }) {
+    async createBoard({ dispatch, commit }, { board}) {
       try {
-        commit({ type: 'createBoard', board, user });
+        let emptyBoard = boardService.getEmptyBoard();
+        // emptyBoard.createdBy = user;
+        emptyBoard.title = board.title;
+      if (board.imgUrl) {
+        emptyBoard.style.backgroundUrl = board.imgUrl;
+      }
+      if (!board.background)
+      emptyBoard.style.backgroundColor = 'rgb(0, 121, 191)';
+      else emptyBoard.style.backgroundColor = board.background;
+      let newBoard = await boardService.add(emptyBoard);
+      console.log(newBoard)
+       commit({type:'addBoard',board:newBoard})
+       console.log('now im here')
       } catch (err) {
         console.log('Error on board store CREATEBOARD');
       }

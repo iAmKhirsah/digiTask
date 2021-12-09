@@ -12,9 +12,9 @@
         <h1>Workspace</h1>
       </div>
       <div class="boards-container">
-        <div class="boards-containers-my-boards">
+        <div  class="boards-containers-my-boards" v-if="getBoards">
           <div
-            v-for="board in boards"
+            v-for="board in getBoards"
             :key="board._id"
             class="board-card"
             :style="board.style"
@@ -43,25 +43,37 @@ export default {
   name: "digiApp",
   data() {
     return {
-      boards: null,
+      // boards: this.$store.getters.boards,
       createMenu: false,
     };
   },
   async created() {
     await this.$store.dispatch({ type: "loadBoards" });
-    this.boards = this.$store.getters.boards;
+    // this.boards = this.$store.getters.boards;
   },
   methods: {
     openCreateMenu() {
       this.createMenu = true;
     },
-    closeCreateMenu() {
+    async closeCreateMenu() {
+      //  await this.$store.dispatch({ type: "loadBoards" });
+      this.createMenu = false;
+      // this.boards = this.$store.getters.boards;
+    },
+   async  createBoard(board) {
+      let user = this.$store.getters.currUser;
+      await this.$store.dispatch({
+        type: "createBoard",
+        board,
+      });
       this.createMenu = false;
     },
-    createBoard(board) {
-      let user = this.$store.getters.currUser;
-      this.$store.dispatch({ type: "createBoard", board, user });
-    },
+  },
+  computed:{
+    getBoards(){
+      console.log(this.$store.getters.boards)
+     return this.$store.getters.boards
+    }
   },
   components: {
     boardCreate,

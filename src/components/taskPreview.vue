@@ -183,19 +183,28 @@ export default {
         return { "background-color": this.task.style.bgColor };
       }
     },
+    
+    todosDone(){
+      let todosLength = this.todosLength
+       let doneTodos = this.task.checklists.reduce((acc,checklist)=>{
+       acc += checklist.todos.reduce((acc,todo)=>{
+         if(todo.isDone) acc++
+         return acc
+       },0)
+       return acc
+      },0)
 
-    todosDone() {
-      let todosLength = this.todosLength;
-      let doneTodos = this.task.checklists.reduce((acc, checklist) => {
-        acc += checklist.todos.reduce((acc, todo) => {
-          if (todo.isDone) acc++;
-          return acc;
-        }, 0);
-        return acc;
-      }, 0);
-
-      return { "done-todos": todosLength === doneTodos };
+       return {'done-todos': todosLength === doneTodos}
     },
+    getBoard(){
+      return this.$store.getters.getCurrBoard
+    },
+    getTask(){
+      return this.$store.getters.getTask
+    }
+    
+
+
   },
   components: {
     taskPreviewLabel,
