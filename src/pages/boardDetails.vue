@@ -106,25 +106,22 @@ export default {
     };
   },
   async created() {
-    try{
+    try {
       this.newGroup = { ...this.$store.getters.getEmptyGroup };
-    this.newTask = { ...this.$store.getters.getEmptyTask };
-    let boardId = this.$route.params.boardId;
-    await this.$store.dispatch({ type: "loadBoards" });
-    await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
-    // this.board = { ...this.$store.getters.getCurrBoard };
-    console.log(this.board);
-    this.board = JSON.parse(JSON.stringify(this.getCurrBoard))
-    if (!this.board) this.$router.push("/");
-    if (!this.board.groups.length) return;
-    this.$store.commit({ type: "setLoggedinUser" });
-    
+      this.newTask = { ...this.$store.getters.getEmptyTask };
+      let boardId = this.$route.params.boardId;
+      await this.$store.dispatch({ type: "loadBoards" });
+      await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
+      this.board = await { ...this.$store.getters.getCurrBoard };
+      console.log(this.board);
+      // this.board = JSON.parse(JSON.stringify(this.getCurrBoard))
+      if (!this.board) this.$router.push("/");
+      if (!this.board.groups.length) return;
+      this.$store.commit({ type: "setLoggedinUser" });
+    } catch (err) {
+      console.log("Couldnt create and watch board ", err);
+      this.$router.push("/workspace");
     }
-    catch(err){
-      console.log('Couldnt create and watch board ',err)
-      this.$router.push('/workspace')
-    }
-    
   },
   destroyed() {
     this.board = null;
@@ -148,13 +145,13 @@ export default {
       this.isMiniPreview = !this.isMiniPreview;
     },
     async updateBoard(board) {
-      try{
+      try {
         await this.$store.dispatch({ type: "updateBoard", board });
-      this.board = JSON.parse(JSON.stringify(this.getCurrBoard));
-      }catch(err){
-        console.log('Couldnt update board',err)
+        // this.board = JSON.parse(JSON.stringify(this.getCurrBoard));
+        this.board = { ...this.getCurrBoard };
+      } catch (err) {
+        console.log("Couldnt update board", err);
       }
-      
     },
     async addGroup() {
       try {
@@ -165,9 +162,7 @@ export default {
           });
           return;
         }
-
         let group = { ...this.newGroup };
-
         await this.$store.dispatch({ type: "addGroup", group });
         this.newGroup = { ...this.$store.getters.getEmptyGroup };
         this.newGroup.title;
@@ -256,7 +251,6 @@ export default {
     menuOpen() {
       return { "menu-open": this.showMenuOpen };
     },
-
     // background(){
     //   return this.board.style.backgroundColor ? this.board.style.backgroundColor : this.board.style.backgroundUrl
     // }
@@ -275,6 +269,23 @@ export default {
   directives: {
     dragscroll,
     clickOutside: vClickOutside.directive,
+  },
+  watch: {
+    "$route.params.boardId": {
+      async handler() {
+        // if (this.board._id !== boardId) this.board = this.getCurrBoard;
+        if (this.board._id !== this.$route.params.boardId) {
+          console.log(this.board._id !== this.$route.params.boardId);
+          console.log(this.$route.params.boardId);
+          await this.$store.dispatch({
+            type: "loadAndWatchBoard",
+            boardId: this.$route.params.boardId,
+          });
+          console.log(this.getCurrBoard);
+          this.board = this.getCurrBoard;
+        }
+      },
+    },
   },
 };
 </script>

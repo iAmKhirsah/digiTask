@@ -78,6 +78,7 @@ export default {
       this.setType("");
     },
     loadBoard(boardId) {
+      console.log(boardId);
       this.$store.dispatch({type: 'loadAndWatchBoard', boardId});
     },
   },

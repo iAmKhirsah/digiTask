@@ -40,6 +40,7 @@ export default {
       this.$emit("closeModal");
     },
     async goToBoard(boardId) {
+      this.$emit("loadBoard", boardId);
       this.$nextTick(() => {
         this.$router.push(`/b/${boardId}`);
       });
