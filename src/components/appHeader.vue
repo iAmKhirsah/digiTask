@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="main-header-container">
+    <section class="main-header-container" v-click-outside="setType">
       <div class="main-header-left">
         <span class="trello-logo"><i class="fab fa-trello"></i></span>
         <div class="logo main-header-tabs">
