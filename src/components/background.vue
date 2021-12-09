@@ -12,11 +12,15 @@
     <section class="board-background-container">
       <div class="board-background-selection" v-if="!type">
         <div class="board-background-tile" @click="openSection('photos')">
-          <div class="board-background-image"><img src="../assets/img/background-photos.jpg"></div>
+          <div class="board-background-image">
+            <img src="../assets/img/background-photos.jpg" />
+          </div>
           <div class="title">Photos</div>
         </div>
         <div class="board-background-tile" @click="openSection('colors')">
-          <div class="board-background-image"><img src="../assets/img/background-colors.jpg"></div>
+          <div class="board-background-image">
+            <img src="../assets/img/background-colors.jpg" />
+          </div>
           <div class="title">Colors</div>
         </div>
       </div>
@@ -61,10 +65,14 @@ export default {
         "rgb(131, 140, 145)",
       ],
       photos: [{}],
+      currBoard: null,
     };
   },
-  created(){
- 
+  created() {
+    // this.currBoard = JSON.parse(
+    //   JSON.stringify(this.$store.getters.getCurrBoard)
+    // );
+    this.currBoard = JSON.parse(JSON.stringify(this.getCurrBoard));
   },
   methods: {
     openSection(type) {
@@ -79,21 +87,26 @@ export default {
       this.$emit("closeShowMenu");
     },
     setBackground(background, type) {
-     let updatedBoard = JSON.parse(JSON.stringify(this.$store.getters.getCurrBoard))
+      let updatedBoard = this.currBoard;
       if (type === "color") {
-       updatedBoard.style.backgroundColor = background;
+        updatedBoard.style.backgroundColor = background;
         updatedBoard.style.backgroundUrl = "";
       } else if (type === "photo") {
         updatedBoard.style.backgroundUrl = background;
         updatedBoard.style.backgroundColor = "";
       }
       /// BENY REALLY WANTS REGEX HERE SO REMIND HIM CONSTANTLY
-      this.$emit("updateBoard", updatedBoard);
+
+      this.$emit("updateBoard", JSON.parse(JSON.stringify(updatedBoard)));
+      // this.$emit("updateBoard", updatedBoard);
     },
   },
   computed: {
     menuHeader() {
       // return this.type === 'color' ? 'Colors' || this.type  === 'photos' ? 'Photos by Unsplash' || this.type ? 'Change background'
+    },
+    getCurrBoard() {
+      return this.$store.getters.getCurrBoard;
     },
   },
 };

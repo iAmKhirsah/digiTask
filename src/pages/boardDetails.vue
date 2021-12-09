@@ -107,26 +107,26 @@ export default {
   },
   async created() {
     try {
-      await this.$store.dispatch({ type: "loadBoards" });
       this.newGroup = { ...this.$store.getters.getEmptyGroup };
       this.newTask = { ...this.$store.getters.getEmptyTask };
       let boardId = this.$route.params.boardId;
+      await this.$store.dispatch({ type: "loadBoards" });
       await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
-      // this.board = JSON.parse(JSON.stringify(this.getCurrBoard));
-      this.board = {...this.getCurrBoard}
-      
+      this.board = await { ...this.$store.getters.getCurrBoard };
+      console.log(this.board);
+      // this.board = JSON.parse(JSON.stringify(this.getCurrBoard))
       if (!this.board) this.$router.push("/");
       if (!this.board.groups.length) return;
-      
       this.$store.commit({ type: "setLoggedinUser" });
-
     } catch (err) {
       console.log("Couldnt create and watch board ", err);
       this.$router.push("/workspace");
     }
   },
-  destroyed(){
-    this.board = {}
+  destroyed() {
+    this.board = null;
+  // destroyed(){
+  //   this.board = {}
   },
   methods: {
     async removeBoard(boardId) {
@@ -149,8 +149,8 @@ export default {
     async updateBoard(board) {
       try {
         await this.$store.dispatch({ type: "updateBoard", board });
-        this.board={...board}
         // this.board = JSON.parse(JSON.stringify(this.getCurrBoard));
+        this.board = { ...this.getCurrBoard };
       } catch (err) {
         console.log("Couldnt update board", err);
       }
@@ -164,6 +164,7 @@ export default {
           });
           return;
         }
+        // let group = { ...this.newGroup };
         let group = this.newGroup 
         await this.$store.dispatch({ type: "addGroup", group });
         this.newGroup = { ...this.$store.getters.getEmptyGroup };
@@ -240,13 +241,9 @@ export default {
     getCurrBoard() {
       return this.$store.getters.getCurrBoard;
     },
-    getBoard() {
-      return this.board;
-    },
     menuOpen() {
       return { "menu-open": this.showMenuOpen };
     },
-
     // background(){
     //   return this.board.style.backgroundColor ? this.board.style.backgroundColor : this.board.style.backgroundUrl
     // }
@@ -266,6 +263,23 @@ export default {
   directives: {
     dragscroll,
     clickOutside: vClickOutside.directive,
+  },
+  watch: {
+    "$route.params.boardId": {
+      async handler() {
+        // if (this.board._id !== boardId) this.board = this.getCurrBoard;
+        if (this.board._id !== this.$route.params.boardId) {
+          console.log(this.board._id !== this.$route.params.boardId);
+          console.log(this.$route.params.boardId);
+          await this.$store.dispatch({
+            type: "loadAndWatchBoard",
+            boardId: this.$route.params.boardId,
+          });
+          console.log(this.getCurrBoard);
+          this.board = this.getCurrBoard;
+        }
+      },
+    },
   },
 };
 </script>
