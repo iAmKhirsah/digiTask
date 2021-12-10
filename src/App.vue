@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main>  
     <div :class="isDefault" :style="getImgOrColor"></div>
     <div id="app">
       <app-header v-if="header"></app-header>
@@ -21,7 +21,7 @@ export default {
       // signRoute: '/signup',
       noHeaderRoutes: ['/', '/signup'],
       noBgc: false,
-      header: true,
+      header: true
     };
   },
   computed: {
@@ -48,6 +48,6 @@ export default {
       },
       immediate: true,
     },
-  },
+  }
 };
 </script>
