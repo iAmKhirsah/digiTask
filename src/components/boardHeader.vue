@@ -5,9 +5,11 @@
       <div class="board-header-left">
         <div class="board-box">
           <input
+          ref="title"
             :style="inputWidth"
             v-model="boardTitle"
             @focus="$event.target.select()"
+             v-on:keydown.enter="updateTitle"
            @blur="updateTitle"
           />
           <!-- v-click-outside="updateBoard(board)" -->
@@ -98,8 +100,12 @@ export default {
         this.boardTitle = JSON.parse(JSON.stringify(this.getCurrBoard.title))
         return
       }
+    this.$nextTick(()=>{
+      this.$refs.title.blur()
+    })
       let board= JSON.parse(JSON.stringify(this.getCurrBoard))
       board.title = this.boardTitle
+      
       this.updateBoard(board)
     },
     starredBoard() {

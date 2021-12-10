@@ -129,11 +129,21 @@ export default {
   },
   methods: {
     async removeBoard(boardId) {
-      await this.$store.dispatch({ type: "removeBoard", boardId });
+      try{
+        await this.$store.dispatch({ type: "removeBoard", boardId });
+      }catch(err){
+        console.log('couldnt remove board')
+      }
+      
     },
     async updateGroup(group) {
-      let updatedGroup = JSON.parse(JSON.stringify(group))
-      await this.$store.dispatch({ type: "updateGroup", updatedGroup });
+      try{
+        // let updatedGroup = JSON.parse(JSON.stringify(group))
+      await this.$store.dispatch({ type: "updateGroup", group });
+      }catch(err){
+        console.log('couldnt update group ',err)
+      }
+      
     },
     toggleNewGroup() {
       this.isNewGroup = !this.isNewGroup;

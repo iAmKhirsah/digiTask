@@ -201,7 +201,6 @@ export default {
     let boardId = this.$route.params.boardId
     console.log(boardId)
     await this.$store.dispatch({ type: "getTaskDetails", boardId, taskId, groupId });
-    
     this.currTask = JSON.parse(JSON.stringify(this.getTask))
     this.taskTitle = this.currTask.title
     this.pageOpen = true;

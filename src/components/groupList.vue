@@ -3,16 +3,16 @@
     <div class="group-list-group">
       <!-- beny -->
 
-      <div class="group-header" v-if="!isEditing" @click="groupTitle">
+      <div class="group-header" v-if="!isEditing" @click="openGroupTitleEdit">
         {{ group.title }}
       </div>
       <form v-else v-on:keydown.enter="changeTitle">
         <textarea
           ref="title"
           class="group-title"
-          oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-          onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-          v-model="editingGroup.title"
+          :oninput="onInputTextarea"
+          :onfocus="onFocusTextarea"
+          v-model="groupTitle"
           maxlength="512"
           @blur="disableTitleEdit"
         />
@@ -65,7 +65,7 @@ export default {
   components: { taskList, editDynamic, addTask },
   data() {
     return {
-      editingGroup: {},
+      groupTitle: '',
       isEditing: false,
       isActionOn: false,
       isNewTask: false,
@@ -113,14 +113,19 @@ export default {
       this.$emit("updateGroup", { ...group });
     },
     disableTitleEdit() {
-      if (this.editingGroup.title)
-        this.$emit("updateGroup", { ...this.editingGroup });
+      if (this.groupTitle){
+        //  let updatedGroup = JSON.parse(JSON.stringify(this.group))
+         let updatedGroup = JSON.parse(JSON.stringify(this.group))
+         updatedGroup.title=this.groupTitle
+         this.$emit("updateGroup", updatedGroup);
+      }
+       
       this.isEditing = false;
-      this.editingGroup = {};
+      this.groupTitle = '';
     },
-    groupTitle() {
+    openGroupTitleEdit() {
       this.isEditing = true;
-      this.editingGroup = { ...this.group };
+      this.groupTitle = this.group.title 
       this.$nextTick(() => {
         this.$refs.title.focus();
         this.$refs.title.select();
@@ -134,6 +139,15 @@ export default {
     deleteGroup(group) {
       this.$emit("deleteGroup", group);
     },
+    
+  },
+  computed:{
+   onInputTextarea(){
+      return 'this.style.height = "";this.style.height = this.scrollHeight + "px"'
+    },
+    onFocusTextarea(){
+      return 'this.style.height = "";this.style.height = this.scrollHeight + "px"'
+    }
   },
   mounted() {
     // this.$nextTick(() => {
@@ -143,7 +157,6 @@ export default {
     //   this.$refs.title[0].blur();
     // });
   },
-  computed: {},
   directives: {
     clickOutside: vClickOutside.directive,
   },

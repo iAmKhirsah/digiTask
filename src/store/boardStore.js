@@ -58,15 +58,14 @@ export const boardStore = {
       state.currBoard = board;
     },
     updateBoard(state, { board }) {
-      console.log(board._id === state.currBoard._id);
-      console.log(
-        'board._id',
-        board._id,
-        'state.currBoard._id',
-        state.currBoard._id
-      );
+      // console.log(board._id === state.currBoard._id);
+      // console.log(
+      //   'board._id',
+      //   board._id,
+      //   'state.currBoard._id',
+      //   state.currBoard._id
+      // );
       if (board._id === state.currBoard._id) {
-        console.log('im here');
         state.currBoard = board;
         if (state.currBoard.groups.length)
           state.currBoard.groups.forEach((group) => {
@@ -153,16 +152,33 @@ export const boardStore = {
       state.currBoard.groups[idx].tasks.push(newTask);
     },
     getDetails(state, { boardId, taskId, groupId }) {
-      console.log(boardId);
+    
       let boardIdx = state.boards.findIndex((board) => board._id === boardId);
       console.log('BoardIdx', boardIdx);
       state.currBoard = state.boards[boardIdx];
-      let idx = state.currBoard.groups.findIndex(
-        (group) => group.id === groupId
-      );
-      console.log('idx', idx);
-      state.currGroup = state.currBoard.groups[idx];
-      state.currTask = state.currGroup.tasks.find((task) => task.id === taskId);
+      // let idx = state.boards[boardIdx].groups.findIndex(
+      //   (group) => group.id === groupId
+      // );
+      // console.log('idx', idx);
+      // state.currGroup = state.currBoard.groups[idx];
+      // state.currTask = state.boards[boardIdx].groups[idx].tasks.find((task) =>{
+      //   console.log('inside TASKID',taskId)
+      //   console.log('task.id',task.id)
+      //   console.log('task',task)
+      //   return task.id === taskId
+      // });
+      let groupIdx = state.boards[boardIdx].groups.findIndex((group)=>{
+        return group.tasks.some((task)=> task.id === taskId)
+      })
+      console.log('groupIdx',groupIdx)
+      state.currGroup = state.currBoard.groups[groupIdx];
+      state.currTask = state.boards[boardIdx].groups[groupIdx].tasks.find((task) =>{
+        console.log('inside TASKID',taskId)
+        console.log('task.id',task.id)
+        console.log('task',task)
+        return task.id === taskId
+      });
+      console.log('state.currTask',state.currTask)
     },
     updateGroup(state, { group }) {
       const idx = state.currBoard.groups.findIndex(
@@ -175,6 +191,12 @@ export const boardStore = {
       const idx = state.currBoard.groups.findIndex(
         (currGroup) => currGroup.id === state.currGroup.id
       );
+      // const idx = state.currBoard.groups.findIndex(
+      //   (currGroup) => {
+      //     return currGroup.tasks.some((currTask)=> currTask.id===task.id)
+          
+      //   }
+      // );
       const taskIdx = state.currBoard.groups[idx].tasks.findIndex(
         (currTask) => currTask.id === task.id
       );
@@ -317,6 +339,8 @@ export const boardStore = {
     },
     async getTaskDetails({ commit }, { boardId, taskId, groupId }) {
       try {
+        console.log('taskId',taskId)
+        console.log('groupId',groupId)
         commit({ type: 'getDetails', boardId, taskId, groupId });
       } catch (err) {
         console.log('Error on board store GETTASKDETAILS', err);
