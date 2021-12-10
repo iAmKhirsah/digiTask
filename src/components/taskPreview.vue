@@ -20,7 +20,7 @@
       :task="task"
       :board="board"
     />
-    <div class="task-preview" @click="editTask(task.id)">
+    <div class="task-preview" @click="editTask(task.id)" @contextmenu.prevent="openEditModal">
       <div class="task-preview-content" :class="{ 'no-info': !infoCover }">
         {{ task.title }}
       </div>
@@ -29,7 +29,7 @@
         @click.stop="openEditModal"
       >
         <div class="quick-edit-menu" v-if="isOpenEditModal">
-          <edit-modal @closeEditModal="closeEditModal"></edit-modal>
+          <edit-modal @closeEditModal="closeEditModal" :task="task" :board="board" :user="getUser"></edit-modal>
         </div>
       </span>
     </div>
@@ -201,6 +201,9 @@ export default {
     },
     getTask(){
       return this.$store.getters.getTask
+    },
+    getUser(){
+      return this.$store.getters.currUser
     }
     
 
