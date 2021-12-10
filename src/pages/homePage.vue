@@ -1,9 +1,9 @@
 <template>
   <div class="home">
-    <!-- <div>
-      <router-link to="/signup">Signup Placeholder</router-link>
-    </div>
-    <p @click="setGuest">Get Started</p> -->
+  <!-- <div>
+      
+    </div> -->
+
     <section class="homepage-content">
       <nav class="homepage-nav">
         <div class="homepage-logo">
@@ -12,8 +12,8 @@
           <span class="app-title">DigiTask</span>
         </div>
         <div class="user-actions">
-          <div class="login">Log in</div>
-          <div class="signup">Sign up</div>
+          <div class="login"><router-link to="/signup">Log in</router-link></div>
+          <div class="signup"><router-link to="/signup">Sign up</router-link></div>
         </div>
       </nav>
 

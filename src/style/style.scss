@@ -26,7 +26,6 @@
 @import './components/taskAddons';
 @import './components/task-checklist';
 @import './components/board-create';
-@import './components/home-page';
 @import './components/edit-modal';
 // DYNAMIC COMPONENTS
 @import './components/dynamic-components/members';
@@ -44,3 +43,5 @@
 // PAGES
 @import './pages/task-details.scss';
 @import './pages/digi-app.scss';
+@import './pages/login-signup.scss';
+@import './pages/home-page.scss';

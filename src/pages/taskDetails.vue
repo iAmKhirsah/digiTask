@@ -282,9 +282,7 @@ export default {
       console.log("hello");
       this.$router.push(`/b/${this.$route.params.boardId}`);
     },
-
     async updatedTask(task) {
-    
       let updatedTask = JSON.parse(JSON.stringify(task));
       let group = this.getGroup;
       let idx = group.tasks.findIndex((task) => task.id === updatedTask.id);
