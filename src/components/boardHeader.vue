@@ -80,13 +80,12 @@ export default {
     return {
       type: null,
       currUser: null,
-      currBoard:null,
       boardTitle:''
     };
   },
   created() {
     this.currUser = JSON.parse(JSON.stringify(this.getCurrUser));
-    this.boardTitle = JSON.parse(JSON.stringify(this.board.title))
+    this.boardTitle = JSON.parse(JSON.stringify(this.getCurrBoard.title))
   },
   methods: {
     updateBoard(board) {

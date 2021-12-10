@@ -205,7 +205,7 @@ export default {
       let boardId = this.$route.params.boardId;
       console.log(boardId);
       await this.$store.dispatch({
-        type: "getTaskDetails",
+        type: "updateStore",
         boardId,
         taskId,
         groupId,

@@ -32,7 +32,6 @@
               :idx="idx"
               @addTask="addTask"
               @updateGroup="updateGroup"
-            
               @deleteGroup="deleteGroup"
               @miniPreview="miniPreview"
               :isMiniPreview="isMiniPreview"
@@ -227,7 +226,6 @@ export default {
     boardGroups() {
       return this.$store.getters.getCurrBoard.groups;
     },
-
     getCurrBoard() {
       return this.$store.getters.getCurrBoard;
     },
