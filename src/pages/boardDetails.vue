@@ -32,7 +32,7 @@
               :idx="idx"
               @addTask="addTask"
               @updateGroup="updateGroup"
-              @onDrop="onDrop"
+            
               @deleteGroup="deleteGroup"
               @miniPreview="miniPreview"
               :isMiniPreview="isMiniPreview"
@@ -103,6 +103,8 @@ export default {
         showOnTop: false,
       },
       showMenuOpen: false,
+      updatingBoard:null,
+      dndCount:0,
     };
   },
   async created() {
@@ -115,7 +117,8 @@ export default {
       this.board = this.getCurrBoard
       // this.board = JSON.parse(JSON.stringify(this.getCurrBoard))
       if (!this.board) this.$router.push("/");
-      if (!this.board.groups.length) return;
+      // if (!this.board.groups.length) return;
+       if (!this.board.groups) return;
       this.$store.commit({ type: "setLoggedinUser" });
     } catch (err) {
       console.log("Couldnt create and watch board ", err);
@@ -124,8 +127,6 @@ export default {
   },
   destroyed() {
     this.board = null;
-  // destroyed(){
-  //   this.board = {}
   },
   methods: {
     async removeBoard(boardId) {
@@ -138,8 +139,8 @@ export default {
     },
     async updateGroup(group) {
       try{
-        // let updatedGroup = JSON.parse(JSON.stringify(group))
-      await this.$store.dispatch({ type: "updateGroup", group });
+        let updatedGroup = JSON.parse(JSON.stringify(group))
+      await this.$store.dispatch({ type: "updateGroup", updatedGroup });
       }catch(err){
         console.log('couldnt update group ',err)
       }
@@ -200,36 +201,13 @@ export default {
         console.log("Couldnt add task", err);
       }
     },
-    async onDrop(groupIdx, dropResult) {
-      try {
-        this.board = this.applyDrag(this.board.groups[groupIdx], dropResult);
-        let board = {...this.board} ;
-        await this.$store.dispatch({ type: "updateBoard", board });
-      } catch (err) {
-        console.log("Couldnt drag group", err);
-      }
-    },
     async onDropGroup(dropResult) {
       try {
-        this.board.groups = this.applyDrag(this.board.groups, dropResult);
-        let board = {...this.board }
-        await this.$store.dispatch({ type: "updateBoard", board });
+         await this.$store.dispatch({ type: "applyDragGroup", dropResult});
+         this.board = this.getCurrBoard
       } catch (err) {
         console.log("Couldnt drag group", err);
       }
-    },
-    applyDrag(arr, dragResult) {
-      const { removedIndex, addedIndex, payload } = dragResult;
-      if (removedIndex === null && addedIndex === null) return arr;
-      const result = [...arr];
-      let itemToAdd = payload;
-      if (removedIndex !== null) {
-        itemToAdd = result.splice(removedIndex, 1)[0];
-      }
-      if (addedIndex !== null) {
-        result.splice(addedIndex, 0, itemToAdd);
-      }
-      return result;
     },
     getChildPayload(groupIndex, itemIndex) {
       return this.board.groups[groupIndex].tasks[itemIndex];
@@ -255,9 +233,6 @@ export default {
     menuOpen() {
       return { "menu-open": this.showMenuOpen };
     },
-    // background(){
-    //   return this.board.style.backgroundColor ? this.board.style.backgroundColor : this.board.style.backgroundUrl
-    // }
   },
   mounted() {
     if (this.$refs.list) {
@@ -286,9 +261,10 @@ export default {
             type: "loadAndWatchBoard",
             boardId: this.$route.params.boardId,
           });
-          console.log(this.getCurrBoard);
-          this.board = this.getCurrBoard;
+          // console.log(this.getCurrBoard);
+          // this.board = this.getCurrBoard;
         }
+        this.board = this.getCurrBoard;
       },
     },
   },
