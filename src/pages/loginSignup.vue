@@ -1,41 +1,92 @@
 <template>
   <div class="login-signup-container">
-    <section class="signup-form" v-show="isSignup">
-      <h1>Signup</h1>
-      <form @submit.prevent="doSignup">
-        <input
-          placeholder="Username..."
-          v-model="signupCred.username"
-          minlength="3"
-          clearable
-        />
-        <input
-          placeholder="Password...."
-          minlength="5"
-          v-model="signupCred.password"
-          show-password
-        />
-        <button>Signup</button>
-      </form>
-    </section>
-    <section class="login-form" v-show="!isSignup && !loggedinUser">
-      <h1>Login</h1>
-      <form @submit.prevent="doLogin">
-        <input
-          placeholder="Username..."
-          v-model="loginCred.username"
-          minlength="3"
-          clearable
-        />
-        <input
-          placeholder="Password...."
-          type="password"
-          minlength="5"
-          v-model="loginCred.password"
-        />
-        <button>Login</button>
-      </form>
-    </section>
+    <header>
+      <div class="homepage-logo">
+        <span class="trello-logo"><i class="fab fa-trello"></i></span>
+        <div class="logo main-header-tabs"></div>
+        <span class="app-title">DigiTask</span>
+      </div>
+    </header>
+    <div class="forms-sections">
+      <!-- first -->
+
+      <section class="signup-form" v-show="isSignup">
+        <h1>Sign up for your account</h1>
+        <form @submit.prevent="doSignup">
+          <input
+            placeholder="Username"
+            v-model="signupCred.username"
+            minlength="3"
+            clearable
+          />
+          <input
+            placeholder="Password"
+            type="password"
+            minlength="5"
+            v-model="signupCred.password"
+            show-password
+          />
+          <p class="terms">
+            By signing up, you confirm that you've read and accepted our
+            <span>Terms of Service</span> and <span>Privacy Policy.</span>
+          </p>
+          <button class="signup-btn">Signup</button>
+        </form>
+        <div class="or-divider">OR</div>
+        <div class="other-ways-to-get-inside">
+          <div class="ways">
+            <span class="google"></span> <span class="subtitle">Google</span>
+          </div>
+          <div class="ways">
+            <span class="microsoft"></span>
+            <span class="subtitle">Microsoft</span>
+          </div>
+          <div class="ways">
+            <span class="apple"></span> <span class="subtitle">Apple</span>
+          </div>
+        </div>
+        <div class="line-divider"></div>
+      </section>
+
+      <!-- sec -->
+
+      <section class="signup-form" v-show="!isSignup && !loggedinUser">
+        <h1>Log in to Digitask</h1>
+        <form @submit.prevent="doLogin">
+          <input
+            placeholder="Username"
+            v-model="loginCred.username"
+            minlength="3"
+            clearable
+          />
+          <input
+            placeholder="Password"
+            type="password"
+            minlength="5"
+            v-model="loginCred.password"
+          />
+          <p class="terms">
+            By signing up, you confirm that you've read and accepted our
+            <span>Terms of Service</span> and <span>Privacy Policy.</span>
+          </p>
+          <button class="login-btn">Login</button>
+        </form>
+        <div class="or-divider">OR</div>
+        <div class="other-ways-to-get-inside">
+          <div class="ways">
+            <span class="google"></span> <span class="subtitle">Google</span>
+          </div>
+          <div class="ways">
+            <span class="microsoft"></span>
+            <span class="subtitle">Microsoft</span>
+          </div>
+          <div class="ways">
+            <span class="apple"></span> <span class="subtitle">Apple</span>
+          </div>
+        </div>
+        <div class="line-divider"></div>
+      </section>
+    </div>
     {{ msg }}
     <div>
       <button @click="showSignup">{{ loginSignup }}</button>
