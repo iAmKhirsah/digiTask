@@ -39,13 +39,6 @@
           <span class="tab-title">Archive</span>
         </div>
       </div>
-      <!-- <component
-        :is="renderCmp"
-        :task="task"
-        :board="board"
-        :user="user"
-        @updateTask="updateTask"
-      ></component> -->
       <edit-dynamic
         :type="type"
         :getBoard="board"
@@ -66,12 +59,6 @@
 <script>
 import vClickOutside from "v-click-outside";
 import editDynamic from "./editDynamic.vue";
-// import members from "./dynamic_components/members.vue";
-// import labels from "./dynamic_components/labels.vue";
-// import dates from "./dynamic_components/dates.vue";
-// import cover from "./dynamic_components/cover.vue";
-// import archive from "./dynamic_components/archive.vue";
-// import copy from "./dynamic_components/copy.vue";
 export default {
   name: "editModal",
   props: ["task", "board", "user"],
@@ -84,54 +71,41 @@ export default {
     };
   },
   methods: {
-    // BROUGTH ALL THE EMITS THAT HAPPEN ON EDIT DYNAMIC FOR REFERENCE, NOW NEED TO SEE HOW DO I NOT RECYCLE CODE
-    // BY NOT MAKING SAME FUNCTIONS HERE 
     closeEditModal() {
       this.$emit("closeEditModal");
     },
     setType(type) {
       this.type = type;
     },
-    updateTask(task) {
-      this.$emit("updateTask", task);
+    async deleteLabel(label) {
+      await this.$store.dispatch({ type: "deleteLabel", label });
     },
-    createLabel(label) {
-      this.$emit("createLabel", label);
+    async createLabel(label) {
+      await this.$store.dispatch({ type: "createLabel", label });
     },
-    deleteLabel(label) {
-      this.$emit("deleteLabel", label);
+    async updateTask(task) {
+      await this.$store.dispatch({ type: "updateTask", task });
     },
-    updateBoard(board) {
-      this.$emit("updateBoard", board);
+    async deleteTask(task) {
+      await this.$store.dispatch({ type: "removeTask", task });
     },
-    taskActivity(txt) {
-      this.$emit("taskActivity", txt);
+    async updateBoard(board) {
+      await this.$store.dispatch({ type: "updateBoard", board });
     },
-    updateGroup(group) {
-      this.$emit("updateGroup", group);
+    async taskActivity(txt) {
+      let currTask = this.getTask;
+      let user = this.getUser;
+      this.$store.dispatch({
+        type: "addActivity",
+        activity: { task: currTask, txt, user },
+      });
     },
-    deleteTask() {
-      this.$emit("deleteTask", this.task);
+    async updateGroup(group) {
+      await this.$store.dispatch({ type: "updateGroup", group });
     },
-  },
-  computed: {
-    // renderCmp() {
-    //   if (this.type === "members") return members;
-    //   else if (this.type === "labels") return labels;
-    //   else if (this.type === "dates") return dates;
-    //   else if (this.type === "cover") return cover;
-    //   else if (this.type === "copy") return copy;
-    //   else if (this.type === "archive") return archive;
-    // },
   },
   components: {
     editDynamic,
-    // members,
-    // labels,
-    // dates,
-    // cover,
-    // archive,
-    // copy,
   },
 };
 </script>

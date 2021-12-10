@@ -111,7 +111,6 @@ export const boardStore = {
       newActivity.byMember = activity.user;
       newActivity.task.id = activity.task.id;
       newActivity.task.title = activity.task.title;
-
       if (activity.res) {
         newActivity.imgUrl = activity.res.url;
       }
@@ -155,18 +154,20 @@ export const boardStore = {
       let boardIdx = state.boards.findIndex((board) => board._id === boardId);
       console.log('BoardIdx', boardIdx);
       state.currBoard = state.boards[boardIdx];
-      let groupIdx = state.boards[boardIdx].groups.findIndex((group)=>{
-        return group.tasks.some((task)=> task.id === taskId)
-      })
-      console.log('groupIdx',groupIdx)
-      state.currGroup = state.currBoard.groups[groupIdx];
-      state.currTask = state.boards[boardIdx].groups[groupIdx].tasks.find((task) =>{
-        console.log('inside TASKID',taskId)
-        console.log('task.id',task.id)
-        console.log('task',task)
-        return task.id === taskId
+      let groupIdx = state.boards[boardIdx].groups.findIndex((group) => {
+        return group.tasks.some((task) => task.id === taskId);
       });
-      console.log('state.currTask',state.currTask)
+      console.log('groupIdx', groupIdx);
+      state.currGroup = state.currBoard.groups[groupIdx];
+      state.currTask = state.boards[boardIdx].groups[groupIdx].tasks.find(
+        (task) => {
+          console.log('inside TASKID', taskId);
+          console.log('task.id', task.id);
+          console.log('task', task);
+          return task.id === taskId;
+        }
+      );
+      console.log('state.currTask', state.currTask);
     },
     updateGroup(state, { group }) {
       const idx = state.currBoard.groups.findIndex(
@@ -182,9 +183,12 @@ export const boardStore = {
       // const idx = state.currBoard.groups.findIndex(
       //   (currGroup) => {
       //     return currGroup.tasks.some((currTask)=> currTask.id===task.id)
-          
+
       //   }
       // );
+      console.log(task); 
+      console.log(idx);
+      console.log(state.currBoard.groups);
       const taskIdx = state.currBoard.groups[idx].tasks.findIndex(
         (currTask) => currTask.id === task.id
       );
@@ -226,12 +230,9 @@ export const boardStore = {
       state.currBoard.groups[idx].tasks = [...result];
     },
     applyDragGroup(state, { dropResult }) {
-      if (
-        dropResult.removedIndex === null &&
-        dropResult.addedIndex === null
-      )
+      if (dropResult.removedIndex === null && dropResult.addedIndex === null)
         return;
-      const { removedIndex, addedIndex, payload } =dropResult;
+      const { removedIndex, addedIndex, payload } = dropResult;
       const result = [...state.currBoard.groups];
       let itemToAdd = payload;
       if (removedIndex !== null) {
@@ -344,8 +345,8 @@ export const boardStore = {
     },
     async updateStore({ commit }, { boardId, taskId, groupId }) {
       try {
-        console.log('taskId',taskId)
-        console.log('groupId',groupId)
+        console.log('taskId', taskId);
+        console.log('groupId', groupId);
         commit({ type: 'updateStore', boardId, taskId, groupId });
       } catch (err) {
         console.log('Error on board store GETTASKDETAILS', err);
@@ -406,9 +407,9 @@ export const boardStore = {
       commit({ type: 'applyDrag', content });
       await dispatch({ type: 'updateBoard' });
     },
-    async applyDragGroup({dispatch,commit},{dropResult}){
-      commit({type:'applyDragGroup',dropResult})
-      await dispatch({type:'updateBoard'})
-    }
+    async applyDragGroup({ dispatch, commit }, { dropResult }) {
+      commit({ type: 'applyDragGroup', dropResult });
+      await dispatch({ type: 'updateBoard' });
+    },
   },
 };
