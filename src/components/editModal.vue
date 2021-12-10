@@ -39,21 +39,42 @@
           <span class="tab-title">Archive</span>
         </div>
       </div>
-      <component :is="renderCmp" :board="getBoard" :task="getTask"></component>
+      <!-- <component
+        :is="renderCmp"
+        :task="task"
+        :board="board"
+        :user="user"
+        @updateTask="updateTask"
+      ></component> -->
+      <edit-dynamic
+        :type="type"
+        :getBoard="board"
+        :getTask="task"
+        :getUser="user"
+        @createLabel="createLabel"
+        @deleteLabel="deleteLabel"
+        @updateTask="updateTask"
+        @updateBoard="updateBoard"
+        @taskActivity="taskActivity"
+        @updateGroup="updateGroup"
+        @deleteTask="deleteTask"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import vClickOutside from "v-click-outside";
-import members from "./dynamic_components/members.vue";
-import labels from "./dynamic_components/labels.vue";
-import dates from "./dynamic_components/dates.vue";
-import cover from "./dynamic_components/cover.vue";
-import archive from "./dynamic_components/archive.vue";
-import copy from "./dynamic_components/copy.vue";
+import editDynamic from "./editDynamic.vue";
+// import members from "./dynamic_components/members.vue";
+// import labels from "./dynamic_components/labels.vue";
+// import dates from "./dynamic_components/dates.vue";
+// import cover from "./dynamic_components/cover.vue";
+// import archive from "./dynamic_components/archive.vue";
+// import copy from "./dynamic_components/copy.vue";
 export default {
   name: "editModal",
+  props: ["task", "board", "user"],
   directives: {
     clickOutside: vClickOutside.directive,
   },
@@ -63,30 +84,54 @@ export default {
     };
   },
   methods: {
+    // BROUGTH ALL THE EMITS THAT HAPPEN ON EDIT DYNAMIC FOR REFERENCE, NOW NEED TO SEE HOW DO I NOT RECYCLE CODE
+    // BY NOT MAKING SAME FUNCTIONS HERE 
     closeEditModal() {
       this.$emit("closeEditModal");
     },
     setType(type) {
       this.type = type;
     },
-  },
-  computed: {
-    renderCmp() {
-      if (this.type === "members") return members;
-      else if (this.type === "labels") return labels;
-      else if (this.type === "dates") return dates;
-      else if (this.type === "cover") return cover;
-      else if (this.type === "copy") return copy;
-      else if (this.type === "archive") return archive;
+    updateTask(task) {
+      this.$emit("updateTask", task);
+    },
+    createLabel(label) {
+      this.$emit("createLabel", label);
+    },
+    deleteLabel(label) {
+      this.$emit("deleteLabel", label);
+    },
+    updateBoard(board) {
+      this.$emit("updateBoard", board);
+    },
+    taskActivity(txt) {
+      this.$emit("taskActivity", txt);
+    },
+    updateGroup(group) {
+      this.$emit("updateGroup", group);
+    },
+    deleteTask() {
+      this.$emit("deleteTask", this.task);
     },
   },
+  computed: {
+    // renderCmp() {
+    //   if (this.type === "members") return members;
+    //   else if (this.type === "labels") return labels;
+    //   else if (this.type === "dates") return dates;
+    //   else if (this.type === "cover") return cover;
+    //   else if (this.type === "copy") return copy;
+    //   else if (this.type === "archive") return archive;
+    // },
+  },
   components: {
-    members,
-    labels,
-    dates,
-    cover,
-    archive,
-    copy,
+    editDynamic,
+    // members,
+    // labels,
+    // dates,
+    // cover,
+    // archive,
+    // copy,
   },
 };
 </script>

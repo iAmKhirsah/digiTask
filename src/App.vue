@@ -16,7 +16,9 @@ export default {
   data() {
     return {
       routes: ["/", "/workspace", "/signup"],
-      homeRoute: "/",
+      // homeRoute: "/",
+      // signRoute: '/signup',
+      noHeaderRoutes: ['/', '/signup'],
       noBgc: false,
       header: true,
     };
@@ -40,7 +42,7 @@ export default {
       handler() {
         if (this.routes.includes(this.$route.path)) this.noBgc = true;
         else this.noBgc = false;
-        if (this.$route.path === this.homeRoute) this.header = false;
+        if (this.noHeaderRoutes.includes(this.$route.path)) this.header = false;
         else this.header = true;
       },
       immediate: true,
