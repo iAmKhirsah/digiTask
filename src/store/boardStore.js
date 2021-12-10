@@ -237,6 +237,23 @@ export const boardStore = {
       }
       state.currBoard.groups[idx].tasks = [...result];
     },
+    applyDragGroup(state, { dropResult }) {
+      if (
+        dropResult.removedIndex === null &&
+        dropResult.addedIndex === null
+      )
+        return;
+      const { removedIndex, addedIndex, payload } =dropResult;
+      const result = [...state.currBoard.groups];
+      let itemToAdd = payload;
+      if (removedIndex !== null) {
+        itemToAdd = result.splice(removedIndex, 1)[0];
+      }
+      if (addedIndex !== null) {
+        result.splice(addedIndex, 0, itemToAdd);
+      }
+      state.currBoard.groups = [...result];
+    },
   },
   actions: {
     async loadBoards({ commit }) {
@@ -401,5 +418,9 @@ export const boardStore = {
       commit({ type: 'applyDrag', content });
       await dispatch({ type: 'updateBoard' });
     },
+    async applyDragGroup({dispatch,commit},{dropResult}){
+      commit({type:'applyDragGroup',dropResult})
+      await dispatch({type:'updateBoard'})
+    }
   },
 };

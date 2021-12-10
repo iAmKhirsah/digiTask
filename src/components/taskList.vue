@@ -19,7 +19,7 @@
         >
           <div class="task-list-content">
             <!-- <div class="task-list-content" v-for="task in group.tasks" :key="task.id"> -->
-            <task-preview @updateTask="updateTask" :isMiniPreview="isMiniPreview" @miniPreview="miniPreview" :task="task" :board="board" @editTask="editTask" />
+            <task-preview @updateTask="updateTask" :isMiniPreview="isMiniPreview" @miniPreview="miniPreview" :task="task" :board="getBoard" @editTask="editTask" />
           </div>
         </Draggable>
       </Container>
@@ -37,12 +37,10 @@ export default {
   components: { taskPreview, addTask, Container, Draggable },
   data() {
     return {
-  
       dropPlaceholderOptions: {
     className: "drop-preview",
     animationDuration: "150",
-    showOnTop: false,
-  
+    showOnTop: true,
    },};
   },
   methods: {
@@ -58,6 +56,7 @@ export default {
     },
       updateTask(task){
         let group = JSON.parse(JSON.stringify(this.group))
+        console.log('UpdateTask line 61 in taskLIst',group)
         let idx = group.tasks.findIndex((currTask)=> currTask.id === task.id)
         group.tasks[idx]= task
         this.$emit('updateGroup' , group)
@@ -79,6 +78,9 @@ export default {
   computed:{
     groupTasks(){
       return this.group.tasks
+    },
+    getBoard(){
+      return this.$store.getters.getCurrBoard
     }
   }
  
