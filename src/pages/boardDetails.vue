@@ -32,6 +32,7 @@
               :idx="idx"
               @addTask="addTask"
               @updateGroup="updateGroup"
+              @updateTask="updateTask"
               @deleteGroup="deleteGroup"
               @miniPreview="miniPreview"
               :isMiniPreview="isMiniPreview"
@@ -102,8 +103,8 @@ export default {
         showOnTop: false,
       },
       showMenuOpen: false,
-      updatingBoard:null,
-      dndCount:0,
+      updatingBoard: null,
+      dndCount: 0,
     };
   },
   async created() {
@@ -113,11 +114,11 @@ export default {
       let boardId = this.$route.params.boardId;
       await this.$store.dispatch({ type: "loadBoards" });
       await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
-      this.board = this.getCurrBoard
+      this.board = this.getCurrBoard;
       // this.board = JSON.parse(JSON.stringify(this.getCurrBoard))
       if (!this.board) this.$router.push("/");
       // if (!this.board.groups.length) return;
-       if (!this.board.groups) return;
+      if (!this.board.groups) return;
       this.$store.commit({ type: "setLoggedinUser" });
     } catch (err) {
       console.log("Couldnt create and watch board ", err);
@@ -129,21 +130,25 @@ export default {
   },
   methods: {
     async removeBoard(boardId) {
-      try{
+      try {
         await this.$store.dispatch({ type: "removeBoard", boardId });
-      }catch(err){
-        console.log('couldnt remove board')
+      } catch (err) {
+        console.log("couldnt remove board");
       }
-      
     },
     async updateGroup(group) {
-      try{
-        let updatedGroup = JSON.parse(JSON.stringify(group))
-      await this.$store.dispatch({ type: "updateGroup", updatedGroup });
-      }catch(err){
-        console.log('couldnt update group ',err)
+      try {
+        let updatedGroup = JSON.parse(JSON.stringify(group));
+        await this.$store.dispatch({
+          type: "updateGroup",
+          group: updatedGroup,
+        });
+      } catch (err) {
+        console.log("couldnt update group ", err);
       }
-      
+    },
+    async updateTask(task) {
+      await this.$store.dispatch({ type: "updateTask", task });
     },
     toggleNewGroup() {
       this.isNewGroup = !this.isNewGroup;
@@ -160,7 +165,7 @@ export default {
       try {
         await this.$store.dispatch({ type: "updateBoard", board });
         this.board = JSON.parse(JSON.stringify(this.getCurrBoard));
-        // this.board = this.getCurrBoard 
+        // this.board = this.getCurrBoard
       } catch (err) {
         console.log("Couldnt update board", err);
       }
@@ -175,7 +180,7 @@ export default {
           return;
         }
         // let group = { ...this.newGroup };
-        let group = this.newGroup 
+        let group = this.newGroup;
         await this.$store.dispatch({ type: "addGroup", group });
         this.newGroup = { ...this.$store.getters.getEmptyGroup };
         this.newGroup.title;
@@ -202,14 +207,18 @@ export default {
     },
     async onDropGroup(dropResult) {
       try {
-         await this.$store.dispatch({ type: "applyDragGroup", dropResult});
-         this.board = this.getCurrBoard
+        await this.$store.dispatch({ type: "applyDragGroup", dropResult });
+        this.board = this.getCurrBoard;
       } catch (err) {
         console.log("Couldnt drag group", err);
       }
     },
     getChildPayload(groupIndex, itemIndex) {
-      if(!this.board.groups[groupIndex].tasks.length || !this.board.groups[groupIndex].tasks) return
+      if (
+        !this.board.groups[groupIndex].tasks.length ||
+        !this.board.groups[groupIndex].tasks
+      )
+        return;
       return this.board.groups[groupIndex].tasks[itemIndex];
     },
     toggleMenu() {

@@ -152,22 +152,12 @@ export const boardStore = {
     },
     updateStore(state, { boardId, taskId }) {
       let boardIdx = state.boards.findIndex((board) => board._id === boardId);
-      console.log('BoardIdx', boardIdx);
       state.currBoard = state.boards[boardIdx];
-      let groupIdx = state.boards[boardIdx].groups.findIndex((group) => {
-        return group.tasks.some((task) => task.id === taskId);
-      });
-      console.log('groupIdx', groupIdx);
-      state.currGroup = state.currBoard.groups[groupIdx];
-      state.currTask = state.boards[boardIdx].groups[groupIdx].tasks.find(
-        (task) => {
-          console.log('inside TASKID', taskId);
-          console.log('task.id', task.id);
-          console.log('task', task);
-          return task.id === taskId;
-        }
+      let groupIdx = state.boards[boardIdx].groups.findIndex((group) =>
+        group.tasks.some((task) => task.id === taskId)
       );
-      console.log('state.currTask', state.currTask);
+      state.currGroup = state.currBoard.groups[groupIdx];
+      state.currTask = state.currGroup.tasks.find((task) => task.id === taskId);
     },
     updateGroup(state, { group }) {
       const idx = state.currBoard.groups.findIndex(
@@ -177,22 +167,14 @@ export const boardStore = {
       state.currGroup = state.currBoard.groups[idx];
     },
     updateTask(state, { task }) {
-      const idx = state.currBoard.groups.findIndex(
-        (currGroup) => currGroup.id === state.currGroup.id
+      const groupIdx = state.currBoard.groups.findIndex((currGroup) =>
+        currGroup.tasks.find((currTask) => task.id === currTask.id)
       );
-      // const idx = state.currBoard.groups.findIndex(
-      //   (currGroup) => {
-      //     return currGroup.tasks.some((currTask)=> currTask.id===task.id)
-
-      //   }
-      // );
-      console.log(task); 
-      console.log(idx);
-      console.log(state.currBoard.groups);
-      const taskIdx = state.currBoard.groups[idx].tasks.findIndex(
+      const taskIdx = state.currBoard.groups[groupIdx].tasks.findIndex(
         (currTask) => currTask.id === task.id
       );
-      state.currBoard.groups[idx].tasks.splice(taskIdx, 1, task);
+      state.currBoard.groups[groupIdx].tasks.splice(taskIdx, 1, task);
+      console.log('currBoard', state.currBoard);
       state.currTask = task;
     },
     removeTask(state, { task }) {
@@ -343,11 +325,11 @@ export const boardStore = {
         console.log('Error on board store REMOVETASK', err);
       }
     },
-    async updateStore({ commit }, { boardId, taskId, groupId }) {
+    async updateStore({ commit }, { boardId, taskId }) {
       try {
         console.log('taskId', taskId);
-        console.log('groupId', groupId);
-        commit({ type: 'updateStore', boardId, taskId, groupId });
+
+        commit({ type: 'updateStore', boardId, taskId });
       } catch (err) {
         console.log('Error on board store GETTASKDETAILS', err);
       }

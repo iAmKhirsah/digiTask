@@ -60,13 +60,13 @@ export default {
     addTask(newTask) {
       this.$emit("addTask", newTask, this.group.id);
     },
-    updateTask(task) {
-      let group = JSON.parse(JSON.stringify(this.group));
-      console.log("UpdateTask line 61 in taskLIst", group);
-      let idx = group.tasks.findIndex((currTask) => currTask.id === task.id);
-      group.tasks[idx] = task;
-      this.$emit("updateGroup", group);
-    },
+      updateTask(task){
+        // let group = JSON.parse(JSON.stringify(this.group))
+        // console.log('UpdateTask line 61 in taskLIst',group)
+        // let idx = group.tasks.findIndex((currTask)=> currTask.id === task.id)
+        // group.tasks[idx]= task
+        this.$emit('updateTask' , task)
+      },
     async onDrop(dropResult) {
       try {
         let content = { groupIdx: this.idx, dropResult };
