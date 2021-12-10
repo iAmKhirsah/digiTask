@@ -196,11 +196,11 @@ export default {
   },
   async created() {
     try{
-      let groupId = this.$route.params.groupId;
+    await this.$store.dispatch({type:'loadBoards'})
+    let groupId = this.$route.params.groupId;
     let taskId = this.$route.params.taskId;
     let boardId = this.$route.params.boardId
-    console.log(boardId)
-    await this.$store.dispatch({ type: "getTaskDetails", boardId, taskId, groupId });
+    await this.$store.dispatch({ type: "updateStore", boardId, taskId, groupId });
     this.currTask = JSON.parse(JSON.stringify(this.getTask))
     this.taskTitle = this.currTask.title
     this.pageOpen = true;

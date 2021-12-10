@@ -71,13 +71,15 @@ export default {
       isOpenEditModal: false,
     };
   },
+  created(){
+    // console.log('task on preview',this.task)
+    console.log('task preview board groupss',this.board.groups)
+  },
   methods: {
     openEditModal() {
-      console.log("hi");
       this.isOpenEditModal = true;
     },
     closeEditModal() {
-      console.log("bye");
       this.isOpenEditModal = false;
     },
     editTask(taskId) {

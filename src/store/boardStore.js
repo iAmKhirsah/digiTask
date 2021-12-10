@@ -151,22 +151,10 @@ export const boardStore = {
       );
       state.currBoard.groups[idx].tasks.push(newTask);
     },
-    getDetails(state, { boardId, taskId, groupId }) {
-    
+    updateStore(state, { boardId, taskId }) {
       let boardIdx = state.boards.findIndex((board) => board._id === boardId);
       console.log('BoardIdx', boardIdx);
       state.currBoard = state.boards[boardIdx];
-      // let idx = state.boards[boardIdx].groups.findIndex(
-      //   (group) => group.id === groupId
-      // );
-      // console.log('idx', idx);
-      // state.currGroup = state.currBoard.groups[idx];
-      // state.currTask = state.boards[boardIdx].groups[idx].tasks.find((task) =>{
-      //   console.log('inside TASKID',taskId)
-      //   console.log('task.id',task.id)
-      //   console.log('task',task)
-      //   return task.id === taskId
-      // });
       let groupIdx = state.boards[boardIdx].groups.findIndex((group)=>{
         return group.tasks.some((task)=> task.id === taskId)
       })
@@ -354,11 +342,11 @@ export const boardStore = {
         console.log('Error on board store REMOVETASK', err);
       }
     },
-    async getTaskDetails({ commit }, { boardId, taskId, groupId }) {
+    async updateStore({ commit }, { boardId, taskId, groupId }) {
       try {
         console.log('taskId',taskId)
         console.log('groupId',groupId)
-        commit({ type: 'getDetails', boardId, taskId, groupId });
+        commit({ type: 'updateStore', boardId, taskId, groupId });
       } catch (err) {
         console.log('Error on board store GETTASKDETAILS', err);
       }
