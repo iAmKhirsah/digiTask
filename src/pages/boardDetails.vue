@@ -32,7 +32,7 @@
               :idx="idx"
               @addTask="addTask"
               @updateGroup="updateGroup"
-            
+             @updateTask ="updateTask"
               @deleteGroup="deleteGroup"
               @miniPreview="miniPreview"
               :isMiniPreview="isMiniPreview"
@@ -140,11 +140,14 @@ export default {
     async updateGroup(group) {
       try{
         let updatedGroup = JSON.parse(JSON.stringify(group))
-      await this.$store.dispatch({ type: "updateGroup", updatedGroup });
+      await this.$store.dispatch({ type: "updateGroup", group:updatedGroup });
       }catch(err){
         console.log('couldnt update group ',err)
       }
       
+    },
+    async updateTask(task){
+      await this.$store.dispatch({type:'updateTask',task})
     },
     toggleNewGroup() {
       this.isNewGroup = !this.isNewGroup;

@@ -44,7 +44,7 @@
         @editTask="editTask"
         @addTask="addTask"
         @miniPreview="miniPreview"
-      @updateGroup="updateGroup"
+      @updateTask="updateTask"
          :isMiniPreview="isMiniPreview"
         :isNewTask="isNewTask"
         :idx="idx"
@@ -107,6 +107,9 @@ export default {
     },
     closeNewTask() {
       this.isNewTask = false;
+    },
+    updateTask(task){
+      this.$emit('updateTask',task)
     },
     updateGroup(group) {
       console.log("group title changed");
