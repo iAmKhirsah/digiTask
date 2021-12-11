@@ -5,12 +5,12 @@
       <div class="board-header-left">
         <div class="board-box">
           <input
-          ref="title"
+            ref="title"
             :style="inputWidth"
             v-model="boardTitle"
             @focus="$event.target.select()"
-             v-on:keydown.enter="updateTitle"
-           @blur="updateTitle"
+            v-on:keydown.enter="updateTitle"
+            @blur="updateTitle"
           />
           <!-- v-click-outside="updateBoard(board)" -->
         </div>
@@ -31,7 +31,9 @@
           </div>
         </div>
         <div>
-          <div class="board-box invite" @click="setType('invite')"> <span class="icon-sm add-member-icon"></span> Invite</div>
+          <div class="board-box invite" @click="setType('invite')">
+            <span class="icon-sm add-member-icon"></span> Invite
+          </div>
         </div>
       </div>
 
@@ -80,12 +82,12 @@ export default {
     return {
       type: null,
       currUser: null,
-      boardTitle:''
+      boardTitle: "",
     };
   },
   created() {
     this.currUser = JSON.parse(JSON.stringify(this.getCurrUser));
-    this.boardTitle = JSON.parse(JSON.stringify(this.getCurrBoard.title))
+    this.boardTitle = JSON.parse(JSON.stringify(this.getCurrBoard.title));
   },
   methods: {
     updateBoard(board) {
@@ -94,23 +96,24 @@ export default {
     removeBoard(boardId) {
       this.$emit("removeBoard", boardId);
     },
-    updateTitle(){
-      if(this.boardTitle.match(/^\s*$/)) {
-        this.boardTitle = JSON.parse(JSON.stringify(this.getCurrBoard.title))
-        return
+    updateTitle() {
+      if (this.boardTitle.match(/^\s*$/)) {
+        this.boardTitle = JSON.parse(JSON.stringify(this.getCurrBoard.title));
+        return;
       }
-    this.$nextTick(()=>{
-      this.$refs.title.blur()
-    })
-      let board= JSON.parse(JSON.stringify(this.getCurrBoard))
-      board.title = this.boardTitle
-      this.updateBoard(board)
+      this.$nextTick(() => {
+        this.$refs.title.blur();
+      });
+      let board = JSON.parse(JSON.stringify(this.getCurrBoard));
+      board.title = this.boardTitle;
+
+      this.updateBoard(board);
     },
     starredBoard() {
       let idx = this.currUser.starred.indexOf(this.getCurrBoard._id);
       if (idx > -1) this.currUser.starred.splice(idx, 1);
       else this.currUser.starred.push(this.getCurrBoard._id);
-      let user = JSON.parse(JSON.stringify(this.currUser))
+      let user = JSON.parse(JSON.stringify(this.currUser));
       this.$store.dispatch({ type: "updateUser", user });
     },
     setType(type) {
@@ -167,5 +170,16 @@ export default {
   directives: {
     clickOutside: vClickOutside.directive,
   },
+  // watch: {
+  //   "$route.params.boardId": {
+  //     handler() {
+  //       if (this.board._id !== this.$route.params.boardId) {
+  //         console.log('hello');
+  //         this.boardTitle = this.board.title;
+  //       }
+  //     },
+  //     immediate: true
+  //   },
+  // },
 };
 </script>

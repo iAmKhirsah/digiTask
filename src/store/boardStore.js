@@ -15,6 +15,7 @@ export const boardStore = {
     currTask: {},
     currGroup: {},
     filterBy: { keyWord: '', members: [], dueDate: null, labels: [] },
+    isLoading: false,
     newGroup: {},
     newTask: {},
     newChecklist: {},
@@ -22,9 +23,9 @@ export const boardStore = {
     // newId: utilService.makeId(),
   },
   getters: {
-    // getNewId({ newId }) {
-    //   return newId;
-    // },
+    isLoading({ isLoading }) {
+      return isLoading;
+    },
     getEmptyTodo({ newTodo }) {
       return newTodo;
     },
@@ -48,9 +49,12 @@ export const boardStore = {
     },
   },
   mutations: {
-    // generateNewId(state) {
-    //   state.newId = utilService.makeId();
-    // },
+    setLoadingOn(state) {
+      state.isLoading = true;
+    },
+    setLoadingOff(state) {
+      state.isLoading = false;
+    },
     setBoards(state, { boards }) {
       state.boards = boards;
     },
@@ -58,13 +62,6 @@ export const boardStore = {
       state.currBoard = board;
     },
     updateBoard(state, { board }) {
-      // console.log(board._id === state.currBoard._id);
-      // console.log(
-      //   'board._id',
-      //   board._id,
-      //   'state.currBoard._id',
-      //   state.currBoard._id
-      // );
       if (board._id === state.currBoard._id) {
         state.currBoard = board;
         if (state.currBoard.groups.length)
@@ -229,32 +226,32 @@ export const boardStore = {
   actions: {
     async loadBoards({ commit }) {
       try {
+        commit({ type: 'setLoadingOn' });
         const boards = await boardService.query();
         commit({ type: 'setBoards', boards });
       } catch (err) {
         console.log('Couldnt load boards', err);
+      } finally {
+        commit({ type: 'setLoadingOff' });
       }
     },
     async loadAndWatchBoard({ commit }, { boardId }) {
       try {
+        commit({ type: 'setCurrBoard', board: null });
+        commit({ type: 'setLoadingOn' });
         const board = await boardService.getBoardById(boardId);
         console.log(board);
         commit({ type: 'setCurrBoard', board });
-        // socketService.off(SOCKET_EVENT_WATCHBOARD);
-        // socketService.on(SOCKET_EVENT_WATCHBOARD, (board) => {
-        //   console.log('Board changed from socket', board);
-        //   commit({ type: 'updateBoard', board });
-        // });
         socketService.emit(SOCKET_EVENT_WATCHBOARD, boardId);
         socketService.off(SOCKET_EVENT_UPDATEDBOARD);
         socketService.on(SOCKET_EVENT_UPDATEDBOARD, (updatedBoard) => {
           console.log('im on socket event updatedboard', updatedBoard);
-          // console.log(updatedBoard);
           commit({ type: 'updateBoard', board: updatedBoard });
-          // commit({ type: 'setCurrBoard', board: updatedBoard });
         });
       } catch (err) {
         console.log('Couldnt load board', err);
+      } finally {
+        commit({ type: 'setLoadingOff' });
       }
     },
     async addBoard({ commit }, board) {
@@ -268,10 +265,8 @@ export const boardStore = {
     async updateBoard({ state, commit }, { board = null }) {
       try {
         if (!board) board = state.currBoard;
-        // let newBoard = await boardService.update(board);
         await boardService.update(board);
         commit({ type: 'updateBoard', board: board });
-        // console.log(newBoard);
         socketService.emit(SOCKET_EMIT_UPDATEBOARD, board);
       } catch (err) {
         console.log('Couldnt update Board', err);
@@ -281,7 +276,6 @@ export const boardStore = {
       try {
         await boardService.remove(boardId);
         commit({ type: 'removeBoard', boardId });
-        //SOCKET FOR DELETING MIGHT BE NEEDED
       } catch (err) {
         console.log("Couldn't remove board", err);
       }
@@ -328,7 +322,6 @@ export const boardStore = {
     async updateStore({ commit }, { boardId, taskId }) {
       try {
         console.log('taskId', taskId);
-
         commit({ type: 'updateStore', boardId, taskId });
       } catch (err) {
         console.log('Error on board store GETTASKDETAILS', err);

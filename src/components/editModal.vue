@@ -41,9 +41,9 @@
       </div>
       <edit-dynamic
         :type="type"
-        :getBoard="board"
+        :board="getBoard"
         :getTask="task"
-        :getUser="user"
+        :user="getUser"
         @createLabel="createLabel"
         @deleteLabel="deleteLabel"
         @updateTask="updateTask"
@@ -61,7 +61,7 @@ import vClickOutside from "v-click-outside";
 import editDynamic from "./editDynamic.vue";
 export default {
   name: "editModal",
-  props: ["task", "board", "user"],
+  props: ["task"],
   directives: {
     clickOutside: vClickOutside.directive,
   },
@@ -69,6 +69,9 @@ export default {
     return {
       type: "",
     };
+  },
+  created(){
+    console.log(this.task);
   },
   methods: {
     closeEditModal() {
@@ -102,6 +105,17 @@ export default {
     },
     async updateGroup(group) {
       await this.$store.dispatch({ type: "updateGroup", group });
+    },
+  },
+  computed: {
+    getTask() {
+      return this.$store.getters.getTask;
+    },
+    getBoard() {
+      return this.$store.getters.getCurrBoard;
+    },
+    getUser() {
+      return this.$store.getters.getUser;
     },
   },
   components: {
