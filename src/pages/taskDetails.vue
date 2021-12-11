@@ -81,11 +81,20 @@
                 <span> <i class="fas fa-align-left"></i></span>
                 <p class="task-activity-title">Activity</p>
               </div>
-    
-              <form  >
-                <div class="user-tag-name in-header">DR</div>
-                <textarea type="text" v-model="commentTxt" placeholder="Write a comment..."  @focus="commentsButtons" />
-                <div v-if="isCommentsButton"><button @click="sendComment">Save </button></div>
+
+                <span class="user-tag-name in-header side">DR</span>
+              <form>
+                <div class="comments-container">
+                  <textarea
+                    type="text"
+                    v-model="commentTxt"
+                    placeholder="Write a comment..."
+                    @focus="commentsButtons"
+                  />
+                  <div class="save-btn" v-if="isCommentsButton">
+                    <button @click="sendComment">Save</button>
+                  </div>
+                </div>
               </form>
               <activity-flow
                 :task="getTask"
@@ -199,8 +208,8 @@ export default {
       taskTitle: "",
       titleEdit: false,
       descEdit: false,
-      commentTxt:'',
-      isCommentsButton:false
+      commentTxt: "",
+      isCommentsButton: false,
     };
   },
   async created() {
@@ -223,21 +232,21 @@ export default {
     }
   },
   methods: {
-    commentsButtons(){
-      this.isCommentsButton = true
+    commentsButtons() {
+      this.isCommentsButton = true;
     },
-   async sendComment(){
-     if (this.commentTxt.match(/^\s*$/)) return
-     this.isCommentsButton = false
-       let user = this.getUser;
-       let comment = {
-         txt:this.commentTxt,
-         createdAt:Date.now(),
-         byMember:user
-       }
-      this.$store.commit({type:'setComment',comment})
-     await this.$store.dispatch({type:'updateTask',task:this.getTask})
-     this.commentTxt = ''
+    async sendComment() {
+      if (this.commentTxt.match(/^\s*$/)) return;
+      this.isCommentsButton = false;
+      let user = this.getUser;
+      let comment = {
+        txt: this.commentTxt,
+        createdAt: Date.now(),
+        byMember: user,
+      };
+      this.$store.commit({ type: "setComment", comment });
+      await this.$store.dispatch({ type: "updateTask", task: this.getTask });
+      this.commentTxt = "";
     },
     editTitle() {
       this.titleEdit = true;
@@ -260,7 +269,7 @@ export default {
     closeModal() {
       this.type = "";
     },
-    
+
     async saveTask() {
       try {
         if (this.taskTitle.match(/^\s*$/)) {
@@ -272,7 +281,7 @@ export default {
         // let task = JSON.parse(JSON.stringify(this.currTask))
         // await this.updatedTask(task);
         await this.updatedTask(this.currTask);
-        
+
         // this.currTask = JSON.parse(JSON.stringify(this.getTask))
       } catch (err) {
         console.log("Couldnt SAVE TASK TITLE", err);

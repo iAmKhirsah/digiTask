@@ -1,33 +1,33 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
-  // background:url('https://img.freepik.com/free-photo/hand-painted-watercolor-background-with-sky-clouds-shape_24972-1095.jpg?size=626&ext=jpg') ;
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100%;
-  box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    // background:url('https://img.freepik.com/free-photo/hand-painted-watercolor-background-with-sky-clouds-shape_24972-1095.jpg?size=626&ext=jpg') ;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    box-sizing: border-box;
 }
 .no-background {
-  background: #fafbfc !important;
-  z-index: -5;
-  position: absolute;
-  width: 100%;
-  height: 100%;
+    background: #fafbfc !important;
+    z-index: -5;
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 .background {
-  // background: $bgc-grad-blue;
-  z-index: -5;
-  position: absolute;
-  width: 100%;
-  height: 100%;
+    // background: $bgc-grad-blue;
+    z-index: -5;
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 body {
-  margin: 0;
+    margin: 0;
 }
 h1,
 h2,
@@ -36,55 +36,130 @@ h4,
 h5,
 h6,
 p {
-  margin: 0;
+    margin: 0;
 }
 ul li {
-  text-decoration: none;
-  list-style: none;
+    text-decoration: none;
+    list-style: none;
 }
 ul {
-  padding: 0;
-  margin: 0;
+    padding: 0;
+    margin: 0;
 }
 button {
-  background: none;
-  outline: none;
-  border: none;
+    background: none;
+    outline: none;
+    border: none;
 }
 select {
-  -webkit-appearance: none;
-  outline: none;
+    -webkit-appearance: none;
+    outline: none;
 }
 option {
-  color: $clr2;
+    color: $clr2;
 }
 ::-webkit-scrollbar {
-  height: 13px;
+    height: 13px;
 }
 ::-webkit-scrollbar-track {
-  border-radius: 5px;
-  background: hsla(0, 0%, 0%, 0.55);
+    border-radius: 5px;
+    background: hsla(0, 0%, 0%, 0.55);
 }
 ::-webkit-scrollbar-thumb {
-  border: 10px solid rgba(255, 255, 255, 0.45);
-  border-radius: 5px;
+    border: 10px solid rgba(255, 255, 255, 0.45);
+    border-radius: 5px;
 }
 .thin-scrollbar::-webkit-scrollbar {
-  width: 9px;
+    width: 9px;
 }
 .thin-scrollbar::-webkit-scrollbar-track {
-  border-radius: 5px;
-  background: #dadbe2;
+    border-radius: 5px;
+    background: #dadbe2;
 }
 .thin-scrollbar::-webkit-scrollbar-thumb {
-  border: 10px solid #bfc4cf;
-  border-radius: 5px;
+    border: 10px solid #bfc4cf;
+    border-radius: 5px;
 }
 .loading-screen {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 90;
+    background-color:white;
+}
+
+.container {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 90;
-  background-color: tomato
+  width: 300px;
+  height: 300px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.item {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+}
+
+.item-1 {
+  background-color: #FA5667;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  animation: item-1_move 1.8s cubic-bezier(.6,.01,.4,1) infinite;
+}
+
+.item-2 {
+  background-color: #7A45E5;
+  top: 0;
+  right: 0;
+  animation: item-2_move 1.8s cubic-bezier(.6,.01,.4,1) infinite;
+}
+
+.item-3 {
+  background-color: #1B91F7;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  animation: item-3_move 1.8s cubic-bezier(.6,.01,.4,1) infinite;
+}
+
+.item-4 {
+  background-color: #FAC24C;
+  bottom: 0;
+  left: 0;
+  animation: item-4_move 1.8s cubic-bezier(.6,.01,.4,1) infinite;
+}
+
+@keyframes item-1_move {
+  0%, 100% {transform: translate(0, 0)} 
+  25% {transform: translate(0, 100px)} 
+  50% {transform: translate(100px, 100px)} 
+  75% {transform: translate(100px, 0)} 
+}
+
+@keyframes item-2_move {
+  0%, 100% {transform: translate(0, 0)} 
+  25% {transform: translate(-100px, 0)} 
+  50% {transform: translate(-100px, 100px)} 
+  75% {transform: translate(0, 100px)} 
+}
+
+@keyframes item-3_move {
+  0%, 100% {transform: translate(0, 0)} 
+  25% {transform: translate(0, -100px)} 
+  50% {transform: translate(-100px, -100px)} 
+  75% {transform: translate(-100px, 0)} 
+}
+
+@keyframes item-4_move {
+  0%, 100% {transform: translate(0, 0)} 
+  25% {transform: translate(100px, 0)} 
+  50% {transform: translate(100px, -100px)} 
+  75% {transform: translate(0, -100px)} 
 }

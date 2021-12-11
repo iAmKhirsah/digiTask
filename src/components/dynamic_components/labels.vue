@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="dynamic-labels-edit" v-if="!createMenu">
+    <div class="dynamic-labels-edit " :class="{'on-menu' : isBoardLabels }" v-if="!createMenu">
       <button class="close icon-sm" @click="closeModal">
         <span class="menu-header-close-button"></span>
       </button>

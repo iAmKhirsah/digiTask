@@ -22,8 +22,11 @@
           Create
         </div>
       </div>
+
       <div class="main-header-right">
         <div class="input-container">
+
+          <!-- Ilya  -->
           <filter-app-header class="main-header-search" :boards="getBoards" />
           <!-- <input type="text" placeholder="Search" class="main-header-search" /> -->
           <span class="search"><i class="fas fa-search"></i></span>
@@ -34,7 +37,11 @@
           @click="setType('profile')"
           v-if="getUser"
         >
-          <img class="image-settings" :src="getUser.imgUrl" v-if="getUser.imgUrl" />
+          <img
+            class="image-settings"
+            :src="getUser.imgUrl"
+            v-if="getUser.imgUrl"
+          />
           <span v-else>{{ initials }}</span>
         </div>
       </div>

@@ -51,7 +51,7 @@
         <div>
     </div>
         <div class="activity-container">
-          <div class="menu-box">
+          <div class="menu-box ">
             <div class="activity">
               <div class="activity-bold">Activity</div>
               <span class="icon-board"></span>
@@ -59,7 +59,7 @@
           </div>
         </div>
         <!-- Ilya Activities Component -->
-        <div class="menu-box">
+        <div class="menu-box no-hover">
           <activity-flow :board="board"/>
           <!-- <div>Activities Component</div> -->
         </div>
