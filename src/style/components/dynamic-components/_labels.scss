@@ -1,9 +1,12 @@
 .dynamic-labels-edit {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
     width: 304px;
     position: absolute;
     background: white;
     z-index: 800;
     top: 0;
+    line-height: 20px;
     &.on-menu {
         width: 338px;
         input {
