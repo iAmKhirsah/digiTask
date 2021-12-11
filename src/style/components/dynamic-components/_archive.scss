@@ -1,4 +1,9 @@
 .dynamic-archive-edit {
+    width: 304px;
+    position: absolute;
+    background: white;
+    z-index: 800;
+    top: 0;
     .header-layout {
         border-bottom: 1px solid rgba(9, 30, 66, 0.13);
     }
