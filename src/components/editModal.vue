@@ -51,6 +51,7 @@
         @taskActivity="taskActivity"
         @updateGroup="updateGroup"
         @deleteTask="deleteTask"
+        @closeModal="closeModal"
       />
     </div>
   </div>
@@ -77,6 +78,9 @@ export default {
     editTask() {
       this.closeEditModal();
       this.$emit("editTask", this.task.id);
+    },
+    closeModal() {
+      this.type = "";
     },
     closeEditModal() {
       this.$emit("closeEditModal");
