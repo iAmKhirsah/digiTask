@@ -49,6 +49,11 @@ export const boardStore = {
     },
   },
   mutations: {
+    setComment(state,{comment}){
+        comment.id = utilService.makeId()
+        if(!state.currTask.comments||!state.currTask.comments.length) state.currTask.comments = []
+        state.currTask.comments.push(comment)
+    },
     setLoadingOn(state) {
       state.isLoading = true;
     },

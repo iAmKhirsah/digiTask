@@ -81,9 +81,11 @@
                 <span> <i class="fas fa-align-left"></i></span>
                 <p class="task-activity-title">Activity</p>
               </div>
-              <form @submit.prevent="sendMsg">
+    
+              <form  >
                 <div class="user-tag-name in-header">DR</div>
-                <textarea type="text" placeholder="Write a comment..." />
+                <textarea type="text" v-model="commentTxt" placeholder="Write a comment..."  @focus="commentsButtons" />
+                <div v-if="isCommentsButton"><button @click="sendComment">Save </button></div>
               </form>
               <activity-flow
                 :task="getTask"
@@ -186,6 +188,7 @@ import editDynamic from "../components/editDynamic.vue";
 import { uploadFile } from "../services/serverlessUploadService";
 import taskAddons from "../components/taskAddons.vue";
 import checkList from "../components/checkList.vue";
+
 export default {
   name: "taskDetails",
   data() {
@@ -196,6 +199,8 @@ export default {
       taskTitle: "",
       titleEdit: false,
       descEdit: false,
+      commentTxt:'',
+      isCommentsButton:false
     };
   },
   async created() {
@@ -218,6 +223,22 @@ export default {
     }
   },
   methods: {
+    commentsButtons(){
+      this.isCommentsButton = true
+    },
+   async sendComment(){
+     if (this.commentTxt.match(/^\s*$/)) return
+     this.isCommentsButton = false
+       let user = this.getUser;
+       let comment = {
+         txt:this.commentTxt,
+         createdAt:Date.now(),
+         byMember:user
+       }
+      this.$store.commit({type:'setComment',comment})
+     await this.$store.dispatch({type:'updateTask',task:this.getTask})
+     this.commentTxt = ''
+    },
     editTitle() {
       this.titleEdit = true;
       this.descEdit = false;
@@ -239,6 +260,7 @@ export default {
     closeModal() {
       this.type = "";
     },
+    
     async saveTask() {
       try {
         if (this.taskTitle.match(/^\s*$/)) {
@@ -308,7 +330,6 @@ export default {
       try {
         let currTask = this.getTask;
         let user = this.getUser;
-        let txt = textToAdd;
         this.$store.dispatch({
           type: "addActivity",
           activity: { task: currTask, txt, user },
