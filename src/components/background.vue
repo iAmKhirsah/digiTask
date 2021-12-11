@@ -40,7 +40,8 @@
       <div class="board-background-selection-photos" v-if="type === 'photos'">
         <div v-for="(photo, idx) in photos" :key="idx">
           <div @click="setBackground(photo, 'photo')">
-            <img :src="photo.url" :title="photo.by" />
+            <img :src="require(`@/assets/img/${photo}`)" :title="photo.by" />
+            <!-- <img :src="photo" :title="photo.by" /> -->
           </div>
         </div>
       </div>
@@ -64,7 +65,14 @@ export default {
         "rgb(0, 174, 204)",
         "rgb(131, 140, 145)",
       ],
-      photos: [{}],
+      photos: [
+        "background-1.jpg",
+        "background-2.jpg",
+        "background-3.jpg",
+        "background-4.jpg",
+        "background-5.jpg",
+        "background-6.jpg",
+      ],
       currBoard: null,
     };
   },
