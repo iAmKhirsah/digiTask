@@ -38,7 +38,7 @@
         </div>
       </span>
     </div>
-    <div class="task-preview-info" >
+    <div class="task-preview-info">
       <span class="task-badges" v-if="hasInfo">
         <div class="badges-container">
 
@@ -68,7 +68,6 @@
           <render-members :member="member" />
         </span>
       </span>
-      </span>
     </div>
   </div>
 </template>
@@ -86,7 +85,6 @@ export default {
   },
   created() {
     // console.log('task on preview',this.task)
-    console.log("task preview board groupss", this.board.groups);
   },
   methods: {
     openEditModal() {

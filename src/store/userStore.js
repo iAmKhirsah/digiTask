@@ -17,7 +17,7 @@ export const userStore = {
     },
   },
   mutations: {
-    setLoggedinUser(state, { user }) {
+    setLoggedinUser(state, { user = null }) {
       state.loggedInUser = user ? { ...user } : userService.getLoggedinUser();
     },
     setUsers(state, { users }) {
@@ -52,7 +52,7 @@ export const userStore = {
       try {
         const user = await userService.signup(userCred);
         commit({ type: 'setLoggedinUser', user });
-        return user;
+        // return user;
       } catch (err) {
         console.log('userStore: Error in signup', err);
         throw err;
@@ -62,7 +62,7 @@ export const userStore = {
       try {
         const user = await userService.login(userCred);
         commit({ type: 'setLoggedinUser', user });
-        return user;
+        // return user;
       } catch (err) {
         console.log('userStore: Error in login', err);
         throw err;

@@ -1,5 +1,5 @@
 <template>
-  <section class="dynamic-profile card-layout nav-modal">
+  <section class="dynamic-profile card-layout nav-modal" v-if="getUser">
     <div class="header-layout">
       <header>Account</header>
       <button @click="closeModal">
@@ -8,21 +8,28 @@
     </div>
 
     <div class="user-info">
-      <div class="user-tag-name in-menu">DM</div>
+      <div class="user-tag-name in-menu">
+        <img
+          class="image-settings"
+          :src="getUser.imgUrl"
+          v-if="getUser.imgUrl"
+        />
+        <span v-else>{{ initials }}</span>
+      </div>
       <div class="user-info-details">
-        <div>Dennis Miller</div>
-        <span>DennisMiller@gmail.com</span>
+        <div>{{ getUser.fullname }}</div>
+        <span>{{ getUser.username }}</span>
       </div>
     </div>
 
     <div class="card-line"></div>
-    <div class="user-activity">
+    <!-- <div class="user-activity">
       <p>Profile and visibility</p>
       <p>Activity</p>
-    </div>
-    <div class="card-line"></div>
+    </div> -->
+    <!-- <div class="card-line"></div> -->
 
-    <button class="user-info-logout-btn">Log out</button>
+    <button class="user-info-logout-btn" @click="doLogout">Log out</button>
   </section>
 </template>
 <script>
@@ -31,10 +38,34 @@ export default {
   data() {
     return {};
   },
+  created() {
+    console.log(this.getUser);
+  },
   methods: {
     closeModal() {
       console.log("hello");
       this.$emit("closeModal");
+    },
+    doLogout() {
+      this.$store.dispatch({ type: "logout" });
+      this.$nextTick(() => {
+        this.$router.push("/");
+      });
+    },
+  },
+  computed: {
+    getUser() {
+      return this.$store.getters.currUser;
+    },
+    initials() {
+      console.log(this.getUser);
+      let initials = this.getUser.fullname.split(" ");
+      if (initials.length > 1) {
+        initials = initials.shift().charAt(0) + initials.pop().charAt(0);
+      } else {
+        initials = this.getUser.fullname.substring(0, 2);
+      }
+      return initials.toUpperCase();
     },
   },
 };

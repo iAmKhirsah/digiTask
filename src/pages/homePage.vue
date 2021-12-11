@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-  <!-- <div>
+    <!-- <div>
       
     </div> -->
 
@@ -12,8 +12,12 @@
           <span class="app-title">DigiTask</span>
         </div>
         <div class="user-actions">
-          <div class="login"><router-link to="/signup">Log in</router-link></div>
-          <div class="signup"><router-link to="/signup">Sign up</router-link></div>
+          <div class="login">
+            <router-link to="/signup">Log in</router-link>
+          </div>
+          <div class="signup">
+            <router-link to="/signup">Sign up</router-link>
+          </div>
         </div>
       </nav>
 
@@ -40,9 +44,9 @@
       <div class="footer-title">
         <p>It’s more than work. It’s a way of working together.</p>
         <p>
-          Start with a Digitask board, lists, and cards. Customize and expand with
-          more features as your teamwork grows. Manage projects, organize tasks,
-          and build team spirit-all in one place.
+          Start with a Digitask board, lists, and cards. Customize and expand
+          with more features as your teamwork grows. Manage projects, organize
+          tasks, and build team spirit-all in one place.
         </p>
       </div>
     </section>
@@ -50,6 +54,7 @@
 </template>
 
 <script>
+import { utilService } from "../services/utilService";
 export default {
   name: "home",
   components: {},
@@ -58,8 +63,9 @@ export default {
       await this.$store.dispatch({
         type: "signup",
         userCred: {
-          username: "Guest",
+          username: "Guest" + utilService.makeId(),
           fullname: "Guest",
+          password: utilService.makeId(12),
           imgUrl:
             "https://media.wired.co.uk/photos/60c8730fa81eb7f50b44037e/3:2/w_3329,h_2219,c_limit/1521-WIRED-Cat.jpeg",
           starred: [],

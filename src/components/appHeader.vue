@@ -18,7 +18,9 @@
           Starred
           <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
         </div>
-        <div class="main-header-tabs create" @click="setType('create')">Create</div>
+        <div class="main-header-tabs create" @click="setType('create')">
+          Create
+        </div>
       </div>
       <div class="main-header-right">
         <div class="input-container">
@@ -30,8 +32,10 @@
         <div
           class="main-header-profile user-tag-name in-header"
           @click="setType('profile')"
+          v-if="getUser"
         >
-          DR
+          <img class="image-settings" :src="getUser.imgUrl" v-if="getUser.imgUrl" />
+          <span v-else>{{ initials }}</span>
         </div>
       </div>
     </section>
@@ -79,7 +83,7 @@ export default {
     },
     loadBoard(boardId) {
       console.log(boardId);
-      this.$store.dispatch({type: 'loadAndWatchBoard', boardId});
+      this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
     },
   },
   computed: {
@@ -88,6 +92,16 @@ export default {
     },
     getUser() {
       return this.$store.getters.currUser;
+    },
+    initials() {
+      console.log(this.getUser);
+      let initials = this.getUser.fullname.split(" ");
+      if (initials.length > 1) {
+        initials = initials.shift().charAt(0) + initials.pop().charAt(0);
+      } else {
+        initials = this.getUser.fullname.substring(0, 2);
+      }
+      return initials.toUpperCase();
     },
   },
   directives: {
