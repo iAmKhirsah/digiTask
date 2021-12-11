@@ -18,19 +18,12 @@ export const userStore = {
   },
   mutations: {
     setLoggedinUser(state, { user = null }) {
-      if(!user) user = userService.getLoggedinUser()
-      state.loggedInUser = user
+      if (!user) user = userService.getLoggedinUser();
+      state.loggedInUser = user;
       // state.loggedInUser = user ? { ...user } : userService.getLoggedinUser();
     },
     setUsers(state, { users }) {
       state.users = users;
-    },
-    addRecent(state, { boardId }) {
-      console.log(state.loggedInUser);
-      state.loggedInUser.recentBoards.find((currBoardId) => {
-        if (currBoardId === boardId) return;
-        else state.loggedInUser.recentBoards.push(boardId);
-      });
     },
   },
   actions: {
@@ -45,7 +38,10 @@ export const userStore = {
     },
     async addRecent({ dispatch, commit }, { boardId, user }) {
       try {
-        commit({ type: 'addRecent', boardId });
+        let idx = user.recentBoards.findIndex(
+          (currBoardId) => currBoardId === boardId
+        );
+        if (idx === -1) user.recentBoards.push(boardId);
         await dispatch({ type: 'updateUser', user });
       } catch (err) {
         console.log('userStore: Error on adding recent boards');
@@ -59,10 +55,10 @@ export const userStore = {
         console.log('userStore: Error on updating user');
       }
     },
-    async getUserById({ commit },{userId}) {
+    async getUserById({ commit }, { userId }) {
       try {
-        let user = await userService.getById(userId)
-        commit({type:'setLoggedinUser',user})
+        let user = await userService.getById(userId);
+        commit({ type: 'setLoggedinUser', user });
       } catch (err) {
         console.log('userStore: Error on geting User by Id');
       }
