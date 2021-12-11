@@ -1,5 +1,5 @@
 <template>
-  <section class="task-details-overlay" v-if="pageOpen">
+  <section class="task-details-overlay" v-if="pageOpen && currTask">
     <section class="task-details-wrapper">
       <div class="task-details-container" v-click-outside="closePage">
         <button class="task-details-container-btn" @click="closePage">
@@ -7,7 +7,7 @@
         </button>
         <div
           class="task-background-cover"
-          v-if="getTask.style.bgColor"
+          v-if="currTask.style.bgColor"
           :style="'background:' + getTask.style.bgColor"
         >
           <div class="window-cover-menu">

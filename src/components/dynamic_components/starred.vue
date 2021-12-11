@@ -6,6 +6,7 @@
         <span class="icon-sm close-icon"> </span>
       </button>
     </div>
+    <div class="placeholder" v-if="!getStarredBoards.length">Star important boards to access them quickly and easily.</div>
     <div v-for="board in getStarredBoards" :key="board._id">
       <div class="workspace-content" @click="goToBoard(board._id)">
         <div
