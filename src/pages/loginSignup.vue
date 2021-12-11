@@ -20,6 +20,13 @@
             clearable
           />
           <input
+            type="text"
+            placeholder="Fullname"
+            v-model="signupCred.fullname"
+            minlength="3"
+            clearable
+          />
+          <input
             placeholder="Password"
             type="password"
             minlength="5"
@@ -88,7 +95,7 @@
       </section>
     </div>
     {{ msg }}
-      <button @click="showSignup">{{ loginSignup }}</button>
+    <button @click="showSignup">{{ loginSignup }}</button>
     <div>
       <button @click="doLogout" v-if="loggedinUser">Logout</button>
     </div>
@@ -100,7 +107,7 @@ export default {
   data() {
     return {
       loginCred: { username: "", password: null },
-      signupCred: { username: "", password: null },
+      signupCred: { username: "", fullname: "", password: null },
       isSignup: false,
       msg: "",
     };
