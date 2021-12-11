@@ -132,7 +132,7 @@
     flex: 1 1;
     justify-content: flex-end;
     .members-container {
-        padding: 4px 0px 0px 5px;
+        padding: 1px 0px 0px 5px;
         flex: 1 1;
         justify-content: flex-end;
         display: flex;
@@ -177,6 +177,9 @@
         text-overflow: ellipsis;
         vertical-align: top;
         flex: 1 1;
+        .badges-container{
+            padding-bottom: 4px;
+        }
         .badge {
             line-height: 20px;
             display: inline-block;
