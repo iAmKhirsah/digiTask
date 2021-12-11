@@ -79,6 +79,15 @@ export default {
     getBoards(){
       console.log(this.$store.getters.boards)
      return this.$store.getters.boards
+    },
+    getStarredBoards(){
+      let starredBoards = []
+      this.$store.getters.currUser.starred.forEach((boardId)=>{
+        this.getBoards.forEach((board)=>{
+          if(board.id === boardId) starredBoards.push(board)
+        })
+      })
+      return starredBoards
     }
   },
   components: {
