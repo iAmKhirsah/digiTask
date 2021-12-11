@@ -18,8 +18,7 @@ import recent from "./dynamic_components/recent.vue";
 import starred from "./dynamic_components/starred.vue";
 import workSpace from "./dynamic_components/workSpace.vue";
 import invite from "./dynamic_components/invite.vue";
-import boardCreate from './boardCreate.vue'
-
+import boardCreate from "./boardCreate.vue";
 export default {
   name: "headerDynamic",
   props: ["type", "getCurrBoard", "getUser", "getBoards"],
