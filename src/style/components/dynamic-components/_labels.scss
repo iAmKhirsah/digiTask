@@ -4,6 +4,25 @@
     background: white;
     z-index: 800;
     top: 0;
+    &.on-menu {
+        width: 338px;
+        input {
+            width: 309px;
+        }
+        .label-list-color {
+            max-width: 280px;
+        }
+        .label-edit-button {
+            visibility: hidden;
+        }
+        .label-color-ul {
+            &:hover {
+                .label-edit-button {
+                    visibility: visible;
+                }
+            }
+        }
+    }
     .close {
         padding: 12px 12px 12px 12px;
         position: absolute;
@@ -114,7 +133,7 @@
     cursor: pointer;
     font-weight: 700;
     margin: 0 0 4px;
-    min-height: 20px;
+    min-height: 33px;
     max-width: 247px;
     padding: 6px 12px;
     color: #fff;

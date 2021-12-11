@@ -10,12 +10,14 @@
       <input type="text" placeholder="Search Members " />
     </div>
     <div class="card-line"></div>
+     <div class="users-invite-container">
     <div v-for="(user, idx) in filterUsers" :key="idx">
       <div class="invite-content" @click="addUser(user)">
         <span class="user-tag-name in-header">
           <img class="image-settings" :src="user.imgUrl"
         /></span>
         <p class="name-tag">{{ user.username }}</p>
+      </div>
         <!-- <span class="user-tag-name in-header">
           <img class="image-settings" :src="user.imgUrl" v-if="user.imgUrl" />
           <span v-else>{{ initials }}</span> -->
