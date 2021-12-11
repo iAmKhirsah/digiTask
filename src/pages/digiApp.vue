@@ -6,15 +6,15 @@
       @closeCreateMenu="closeCreateMenu"
       @createBoard="createBoard"
     />
-    <div class="workspace-container" v-if="!createMenu">
-      <div class="workspace-title">
+    <div class="workspace-container" >
+      <div class="workspace-title" v-if="getStarredBoards.length">
         <span><i class="fas fa-star"></i></span>
         <h1>Starred Workspace</h1>
       </div>
       <div class="boards-container">
-        <div class="boards-containers-my-boards" v-if="getBoards">
+        <div class="boards-containers-my-boards" >
           <div
-            v-for="board in getBoards"
+            v-for="board in getStarredBoards"
             :key="board._id"
             class="board-card"
             :style="getBackground(board)"
@@ -26,12 +26,8 @@
               </div>
             </router-link>
           </div>
-          <div class="board-card-add">
-            <div class="board-card-title" @click="openCreateMenu">
-              Create new board
-              <span class="material-icons plus"> add </span>
-            </div>
-          </div>
+
+         
         </div>
       </div>
       <!--  -->
@@ -107,11 +103,20 @@ export default {
       };
     },
   },
-  computed: {
-    getBoards() {
-      console.log(this.$store.getters.boards);
-      return this.$store.getters.boards;
+  computed:{
+    getBoards(){
+      console.log(this.$store.getters.boards)
+     return this.$store.getters.boards
     },
+    getStarredBoards(){
+      let starredBoards = []
+      this.$store.getters.currUser.starred.forEach((boardId)=>{
+        this.getBoards.forEach((board)=>{
+          if(board._id === boardId) starredBoards.push(board)
+        })
+      })
+      return starredBoards
+    }
   },
   components: {
     boardCreate,

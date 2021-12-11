@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="main-header-container" v-click-outside="setType">
+    <section class="main-header-container">
       <div class="main-header-left">
         <span class="trello-logo"><i class="fab fa-trello"></i></span>
         <div class="logo main-header-tabs">
@@ -25,7 +25,6 @@
 
       <div class="main-header-right">
         <div class="input-container">
-
           <!-- Ilya  -->
           <filter-app-header class="main-header-search" :boards="getBoards" />
           <!-- <input type="text" placeholder="Search" class="main-header-search" /> -->
@@ -47,6 +46,7 @@
       </div>
     </section>
     <header-dynamic
+     @createBoard="createBoard"
       @closeModal="closeModal"
       @updateUser="updateUser"
       @loadBoard="loadBoard"
@@ -82,8 +82,15 @@ export default {
     setType(type) {
       this.type = type;
     },
+     async createBoard(board) {
+      await this.$store.dispatch({
+        type: "createBoard",
+        board,
+      });
+      this.createMenu = false;
+    },
     updateUser(user) {
-      console.log*user
+      console.log * user;
       this.$store.dispatch({ type: "updateUser", user });
     },
     closeModal() {

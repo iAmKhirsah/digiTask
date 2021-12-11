@@ -150,22 +150,19 @@ export const boardStore = {
     },
     addTask(state, { taskRaw }) {
       let newTask = boardService.getEmptyTask();
+      
       newTask.title = taskRaw.task;
       newTask.byMember = taskRaw.user;
-      console.log(newTask);
-      let idx = state.currBoard.groups.findIndex(
-        (group) => group.id === taskRaw.groupId
-      );
-      state.currBoard.groups[idx].tasks.push(newTask);
+      console.log(newTask)
+      state.currBoard.groups[taskRaw.idx].tasks.push(newTask);
+      console.log(state.currBoard)
     },
-    updateStore(state, { boardId, taskId }) {
-      let boardIdx = state.boards.findIndex((board) => board._id === boardId);
-      state.currBoard = state.boards[boardIdx];
-      let groupIdx = state.boards[boardIdx].groups.findIndex((group) =>
+    updateStore(state, { taskId }) {
+      let groupIdx = state.currBoard.groups.findIndex((group) =>
         group.tasks.some((task) => task.id === taskId)
       );
-      state.currGroup = state.currBoard.groups[groupIdx];
-      state.currTask = state.currGroup.tasks.find((task) => task.id === taskId);
+      state.currGroup = state.currBoard.groups[groupIdx]; 
+      if(state.currBoard.groups[groupIdx].tasks) state.currTask = state.currBoard.groups[groupIdx].tasks.find((task) => task.id === taskId);
     },
     updateGroup(state, { group }) {
       const idx = state.currBoard.groups.findIndex(
@@ -281,7 +278,7 @@ export const boardStore = {
       try {
         if (!board) board = state.currBoard;
         await boardService.update(board);
-        commit({ type: 'updateBoard', board: board });
+        commit({ type: 'updateBoard',  board });
         socketService.emit(SOCKET_EMIT_UPDATEBOARD, board);
       } catch (err) {
         console.log('Couldnt update Board', err);
@@ -336,10 +333,10 @@ export const boardStore = {
     },
     async updateStore({ commit }, { boardId, taskId }) {
       try {
-        console.log('taskId', taskId);
+         
         let board = await boardService.getBoardById(boardId);
         commit({ type: 'setCurrBoard', board });
-        commit({ type: 'updateStore', boardId, taskId });
+        commit({ type: 'updateStore', taskId });
       } catch (err) {
         console.log('Error on board store GETTASKDETAILS', err);
       }

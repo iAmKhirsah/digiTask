@@ -13,8 +13,8 @@
       <p class="subtitle">Copy to...</p>
       <div class="copy-to">
         <label class="label-title">List</label>
-
-        <select class="select-settings" @change="setCopyTo">
+        <select class="select-settings" v-model="groupId">
+        <!-- <select class="select-settings" @change="setCopyTo"> -->
           <option
             v-for="group in updateBoard.groups"
             :key="group.id"
