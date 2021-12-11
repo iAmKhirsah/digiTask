@@ -2,6 +2,7 @@
   <main>
     <div :class="isDefault" :style="getImgOrColor"></div>
     <div id="app">
+      
       <app-header v-if="header"></app-header>
       <router-view></router-view>
     </div>
@@ -11,7 +12,7 @@
 import appHeader from "./components/appHeader.vue";
 
 export default {
-  components: {
+  components: { 
     appHeader,
   },
   data() {
@@ -35,11 +36,12 @@ export default {
       if (this.getBoard)
         return this.getBoard.style.backgroundColor
           ? "background:" + this.getBoard.style.backgroundColor
-          : "background-image:" + `url('${this.getBoard.style.backgroundUrl}')`;
+          : "background-image:" + `url(${require('@/assets/img/'+this.getBoard.style.backgroundUrl)})`;
     },
     isDefault() {
       return this.noBgc ? "no-background" : "background";
     },
+   
   },
   watch: {
     "$route.path": {

@@ -7,6 +7,7 @@
       v-dragscroll:nochilddrag
       :class="menuOpen"
     >
+    
       <board-header
         v-if="board"
         :board="getCurrBoard"
