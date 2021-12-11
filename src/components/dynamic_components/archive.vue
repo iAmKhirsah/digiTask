@@ -25,10 +25,16 @@ export default {
       type: Boolean,
       default: false,
     },
+    task: {
+      type: Object,
+    }
+  },
+  created() {
+    console.log(this.task);
   },
   methods: {
     deleteThis() {
-      this.isGroup ? this.$emit("deleteGroup") : this.$emit("deleteTask");
+      this.isGroup ? this.$emit("deleteGroup") : this.$emit("deleteTask", this.task);
       this.closeModal();
     },
     closeModal() {

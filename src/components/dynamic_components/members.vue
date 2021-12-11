@@ -9,7 +9,7 @@
     <input type="text" placeholder="Search Members" />
     <h5 class="subtitle">Board members</h5>
     <div v-if="getBoard">
-      <div v-for="member in getBoard.members" :key="member._id">
+      <div v-for="member in boardCopy.members" :key="member._id">
         <div
           class="member-info-container"
           v-if="member"
@@ -30,13 +30,17 @@ export default {
   props: ["board", "task", "user"],
   data() {
     return {
-      boardCopy: this.getBoard,
+      boardCopy: null,
       updatedTask: JSON.parse(JSON.stringify(this.task)),
     };
   },
-  created() {},
+  created() {
+    this.boardCopy = JSON.parse(JSON.stringify(this.getBoard));
+    console.log(this.getBoard);
+  },
   methods: {
     sendMember(member) {
+      console.log(this.boardCopy);
       var txt = "";
       let idx = this.updatedTask.members.findIndex(
         (currMember) => currMember._id === member._id
@@ -45,6 +49,7 @@ export default {
         this.updatedTask.members.splice(idx, 1);
         this.boardCopy.activities = this.boardCopy.activities.filter(
           (activity) => {
+            console.log(activity);
             if (
               activity.byMember._id === member._id &&
               activity.task.id === this.updatedTask.id
@@ -55,12 +60,21 @@ export default {
         );
         this.$emit("updateTask", this.updatedTask);
         this.$emit("updateBoard", this.boardCopy);
+        this.$nextTick(() => {
+          this.boardCopy = JSON.parse(JSON.stringify(this.getBoard));
+          this.updatedTask = JSON.parse(JSON.stringify(this.task));
+        });
       } else {
+        console.log("im here");
         txt = `${this.getUser.fullname} added ${member.fullname} to this card`;
         this.updatedTask.members.push(member);
         this.$emit("taskActivity", txt);
       }
       this.$emit("updateTask", this.updatedTask);
+      this.$nextTick(() => {
+        this.boardCopy = JSON.parse(JSON.stringify(this.getBoard));
+        this.updatedTask = JSON.parse(JSON.stringify(this.task));
+      });
     },
     closeModal() {
       this.$emit("closeModal");
@@ -70,9 +84,9 @@ export default {
     getBoard() {
       return this.$store.getters.getCurrBoard;
     },
-    getUser(){
-      return this.$store.getters.currUser
-    }
+    getUser() {
+      return this.$store.getters.currUser;
+    },
   },
 };
 </script>
