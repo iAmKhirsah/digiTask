@@ -38,12 +38,12 @@
         </div>
       </div>
       <div class="board-background-selection-photos" v-if="type === 'photos'">
-        <div v-for="(photo, idx) in photos" :key="idx">
-          <div @click="setBackground(photo, 'photo')">
+        <span v-for="(photo, idx) in photos" :key="idx">
+          <span class="img-content" @click="setBackground(photo, 'photo')">
             <img :src="require(`@/assets/img/${photo}`)" :title="photo.by" />
             <!-- <img :src="photo" :title="photo.by" /> -->
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </section>
   </section>
