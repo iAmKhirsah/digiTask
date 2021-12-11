@@ -18,7 +18,9 @@ export const userStore = {
   },
   mutations: {
     setLoggedinUser(state, { user = null }) {
-      state.loggedInUser = user ? { ...user } : userService.getLoggedinUser();
+      if(!user) user = userService.getLoggedinUser()
+      state.loggedInUser = user
+      // state.loggedInUser = user ? { ...user } : userService.getLoggedinUser();
     },
     setUsers(state, { users }) {
       state.users = users;
@@ -57,8 +59,10 @@ export const userStore = {
         console.log('userStore: Error on updating user');
       }
     },
-    async getUserById({ commit }) {
+    async getUserById({ commit },{userId}) {
       try {
+        let user = await userService.getById(userId)
+        commit({type:'setLoggedinUser',user})
       } catch (err) {
         console.log('userStore: Error on geting User by Id');
       }

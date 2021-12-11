@@ -76,6 +76,7 @@ export default {
       this.type = type;
     },
     updateUser(user) {
+      console.log*user
       this.$store.dispatch({ type: "updateUser", user });
     },
     closeModal() {

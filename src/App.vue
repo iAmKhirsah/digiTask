@@ -25,8 +25,10 @@ export default {
       header: true,
     };
   },
-  created() {
+  async created() {
     this.$store.commit({ type: "setLoggedinUser" });
+    // let user = this.$store.getters.currUser
+    // await this.$store.dispatch({type:'getUserById',userId:user._id})
   },
   computed: {
     getBoard() {
