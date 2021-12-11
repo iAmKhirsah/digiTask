@@ -1,5 +1,5 @@
 <template>
-  <section class="dynamic-starred card-layout nav-modal">
+  <section class="dynamic-starred card-layout nav-modal" v-click-outside="closeModal">
     <div class="header-layout">
       <header>Starred boards</header>
       <button @click="closeModal">
@@ -27,6 +27,7 @@
   </section>
 </template>
 <script>
+import vClickOutside from "v-click-outside";
 export default {
   name: "starred",
   props: ["getBoards", "getCurrBoard"],
@@ -77,6 +78,9 @@ export default {
       return this.$store.getters.currUser
     },
   
+  },
+    directives: {
+    clickOutside: vClickOutside.directive,
   },
 };
 </script>

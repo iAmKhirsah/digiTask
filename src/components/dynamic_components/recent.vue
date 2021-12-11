@@ -1,5 +1,5 @@
 <template>
-  <section class="dynamic-recent card-layout nav-modal">
+  <section class="dynamic-recent card-layout nav-modal" v-click-outside="closeModal">
     <div class="header-layout">
       <header>Recent boards</header>
       <button @click="closeModal">
@@ -20,6 +20,7 @@
   </section>
 </template>
 <script>
+import vClickOutside from "v-click-outside";
 export default {
   name: "recent",
   data() {
@@ -64,6 +65,9 @@ export default {
       });
       return recentBoards;
     },
+  },
+    directives: {
+    clickOutside: vClickOutside.directive,
   },
 };
 </script>

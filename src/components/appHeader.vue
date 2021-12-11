@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="main-header-container" v-click-outside="setType">
+    <section class="main-header-container">
       <div class="main-header-left">
         <span class="trello-logo"><i class="fab fa-trello"></i></span>
         <div class="logo main-header-tabs">
@@ -47,6 +47,7 @@
       </div>
     </section>
     <header-dynamic
+     @createBoard="createBoard"
       @closeModal="closeModal"
       @updateUser="updateUser"
       @loadBoard="loadBoard"
@@ -81,6 +82,13 @@ export default {
   methods: {
     setType(type) {
       this.type = type;
+    },
+     async createBoard(board) {
+      await this.$store.dispatch({
+        type: "createBoard",
+        board,
+      });
+      this.createMenu = false;
     },
     updateUser(user) {
       console.log*user
