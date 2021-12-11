@@ -30,7 +30,11 @@
         @click.stop="openEditModal"
       >
         <div class="quick-edit-menu" v-if="isOpenEditModal">
-          <edit-modal @closeEditModal="closeEditModal" :task="task"></edit-modal>
+          <edit-modal
+            @closeEditModal="closeEditModal"
+            :task="task"
+            @editTask="editTask"
+          ></edit-modal>
         </div>
       </span>
     </div>
@@ -72,9 +76,9 @@ export default {
       isOpenEditModal: false,
     };
   },
-  created(){
+  created() {
     // console.log('task on preview',this.task)
-    console.log('task preview board groupss',this.board.groups)
+    console.log("task preview board groupss", this.board.groups);
   },
   methods: {
     openEditModal() {
@@ -186,31 +190,28 @@ export default {
         return { "background-color": this.task.style.bgColor };
       }
     },
-    
-    todosDone(){
-      let todosLength = this.todosLength
-       let doneTodos = this.task.checklists.reduce((acc,checklist)=>{
-       acc += checklist.todos.reduce((acc,todo)=>{
-         if(todo.isDone) acc++
-         return acc
-       },0)
-       return acc
-      },0)
 
-       return {'done-todos': todosLength === doneTodos}
-    },
-    getBoard(){
-      return this.$store.getters.getCurrBoard
-    },
-    getTask(){
-      return this.$store.getters.getTask
-    },
-    getUser(){
-      return this.$store.getters.currUser
-    }
-    
+    todosDone() {
+      let todosLength = this.todosLength;
+      let doneTodos = this.task.checklists.reduce((acc, checklist) => {
+        acc += checklist.todos.reduce((acc, todo) => {
+          if (todo.isDone) acc++;
+          return acc;
+        }, 0);
+        return acc;
+      }, 0);
 
-
+      return { "done-todos": todosLength === doneTodos };
+    },
+    getBoard() {
+      return this.$store.getters.getCurrBoard;
+    },
+    getTask() {
+      return this.$store.getters.getTask;
+    },
+    getUser() {
+      return this.$store.getters.currUser;
+    },
   },
   components: {
     taskPreviewLabel,

@@ -15,7 +15,7 @@ export default {
     }
   },
   methods:{
-        closeModal(){
+      closeModal(){
       console.log('hello');
       this.$emit('closeModal')
     }
