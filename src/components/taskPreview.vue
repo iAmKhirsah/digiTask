@@ -38,7 +38,7 @@
         </div>
       </span>
     </div>
-    <div class="task-preview-info" >
+    <div class="task-preview-info">
       <span class="task-badges" v-if="hasInfo">
         <!-- <span class="badge notification" ><i class="far fa-bell" aria-hidden="true"></i></span> -->
         <span
@@ -56,15 +56,15 @@
         <span class="badge checklist" v-if="todosLength" :class="todosDone">
           <span class="todos-done">{{ renderChecklist }}</span>
         </span>
-      <span class="members-container" v-if="hasMembers">
-        <span
-          class="badge members"
-          v-for="(member, idx) in taskMembers"
-          :key="idx"
-        >
-          <render-members :member="member" />
+        <span class="members-container" v-if="hasMembers">
+          <span
+            class="badge members"
+            v-for="(member, idx) in taskMembers"
+            :key="idx"
+          >
+            <render-members :member="member" />
+          </span>
         </span>
-      </span>
       </span>
     </div>
   </div>
@@ -83,7 +83,6 @@ export default {
   },
   created() {
     // console.log('task on preview',this.task)
-    console.log("task preview board groupss", this.board.groups);
   },
   methods: {
     openEditModal() {

@@ -1,5 +1,5 @@
 <template>
-  <main>  
+  <main>
     <div :class="isDefault" :style="getImgOrColor"></div>
     <div id="app">
       <app-header v-if="header"></app-header>
@@ -19,10 +19,13 @@ export default {
       routes: ["/", "/workspace", "/signup"],
       // homeRoute: "/",
       // signRoute: '/signup',
-      noHeaderRoutes: ['/', '/signup'],
+      noHeaderRoutes: ["/", "/signup"],
       noBgc: false,
-      header: true
+      header: true,
     };
+  },
+  created() {
+    this.$store.commit({ type: "setLoggedinUser" });
   },
   computed: {
     getBoard() {
@@ -48,6 +51,6 @@ export default {
       },
       immediate: true,
     },
-  }
+  },
 };
 </script>
