@@ -107,7 +107,15 @@ export default {
   data() {
     return {
       loginCred: { username: "", password: null },
-      signupCred: { username: "", fullname: "", password: null },
+      signupCred: {
+        username: "",
+        fullname: "",
+        password: null,
+        imgUrl: "",
+        mentions: [],
+        starred: [],
+        recentBoards: [],
+      },
       isSignup: false,
       msg: "",
     };

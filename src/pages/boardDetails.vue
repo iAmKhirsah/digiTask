@@ -117,6 +117,11 @@ export default {
       await this.$store.dispatch({ type: "loadBoards" });
       await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
       this.board = this.getCurrBoard;
+      this.$store.dispatch({
+        type: "addRecent",
+        boardId: this.board._id,
+        user: this.getUser,
+      });
       // this.board = JSON.parse(JSON.stringify(this.getCurrBoard))
       if (!this.board) this.$router.push("/");
       // if (!this.board.groups.length) return;
@@ -245,6 +250,9 @@ export default {
     },
     isLoading() {
       return this.$store.getters.isLoading;
+    },
+    getUser() {
+      return this.$store.getters.currUser;
     },
   },
   mounted() {

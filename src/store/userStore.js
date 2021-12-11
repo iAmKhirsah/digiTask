@@ -23,6 +23,12 @@ export const userStore = {
     setUsers(state, { users }) {
       state.users = users;
     },
+    addRecent(state, { boardId }) {
+      state.currUser.recentBoards.find((currBoardId) => {
+        if (currBoardId === boardId) return;
+        else state.currUser.recentBoards.push(boardId);
+      });
+    }, 
   },
   actions: {
     async loadUsers({ commit }) {
@@ -32,6 +38,14 @@ export const userStore = {
       } catch (err) {
         console.log('userStore: Error in loadUsers', err);
         throw err;
+      }
+    },
+    async addRecent({ dispatch, commit }, { boardId, user }) {
+      try {
+        commit({ type: 'addRecent', boardId });
+        await dispatch({ type: 'updateUser', user });
+      } catch (err) {
+        console.log('userStore: Error on adding recent boards');
       }
     },
     async updateUser({ commit }, { user }) {

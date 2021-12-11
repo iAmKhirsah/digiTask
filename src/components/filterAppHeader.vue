@@ -4,7 +4,7 @@
       type="text"
       v-model="filterBy.title"
       placeholder="Search"
-      @change="setFilter"
+      @input="setFilter"
     />
     <div class="filter-search-result" v-if="showSearch">
       <div v-for="task in filteredTasks" :key="task.id">
@@ -19,7 +19,6 @@
   </div>
 </template>
 <script>
-import { utilService } from "../services/utilService";
 export default {
   props: ["boards"],
   name: "filterAppHeader",
