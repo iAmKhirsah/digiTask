@@ -68,6 +68,7 @@
           <render-members :member="member" />
         </span>
       </span>
+      </span>
     </div>
   </div>
 </template>
