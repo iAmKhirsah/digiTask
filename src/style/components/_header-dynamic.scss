@@ -82,6 +82,7 @@
             align-items: center;
             padding: 4px 11px 4px 11px;
             gap: 8px;
+            position: relative;
             .name-tag {
                 padding-bottom: 4px;
             }
@@ -89,6 +90,13 @@
                 background-color: #091e4214;
                 color: #091e42;
                 cursor: pointer;
+                .on-invite {
+                    visibility: visible;
+                }
+            }
+            .on-invite {
+                position: absolute;
+                visibility: hidden;
             }
         }
         input {
@@ -106,9 +114,9 @@
                 box-shadow: inset 0 0 0 2px #dfe1e6;
             }
         }
-        .users-invite-container{
+        .users-invite-container {
             overflow-y: scroll;
-    max-height: 200px;
+            max-height: 200px;
         }
     }
     .user-info {
@@ -158,7 +166,7 @@
     align-items: center;
     height: 28px;
     width: 28px;
-    &:hover{
+    &:hover {
         background-color: #ebecf0;
     }
 }

@@ -17,6 +17,8 @@
           <img class="image-settings" :src="user.imgUrl"
         /></span>
         <p class="name-tag">{{ user.username }}</p>
+        <span class="icon-settings icon-sm v-sign  on-invite"></span
+            >
       </div>
         <!-- <span class="user-tag-name in-header">
           <img class="image-settings" :src="user.imgUrl" v-if="user.imgUrl" />
