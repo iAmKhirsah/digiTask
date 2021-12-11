@@ -117,13 +117,11 @@ export default {
       this.updateBoard(board);
     },
     starredBoard() {
-      console.log(this.getCurrBoard._id)
-      console.log(this.currUser)
       let idx = this.getCurrUser.starred.indexOf(this.getCurrBoard._id);
       if (idx > -1) this.currUser.starred.splice(idx, 1);
       else this.currUser.starred.push(this.getCurrBoard._id);
       let user = JSON.parse(JSON.stringify(this.currUser));
-      this.$store.dispatch({ type: "updateUser", user });
+        this.$store.dispatch({ type: "updateUser", user });
     },
     setType(type) {
       this.type = type;
