@@ -15,9 +15,14 @@
           v-if="member"
           @click="sendMember(member)"
         >
-          <span class="user-tag-name in-header"
-            ><img class="image-settings" :src="member.imgUrl"
-          /></span>
+          <span class="user-tag-name in-header">
+            <img
+              class="image-settings"
+              :src="member.imgUrl"
+              v-if="member.imgUrl"
+            />
+            <span v-else>{{ initials }}</span>
+          </span>
           <span>{{ member.fullname }}</span>
         </div>
       </div>
@@ -96,6 +101,16 @@ export default {
           .includes(this.filterBy.toLowerCase());
       });
       return filteredMembers;
+    },
+    initials() {
+      console.log(this.getUser);
+      let initials = this.getUser.fullname.split(" ");
+      if (initials.length > 1) {
+        initials = initials.shift().charAt(0) + initials.pop().charAt(0);
+      } else {
+        initials = this.getUser.fullname.substring(0, 2);
+      }
+      return initials.toUpperCase();
     },
   },
 };

@@ -10,12 +10,16 @@
       <input type="text" placeholder="Search Members " />
     </div>
     <div class="card-line"></div>
-    <div v-for="(user, idx) in users" :key="idx">
+    <div v-for="(user, idx) in filterUsers" :key="idx">
       <div class="invite-content" @click="addUser(user)">
         <span class="user-tag-name in-header">
           <img class="image-settings" :src="user.imgUrl"
         /></span>
         <p class="name-tag">{{ user.username }}</p>
+        <!-- <span class="user-tag-name in-header">
+          <img class="image-settings" :src="user.imgUrl" v-if="user.imgUrl" />
+          <span v-else>{{ initials }}</span> -->
+        <!-- </span> -->
       </div>
     </div>
   </section>
@@ -35,12 +39,6 @@ export default {
     await this.$store.dispatch({ type: "loadUsers" });
     this.users = this.$store.getters.users;
     this.boardToUpdate = JSON.parse(JSON.stringify(this.getCurrBoard));
-    //Code Below Makes you able to invite people who are not inside the board yet
-    // this.users =  users.filter((user)=>{
-    //     return  !this.board.members.some((member)=>{
-    //        return member._id === user._id
-    //     })
-    //  })
   },
   methods: {
     addUser(user) {
@@ -63,6 +61,29 @@ export default {
   computed: {
     getCurrBoard() {
       return this.$store.getters.getCurrBoard;
+    },
+    getUsers() {
+      return this.$store.getters.users;
+    },
+    filterUsers() {
+      if (!this.filterBy) return this.getUsers;
+      let filteredUsers = this.getUsers.filter((user) => {
+        return user.fullname
+          .toLowerCase()
+          .includes(this.filterBy.toLowerCase());
+      });
+      return filteredUsers;
+    },
+    initials() {
+      let initials = this.getUsers.forEach((user) => user.fullname.split(" "));
+      if (initials.length > 1) {
+        initials = initials.shift().charAt(0) + initials.pop().charAt(0);
+      } else {
+        initials = this.getUsers.forEach((user) =>
+          user.fullname.substring(0, 2)
+        );
+      }
+      return initials.toUpperCase();
     },
   },
 };
