@@ -24,11 +24,12 @@ export const userStore = {
       state.users = users;
     },
     addRecent(state, { boardId }) {
-      state.currUser.recentBoards.find((currBoardId) => {
+      console.log(state.loggedInUser);
+      state.loggedInUser.recentBoards.find((currBoardId) => {
         if (currBoardId === boardId) return;
-        else state.currUser.recentBoards.push(boardId);
+        else state.loggedInUser.recentBoards.push(boardId);
       });
-    }, 
+    },
   },
   actions: {
     async loadUsers({ commit }) {

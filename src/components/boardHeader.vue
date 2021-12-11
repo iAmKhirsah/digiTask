@@ -25,9 +25,17 @@
             :key="member._id"
             class="members"
           >
-            <span class="user-tag-name"
+            <!-- <span class="user-tag-name"
               ><img :src="member.imgUrl" class="image-settings"
-            /></span>
+            /></span> -->
+            <span class="user-tag-name in-header">
+              <img
+                class="image-settings"
+                :src="member.imgUrl"
+                v-if="member.imgUrl"
+              />
+              <span v-else>{{ initials }}</span>
+            </span>
           </div>
         </div>
         <div>
@@ -106,7 +114,6 @@ export default {
       });
       let board = JSON.parse(JSON.stringify(this.getCurrBoard));
       board.title = this.boardTitle;
-
       this.updateBoard(board);
     },
     starredBoard() {
@@ -161,6 +168,15 @@ export default {
     },
     hideButton() {
       return { hidden: this.showMenuOpen };
+    },
+    initials() {
+      let initials = this.getCurrUser.fullname.split(" ");
+      if (initials.length > 1) {
+        initials = initials.shift().charAt(0) + initials.pop().charAt(0);
+      } else {
+        initials = this.getCurrUser.fullname.substring(0, 2);
+      }
+      return initials.toUpperCase();
     },
   },
   components: {
