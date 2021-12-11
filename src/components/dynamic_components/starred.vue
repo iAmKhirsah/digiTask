@@ -11,7 +11,8 @@
       <div class="workspace-content" @click="goToBoard(board._id)">
         <div
           class="starred-board-background"
-          :style="'background:' + board.style.backgroundColor"
+         
+          :style="getBackground(board)"
         ></div>
         <div class="board-title">
           {{ board.title }}
@@ -51,6 +52,12 @@ export default {
       this.user.starred.splice(idx, 1);
       this.$emit("updateUser", this.user);
     },
+    getBackground(board){
+      if(board.style.backgroundColor)
+      return {'background-color': board.style.backgroundColor}
+      else return {'background-image': `url(${require('@/assets/img/'+board.style.backgroundUrl)})`}
+    
+    }
   },
   computed: {
     getStarredBoards() {
@@ -58,10 +65,9 @@ export default {
       this.getBoards.forEach((board) => {
         let starredBoards = this.user.starred.find(
           (boardId) => boardId === board._id
-        );
-        console.log(starredBoards);
+        )
         starredBoards ? boards.push(board) : "";
-      });
+      })
       return boards;
     },
   },
