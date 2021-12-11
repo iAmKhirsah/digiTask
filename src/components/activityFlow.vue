@@ -8,7 +8,7 @@
           :key="activity.id"
         >
           <span class="user-tag-name in-header">
-            <img class="image-settings" :src="activity.byMember.imgUrl"
+            <img v-if="activity.byMember.imgUrl" class="image-settings" :src="activity.byMember.imgUrl"
           /></span>
           <strong> {{ activity.byMember.fullname }} </strong>
           <span> {{ activity.txt }}</span>
@@ -51,7 +51,7 @@ export default {
   computed: {
     getActivities() {
       if(!this.task) return this.getBoard.activities
-      let activities = this.board.activities.filter(
+      let activities = this.getBoard.activities.filter(
         (activity) => activity.task.id === this.task.id
       );
       return activities;

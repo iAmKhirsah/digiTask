@@ -17,7 +17,7 @@
             v-for="board in getBoards"
             :key="board._id"
             class="board-card"
-            :style="board.style"
+            :style="getBackground(board)"
           >
             <router-link :to="'/b/' + board._id">
               <div class="board-card-content">
@@ -68,6 +68,12 @@ export default {
       });
       this.createMenu = false;
     },
+     getBackground(board){
+       
+      if(board.style.backgroundColor) return {'background-color': board.style.backgroundColor}
+      return {'background-image': `url(${require('@/assets/img/'+board.style.backgroundUrl)})`}
+    
+    }
   },
   computed:{
     getBoards(){

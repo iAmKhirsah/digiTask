@@ -16,6 +16,7 @@
       v-dragscroll:nochilddrag
       :class="menuOpen"
     >
+    
       <board-header
         v-if="board"
         :board="getCurrBoard"
@@ -126,11 +127,16 @@ export default {
       await this.$store.dispatch({ type: "loadBoards" });
       await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
       this.board = this.getCurrBoard;
+      // this.$store.dispatch({
+      //   type: "addRecent",
+      //   boardId: this.board._id,
+      //   user: this.getUser,
+      // });
       // this.board = JSON.parse(JSON.stringify(this.getCurrBoard))
       if (!this.board) this.$router.push("/");
       // if (!this.board.groups.length) return;
       if (!this.board.groups) return;
-      this.$store.commit({ type: "setLoggedinUser" });
+      // this.$store.commit({ type: "setLoggedinUser" });
     } catch (err) {
       console.log("Couldnt create and watch board ", err);
       this.$router.push("/workspace");
@@ -254,6 +260,9 @@ export default {
     },
     isLoading() {
       return this.$store.getters.isLoading;
+    },
+    getUser() {
+      return this.$store.getters.currUser;
     },
   },
   mounted() {

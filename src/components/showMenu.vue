@@ -19,7 +19,7 @@
 
         <div class="menu-box" @click="openModal('background')">
           <div>Change background</div>
-          <span class="icon-background" :style="backgroundStyle"></span>
+          <span class="icon-background" :style="getBackground"></span>
         </div>
         <!-- Ilia we need here another componenet? -->
         <div class="menu-box">
@@ -129,8 +129,11 @@ export default {
     }
   },
   computed: {
-    backgroundStyle(){
-      return {'background': this.board.style.backgroundColor}
+  
+       getBackground(){
+      if(this.board.style.backgroundColor) return {'background-color': this.board.style.backgroundColor}
+      return {'background-image': `url(${require('@/assets/img/'+this.board.style.backgroundUrl)})`}
+    
     }
   },
   components: {

@@ -20,11 +20,13 @@ html {
     height: 100%;
 }
 .background {
-    // background: $bgc-grad-blue;
-    z-index: -5;
-    position: absolute;
-    width: 100%;
-    height: 100%;
+  // background: $bgc-grad-blue;
+  z-index: -5;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size:cover;
+  
 }
 body {
     margin: 0;
