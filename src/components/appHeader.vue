@@ -25,7 +25,6 @@
 
       <div class="main-header-right">
         <div class="input-container">
-
           <!-- Ilya  -->
           <filter-app-header class="main-header-search" :boards="getBoards" />
           <!-- <input type="text" placeholder="Search" class="main-header-search" /> -->
@@ -91,7 +90,7 @@ export default {
       this.createMenu = false;
     },
     updateUser(user) {
-      console.log*user
+      console.log * user;
       this.$store.dispatch({ type: "updateUser", user });
     },
     closeModal() {

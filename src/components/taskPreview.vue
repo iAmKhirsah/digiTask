@@ -159,7 +159,6 @@ export default {
         done: isDone,
       };
     },
-
     validateDates() {
       return this.task.dates.startDate || this.task.dates.dueDate;
     },
