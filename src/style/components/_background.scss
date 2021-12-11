@@ -45,3 +45,18 @@
   color: #42526e;
   cursor: pointer;
 }
+
+.board-background-selection-photos{
+
+  img{
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0 4px 8px;
+    position: relative;
+    text-align: left;
+    /* vertical-align: top; */
+    width: 50%;
+    z-index: 1;
+  }
+}

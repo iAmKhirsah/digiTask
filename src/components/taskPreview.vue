@@ -40,7 +40,8 @@
     </div>
     <div class="task-preview-info">
       <span class="task-badges" v-if="hasInfo">
-        <!-- <span class="badge notification" ><i class="far fa-bell" aria-hidden="true"></i></span> -->
+        <div class="badges-container">
+
         <span
           class="badge due-date"
           @click="toggleDueDateDone"
@@ -56,14 +57,15 @@
         <span class="badge checklist" v-if="todosLength" :class="todosDone">
           <span class="todos-done">{{ renderChecklist }}</span>
         </span>
-        <span class="members-container" v-if="hasMembers">
-          <span
-            class="badge members"
-            v-for="(member, idx) in taskMembers"
-            :key="idx"
-          >
-            <render-members :member="member" />
-          </span>
+        </div>
+        <!-- <span class="badge notification" ><i class="far fa-bell" aria-hidden="true"></i></span> -->
+      <span class="members-container" v-if="hasMembers">
+        <span
+          class="badge members"
+          v-for="(member, idx) in taskMembers"
+          :key="idx"
+        >
+          <render-members :member="member" />
         </span>
       </span>
     </div>
