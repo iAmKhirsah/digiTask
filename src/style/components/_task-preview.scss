@@ -135,6 +135,7 @@
         padding: 5px;
         flex: 1 1;
         justify-content: flex-end;
+        display: flex;
     }
     .badge {
         &.members {
@@ -162,8 +163,9 @@
     }
 
     .task-badges {
+        flex-wrap: wrap;
         color: #5e6c84;
-        display: inline-block;
+        display: flex;
         margin: 0 4px 4px 0;
         max-width: 100%;
         min-height: 20px;
@@ -173,6 +175,7 @@
         text-decoration: none;
         text-overflow: ellipsis;
         vertical-align: top;
+        flex: 1 1;
         .badge {
             line-height: 20px;
             display: inline-block;
