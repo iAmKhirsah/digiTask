@@ -8,7 +8,7 @@
         <div
           class="task-background-cover"
           v-if="currTask.style.bgColor"
-          :style="'background:' + getTask.style.bgColor"
+          :style="getTaskCoverColor"
         >
           <div class="window-cover-menu">
             <div class="window-cover-menu-button" @click="setType('cover')">
@@ -385,6 +385,11 @@ export default {
     getTaskCheckLists() {
       return this.$store.getters.getCurrTask.checklists;
     },
+    getTaskCoverColor(){
+      if(this.getTask.style.bgColor)
+      return {'background-color':this.getTask.style.bgColor}
+      
+    }
   },
   components: {
     taskDescription,

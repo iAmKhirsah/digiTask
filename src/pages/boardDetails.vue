@@ -210,12 +210,12 @@ export default {
         await this.$store.dispatch({ type: "removeGroup", groupId });
       } catch (err) {}
     },
-    async addTask(task, groupId) {
+    async addTask(task, idx) {
       let user = { ...this.$store.getters.currUser };
       try {
         await this.$store.dispatch({
           type: "addTask",
-          taskRaw: { task, groupId, user },
+          taskRaw: { task, idx, user },
         });
       } catch (err) {
         console.log("Couldnt add task", err);

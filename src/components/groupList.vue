@@ -96,7 +96,7 @@ export default {
       this.$router.push(routerLink);
     },
     addTask(task) {
-      this.$emit("addTask", task, this.group.id);
+      this.$emit("addTask", task, this.idx);
     },
     // updateGroup(group) {
     //   console.log("group title changed");
