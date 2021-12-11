@@ -53,6 +53,17 @@
           </div>
         </div>
         <div class="line-divider"></div>
+        <div class="login-switch">
+          <div>
+            <div class="error-msg">
+              {{ msg }}
+            </div>
+            <button @click="showSignup">{{ loginSignup }}</button>
+            <div>
+              <button @click="doLogout" v-if="loggedinUser">Logout</button>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- sec -->
@@ -92,12 +103,18 @@
           </div>
         </div>
         <div class="line-divider"></div>
+        <div class="login-switch">
+          <div>
+           <div class="error-msg">
+              {{ msg }}
+            </div>
+            <button @click="showSignup">{{ loginSignup }}</button>
+            <div>
+              <button @click="doLogout" v-if="loggedinUser">Logout</button>
+            </div>
+          </div>
+        </div>
       </section>
-    </div>
-    {{ msg }}
-    <button @click="showSignup">{{ loginSignup }}</button>
-    <div>
-      <button @click="doLogout" v-if="loggedinUser">Logout</button>
     </div>
   </div>
 </template>

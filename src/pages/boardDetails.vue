@@ -1,6 +1,15 @@
 <template>
   <div>
-    <div v-if="isLoading" class="loading-screen">Loading....</div>
+    <div v-if="isLoading" class="loading-screen">
+
+<div class="container">
+  <div class="item item-1"></div>
+  <div class="item item-2"></div>
+  <div class="item item-3"></div>
+  <div class="item item-4"></div>
+</div>
+
+    </div>
     <div
       v-if="getCurrBoard && !isLoading"
       class="board-details-container"

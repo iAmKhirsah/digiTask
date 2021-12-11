@@ -45,12 +45,12 @@
           ></div>
         </div>
       </div>
-      <div class="dynamic-attachment-edit">
+      <!-- <div class="dynamic-attachment-edit">
         <p class="subtitles">Attachments</p>
         <button>Upload a cover image</button>
-      </div>
-      <div>UNSPLASH?</div>
-      <div>SEARCH PHOTOS?</div>
+      </div> -->
+      <!-- <div>UNSPLASH?</div>
+      <div>SEARCH PHOTOS?</div> -->
     </div>
   </div>
 </template>

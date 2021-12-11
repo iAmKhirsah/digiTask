@@ -50,12 +50,24 @@
       padding: 17px 0px 10px 0px;
       border-top: 1px solid #091e4221;
     }
+    
   }
   .menu-box {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 6px 6px 6px 40px;
     border-radius: 3px;
     cursor: pointer;
+    
+    &.no-hover{
+      &:hover{
+        background-color: #f4f5f7;
+      }
+    }
+
+    &:hover {
+      background-color: #091e4214;
+      color: #091e42;
+    }
 
     div {
       color: $clr2;
@@ -82,10 +94,6 @@
       border-radius: 3px;
     }
 
-    &:hover {
-      background-color: #091e4214;
-      color: #091e42;
-    }
     .icon-board::before {
       font-family: 'icomoon';
       content: '\e90b';

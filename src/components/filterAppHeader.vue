@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="the-search">
     <input
       type="text"
       v-model="filterBy.title"
