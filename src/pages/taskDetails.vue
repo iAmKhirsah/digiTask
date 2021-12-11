@@ -19,7 +19,7 @@
         </div>
         <div class="task-details-header">
           <span><i class="fas fa-window-maximize"></i></span>
-          <form v-if="titleEdit" v-on:keydown.enter="saveTask">
+          <form v-if="titleEdit" v-on:keydown.enter="saveTitle">
             <textarea
               class="textarea-another-list"
               ref="taskTitle"
@@ -250,6 +250,7 @@ export default {
         // let task = JSON.parse(JSON.stringify(this.currTask))
         // await this.updatedTask(task);
         await this.updatedTask(this.currTask);
+        
         // this.currTask = JSON.parse(JSON.stringify(this.getTask))
       } catch (err) {
         console.log("Couldnt SAVE TASK TITLE", err);
