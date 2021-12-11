@@ -134,6 +134,7 @@ export default {
   },
   created() {
     if (this.task) this.updatedTask = JSON.parse(JSON.stringify(this.task));
+    this.$store.commit({type:'updateTask',task:this.updatedTask})
   },
   computed: {
     createOrUpdate() {
@@ -154,6 +155,9 @@ export default {
       });
       return filteredLabels;
     },
+    getCurrTask(){
+      return this.$store.getters.getCurrTask
+    }
   },
   methods: {
     goBack() {

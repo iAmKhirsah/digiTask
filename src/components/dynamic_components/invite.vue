@@ -1,5 +1,5 @@
 <template>
-  <section class="dynamic-invite card-layout nav-modal">
+  <section class="dynamic-invite card-layout nav-modal"    v-click-outside="closeModal">
     <div class="header-layout">
       <header>Invites</header>
       <button class="close" @click="closeModal">
@@ -27,6 +27,7 @@
   </section>
 </template>
 <script>
+import vClickOutside from "v-click-outside";
 export default {
   name: "recent",
   props: ["board"],
@@ -87,6 +88,9 @@ export default {
       }
       return initials.toUpperCase();
     },
+  },
+   directives: {
+    clickOutside: vClickOutside.directive,
   },
 };
 </script>

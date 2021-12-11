@@ -1,7 +1,7 @@
 
 <template>
   <section>
-    <header class="board-header" :class="menuOpen" v-click-outside="setType">
+    <header class="board-header" :class="menuOpen" >
       <div class="board-header-left">
         <div class="board-box">
           <input
@@ -65,7 +65,6 @@
       @closeMenu="closeMenu"
       :class="hideMenu"
     />
-
     <header-dynamic
       @closeModal="closeModal"
       @updateBoard="updateBoard"

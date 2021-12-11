@@ -68,7 +68,6 @@
           </span>
         </span>
       </span>
-      </span>
     </div>
   </div>
 </template>
@@ -213,9 +212,6 @@ export default {
     },
     getBoard() {
       return this.$store.getters.getCurrBoard;
-    },
-    getTask() {
-      return this.$store.getters.getTask;
     },
     getUser() {
       return this.$store.getters.currUser;
