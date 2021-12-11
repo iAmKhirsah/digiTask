@@ -38,19 +38,19 @@
                 }
                 .icon-settings {
                     display: none;
-                 }
-                 &:hover{
-                    .icon-settings{
-                         display: block;
-                     }
-                 }
+                }
+                &:hover {
+                    .icon-settings {
+                        display: block;
+                    }
+                }
                 .task-preview {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
                     min-height: 32px;
                     margin-bottom: 2px;
-            
+
                     .task-preview-content {
                         padding: 5px 20px 5px 10px;
                         overflow-wrap: break-word;
@@ -129,9 +129,12 @@
     margin-left: -2px;
     width: 100%;
     max-width: 100%;
-    flex-direction: column;
-    .members-container{
+    flex: 1 1;
+    justify-content: flex-end;
+    .members-container {
         padding: 5px;
+        flex: 1 1;
+        justify-content: flex-end;
     }
     .badge {
         &.members {
