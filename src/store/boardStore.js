@@ -66,6 +66,9 @@ export const boardStore = {
     setCurrBoard(state, { board }) {
       state.currBoard = board;
     },
+    setTask(state, { task }) {
+      state.currTask = task;
+    },
     updateBoard(state, { board }) {
       if (board._id === state.currBoard._id) {
         state.currBoard = board;
@@ -110,7 +113,10 @@ export const boardStore = {
     addActivity(state, { activity }) {
       let newActivity = boardService.getEmptyActivity();
       newActivity.txt = activity.txt;
-      newActivity.byMember = activity.user;
+      newActivity.byMember._id = activity.user._id;
+      newActivity.byMember.username = activity.user.username;
+      newActivity.byMember.fullname = activity.user.fullname;
+      newActivity.byMember.imgUrl = activity.user.imgUrl;
       newActivity.task.id = activity.task.id;
       newActivity.task.title = activity.task.title;
       if (activity.res) {
@@ -180,10 +186,14 @@ export const boardStore = {
       state.currTask = task;
     },
     removeTask(state, { task }) {
-      let idx = state.currGroup.tasks.findIndex(
+      const groupIdx = state.currBoard.groups.findIndex((currGroup) =>
+        currGroup.tasks.find((currTask) => task.id === currTask.id)
+      );
+      const taskIdx = state.currBoard.groups[groupIdx].tasks.findIndex(
         (currTask) => currTask.id === task.id
       );
-      state.currGroup.tasks.splice(idx, 1);
+      state.currBoard.groups[groupIdx].tasks.splice(taskIdx, 1);
+      state.currTask = null;
     },
     removeGroup(state, { groupId }) {
       let idx = state.currBoard.groups.findIndex(
@@ -327,6 +337,8 @@ export const boardStore = {
     async updateStore({ commit }, { boardId, taskId }) {
       try {
         console.log('taskId', taskId);
+        let board = await boardService.getBoardById(boardId);
+        commit({ type: 'setCurrBoard', board });
         commit({ type: 'updateStore', boardId, taskId });
       } catch (err) {
         console.log('Error on board store GETTASKDETAILS', err);

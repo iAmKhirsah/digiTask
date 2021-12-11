@@ -70,8 +70,8 @@ export default {
       type: "",
     };
   },
-  created(){
-    console.log(this.task);
+  created() {
+    // console.log(this.task);
   },
   methods: {
     closeEditModal() {
@@ -96,11 +96,11 @@ export default {
       await this.$store.dispatch({ type: "updateBoard", board });
     },
     async taskActivity(txt) {
-      let currTask = this.getTask;
+      console.log(txt);
       let user = this.getUser;
       this.$store.dispatch({
         type: "addActivity",
-        activity: { task: currTask, txt, user },
+        activity: { task: this.task, txt, user },
       });
     },
     async updateGroup(group) {
@@ -115,7 +115,7 @@ export default {
       return this.$store.getters.getCurrBoard;
     },
     getUser() {
-      return this.$store.getters.getUser;
+      return this.$store.getters.currUser;
     },
   },
   components: {

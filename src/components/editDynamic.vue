@@ -93,8 +93,9 @@ export default {
     attachmentLink(link) {
       this.$emit("attachmentLink", link);
     },
-    deleteTask() {
-      this.$emit("deleteTask", this.task);
+    deleteTask(task) {
+      console.log(task);
+      this.$emit("deleteTask", task);
     },
     updateTask(task) {
       this.$emit("updateTask", task);
@@ -118,6 +119,7 @@ export default {
       this.$emit("openModal", "archive");
     },
     taskActivity(txt) {
+      console.log(txt);
       this.$emit("taskActivity", txt);
     },
     deleteGroup() {

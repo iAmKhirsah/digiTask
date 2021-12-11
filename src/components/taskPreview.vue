@@ -30,12 +30,15 @@
         @click.stop="openEditModal"
       >
         <div class="quick-edit-menu" v-if="isOpenEditModal">
-          <edit-modal @closeEditModal="closeEditModal" :task="task"></edit-modal>
+          <edit-modal
+            @closeEditModal="closeEditModal"
+            :task="task"
+          ></edit-modal>
         </div>
       </span>
     </div>
-    <div class="task-preview-info" v-if="hasInfo">
-      <span class="task-badges">
+    <div class="task-preview-info" >
+      <span class="task-badges" v-if="hasInfo">
         <!-- <span class="badge notification" ><i class="far fa-bell" aria-hidden="true"></i></span> -->
         <span
           class="badge due-date"
@@ -46,16 +49,21 @@
           ><span class="short-date">{{ startDate }} {{ dueDate }}</span></span
         >
         <span v-if="task.description" class="badge description"> </span>
-        <span class="badge comments" v-if="hasCommnets"><span class="comments-count">{{commnetsCount}}</span></span>
-        <span class="badge checklist" v-if="todosLength" :class="todosDone"
-          ><span class="todos-done">{{ renderChecklist }}</span></span
+        <span class="badge comments" v-if="hasCommnets"
+          ><span class="comments-count">{{ commnetsCount }}</span></span
         >
+        <span class="badge checklist" v-if="todosLength" :class="todosDone">
+          <span class="todos-done">{{ renderChecklist }}</span>
+        </span>
+      </span>
+      <span class="members-container" v-if="hasMembers">
         <span
           class="badge members"
           v-for="(member, idx) in taskMembers"
           :key="idx"
-          ><render-members :member="member"
-        /></span>
+        >
+          <render-members :member="member" />
+        </span>
       </span>
     </div>
   </div>
@@ -72,9 +80,9 @@ export default {
       isOpenEditModal: false,
     };
   },
-  created(){
+  created() {
     // console.log('task on preview',this.task)
-    console.log('task preview board groupss',this.board.groups)
+    console.log("task preview board groupss", this.board.groups);
   },
   methods: {
     openEditModal() {
@@ -103,9 +111,7 @@ export default {
     hasInfo() {
       return (
         (this.hasCommnets ||
-          this.hasMembers ||
           this.validateDates ||
-          this.hasMembers ||
           this.task.description ||
           this.todosLength) &&
         this.infoCover
@@ -114,8 +120,8 @@ export default {
     hasCommnets() {
       return this.task.comments && this.task.comments.length;
     },
-    commnetsCount(){
-      return this.task.comments.length
+    commnetsCount() {
+      return this.task.comments.length;
     },
     hasMembers() {
       return this.task.members && this.task.members.length;
@@ -189,31 +195,28 @@ export default {
         return { "background-color": this.task.style.bgColor };
       }
     },
-    
-    todosDone(){
-      let todosLength = this.todosLength
-       let doneTodos = this.task.checklists.reduce((acc,checklist)=>{
-       acc += checklist.todos.reduce((acc,todo)=>{
-         if(todo.isDone) acc++
-         return acc
-       },0)
-       return acc
-      },0)
 
-       return {'done-todos': todosLength === doneTodos}
-    },
-    getBoard(){
-      return this.$store.getters.getCurrBoard
-    },
-    getTask(){
-      return this.$store.getters.getTask
-    },
-    getUser(){
-      return this.$store.getters.currUser
-    }
-    
+    todosDone() {
+      let todosLength = this.todosLength;
+      let doneTodos = this.task.checklists.reduce((acc, checklist) => {
+        acc += checklist.todos.reduce((acc, todo) => {
+          if (todo.isDone) acc++;
+          return acc;
+        }, 0);
+        return acc;
+      }, 0);
 
-
+      return { "done-todos": todosLength === doneTodos };
+    },
+    getBoard() {
+      return this.$store.getters.getCurrBoard;
+    },
+    getTask() {
+      return this.$store.getters.getTask;
+    },
+    getUser() {
+      return this.$store.getters.currUser;
+    },
   },
   components: {
     taskPreviewLabel,

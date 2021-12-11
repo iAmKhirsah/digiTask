@@ -10,7 +10,7 @@
     }
     .task-list-container-content {
         max-height: 730px;
-      
+
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -36,15 +36,23 @@
                     background-color: #f4f5f7;
                     cursor: pointer;
                 }
+                .icon-settings {
+                    display: none;
+                 }
+                 &:hover{
+                    .icon-settings{
+                         display: block;
+                     }
+                 }
                 .task-preview {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    height: 32px;
+                    min-height: 32px;
                     margin-bottom: 2px;
-
+            
                     .task-preview-content {
-                        padding: 5px 10px;
+                        padding: 5px 20px 5px 10px;
                         overflow-wrap: break-word;
                         max-width: 250px;
                         color: $clr2;
@@ -118,14 +126,18 @@
 
 .task-preview-info {
     display: flex;
-    float: left;
     margin-left: -2px;
     width: 100%;
     max-width: 100%;
+    flex-direction: column;
+    .members-container{
+        padding: 5px;
+    }
     .badge {
         &.members {
             float: right;
             width: fit-content;
+            padding: 0 1px;
         }
     }
 
@@ -161,7 +173,7 @@
         .badge {
             line-height: 20px;
             display: inline-block;
-            margin: 0 0px 4px 8px;
+            margin: 0px 0px 1px 5px;
             max-width: 100%;
             min-height: 20px;
             overflow: hidden;
