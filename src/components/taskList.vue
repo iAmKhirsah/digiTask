@@ -3,23 +3,28 @@
     <div class="task-list-container-content thin-scrollbar">
       <Container
         :data-index="idx"
-           drop-class="card-ghost-drop"
-              drag-class="card-ghost"
+        drop-class="card-ghost-drop"
+        drag-class="card-ghost"
         group-name="group-list-container"
         :drop-placeholder="dropPlaceholderOptions"
-        
         :get-child-payload="(itemindex) => getChildPayload(itemindex)"
         @drop="onDrop($event)"
       >
         <Draggable
-        
           v-for="(task, itemIndex) in groupTasks"
           :key="itemIndex"
           class="task-list-content"
         >
           <div class="task-list-content">
             <!-- <div class="task-list-content" v-for="task in group.tasks" :key="task.id"> -->
-            <task-preview @updateTask="updateTask" :isMiniPreview="isMiniPreview" @miniPreview="miniPreview" :task="task" :board="getBoard" @editTask="editTask" />
+            <task-preview
+              @updateTask="updateTask"
+              :isMiniPreview="isMiniPreview"
+              @miniPreview="miniPreview"
+              :task="task"
+              :board="getBoard"
+              @editTask="editTask"
+            />
           </div>
         </Draggable>
       </Container>
@@ -33,33 +38,34 @@ import addTask from "./addTask.vue";
 import { Container, Draggable } from "vue-smooth-dnd";
 export default {
   name: "taskList",
-  props: ["group", "isNewTask", "idx", "board","isMiniPreview"],
+  props: ["group", "isNewTask", "idx", "board", "isMiniPreview"],
   components: { taskPreview, addTask, Container, Draggable },
   data() {
     return {
       dropPlaceholderOptions: {
-    className: "drop-preview",
-    animationDuration: "150",
-    showOnTop: true,
-   },};
+        className: "drop-preview",
+        animationDuration: "150",
+        showOnTop: true,
+      },
+    };
   },
   methods: {
     created() {},
     editTask(taskId) {
       this.$emit("editTask", taskId, this.group.id);
     },
-    miniPreview(){
-     this.$emit("miniPreview")
+    miniPreview() {
+      this.$emit("miniPreview");
     },
     addTask(newTask) {
       this.$emit("addTask", newTask, this.group.id);
     },
       updateTask(task){
-        let group = JSON.parse(JSON.stringify(this.group))
-        console.log('UpdateTask line 61 in taskLIst',group)
-        let idx = group.tasks.findIndex((currTask)=> currTask.id === task.id)
-        group.tasks[idx]= task
-        this.$emit('updateGroup' , group)
+        // let group = JSON.parse(JSON.stringify(this.group))
+        // console.log('UpdateTask line 61 in taskLIst',group)
+        // let idx = group.tasks.findIndex((currTask)=> currTask.id === task.id)
+        // group.tasks[idx]= task
+        this.$emit('updateTask' , task)
       },
     async onDrop(dropResult) {
       try {
@@ -72,17 +78,14 @@ export default {
     getChildPayload(index) {
       return this.board.groups[this.idx].tasks[index];
     },
-  
-    
   },
-  computed:{
-    groupTasks(){
-      return this.group.tasks
+  computed: {
+    groupTasks() {
+      return this.group.tasks;
     },
-    getBoard(){
-      return this.$store.getters.getCurrBoard
-    }
-  }
- 
+    getBoard() {
+      return this.$store.getters.getCurrBoard;
+    },
+  },
 };
 </script>

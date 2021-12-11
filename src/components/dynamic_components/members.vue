@@ -1,15 +1,15 @@
 <template>
   <div class="dynamic-members-edit">
     <button class="close" @click="closeModal">
-       <span class="menu-header-close-button"></span>
+      <span class="menu-header-close-button"></span>
     </button>
     <div class="header-layout">
       <header>Members</header>
     </div>
     <input type="text" placeholder="Search Members" />
     <h5 class="subtitle">Board members</h5>
-    <div v-if="board">
-      <div v-for="member in board.members" :key="member._id">
+    <div v-if="getBoard">
+      <div v-for="member in getBoard.members" :key="member._id">
         <div
           class="member-info-container"
           v-if="member"
@@ -30,13 +30,11 @@ export default {
   props: ["board", "task", "user"],
   data() {
     return {
-      boardCopy: JSON.parse(JSON.stringify(this.board)),
+      boardCopy: this.getBoard,
       updatedTask: JSON.parse(JSON.stringify(this.task)),
     };
   },
-  created(){
-    
-  },
+  created() {},
   methods: {
     sendMember(member) {
       var txt = "";
@@ -58,17 +56,23 @@ export default {
         this.$emit("updateTask", this.updatedTask);
         this.$emit("updateBoard", this.boardCopy);
       } else {
-        txt = `${this.user.fullname} added ${member.fullname} to this card`;
+        txt = `${this.getUser.fullname} added ${member.fullname} to this card`;
         this.updatedTask.members.push(member);
         this.$emit("taskActivity", txt);
-       
       }
-       this.$emit("updateTask", this.updatedTask);
-      
+      this.$emit("updateTask", this.updatedTask);
     },
     closeModal() {
       this.$emit("closeModal");
     },
+  },
+  computed: {
+    getBoard() {
+      return this.$store.getters.getCurrBoard;
+    },
+    getUser(){
+      return this.$store.getters.currUser
+    }
   },
 };
 </script>

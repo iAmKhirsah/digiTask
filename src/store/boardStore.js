@@ -15,6 +15,7 @@ export const boardStore = {
     currTask: {},
     currGroup: {},
     filterBy: { keyWord: '', members: [], dueDate: null, labels: [] },
+    isLoading: false,
     newGroup: {},
     newTask: {},
     newChecklist: {},
@@ -22,9 +23,9 @@ export const boardStore = {
     // newId: utilService.makeId(),
   },
   getters: {
-    // getNewId({ newId }) {
-    //   return newId;
-    // },
+    isLoading({ isLoading }) {
+      return isLoading;
+    },
     getEmptyTodo({ newTodo }) {
       return newTodo;
     },
@@ -48,9 +49,12 @@ export const boardStore = {
     },
   },
   mutations: {
-    // generateNewId(state) {
-    //   state.newId = utilService.makeId();
-    // },
+    setLoadingOn(state) {
+      state.isLoading = true;
+    },
+    setLoadingOff(state) {
+      state.isLoading = false;
+    },
     setBoards(state, { boards }) {
       state.boards = boards;
     },
@@ -58,13 +62,6 @@ export const boardStore = {
       state.currBoard = board;
     },
     updateBoard(state, { board }) {
-      // console.log(board._id === state.currBoard._id);
-      // console.log(
-      //   'board._id',
-      //   board._id,
-      //   'state.currBoard._id',
-      //   state.currBoard._id
-      // );
       if (board._id === state.currBoard._id) {
         state.currBoard = board;
         if (state.currBoard.groups.length)
@@ -111,7 +108,6 @@ export const boardStore = {
       newActivity.byMember = activity.user;
       newActivity.task.id = activity.task.id;
       newActivity.task.title = activity.task.title;
-
       if (activity.res) {
         newActivity.imgUrl = activity.res.url;
       }
@@ -153,20 +149,12 @@ export const boardStore = {
     },
     updateStore(state, { boardId, taskId }) {
       let boardIdx = state.boards.findIndex((board) => board._id === boardId);
-      console.log('BoardIdx', boardIdx);
       state.currBoard = state.boards[boardIdx];
-      let groupIdx = state.boards[boardIdx].groups.findIndex((group)=>{
-        return group.tasks.some((task)=> task.id === taskId)
-      })
-      console.log('groupIdx',groupIdx)
+      let groupIdx = state.boards[boardIdx].groups.findIndex((group) =>
+        group.tasks.some((task) => task.id === taskId)
+      );
       state.currGroup = state.currBoard.groups[groupIdx];
-      state.currTask = state.boards[boardIdx].groups[groupIdx].tasks.find((task) =>{
-        console.log('inside TASKID',taskId)
-        console.log('task.id',task.id)
-        console.log('task',task)
-        return task.id === taskId
-      });
-      console.log('state.currTask',state.currTask)
+      state.currTask = state.currGroup.tasks.find((task) => task.id === taskId);
     },
     updateGroup(state, { group }) {
       const idx = state.currBoard.groups.findIndex(
@@ -176,19 +164,14 @@ export const boardStore = {
       state.currGroup = state.currBoard.groups[idx];
     },
     updateTask(state, { task }) {
-      const idx = state.currBoard.groups.findIndex(
-        (currGroup) => currGroup.id === state.currGroup.id
+      const groupIdx = state.currBoard.groups.findIndex((currGroup) =>
+        currGroup.tasks.find((currTask) => task.id === currTask.id)
       );
-      // const idx = state.currBoard.groups.findIndex(
-      //   (currGroup) => {
-      //     return currGroup.tasks.some((currTask)=> currTask.id===task.id)
-          
-      //   }
-      // );
-      const taskIdx = state.currBoard.groups[idx].tasks.findIndex(
+      const taskIdx = state.currBoard.groups[groupIdx].tasks.findIndex(
         (currTask) => currTask.id === task.id
       );
-      state.currBoard.groups[idx].tasks.splice(taskIdx, 1, task);
+      state.currBoard.groups[groupIdx].tasks.splice(taskIdx, 1, task);
+      console.log('currBoard', state.currBoard);
       state.currTask = task;
     },
     removeTask(state, { task }) {
@@ -226,12 +209,9 @@ export const boardStore = {
       state.currBoard.groups[idx].tasks = [...result];
     },
     applyDragGroup(state, { dropResult }) {
-      if (
-        dropResult.removedIndex === null &&
-        dropResult.addedIndex === null
-      )
+      if (dropResult.removedIndex === null && dropResult.addedIndex === null)
         return;
-      const { removedIndex, addedIndex, payload } =dropResult;
+      const { removedIndex, addedIndex, payload } = dropResult;
       const result = [...state.currBoard.groups];
       let itemToAdd = payload;
       if (removedIndex !== null) {
@@ -246,32 +226,32 @@ export const boardStore = {
   actions: {
     async loadBoards({ commit }) {
       try {
+        commit({ type: 'setLoadingOn' });
         const boards = await boardService.query();
         commit({ type: 'setBoards', boards });
       } catch (err) {
         console.log('Couldnt load boards', err);
+      } finally {
+        commit({ type: 'setLoadingOff' });
       }
     },
     async loadAndWatchBoard({ commit }, { boardId }) {
       try {
+        commit({ type: 'setCurrBoard', board: null });
+        commit({ type: 'setLoadingOn' });
         const board = await boardService.getBoardById(boardId);
         console.log(board);
         commit({ type: 'setCurrBoard', board });
-        // socketService.off(SOCKET_EVENT_WATCHBOARD);
-        // socketService.on(SOCKET_EVENT_WATCHBOARD, (board) => {
-        //   console.log('Board changed from socket', board);
-        //   commit({ type: 'updateBoard', board });
-        // });
         socketService.emit(SOCKET_EVENT_WATCHBOARD, boardId);
         socketService.off(SOCKET_EVENT_UPDATEDBOARD);
         socketService.on(SOCKET_EVENT_UPDATEDBOARD, (updatedBoard) => {
           console.log('im on socket event updatedboard', updatedBoard);
-          // console.log(updatedBoard);
           commit({ type: 'updateBoard', board: updatedBoard });
-          // commit({ type: 'setCurrBoard', board: updatedBoard });
         });
       } catch (err) {
         console.log('Couldnt load board', err);
+      } finally {
+        commit({ type: 'setLoadingOff' });
       }
     },
     async addBoard({ commit }, board) {
@@ -285,10 +265,8 @@ export const boardStore = {
     async updateBoard({ state, commit }, { board = null }) {
       try {
         if (!board) board = state.currBoard;
-        // let newBoard = await boardService.update(board);
         await boardService.update(board);
         commit({ type: 'updateBoard', board: board });
-        // console.log(newBoard);
         socketService.emit(SOCKET_EMIT_UPDATEBOARD, board);
       } catch (err) {
         console.log('Couldnt update Board', err);
@@ -298,7 +276,6 @@ export const boardStore = {
       try {
         await boardService.remove(boardId);
         commit({ type: 'removeBoard', boardId });
-        //SOCKET FOR DELETING MIGHT BE NEEDED
       } catch (err) {
         console.log("Couldn't remove board", err);
       }
@@ -342,11 +319,10 @@ export const boardStore = {
         console.log('Error on board store REMOVETASK', err);
       }
     },
-    async updateStore({ commit }, { boardId, taskId, groupId }) {
+    async updateStore({ commit }, { boardId, taskId }) {
       try {
-        console.log('taskId',taskId)
-        console.log('groupId',groupId)
-        commit({ type: 'updateStore', boardId, taskId, groupId });
+        console.log('taskId', taskId);
+        commit({ type: 'updateStore', boardId, taskId });
       } catch (err) {
         console.log('Error on board store GETTASKDETAILS', err);
       }
@@ -406,9 +382,9 @@ export const boardStore = {
       commit({ type: 'applyDrag', content });
       await dispatch({ type: 'updateBoard' });
     },
-    async applyDragGroup({dispatch,commit},{dropResult}){
-      commit({type:'applyDragGroup',dropResult})
-      await dispatch({type:'updateBoard'})
-    }
+    async applyDragGroup({ dispatch, commit }, { dropResult }) {
+      commit({ type: 'applyDragGroup', dropResult });
+      await dispatch({ type: 'updateBoard' });
+    },
   },
 };

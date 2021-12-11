@@ -3,7 +3,7 @@
     <section class="task-details-wrapper">
       <div class="task-details-container" v-click-outside="closePage">
         <button class="task-details-container-btn" @click="closePage">
-          <span class="icon-lg close-icon">  </span>
+          <span class="icon-lg close-icon"> </span>
         </button>
         <div
           class="task-background-cover"
@@ -61,8 +61,8 @@
             <div class="task-details-checklist" v-if="getTaskCheckLists.length">
               <div class="task-details-checklist-content">
                 <span class="task-checklist-symbol">
-              <span class="icon-lg checklist-icon"></span>
-                  </span>
+                  <span class="icon-lg checklist-icon"></span>
+                </span>
 
                 <!-- <div v-if="currTask.checklist && currTask.checklist.length"> -->
                 <check-list
@@ -123,7 +123,9 @@
                 Labels
               </div>
               <div class="open-edit-dynamic-btn" @click="setType('checklist')">
-                <span class="span-settings"><span class="icon-sm checklist-icon"></span></span>
+                <span class="span-settings"
+                  ><span class="icon-sm checklist-icon"></span
+                ></span>
                 Checklist
               </div>
               <div class="open-edit-dynamic-btn" @click="setType('dates')">
@@ -141,7 +143,9 @@
                 @click="setType('cover')"
                 v-if="!getTask.style.bgColor"
               >
-                <span class="span-settings"> <span class="icon-sm cover-icon"></span></span>
+                <span class="span-settings">
+                  <span class="icon-sm cover-icon"></span
+                ></span>
                 Cover
               </div>
             </div>
@@ -189,25 +193,29 @@ export default {
       pageOpen: null,
       type: "",
       currTask: {},
-      taskTitle:'',
+      taskTitle: "",
       titleEdit: false,
       descEdit: false,
     };
   },
   async created() {
-    try{
-    await this.$store.dispatch({type:'loadBoards'})
-    let groupId = this.$route.params.groupId;
-    let taskId = this.$route.params.taskId;
-    let boardId = this.$route.params.boardId
-    await this.$store.dispatch({ type: "updateStore", boardId, taskId, groupId });
-    this.currTask = JSON.parse(JSON.stringify(this.getTask))
-    this.taskTitle = this.currTask.title
-    this.pageOpen = true;
-    }catch(err){
-     console.log('Couldnt load task',err)
+    try {
+      let groupId = this.$route.params.groupId;
+      let taskId = this.$route.params.taskId;
+      let boardId = this.$route.params.boardId;
+      console.log(boardId);
+      await this.$store.dispatch({
+        type: "updateStore",
+        boardId,
+        taskId,
+        groupId,
+      });
+      this.currTask = JSON.parse(JSON.stringify(this.getTask));
+      this.taskTitle = this.currTask.title;
+      this.pageOpen = true;
+    } catch (err) {
+      console.log("Couldnt load task", err);
     }
-    
   },
   methods: {
     editTitle() {
@@ -217,9 +225,9 @@ export default {
         this.$refs.taskTitle.focus();
       });
     },
-    saveTitle(){
-      this.currTask.title = this.taskTitle
-      this.saveTask()
+    saveTitle() {
+      this.currTask.title = this.taskTitle;
+      this.saveTask();
     },
     editDesc() {
       this.descEdit = true;
@@ -241,8 +249,8 @@ export default {
         this.titleEdit = false;
         // let task = JSON.parse(JSON.stringify(this.currTask))
         // await this.updatedTask(task);
-         await this.updatedTask(this.currTask);
-        // this.currTask = JSON.parse(JSON.stringify(this.getTask)) 
+        await this.updatedTask(this.currTask);
+        // this.currTask = JSON.parse(JSON.stringify(this.getTask))
       } catch (err) {
         console.log("Couldnt SAVE TASK TITLE", err);
       }
@@ -295,7 +303,7 @@ export default {
       let txt = `attached ${link} to this card`;
       this.taskActivity(txt);
     },
-    async taskActivity(textToAdd) {
+    async taskActivity(txt) {
       try {
         let currTask = this.getTask;
         let user = this.getUser;
@@ -310,12 +318,9 @@ export default {
     },
     async updateBoard(board) {
       await this.$store.dispatch({ type: "updateBoard", board });
-     
-     
     },
     async updateGroup(group) {
       await this.$store.dispatch({ type: "updateGroup", group });
-    
     },
     async attachment(link, task) {
       console.log(link);
@@ -335,21 +340,20 @@ export default {
   },
   computed: {
     getTask() {
-      return this.$store.getters.getCurrTask
+      return this.$store.getters.getCurrTask;
     },
     getGroup() {
-      return this.$store.getters.getCurrGroup 
+      return this.$store.getters.getCurrGroup;
     },
     getBoard() {
-      return this.$store.getters.getCurrBoard 
+      return this.$store.getters.getCurrBoard;
     },
     getUser() {
-      return this.$store.getters.currUser ;
+      return this.$store.getters.currUser;
     },
-    getTaskCheckLists(){
-      return this.$store.getters.getCurrTask.checklists
+    getTaskCheckLists() {
+      return this.$store.getters.getCurrTask.checklists;
     },
-    
   },
   components: {
     taskDescription,
