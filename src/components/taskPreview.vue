@@ -46,7 +46,7 @@
           ><span class="short-date">{{ startDate }} {{ dueDate }}</span></span
         >
         <span v-if="task.description" class="badge description"> </span>
-        <span class="badge comments" v-if="hasCommnets"></span>
+        <span class="badge comments" v-if="hasCommnets"><span class="comments-count">{{commnetsCount}}</span></span>
         <span class="badge checklist" v-if="todosLength" :class="todosDone"
           ><span class="todos-done">{{ renderChecklist }}</span></span
         >
@@ -113,6 +113,9 @@ export default {
     },
     hasCommnets() {
       return this.task.comments && this.task.comments.length;
+    },
+    commnetsCount(){
+      return this.task.comments.length
     },
     hasMembers() {
       return this.task.members && this.task.members.length;
