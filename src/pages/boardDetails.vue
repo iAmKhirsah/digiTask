@@ -230,10 +230,7 @@ export default {
       }
     },
     getChildPayload(groupIndex, itemIndex) {
-      if (
-        !this.board.groups[groupIndex].tasks.length ||
-        !this.board.groups[groupIndex].tasks
-      )
+      if (!this.board.groups[groupIndex].tasks)
         return;
       return this.board.groups[groupIndex].tasks[itemIndex];
     },

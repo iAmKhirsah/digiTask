@@ -6,10 +6,10 @@
         <div class="logo main-header-tabs">
           <router-link to="/workspace">DigiTask</router-link>
         </div>
-        <div class="main-header-tabs" @click="setType('workSpace')">
+        <!-- <div class="main-header-tabs" @click="setType('workSpace')">
           Workspace
           <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
-        </div>
+        </div> -->
         <div class="main-header-tabs" @click="setType('recent')">
           Recent
           <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
