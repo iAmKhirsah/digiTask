@@ -7,7 +7,6 @@
       v-dragscroll:nochilddrag
       :class="menuOpen"
     >
-    
       <board-header
         v-if="board"
         :board="getCurrBoard"
@@ -118,11 +117,11 @@ export default {
       await this.$store.dispatch({ type: "loadBoards" });
       await this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
       this.board = this.getCurrBoard;
-      // this.$store.dispatch({
-      //   type: "addRecent",
-      //   boardId: this.board._id,
-      //   user: this.getUser,
-      // });
+      this.$store.dispatch({
+        type: "addRecent",
+        boardId: this.board._id,
+        user: JSON.parse(JSON.stringify(this.getUser)),
+      });
       // this.board = JSON.parse(JSON.stringify(this.getCurrBoard))
       if (!this.board) this.$router.push("/");
       // if (!this.board.groups.length) return;

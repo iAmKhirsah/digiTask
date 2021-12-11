@@ -6,11 +6,11 @@
         <span class="icon-sm close-icon"> </span>
       </button>
     </div>
-    <div v-for="board in getUser.recentBoards" :key="board._id">
+    <div v-for="board in getRecentBoards" :key="board._id">
       <div class="workspace-content" @click="goToBoard(board._id)">
         <div
           class="starred-board-background"
-          :style="'background:' + board.style.backgroundColor"
+          :style="getBackground(board)"
         ></div>
         <div class="board-title">
           {{ board.title }}
@@ -38,10 +38,31 @@ export default {
         this.$router.push(`/b/${boardId}`);
       });
     },
+    getBackground(board) {
+      if (board.style.backgroundColor)
+        return { "background-color": board.style.backgroundColor };
+      else
+        return {
+          "background-image": `url(${require("@/assets/img/" +
+            board.style.backgroundUrl)})`,
+        };
+    },
   },
   computed: {
     getUser() {
       return this.$store.getters.currUser;
+    },
+    getBoards() {
+      return this.$store.getters.boards;
+    },
+    getRecentBoards() {
+      let recentBoards = [];
+      this.getUser.recentBoards.forEach((boardId) => {
+        this.getBoards.forEach((board) => {
+          if (board._id === boardId) recentBoards.push(board);
+        });
+      });
+      return recentBoards;
     },
   },
 };
