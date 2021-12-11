@@ -4,20 +4,20 @@
       <button class="close icon-sm" @click="closeModal">
         <span class="menu-header-close-button"></span>
       </button>
-        <div class="header-back-button" @click="goBack">
-      <span class="menu-header-back-button"></span>
-    </div>
+      <div class="header-back-button" @click="goBack">
+        <span class="menu-header-back-button"></span>
+      </div>
       <div class="header-layout">
         <header>Labels</header>
       </div>
 
-      <input type="text" placeholder="Search labels..." />
+      <input type="text" placeholder="Search labels..." v-model="filterBy" />
 
       <div class="label-list-content">
         <h5 class="subtitle">Labels</h5>
         <div class="label-list-container">
           <ul
-            v-for="label in getBoard.labels"
+            v-for="label in filterLabels"
             :key="label.id"
             class="label-color-ul"
           >
@@ -33,15 +33,14 @@
               </div>
             </li>
             <div>
-              <button class="label-edit-button" @click="
-                    labelToEdit(label);
-                    openCreateMenu()"
-                  >
-                <span
-                  class="icon-sm icon-pencil"
-                 
-                >
-                </span>
+              <button
+                class="label-edit-button"
+                @click="
+                  labelToEdit(label);
+                  openCreateMenu();
+                "
+              >
+                <span class="icon-sm icon-pencil"> </span>
               </button>
             </div>
           </ul>
@@ -73,7 +72,7 @@
           />
         </form>
       </div>
-      <p class="subtitle" >Select a color</p>
+      <p class="subtitle">Select a color</p>
       <div>
         <div class="dynamic-labels-color-container">
           <div v-for="(color, idx) in colors" :key="idx">
@@ -104,7 +103,7 @@
 <script>
 export default {
   name: "labels",
-  props: ["board", "task","isBoardLabels"],
+  props: ["board", "task", "isBoardLabels"],
   data() {
     return {
       updatedTask: null,
@@ -113,6 +112,7 @@ export default {
         title: "",
         selectedColor: "#ff9f1a",
       },
+      filterBy: "",
       labelToUpdate: null,
       selectedLabel: "",
       selectedColor: "",
@@ -132,8 +132,8 @@ export default {
       createMenu: false,
     };
   },
-  created(){
-    if(this.task) this.updatedTask = JSON.parse(JSON.stringify(this.task))
+  created() {
+    if (this.task) this.updatedTask = JSON.parse(JSON.stringify(this.task));
   },
   computed: {
     createOrUpdate() {
@@ -147,10 +147,17 @@ export default {
     getBoard() {
       return this.$store.getters.getCurrBoard;
     },
+    filterLabels() {
+      if (!this.filterBy) return this.getBoard.labels;
+      let filteredLabels = this.getBoard.labels.filter((label) => {
+        return label.title.toLowerCase().includes(this.filterBy.toLowerCase());
+      });
+      return filteredLabels;
+    },
   },
   methods: {
-    goBack(){
-      this.$emit('goBack')
+    goBack() {
+      this.$emit("goBack");
     },
     closeModal() {
       this.$emit("closeModal");
@@ -165,18 +172,16 @@ export default {
       this.labelToUpdate = JSON.parse(JSON.stringify(label));
       this.selectedColor = this.labelToUpdate.color;
     },
-    updateBoard(label){
-
-    },
+    updateBoard(label) {},
     addLabel(label) {
-      if(this.isBoardLabels){
-        this.labelToEdit(label)
-        return
+      if (this.isBoardLabels) {
+        this.labelToEdit(label);
+        return;
       }
       let idx = this.updatedTask.labelIds.indexOf(label.id);
       if (idx > -1) this.updatedTask.labelIds.splice(idx, 1);
       else this.updatedTask.labelIds.push(label.id);
-      let task = JSON.parse(JSON.stringify(this.updatedTask))
+      let task = JSON.parse(JSON.stringify(this.updatedTask));
       this.$emit("updateTask", task);
     },
     openCreateMenu() {

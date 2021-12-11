@@ -33,6 +33,7 @@
           <edit-modal
             @closeEditModal="closeEditModal"
             :task="task"
+            @editTask="editTask"
           ></edit-modal>
         </div>
       </span>

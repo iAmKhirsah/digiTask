@@ -4,7 +4,7 @@
     <div class="edit-modal-container">
       <div class="edit-modal-content">
         <!-- open card -->
-        <div class="float-modal-tab">
+        <div class="float-modal-tab" @click="editTask">
           <span class="icon-ms card-icon"></span>
           <span class="tab-title">Open card</span>
         </div>
@@ -74,6 +74,10 @@ export default {
     // console.log(this.task);
   },
   methods: {
+    editTask() {
+      this.closeEditModal();
+      this.$emit("editTask", this.task.id);
+    },
     closeEditModal() {
       this.$emit("closeEditModal");
     },

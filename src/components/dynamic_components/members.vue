@@ -6,10 +6,10 @@
     <div class="header-layout">
       <header>Members</header>
     </div>
-    <input type="text" placeholder="Search Members" />
+    <input type="text" placeholder="Search Members" v-model="filterBy" />
     <h5 class="subtitle">Board members</h5>
     <div v-if="getBoard">
-      <div v-for="member in boardCopy.members" :key="member._id">
+      <div v-for="member in filterMembers" :key="member._id">
         <div
           class="member-info-container"
           v-if="member"
@@ -32,6 +32,7 @@ export default {
     return {
       boardCopy: null,
       updatedTask: JSON.parse(JSON.stringify(this.task)),
+      filterBy: "",
     };
   },
   created() {
@@ -86,6 +87,15 @@ export default {
     },
     getUser() {
       return this.$store.getters.currUser;
+    },
+    filterMembers() {
+      if (!this.filterBy) return this.boardCopy.members;
+      let filteredMembers = this.boardCopy.members.filter((member) => {
+        return member.fullname
+          .toLowerCase()
+          .includes(this.filterBy.toLowerCase());
+      });
+      return filteredMembers;
     },
   },
 };
