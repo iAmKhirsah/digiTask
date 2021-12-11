@@ -41,7 +41,7 @@ export default {
     };
   },
   created() {
-    this.updateBoard = JSON.parse(JSON.stringify(this.board));
+    this.updateBoard = JSON.parse(JSON.stringify(this.getBoard));
     this.taskToCopy = JSON.parse(JSON.stringify(this.task));
   },
   methods: {
@@ -54,6 +54,7 @@ export default {
       );
       this.taskToCopy.id = "t" + utilService.makeId();
       let group = this.updateBoard.groups[idx];
+      console.log(this.updateBoard);
       group.tasks.push(this.taskToCopy);
       this.$emit("updateGroup", JSON.parse(JSON.stringify(group)));
     },
@@ -61,6 +62,10 @@ export default {
       this.$emit("closeModal");
     },
   },
-  computed: {},
+  computed: {
+    getBoard() {
+      return this.$store.getters.getCurrBoard;
+    },
+  },
 };
 </script>
