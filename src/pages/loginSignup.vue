@@ -88,8 +88,8 @@
       </section>
     </div>
     {{ msg }}
-    <div>
       <button @click="showSignup">{{ loginSignup }}</button>
+    <div>
       <button @click="doLogout" v-if="loggedinUser">Logout</button>
     </div>
   </div>

@@ -4,6 +4,9 @@
       <button class="close icon-sm" @click="closeModal">
         <span class="menu-header-close-button"></span>
       </button>
+        <div class="header-back-button" @click="goBack">
+      <span class="menu-header-back-button"></span>
+    </div>
       <div class="header-layout">
         <header>Labels</header>
       </div>
@@ -30,13 +33,13 @@
               </div>
             </li>
             <div>
-              <button class="label-edit-button">
+              <button class="label-edit-button" @click="
+                    labelToEdit(label);
+                    openCreateMenu()"
+                  >
                 <span
                   class="icon-sm icon-pencil"
-                  @click="
-                    labelToEdit(label);
-                    openCreateMenu();
-                  "
+                 
                 >
                 </span>
               </button>
@@ -70,7 +73,7 @@
           />
         </form>
       </div>
-      <p class="subtitle">Select a color</p>
+      <p class="subtitle" >Select a color</p>
       <div>
         <div class="dynamic-labels-color-container">
           <div v-for="(color, idx) in colors" :key="idx">
@@ -101,10 +104,10 @@
 <script>
 export default {
   name: "labels",
-  props: ["board", "task"],
+  props: ["board", "task","isBoardLabels"],
   data() {
     return {
-      updatedTask: JSON.parse(JSON.stringify(this.task)),
+      updatedTask: null,
       // updatedTask: this.task,
       newLabel: {
         title: "",
@@ -130,7 +133,7 @@ export default {
     };
   },
   created(){
-    console.log(this.task);
+    if(this.task) this.updatedTask = JSON.parse(JSON.stringify(this.task))
   },
   computed: {
     createOrUpdate() {
@@ -146,6 +149,9 @@ export default {
     },
   },
   methods: {
+    goBack(){
+      this.$emit('goBack')
+    },
     closeModal() {
       this.$emit("closeModal");
       this.labelToUpdate = null;
@@ -159,7 +165,14 @@ export default {
       this.labelToUpdate = JSON.parse(JSON.stringify(label));
       this.selectedColor = this.labelToUpdate.color;
     },
+    updateBoard(label){
+
+    },
     addLabel(label) {
+      if(this.isBoardLabels){
+        this.labelToEdit(label)
+        return
+      }
       let idx = this.updatedTask.labelIds.indexOf(label.id);
       if (idx > -1) this.updatedTask.labelIds.splice(idx, 1);
       else this.updatedTask.labelIds.push(label.id);
