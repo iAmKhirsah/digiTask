@@ -35,7 +35,7 @@ export default {
     };
   },
   created() {
-    this.user = JSON.parse(JSON.stringify(this.getUser));
+    this.user = JSON.parse(JSON.stringify(this.getCurrUser));
   },
   methods: {
     closeModal() {
@@ -62,14 +62,19 @@ export default {
   computed: {
     getStarredBoards() {
       let boards = [];
+      
       this.getBoards.forEach((board) => {
-        let starredBoards = this.user.starred.find(
+        let starredBoards = this.getCurrUser.starred.find(
           (boardId) => boardId === board._id
         )
         starredBoards ? boards.push(board) : "";
       })
       return boards;
     },
+    getCurrUser(){
+      return this.$store.getters.currUser
+    },
+  
   },
 };
 </script>

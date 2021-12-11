@@ -110,7 +110,9 @@ export default {
       this.updateBoard(board);
     },
     starredBoard() {
-      let idx = this.currUser.starred.indexOf(this.getCurrBoard._id);
+      console.log(this.getCurrBoard._id)
+      console.log(this.currUser)
+      let idx = this.getCurrUser.starred.indexOf(this.getCurrBoard._id);
       if (idx > -1) this.currUser.starred.splice(idx, 1);
       else this.currUser.starred.push(this.getCurrBoard._id);
       let user = JSON.parse(JSON.stringify(this.currUser));
