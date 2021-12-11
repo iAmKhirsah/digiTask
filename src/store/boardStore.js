@@ -76,7 +76,7 @@ export const boardStore = {
           state.currBoard.groups.forEach((group) => {
             if (group.id === state.currGroup.id) state.currGroup = group;
           });
-        if (state.currGroup.tasks)
+        if (state.currGroup.tasks && state.currTask)
           state.currGroup.tasks.forEach((task) => {
             if (task.id === state.currTask.id) state.currTask = task;
           });

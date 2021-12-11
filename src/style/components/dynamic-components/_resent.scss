@@ -1,32 +1,23 @@
-.dynamic-starred {
+.dynamic-recent {
     top: 48px;
     left: 348px;
-    .placeholder{
+    .placeholder {
         text-align: center;
-        color: #5E6C84;
+        color: #5e6c84;
         margin-top: 12px;
     }
     header {
         font-size: 14px;
     }
-    .icon-sm {
-        line-height: 14px;
-    }
     .workspace-content {
         margin: 0 12px 12px;
         padding: 0;
-
         color: $clr2;
-        justify-content: space-between;
+        justify-content: flex-start;
         .board-title {
-            margin-right: 100px;
+            margin-left: 8px;
             font-size: 14px;
             font-weight: 600;
-        }
-        .star {
-            font-size: 13px;
-            margin-right: 0px;
-            line-height: 31px;
         }
         &:hover {
             cursor: pointer;
@@ -34,8 +25,7 @@
         }
     }
 }
-
-.starred-board-background {
+.recent-board-background {
     display: inline-block;
     flex: 0 0 auto;
     background-size: cover;
@@ -44,19 +34,4 @@
     width: 40px;
     position: relative;
     opacity: 1;
-}
-.star {
-    color: $clr1;
-    cursor: pointer;
-    height: 32px;
-    width: 32px;
-    text-align: center;
-    line-height: 30px;
-    &:hover {
-        color: $clr5;
-        font-size: 18px;
-    }
-    .fas {
-        color: $clr5;
-    }
 }

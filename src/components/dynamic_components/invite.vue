@@ -1,5 +1,5 @@
 <template>
-  <section class="dynamic-invite card-layout nav-modal">
+  <section class="dynamic-invite card-layout nav-modal"    v-click-outside="closeModal">
     <div class="header-layout">
       <header>Invites</header>
       <button class="close" @click="closeModal">
@@ -17,6 +17,8 @@
           <img class="image-settings" :src="user.imgUrl"
         /></span>
         <p class="name-tag">{{ user.username }}</p>
+        <span class="icon-settings icon-sm v-sign  on-invite"></span
+            >
       </div>
         <!-- <span class="user-tag-name in-header">
           <img class="image-settings" :src="user.imgUrl" v-if="user.imgUrl" />
@@ -27,6 +29,7 @@
   </section>
 </template>
 <script>
+import vClickOutside from "v-click-outside";
 export default {
   name: "recent",
   props: ["board"],
@@ -87,6 +90,9 @@ export default {
       }
       return initials.toUpperCase();
     },
+  },
+   directives: {
+    clickOutside: vClickOutside.directive,
   },
 };
 </script>

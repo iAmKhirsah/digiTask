@@ -6,13 +6,39 @@
       @closeCreateMenu="closeCreateMenu"
       @createBoard="createBoard"
     />
-    <div class="workspace-container" v-if="!createMenu">
+    <div class="workspace-container" >
+      <div class="workspace-title" v-if="getStarredBoards.length">
+        <span><i class="fas fa-star"></i></span>
+        <h1>Starred Workspace</h1>
+      </div>
+      <div class="boards-container">
+        <div class="boards-containers-my-boards" >
+          <div
+            v-for="board in getStarredBoards"
+            :key="board._id"
+            class="board-card"
+            :style="getBackground(board)"
+          >
+            <router-link :to="'/b/' + board._id">
+              <div class="board-card-content">
+                <div class="board-card-title">{{ board.title }}</div>
+                <div class="board-card-title-badges"></div>
+              </div>
+            </router-link>
+          </div>
+
+         
+        </div>
+      </div>
+      <!--  -->
+
+
       <div class="workspace-title">
         <span class="trello-logo"><i class="fab fa-trello"></i></span>
         <h1>Workspace</h1>
       </div>
       <div class="boards-container">
-        <div  class="boards-containers-my-boards" v-if="getBoards">
+        <div class="boards-containers-my-boards" v-if="getBoards">
           <div
             v-for="board in getBoards"
             :key="board._id"
@@ -60,7 +86,7 @@ export default {
       this.createMenu = false;
       // this.boards = this.$store.getters.boards;
     },
-   async  createBoard(board) {
+    async createBoard(board) {
       let user = this.$store.getters.currUser;
       await this.$store.dispatch({
         type: "createBoard",
@@ -68,17 +94,28 @@ export default {
       });
       this.createMenu = false;
     },
-     getBackground(board){
-       
-      if(board.style.backgroundColor) return {'background-color': board.style.backgroundColor}
-      return {'background-image': `url(${require('@/assets/img/'+board.style.backgroundUrl)})`}
-    
-    }
+    getBackground(board) {
+      if (board.style.backgroundColor)
+        return { "background-color": board.style.backgroundColor };
+      return {
+        "background-image": `url(${require("@/assets/img/" +
+          board.style.backgroundUrl)})`,
+      };
+    },
   },
   computed:{
     getBoards(){
       console.log(this.$store.getters.boards)
      return this.$store.getters.boards
+    },
+    getStarredBoards(){
+      let starredBoards = []
+      this.$store.getters.currUser.starred.forEach((boardId)=>{
+        this.getBoards.forEach((board)=>{
+          if(board._id === boardId) starredBoards.push(board)
+        })
+      })
+      return starredBoards
     }
   },
   components: {

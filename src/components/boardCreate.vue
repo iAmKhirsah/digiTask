@@ -1,7 +1,7 @@
 <template>
-  <div class="create-board-menu" v-click-outside="closeCreateMenu">
+  <div class="create-board-menu" v-click-outside="closeModal">
     <div class="create-board-card">
-      <button class="close" @click="closeCreateMenu">
+      <button class="close" @click="closeModal">
         <span class="menu-header-close-button"></span>
       </button>
       <div class="header-layout">
@@ -31,6 +31,13 @@
           @click="setBackground(background)"
         ></button>
       </div>
+       <!-- <div class="board-background-selection-photos" >
+        <span v-for="(photo, idx) in photos" :key="idx">
+          <span class="img-content" @click="setBackground(photo, 'photo')">
+            <img :src="require(`@/assets/img/${photo}`)" :title="photo.by" />
+          </span>
+        </span>
+      </div> -->
     </ul>
     <span class="board-subtitle"
       >Board title<span class="asterisk">*</span></span
@@ -57,24 +64,35 @@ export default {
         "rgb(81, 152, 57)",
         "rgb(176, 70, 50)",
       ],
+       photos: [
+        "background-1.jpg",
+        "background-2.jpg",
+        "background-3.jpg",
+        "background-4.jpg",
+        "background-5.jpg",
+        "background-6.jpg",
+      ],
     };
   },
   methods: {
-    closeCreateMenu() {
-      this.$emit("closeCreateMenu");
+    closeModal() {
+      this.$emit("closeModal");
+      this.$emit("closeCreateMenu")
     },
     setBackground(background) {
       this.board.background = background;
     },
  createBoard() {
-      this.board.title.match(/^\s*$/);
+      if(this.board.title.match(/^\s*$/)) return
       this.$emit("createBoard", this.board);
       this.board = {
         title: "",
         background: "",
         imgUrl: "",
-      };
+      }; 
+      this.closeModal()
     },
+   
   },
   directives: {
     clickOutside: vClickOutside.directive,
