@@ -55,7 +55,6 @@
         <span class="badge checklist" v-if="todosLength" :class="todosDone">
           <span class="todos-done">{{ renderChecklist }}</span>
         </span>
-      </span>
       <span class="members-container" v-if="hasMembers">
         <span
           class="badge members"
@@ -64,6 +63,7 @@
         >
           <render-members :member="member" />
         </span>
+      </span>
       </span>
     </div>
   </div>
