@@ -60,10 +60,17 @@
         </div>
         <!-- Ilya Activities Component -->
         <div class="menu-box">
-          <div>Activities Component</div>
+          <activity-flow :board="board"/>
+          <!-- <div>Activities Component</div> -->
         </div>
       </div>
     </div>
+    <labels v-if="type==='label'"
+    @closeModal="closeShowMenu"
+    @createLabel="createLabel"
+    @goBack="goBack"
+    :isBoardLabels="isBoardLabels"
+    />
     <background
       :board="board"
       @updateBoard="updateBoard"
@@ -75,13 +82,16 @@
 </template>
 <script>
 import background from "../components/background.vue";
+import labels from "../components/dynamic_components/labels.vue"
 import vClickOutside from "v-click-outside";
+import activityFlow from './activityFlow.vue'
 export default {
   props: ["board"],
   data() {
     return {
       type: "",
       isDeleting:false,
+      isBoardLabels:true,
     };
   },
   methods: {
@@ -108,10 +118,14 @@ export default {
       this.$emit("toggleMenu");
     },
     closeShowMenu(){
+      this.type=""
       this.$emit('closeMenu')
     },
     closeDeleteModal(){
       this.isDeleting = false
+    },
+    async createLabel(label){
+      await this.$store.dispatch({ type: "createLabel", label });
     }
   },
   computed: {
@@ -120,7 +134,7 @@ export default {
     }
   },
   components: {
-    background,
+    background,labels,activityFlow
   },
    directives: {
     clickOutside: vClickOutside.directive,

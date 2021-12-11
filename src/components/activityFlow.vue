@@ -50,14 +50,19 @@ export default {
   methods: {},
   computed: {
     getActivities() {
+      if(!this.task) return this.getBoard.activities
       let activities = this.board.activities.filter(
         (activity) => activity.task.id === this.task.id
       );
       return activities;
     },
     getComments() {
+      if(!this.task) return false
       return this.task.comments;
     },
+    getBoard(){
+      return this.$store.getters.getCurrBoard
+    }
   },
 };
 </script>
