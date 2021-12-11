@@ -1,12 +1,14 @@
 <template>
   <div>
+    <div v-if="isLoading" class="loading-screen">Loading....</div>
     <div
-      v-if="getCurrBoard"
+      v-if="getCurrBoard && !isLoading"
       class="board-details-container"
       v-dragscroll:nochilddrag
       :class="menuOpen"
     >
       <board-header
+        v-if="board"
         :board="getCurrBoard"
         @updateBoard="updateBoard"
         @removeBoard="removeBoard"
@@ -241,6 +243,9 @@ export default {
     menuOpen() {
       return { "menu-open": this.showMenuOpen };
     },
+    isLoading() {
+      return this.$store.getters.isLoading;
+    },
   },
   mounted() {
     if (this.$refs.list) {
@@ -261,18 +266,13 @@ export default {
   watch: {
     "$route.params.boardId": {
       async handler() {
-        // if (this.board._id !== boardId) this.board = this.getCurrBoard;
         if (this.board._id !== this.$route.params.boardId) {
-          console.log(this.board._id !== this.$route.params.boardId);
-          console.log(this.$route.params.boardId);
           await this.$store.dispatch({
             type: "loadAndWatchBoard",
             boardId: this.$route.params.boardId,
           });
-          // console.log(this.getCurrBoard);
-          // this.board = this.getCurrBoard;
+          this.board = this.getCurrBoard;
         }
-        this.board = this.getCurrBoard;
       },
     },
   },

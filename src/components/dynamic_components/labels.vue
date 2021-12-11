@@ -14,7 +14,7 @@
         <h5 class="subtitle">Labels</h5>
         <div class="label-list-container">
           <ul
-            v-for="label in board.labels"
+            v-for="label in getBoard.labels"
             :key="label.id"
             class="label-color-ul"
           >
@@ -105,6 +105,7 @@ export default {
   data() {
     return {
       updatedTask: JSON.parse(JSON.stringify(this.task)),
+      // updatedTask: this.task,
       newLabel: {
         title: "",
         selectedColor: "#ff9f1a",
@@ -128,6 +129,9 @@ export default {
       createMenu: false,
     };
   },
+  created(){
+    console.log(this.task);
+  },
   computed: {
     createOrUpdate() {
       return this.labelToUpdate
@@ -136,6 +140,9 @@ export default {
     },
     createUpdateTitle() {
       return this.labelToUpdate ? "Change label" : "Create label";
+    },
+    getBoard() {
+      return this.$store.getters.getCurrBoard;
     },
   },
   methods: {
@@ -156,7 +163,8 @@ export default {
       let idx = this.updatedTask.labelIds.indexOf(label.id);
       if (idx > -1) this.updatedTask.labelIds.splice(idx, 1);
       else this.updatedTask.labelIds.push(label.id);
-      this.$emit("updateTask", this.updatedTask);
+      let task = JSON.parse(JSON.stringify(this.updatedTask))
+      this.$emit("updateTask", task);
     },
     openCreateMenu() {
       this.createMenu = true;
