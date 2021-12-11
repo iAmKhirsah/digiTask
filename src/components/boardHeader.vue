@@ -104,7 +104,6 @@ export default {
     })
       let board= JSON.parse(JSON.stringify(this.getCurrBoard))
       board.title = this.boardTitle
-      
       this.updateBoard(board)
     },
     starredBoard() {
