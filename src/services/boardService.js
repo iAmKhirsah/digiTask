@@ -1,6 +1,5 @@
-import { httpService } from './httpService'
+import { httpService } from './httpService';
 import { storageService } from './asyncStorageService';
-import { userService } from './userService';
 import { utilService } from './utilService';
 
 export const boardService = {
@@ -14,6 +13,7 @@ export const boardService = {
   getEmptyActivity,
   getEmptyLabel,
   getEmptyBoard,
+  getEmptyAttachment,
 };
 loadBoard();
 async function loadBoard() {
@@ -29,7 +29,7 @@ async function query(filterBy = null) {
   try {
     //   var queryStr = (!filterBy) ? '' : `?name=${filterBy.name}&sort=anaAref`
     // let boards =  await storageService.query('boards');
-    return await httpService.get('board')
+    return await httpService.get('board');
     // return boards
   } catch (err) {
     console.log('Had error on boardServices: QUERY', err);
@@ -46,14 +46,14 @@ async function getBoardById(boardId) {
   try {
     // const board = await storageService.get('boards', boardId);
     // return board;
-    return await httpService.get(`board/${boardId}`)
+    return await httpService.get(`board/${boardId}`);
   } catch (err) {
     console.log("Could'nt get board by id ", err);
   }
 }
 async function remove(boardId) {
   try {
-      return httpService.delete(`board/${boardId}`)
+    return httpService.delete(`board/${boardId}`);
     // return storageService.remove('boards', boardId);
   } catch (err) {
     console.log('Had error on boardServices: REMOVE', err);
@@ -68,7 +68,7 @@ async function add(board) {
     // const addedBoard = storageService.post('boards', board);
     // storageService.post('boards', board);
     // return addedBoard;
-    return await httpService.post(`board`,board)
+    return await httpService.post(`board`, board);
   } catch (err) {
     console.log('Had error on boardServices: ADD', err);
   }
@@ -76,7 +76,7 @@ async function add(board) {
 async function update(board) {
   console.log(board);
   try {
-    return await httpService.put(`board/${board._id}`,board)
+    return await httpService.put(`board/${board._id}`, board);
     const updatedBoard = storageService.put('boards', board);
     return updatedBoard;
   } catch (err) {
@@ -91,7 +91,7 @@ function getEmptyTask() {
     byMember: [],
     members: [],
     labelIds: [],
-    checklists:[],
+    checklists: [],
     dates: {
       startDate: '',
       dueDate: '',
@@ -138,6 +138,19 @@ function getEmptyActivity() {
   };
   return activity;
 }
+function getEmptyAttachment() {
+  const attachment = {
+    id: 'at' + utilService.makeId(),
+    txt: '',
+    imgUrl: '',
+    createdAt: Date.now(),
+    task: {
+      id: '',
+      title: '',
+    },
+  };
+  return attachment;
+}
 function getEmptyBoard() {
   const board = {
     title: '',
@@ -151,13 +164,14 @@ function getEmptyBoard() {
     members: [],
     groups: [],
     activities: [],
+    attachments: [],
   };
   return board;
 }
 function createDemoBoard() {
   const board = {
     _id: 'b101',
-    title: 'Beny\'s Birthday Party!',
+    title: "Beny's Birthday Party!",
     createdAt: 1589983468418,
     createdBy: {
       _id: 'u101',
@@ -185,13 +199,15 @@ function createDemoBoard() {
       {
         _id: 'u102',
         fullname: 'Daniel Radia',
-        imgUrl: 'https://th-thumbnailer.cdn-si-edu.com/bZAar59Bdm95b057iESytYmmAjI=/1400x1050/filters:focal(594x274:595x275)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/95/db/95db799b-fddf-4fde-91f3-77024442b92d/egypt_kitty_social.jpg',
+        imgUrl:
+          'https://th-thumbnailer.cdn-si-edu.com/bZAar59Bdm95b057iESytYmmAjI=/1400x1050/filters:focal(594x274:595x275)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/95/db/95db799b-fddf-4fde-91f3-77024442b92d/egypt_kitty_social.jpg',
       },
       {
         _id: 'u103',
         fullname: 'Beny Kursalin',
-        imgUrl: 'https://www.artmajeur.com/medias/standard/f/r/franc-kaiser/artwork/14103527_7785cbcf-a4a7-430b-b3e5-9031527bcfb2.jpg',
-      }
+        imgUrl:
+          'https://www.artmajeur.com/medias/standard/f/r/franc-kaiser/artwork/14103527_7785cbcf-a4a7-430b-b3e5-9031527bcfb2.jpg',
+      },
     ],
     groups: [
       {
@@ -206,7 +222,7 @@ function createDemoBoard() {
             members: [],
             comments: [],
             labelIds: [],
-            checklists:[],
+            checklists: [],
             dates: {
               startDate: '',
               dueDate: '',
@@ -214,7 +230,7 @@ function createDemoBoard() {
             },
             style: {
               bgColor: '',
-              isInfo:true,
+              isInfo: true,
             },
           },
           {
@@ -225,7 +241,7 @@ function createDemoBoard() {
             members: [],
             comments: [],
             labelIds: [],
-            checklists:[],
+            checklists: [],
             dates: {
               startDate: '',
               dueDate: '',
@@ -233,7 +249,7 @@ function createDemoBoard() {
             },
             style: {
               bgColor: '',
-              isInfo:true,
+              isInfo: true,
             },
           },
         ],
@@ -251,7 +267,7 @@ function createDemoBoard() {
             members: [],
             comments: [],
             labelIds: [],
-            checklists:[],
+            checklists: [],
             dates: {
               startDate: '',
               dueDate: '',
@@ -259,7 +275,7 @@ function createDemoBoard() {
             },
             style: {
               bgColor: '',
-              isInfo:true,
+              isInfo: true,
             },
           },
           {

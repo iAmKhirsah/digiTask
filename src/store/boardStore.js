@@ -49,10 +49,11 @@ export const boardStore = {
     },
   },
   mutations: {
-    setComment(state,{comment}){
-        comment.id = utilService.makeId()
-        if(!state.currTask.comments||!state.currTask.comments.length) state.currTask.comments = []
-        state.currTask.comments.push(comment)
+    setComment(state, { comment }) {
+      comment.id = utilService.makeId();
+      if (!state.currTask.comments || !state.currTask.comments.length)
+        state.currTask.comments = [];
+      state.currTask.comments.push(comment);
     },
     setLoadingOn(state) {
       state.isLoading = true;
@@ -99,10 +100,9 @@ export const boardStore = {
         emptyBoard.title = board.title;
         if (board.imgUrl) {
           emptyBoard.style.backgroundUrl = board.imgUrl;
-        }
-        else if (board.background )
-        emptyBoard.style.backgroundColor = board.background;
-        else  emptyBoard.style.backgroundColor = 'rgb(0, 121, 191)';
+        } else if (board.background)
+          emptyBoard.style.backgroundColor = board.background;
+        else emptyBoard.style.backgroundColor = 'rgb(0, 121, 191)';
         let newBoard = await boardService.add(emptyBoard);
         if (!state.boards.length) state.boards = [];
         state.boards.push(newBoard);
@@ -123,6 +123,14 @@ export const boardStore = {
         newActivity.imgUrl = activity.res.url;
       }
       state.currBoard.activities.unshift(newActivity);
+    },
+    addAttachment(state, { attachment }) {
+      let newAttachment = boardService.getEmptyAttachment();
+      newAttachment.txt = attachment.txt;
+      newAttachment.imgUrl = attachment.imgUrl;
+      newAttachment.task.id = attachment.task.id;
+      newAttachment.task.title = attachment.task.title;
+      state.currBoard.attachment.push(newAttachment);
     },
     createLabel(state, { label }) {
       if (label.id) {
@@ -150,19 +158,22 @@ export const boardStore = {
     },
     addTask(state, { taskRaw }) {
       let newTask = boardService.getEmptyTask();
-      
+
       newTask.title = taskRaw.task;
       newTask.byMember = taskRaw.user;
-      console.log(newTask)
+      console.log(newTask);
       state.currBoard.groups[taskRaw.idx].tasks.push(newTask);
-      console.log(state.currBoard)
+      console.log(state.currBoard);
     },
     updateStore(state, { taskId }) {
       let groupIdx = state.currBoard.groups.findIndex((group) =>
         group.tasks.some((task) => task.id === taskId)
       );
-      state.currGroup = state.currBoard.groups[groupIdx]; 
-      if(state.currBoard.groups[groupIdx].tasks) state.currTask = state.currBoard.groups[groupIdx].tasks.find((task) => task.id === taskId);
+      state.currGroup = state.currBoard.groups[groupIdx];
+      if (state.currBoard.groups[groupIdx].tasks)
+        state.currTask = state.currBoard.groups[groupIdx].tasks.find(
+          (task) => task.id === taskId
+        );
     },
     updateGroup(state, { group }) {
       const idx = state.currBoard.groups.findIndex(
@@ -172,9 +183,9 @@ export const boardStore = {
       state.currGroup = state.currBoard.groups[idx];
     },
     updateTask(state, { task }) {
-      if(!task) {
-        state.currTask = null
-        return
+      if (!task) {
+        state.currTask = null;
+        return;
       }
       const groupIdx = state.currBoard.groups.findIndex((currGroup) =>
         currGroup.tasks.find((currTask) => task.id === currTask.id)
@@ -227,7 +238,7 @@ export const boardStore = {
     applyDragGroup(state, { dropResult }) {
       if (dropResult.removedIndex === null && dropResult.addedIndex === null)
         return;
-        
+
       const { removedIndex, addedIndex, payload } = dropResult;
       const result = [...state.currBoard.groups];
       let itemToAdd = payload;
@@ -283,7 +294,7 @@ export const boardStore = {
       try {
         if (!board) board = state.currBoard;
         await boardService.update(board);
-        commit({ type: 'updateBoard',  board });
+        commit({ type: 'updateBoard', board });
         socketService.emit(SOCKET_EMIT_UPDATEBOARD, board);
       } catch (err) {
         console.log('Couldnt update Board', err);
@@ -338,7 +349,6 @@ export const boardStore = {
     },
     async updateStore({ commit }, { boardId, taskId }) {
       try {
-         
         let board = await boardService.getBoardById(boardId);
         commit({ type: 'setCurrBoard', board });
         commit({ type: 'updateStore', taskId });
@@ -376,6 +386,14 @@ export const boardStore = {
         dispatch({ type: 'updateBoard' });
       } catch (err) {
         console.log('Error on board store ADDACTIVITY', err);
+      }
+    },
+    async addAttachment({ dispatch, commit }, { attachment }) {
+      try {
+        commit({ type: 'addAttachment', attachment });
+        await dispatch({ type: 'updateBoard' });
+      } catch (err) {
+        console.log('boardStore: Error on-AddAttachment', err);
       }
     },
     async createBoard({ dispatch, commit }, { board }) {

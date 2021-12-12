@@ -82,7 +82,7 @@
                 <p class="task-activity-title">Activity</p>
               </div>
 
-                <span class="user-tag-name in-header side">DR</span>
+              <span class="user-tag-name in-header side">DR</span>
               <form>
                 <div class="comments-container">
                   <textarea
@@ -354,10 +354,17 @@ export default {
       await this.$store.dispatch({ type: "updateGroup", group });
     },
     async attachment(link, task) {
-      console.log(link);
       try {
         let res = await uploadFile(link);
-        console.log(res);
+        this.$store.dispatch({
+          type: "addAttachment",
+          attachment: {
+            txt: `${res.original_filename}.${res.format}`,
+            imgUrl: res,
+            task: { id: task.id, title: task.title },
+          },
+        });
+
         let txt = `attached ${res.original_filename}.${res.format} to this card`;
         let user = this.getUser;
         this.$store.dispatch({
@@ -385,11 +392,10 @@ export default {
     getTaskCheckLists() {
       return this.$store.getters.getCurrTask.checklists;
     },
-    getTaskCoverColor(){
-      if(this.getTask.style.bgColor)
-      return {'background-color':this.getTask.style.bgColor}
-      
-    }
+    getTaskCoverColor() {
+      if (this.getTask.style.bgColor)
+        return { "background-color": this.getTask.style.bgColor };
+    },
   },
   components: {
     taskDescription,
