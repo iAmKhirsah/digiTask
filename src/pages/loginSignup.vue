@@ -105,7 +105,7 @@
         <div class="line-divider"></div>
         <div class="login-switch">
           <div>
-           <div class="error-msg">
+            <div class="error-msg">
               {{ msg }}
             </div>
             <button @click="showSignup">{{ loginSignup }}</button>
@@ -128,7 +128,7 @@ export default {
         username: "",
         fullname: "",
         password: null,
-        imgUrl: "https://kitcat.com.sg/wp-content/uploads/2020/07/Kit-Cat.png",
+        imgUrl: "",
         mentions: [],
         starred: [],
         recentBoards: [],
