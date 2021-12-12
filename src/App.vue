@@ -42,7 +42,7 @@ export default {
     isDefault() {
       return this.noBgc ? "no-background" : "background";
     },
-  },
+  }, 
   watch: {
     "$route.path": {
       handler() {

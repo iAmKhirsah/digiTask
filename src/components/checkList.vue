@@ -36,7 +36,6 @@
       <span class="checklist-progress-percentage">{{ getPercentage }}</span>
       <div class="checklist-progress-bar">
         <div
-        
           :style="'width:' + getPercentage"
           :class="['progress-bar', completedBar]"
         ></div>
