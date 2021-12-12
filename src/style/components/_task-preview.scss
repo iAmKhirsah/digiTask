@@ -9,7 +9,7 @@
         }
     }
     .task-list-container-content {
-        max-height: 730px;
+        max-height: 700px;
         overflow-y: auto;
         display: flex;
         justify-content: center;
@@ -73,7 +73,7 @@
     padding-left: 6px;
     font-size: 14px;
     padding-bottom: 5px;
-    margin-top: -2px;
+    margin-top: 5px;
 
     .add-task-form {
         gap: 6px;
