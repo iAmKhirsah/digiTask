@@ -360,7 +360,7 @@ export default {
           type: "addAttachment",
           attachment: {
             txt: `${res.original_filename}.${res.format}`,
-            imgUrl: res,
+            res,
             task: { id: task.id, title: task.title },
           },
         });

@@ -127,10 +127,10 @@ export const boardStore = {
     addAttachment(state, { attachment }) {
       let newAttachment = boardService.getEmptyAttachment();
       newAttachment.txt = attachment.txt;
-      newAttachment.imgUrl = attachment.imgUrl;
+      newAttachment.imgUrl = attachment.res.url;
       newAttachment.task.id = attachment.task.id;
       newAttachment.task.title = attachment.task.title;
-      state.currBoard.attachment.push(newAttachment);
+      state.currBoard.attachments.push(newAttachment);
     },
     createLabel(state, { label }) {
       if (label.id) {

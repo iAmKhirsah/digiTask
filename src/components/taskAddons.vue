@@ -37,12 +37,25 @@
         <p class="subtitles">Dates</p>
         <p></p>
         <div class="task-addons-dates-cards">
-          <input type="checkbox" v-model="isDone" @change="saveIsDone"/>
+          <input type="checkbox" v-model="isDone" @change="saveIsDone" />
           <div class="dates-preview">
-          <span v-if="startDate">{{ startDate }} </span
-          ><span v-if="dueDate"> {{ dueDate }}</span> 
-          <span v-if="getTask.dates.isDone" class="task-due-completed"> complete</span>
+            <span v-if="startDate">{{ startDate }} </span
+            ><span v-if="dueDate"> {{ dueDate }}</span>
+            <span v-if="getTask.dates.isDone" class="task-due-completed">
+              complete</span
+            >
           </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div v-if="getBoard.attachments">
+        <p>Attachments</p>
+        <div v-for="attachment in getBoard.attachments" :key="attachment.id">
+          <img :src="attachment.imgUrl" />
+          <p>{{ attachment.txt }}</p>
+          <p>{{ attachment.createdAt }}</p>
+          <button>Make cover</button>
         </div>
       </div>
     </div>
@@ -52,22 +65,23 @@
 export default {
   name: "taskAddons",
   props: ["getTask", "getBoard"],
-  data(){
+  data() {
     return {
-      isDone:false
-    }
+      isDone: false,
+    };
   },
-  created(){
-    this.isDone = this.getTask.dates.isDone
+  created() {
+    this.isDone = this.getTask.dates.isDone;
+    console.log(this.getBoard.attachments);
   },
-  methods:{
-    saveIsDone(){
-      let task = JSON.parse(JSON.stringify(this.getTask))
-      task.dates.isDone = this.isDone
-     
-      task.dates.isDone = this.isDone
-      this.$emit('updatedTask',task)
-    }
+  methods: {
+    saveIsDone() {
+      let task = JSON.parse(JSON.stringify(this.getTask));
+      task.dates.isDone = this.isDone;
+
+      task.dates.isDone = this.isDone;
+      this.$emit("updatedTask", task);
+    },
   },
   computed: {
     getLabel() {
