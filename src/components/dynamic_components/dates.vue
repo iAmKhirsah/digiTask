@@ -19,8 +19,6 @@
     <transition name="fade">
       <div v-if="isInvalid">Pick start date and due date</div>
     </transition>
-    <!-- <input type="checkbox" v-model="taskDate.start" />
-    <input type="checkbox" v-model="taskDate.due" /> -->
     <button class="save" @click="saveDates">Save</button>
   </div>
 </template>

@@ -51,7 +51,7 @@
         <div>
     </div>
         <div class="activity-container">
-          <div class="menu-box ">
+          <div class="menu-box">
             <div class="activity">
               <div class="activity-bold">Activity</div>
               <span class="icon-board"></span>
@@ -109,6 +109,7 @@ export default {
       this.type = "";
     },
     openModal(type) {
+      
       this.type = type;
     },
     updateBoard(board) {
@@ -129,11 +130,9 @@ export default {
     }
   },
   computed: {
-  
        getBackground(){
       if(this.board.style.backgroundColor) return {'background-color': this.board.style.backgroundColor}
       return {'background-image': `url(${require('@/assets/img/'+this.board.style.backgroundUrl)})`}
-    
     }
   },
   components: {

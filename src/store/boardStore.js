@@ -172,6 +172,10 @@ export const boardStore = {
       state.currGroup = state.currBoard.groups[idx];
     },
     updateTask(state, { task }) {
+      if(!task) {
+        state.currTask = null
+        return
+      }
       const groupIdx = state.currBoard.groups.findIndex((currGroup) =>
         currGroup.tasks.find((currTask) => task.id === currTask.id)
       );
@@ -223,6 +227,7 @@ export const boardStore = {
     applyDragGroup(state, { dropResult }) {
       if (dropResult.removedIndex === null && dropResult.addedIndex === null)
         return;
+        
       const { removedIndex, addedIndex, payload } = dropResult;
       const result = [...state.currBoard.groups];
       let itemToAdd = payload;

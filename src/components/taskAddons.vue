@@ -95,7 +95,6 @@ export default {
         return;
       let shortMonth = date.toLocaleString("en-us", { month: "short" });
       let day = date.getDate();
-      let year = date.getFullYear();
       let stringDate = `${shortMonth} ${day} - `;
       return stringDate;
     },

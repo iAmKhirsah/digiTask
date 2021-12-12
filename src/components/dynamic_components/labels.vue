@@ -48,7 +48,7 @@
       </div>
       <button class="create" @click="openCreateMenu">Create a new label</button>
     </div>
-    <div class="dynamic-labels-edit" v-if="createMenu">
+    <div class="dynamic-labels-edit" :class="{'on-menu' : isBoardLabels }" v-if="createMenu">
       <!-- <button class="close" @click="closeModal">
         <span class="material-icons"> clear </span>
       </button> -->
@@ -176,7 +176,6 @@ export default {
       this.labelToUpdate = JSON.parse(JSON.stringify(label));
       this.selectedColor = this.labelToUpdate.color;
     },
-    updateBoard(label) {},
     addLabel(label) {
       if (this.isBoardLabels) {
         this.labelToEdit(label);
