@@ -125,7 +125,7 @@
                                 .save-btn {
                                     margin-left: 40px;
                                     margin-top: 10px;
-                                    &:hover{
+                                    &:hover {
                                         opacity: 0.8;
                                     }
                                 }
@@ -323,13 +323,29 @@
     padding: 0;
     width: 48px;
     border-radius: 3px;
+    position: relative;
     .icon-settings {
-        padding: 0px 0px 0px 15px;
+        visibility: hidden;
+
         line-height: 30px;
+        position: absolute;
+        top: 1px;
+        right: 10px;
+        background-color: transparent;
     }
     &:hover {
+        .icon-settings {
+            visibility: visible;
+        }
         opacity: 0.8;
         cursor: pointer;
+    }
+    &.checked {
+        .icon-settings {
+            color: white;
+
+            visibility: visible;
+        }
     }
 }
 
