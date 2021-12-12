@@ -34,6 +34,7 @@
             @closeEditModal="closeEditModal"
             :task="task"
             @editTask="editTask"
+            :posX="editPos"
           ></edit-modal>
         </div>
       </span>
@@ -81,14 +82,21 @@ export default {
   data() {
     return {
       isOpenEditModal: false,
+      editPos: {
+        left: "",
+        top: "",
+      },
     };
   },
   created() {
     // console.log('task on preview',this.task)
   },
   methods: {
-    openEditModal() {
+    openEditModal(ev) {
       this.isOpenEditModal = true;
+      this.editPos.left = ev.x - ev.offsetX + "px";
+      this.editPos.top = ev.y - ev.offsetY + "px";
+      console.log(this.editPos);
     },
     closeEditModal() {
       this.isOpenEditModal = false;
@@ -109,7 +117,6 @@ export default {
     hasCover() {
       return this.task.style.bgColor;
     },
-
     hasInfo() {
       return (
         (this.hasCommnets ||
