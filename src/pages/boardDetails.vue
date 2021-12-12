@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="isLoading" class="loading-screen">
+    <div v-if="isLoading" class="loading-screen" :style="getImgOrColor">
 
 <div class="container">
   <div class="item item-1"></div>
@@ -259,6 +259,14 @@ export default {
     },
     getUser() {
       return this.$store.getters.currUser;
+    },
+     getImgOrColor() {
+      if (this.getBoard)
+        return this.getBoard.style.backgroundColor
+          ? "background:" + this.getBoard.style.backgroundColor
+          : "background-image:" +
+              `url(${require("@/assets/img/" +
+                this.getBoard.style.backgroundUrl)})`;
     },
   },
   mounted() {
