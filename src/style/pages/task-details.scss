@@ -372,6 +372,63 @@
             margin-top: 10px;
         }
     }
+    .task-addons-attachment-container {
+        .task-addons-att-title-container {
+            .att-symbol-settings {
+                position: absolute;
+                left: 17px;
+                top: -4px;
+            }
+            .task-addons-att-title {
+                font-weight: 600;
+                margin-bottom: 12px;
+            }
+        }
+        img {
+            width: 112px;
+            height: 80px;
+        }
+        .att-content {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 12px;
+            .att-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            .att-content-info {
+                display: flex;
+                flex-direction: column;
+                .att-title {
+                    font-size: 14px;
+                    font-weight: 700;
+                }
+                .att-date {
+                    color: #5e6c84;
+                    font-size: 14px;
+                }
+            }
+            .make-cover-btn-container {
+                display: flex;
+                align-items: center;
+                .make-cover-btn {
+                    color: #5e6c84;
+                    font-size: 14px;
+                    text-decoration: underline;
+                    padding-left: 0;
+                    &:hover {
+                        color: $clr2;
+                        cursor: pointer;
+                    }
+                }
+            }
+            &:hover {
+                background-color: #091e420a;
+                cursor: pointer;
+            }
+        }
+    }
 }
 .task-addons-members {
     .task-addons-members-info {
@@ -383,16 +440,32 @@
 
 .activity-content {
     padding: 0px 15px;
-    margin: 0 0 8px 40px;
+    margin: 0 0 8px 0px;
     .activity-user-content {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
         padding: 8px 0px;
-        margin-left: -40px;
-        span {
+        flex-direction: column;
+        .activity-user-info-content {
+            display: flex;
+            word-break: break-word;
+            width: 520px;
+            line-height: 20px;
+        }
+        .activity-user-info {
+            display: flex;
+            gap: 10px;
+            min-height: 32px;
+            line-height: 32px;
+            font-size: 14px;
+        }
+        .image-container {
+            width: 520px;
+            align-self: end;
             img {
-                justify-self: flex-end;
+                max-width: 98%;
+                margin-left: 0px;
+                object-fit: cover;
             }
         }
     }

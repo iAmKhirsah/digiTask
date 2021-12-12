@@ -48,17 +48,33 @@
         </div>
       </div>
     </div>
-    <div>
+
+    <div class="task-addons-attachment-container">
       <div v-if="getBoard.attachments">
-        <p>Attachments</p>
-        <div v-for="attachment in getBoard.attachments" :key="attachment.id">
+        <div class="task-addons-att-title-container"> 
+          <span class="icon-lg attachments att-symbol-settings"></span>
+          <p class="task-addons-att-title">Attachments</p>
+        </div>
+        <div
+          class="att-content"
+          v-for="attachment in getBoard.attachments"
+          :key="attachment.id"
+        >
           <img :src="attachment.imgUrl" />
-          <p>{{ attachment.txt }}</p>
-          <p>{{ attachment.createdAt }}</p>
-          <button>Make cover</button>
+          <div class="att-info">
+            <div class="att-content-info">
+              <p class="att-title">{{ attachment.txt }}</p>
+              <p class="att-date">{{ attachment.createdAt }}</p>
+            </div>
+            <div class="make-cover-btn-container">
+              <span class="icon-sm cover-icon"></span>
+              <button class="make-cover-btn">Make cover</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+    
   </div>
 </template>
 <script>

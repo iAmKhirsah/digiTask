@@ -1,135 +1,158 @@
 .user-menu {
-  width: 339px;
-  height: 100%;
-  position: fixed;
-  // right: 0;
-  right: -50%;
-  transition: right 0.3s;
-  z-index: 10;
-  background-color: #f4f5f7;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  overflow: hidden;
+    width: 339px;
+    height: 100%;
+    position: fixed;
+    // right: 0;
+    right: -50%;
+    transition: right 0.3s;
+    z-index: 10;
+    background-color: #f4f5f7;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow: auto;
 
-  &.open{
-    right: 0%;
-  }
-  .close {
-    padding: 12px 12px 12px 12px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: 2;
-    background-color: transparent;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    color: $clr2;
-    .menu-header-close-button{
-      font-size: 20px;
-    line-height: 25px;
+    &.open {
+        right: 0%;
     }
-  }
-  header {
-    text-align: center;
-    padding: 14px 0;
-    border-bottom: 1px solid #091e4221;
-    margin: 0px 10px;
-    font-size: 16px;
-    font-weight: 600;
-    color: $clr2;
-  }
-  .header-layout {
-    width: 100%;
-  }
-  .menu-content {
-    padding: 12px 6px 12px 12px;
-    .activity-container {
-      padding: 17px 0px 10px 0px;
-      border-top: 1px solid #091e4221;
-    }
-    
-  }
-  .menu-box {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding: 6px 6px 6px 40px;
-    border-radius: 3px;
-    cursor: pointer;
-    
-    &.no-hover{
-      &:hover{
-        background-color: #f4f5f7;
-      }
-    }
-
-    &:hover {
-      background-color: #091e4214;
-      color: #091e42;
-    }
-
-    div {
-      color: $clr2;
-      font-weight: 600;
-      font-size: 14px;
-    }
-    p {
-      text-align: start;
-      font-size: 12px;
-      color: $clr3;
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 16px;
-    }
-
-    .icon-background{
-      background-size: cover;
-      height: 20px;
-      left: 21px;
-      line-height: 20px;
-      position: absolute;
-      top: 115px;
-      width: 20px;
-      border-radius: 3px;
-    }
-
-    .icon-board::before {
-      font-family: 'icomoon';
-      content: '\e90b';
-      font-size: 20px;
-      position: absolute;
-      left: 22px;
-      top: 68px;
-      color: $clr3;
-    }
-
-    .labels {
-      .icon-board::before {
-        font-family: 'icomoon';
-        content: '\e93f';
-        font-size: 20px;
+    .close {
+        padding: 12px 12px 12px 12px;
         position: absolute;
-        left: 22px;
-        top: 145px;
-        color: #5e6c84;
-        font-weight: 200;
-      }
-    }
-    .activity {
-      .icon-board::before {
-        font-family: 'icomoon';
-        content: '\e900';
+        right: 0;
+        top: 0;
+        z-index: 2;
+        background-color: transparent;
+        border: none;
         font-size: 16px;
-        position: absolute;
-        left: 22px;
-        top: 228px;
-        color: #5e6c84;
-        font-weight: 200;
-      }
-      .activity-bold {
-        font-weight: 700;
-      }
+        cursor: pointer;
+        color: $clr2;
+        .menu-header-close-button {
+            font-size: 20px;
+            line-height: 25px;
+        }
     }
-  }
+    header {
+        text-align: center;
+        padding: 14px 0;
+        border-bottom: 1px solid #091e4221;
+        margin: 0px 10px;
+        font-size: 16px;
+        font-weight: 600;
+        color: $clr2;
+    }
+    .header-layout {
+        width: 100%;
+    }
+    .menu-content {
+        padding: 12px 6px 12px 12px;
+        .activity-container {
+            padding: 17px 0px 10px 0px;
+            border-top: 1px solid #091e4221;
+        }
+    }
+    .menu-box {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        padding: 6px 6px 6px 40px;
+        border-radius: 3px;
+        cursor: pointer;
+        .activity-bold{
+          cursor: default;
+        }
+
+        &.no-hover {
+            padding-left: 0;
+            width: 313px;
+            cursor: default;
+            .activity-content{
+              padding: 0px 5px 0 5px;
+            }
+            .activity-user-content {
+                width: 100%;
+                // background-color: red;
+                .image-container {
+                    align-self: self-start;
+                    max-width: 80%;
+                    margin-left: 43px;
+                }
+                .activity-user-info-content {
+                  width: 250px;
+                }
+                .image-container {
+                    width: 100%;
+                }
+            }
+            &:hover {
+                background-color: #f4f5f7;
+            }
+        }
+
+        &:hover {
+            background-color: #091e4214;
+            color: #091e42;
+        }
+
+        div {
+            color: $clr2;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        p {
+            text-align: start;
+            font-size: 12px;
+            color: $clr3;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16px;
+        }
+
+        .icon-background {
+            background-size: cover;
+            height: 20px;
+            left: 21px;
+            line-height: 20px;
+            position: absolute;
+            top: 115px;
+            width: 20px;
+            border-radius: 3px;
+        }
+
+        .icon-board::before {
+            font-family: 'icomoon';
+            content: '\e90b';
+            font-size: 20px;
+            position: absolute;
+            left: 22px;
+            top: 68px;
+            color: $clr3;
+        }
+
+        .labels {
+            .icon-board::before {
+                font-family: 'icomoon';
+                content: '\e93f';
+                font-size: 20px;
+                position: absolute;
+                left: 22px;
+                top: 145px;
+                color: #5e6c84;
+                font-weight: 200;
+            }
+        }
+        .activity {
+            .icon-board::before {
+                font-family: 'icomoon';
+                content: '\e900';
+                font-size: 16px;
+                position: absolute;
+                left: 22px;
+                top: 228px;
+                color: #5e6c84;
+                font-weight: 200;
+            }
+            .activity-bold {
+                font-weight: 700;
+            }
+        }
+    }
 }
