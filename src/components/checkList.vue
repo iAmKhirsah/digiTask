@@ -32,15 +32,17 @@
       </form>
     </div>
 
+
     <div class="checklist-progress">
       <span class="checklist-progress-percentage">{{ getPercentage }}</span>
       <div class="checklist-progress-bar">
         <div
-          :class="['progress-bar', completedBar]"
           :style="'width :' + getPercentage"
+          :class="['progress-bar', completedBar]"
         ></div>
       </div>
     </div>
+
 
     <div v-if="isChecklistTodos">
       <div
@@ -169,6 +171,8 @@ export default {
     checklistTodos() {
       return this.checklist.todos;
     },
+
+
     getPercentage() {
       let isDones = this.checklist.todos.reduce((acc, todo) => {
         if (todo.isDone) acc++;
@@ -177,6 +181,8 @@ export default {
       if (!isDones) return "0% ";
       return ((isDones * 100) / this.checklist.todos.length).toFixed(0) + "%";
     },
+
+
     completedBar() {
       if (this.getPercentage === "100%") {
         return "complete";
