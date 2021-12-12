@@ -6,13 +6,13 @@
       @closeCreateMenu="closeCreateMenu"
       @createBoard="createBoard"
     />
-    <div class="workspace-container" >
+    <div class="workspace-container">
       <div class="workspace-title" v-if="getStarredBoards.length">
         <span><i class="fas fa-star"></i></span>
         <h1>Starred Workspace</h1>
       </div>
       <div class="boards-container">
-        <div class="boards-containers-my-boards" >
+        <div class="boards-containers-my-boards">
           <div
             v-for="board in getStarredBoards"
             :key="board._id"
@@ -26,8 +26,6 @@
               </div>
             </router-link>
           </div>
-
-         
         </div>
       </div>
       <!--  -->
@@ -125,19 +123,22 @@ export default {
       };
     },
   },
-  computed:{
-    getBoards(){
-      console.log(this.$store.getters.boards)
-     return this.$store.getters.boards
+  computed: {
+    getBoards() {
+      console.log(this.$store.getters.boards);
+      return this.$store.getters.boards;
     },
-    getStarredBoards(){
-      let starredBoards = []
-      this.$store.getters.currUser.starred.forEach((boardId)=>{
-        this.getBoards.forEach((board)=>{
-          if(board._id === boardId) starredBoards.push(board)
-        })
-      })
-      return starredBoards
+    getUser() {
+      return this.$store.getters.currUser;
+    },
+    getStarredBoards() {
+      let starredBoards = [];
+      this.$store.getters.currUser.starred.forEach((boardId) => {
+        this.getBoards.forEach((board) => {
+          if (board._id === boardId) starredBoards.push(board);
+        });
+      });
+      return starredBoards;
     },
     getRecentBoard(){
       let recentBoards = []
@@ -151,6 +152,14 @@ export default {
   },
   components: {
     boardCreate,
+  },
+  watch: {
+    "this.getUser": {
+      handler() {
+        if (!this.getUser) this.$router.push("/");
+      },
+      immediate: true,
+    },
   },
 };
 </script>

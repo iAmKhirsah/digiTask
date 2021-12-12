@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-
 import cache from '../plugins/cache';
 import sync from './plugins/sync';
 
