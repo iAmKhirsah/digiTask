@@ -10,7 +10,7 @@
     }
     .task-list-container-content {
         max-height: 730px;
-
+        overflow-y: auto;
         display: flex;
         justify-content: center;
         flex-direction: column;
