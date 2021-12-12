@@ -100,9 +100,9 @@ export const boardStore = {
         if (board.imgUrl) {
           emptyBoard.style.backgroundUrl = board.imgUrl;
         }
-        if (!board.background)
-          emptyBoard.style.backgroundColor = 'rgb(0, 121, 191)';
-        else emptyBoard.style.backgroundColor = board.background;
+        else if (board.background )
+        emptyBoard.style.backgroundColor = board.background;
+        else  emptyBoard.style.backgroundColor = 'rgb(0, 121, 191)';
         let newBoard = await boardService.add(emptyBoard);
         if (!state.boards.length) state.boards = [];
         state.boards.push(newBoard);

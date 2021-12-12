@@ -46,10 +46,10 @@
       </div>
 
       <div class="board-header-right">
-        <div class="board-box">
+        <!-- <div class="board-box">
           <span class="material-icons"> filter_list </span>
-          <span class="filter">Filter</span>
-        </div>
+          <span class="filter">Dashboard</span>
+        </div> -->
         <div class="board-box" @click="openMenu" :class="hideButton">
           <button class="group-header-edit-btn">
             <span class="icon-sm menu-dots"></span>

@@ -89,8 +89,10 @@ export default {
         );
       }
       return initials.toUpperCase();
-    },
+    }
   },
+
+
    directives: {
     clickOutside: vClickOutside.directive,
   },
