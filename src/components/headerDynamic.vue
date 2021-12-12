@@ -6,6 +6,7 @@
       @updateBoard="updateBoard"
       @updateUser="updateUser"
       @loadBoard="loadBoard"
+      @createBoard="createBoard"
       :getCurrBoard="getCurrBoard"
       :getUser="getUser"
       :getBoards="getBoards"
@@ -55,6 +56,10 @@ export default {
     updateUser(user) {
       this.$emit("updateUser", user);
     },
+    createBoard(board){
+      this.$emit("createBoard",board)
+    }
+    
   },
 };
 </script>

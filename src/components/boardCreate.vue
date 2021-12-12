@@ -10,7 +10,7 @@
     </div>
 
     <div class="image-container">
-      <div class="image-content" :style="'background:' + board.background">
+      <div class="image-content" :style="getBackground">
         <img
           src="https://a.trellocdn.com/prgb/dist/images/board-preview-skeleton.14cda5dc635d1f13bc48.svg"
         />
@@ -31,13 +31,14 @@
           @click="setBackground(background)"
         ></button>
       </div>
-       <!-- <div class="board-background-selection-photos" >
+       <div class="board-background-selection-photos" >
         <span v-for="(photo, idx) in photos" :key="idx">
           <span class="img-content" @click="setBackground(photo, 'photo')">
             <img :src="require(`@/assets/img/${photo}`)" :title="photo.by" />
           </span>
+          
         </span>
-      </div> -->
+      </div>
     </ul>
     <span class="board-subtitle"
       >Board title<span class="asterisk">*</span></span
@@ -69,8 +70,8 @@ export default {
         "background-2.jpg",
         "background-3.jpg",
         "background-4.jpg",
-        "background-5.jpg",
-        "background-6.jpg",
+        // "background-5.jpg",
+        // "background-6.jpg",
       ],
     };
   },
@@ -79,8 +80,17 @@ export default {
       this.$emit("closeModal");
       this.$emit("closeCreateMenu")
     },
-    setBackground(background) {
-      this.board.background = background;
+    setBackground(background,type) {
+      if(type==='photo'){
+        this.board.imgUrl = background
+        this.board.background = ''
+      }
+      else{
+         this.board.background = background;
+         this.board.imgUrl = '';
+      }
+      console.log(this.board)
+      
     },
  createBoard() {
       if(this.board.title.match(/^\s*$/)) return
@@ -93,6 +103,17 @@ export default {
       this.closeModal()
     },
    
+  },
+  computed:{
+     getBackground() {
+       if(!this.board.imgUrl && !this.board.background) return 
+      if (this.board.background)
+        return { "background-color": this.board.background };
+      return {
+        "background-image": `url(${require("@/assets/img/" +
+          this.board.imgUrl)})`,
+      };
+    },
   },
   directives: {
     clickOutside: vClickOutside.directive,

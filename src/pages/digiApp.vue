@@ -31,8 +31,30 @@
         </div>
       </div>
       <!--  -->
+ <div class="workspace-title" v-if="getRecentBoard.length">
+        <span><i class="far fa-clock"></i></span>
+        <h1>Recently Viewed</h1>
+      </div>
+      <div class="boards-container">
+        <div class="boards-containers-my-boards" >
+          <div
+            v-for="board in getRecentBoard"
+            :key="board._id"
+            class="board-card"
+            :style="getBackground(board)"
+          >
+            <router-link :to="'/b/' + board._id">
+              <div class="board-card-content">
+                <div class="board-card-title">{{ board.title }}</div>
+                <div class="board-card-title-badges"></div>
+              </div>
+            </router-link>
+          </div>
 
-
+         
+        </div>
+      </div>
+   <!--  -->
       <div class="workspace-title">
         <span class="trello-logo"><i class="fab fa-trello"></i></span>
         <h1>Workspace</h1>
@@ -116,7 +138,16 @@ export default {
         })
       })
       return starredBoards
-    }
+    },
+    getRecentBoard(){
+      let recentBoards = []
+      this.$store.getters.currUser.recentBoards.forEach((boardId)=>{
+         this.getBoards.forEach((board)=>{
+          if(board._id === boardId) recentBoards.push(board)
+        })
+      })
+      return recentBoards
+    },
   },
   components: {
     boardCreate,

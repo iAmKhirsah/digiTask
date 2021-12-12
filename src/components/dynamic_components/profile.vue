@@ -1,5 +1,5 @@
 <template>
-  <section class="dynamic-profile card-layout nav-modal" v-if="getUser">
+  <section class="dynamic-profile card-layout nav-modal" v-if="getUser"  v-click-outside="closeModal">
     <div class="header-layout">
       <header>Account</header>
       <button @click="closeModal">
@@ -33,6 +33,7 @@
   </section>
 </template>
 <script>
+import vClickOutside from "v-click-outside";
 export default {
   name: "profile",
   data() {
@@ -67,6 +68,9 @@ export default {
       }
       return initials.toUpperCase();
     },
+  },
+  directives: {
+    clickOutside: vClickOutside.directive,
   },
 };
 </script>
