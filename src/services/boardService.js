@@ -1,6 +1,5 @@
 import { httpService } from './httpService';
 import { storageService } from './asyncStorageService';
-import { userService } from './userService';
 import { utilService } from './utilService';
 
 export const boardService = {
@@ -14,6 +13,7 @@ export const boardService = {
   getEmptyActivity,
   getEmptyLabel,
   getEmptyBoard,
+  getEmptyAttachment,
 };
 loadBoard();
 async function loadBoard() {
@@ -137,6 +137,19 @@ function getEmptyActivity() {
     },
   };
   return activity;
+}
+function getEmptyAttachment() {
+  const attachment = {
+    id: 'at' + utilService.makeId(),
+    txt: '',
+    imgUrl: '',
+    createdAt: Date.now(),
+    task: {
+      id: '',
+      title: '',
+    },
+  };
+  return attachment;
 }
 function getEmptyBoard() {
   const board = {
