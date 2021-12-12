@@ -5,7 +5,9 @@
       <p class="task-checklist-placeholder" @click="editTitle">
         {{ checklistTitle }}
       </p>
-      <button class="open-edit-dynamic-btn remove" @click="removeCheckList">Delete</button>
+      <button class="open-edit-dynamic-btn remove" @click="removeCheckList">
+        Delete
+      </button>
     </div>
     <div v-else class="task-checklist-content" v-click-outside="closeChecklist">
       <form>
@@ -26,12 +28,10 @@
           </button>
           <button class="task-checklist-close">
             <span @click="closeChecklist" class="icon-lg close-icon"></span>
-            
           </button>
         </div>
       </form>
     </div>
-
 
     <div class="checklist-progress">
       <span class="checklist-progress-percentage">{{ getPercentage }}</span>
@@ -42,7 +42,6 @@
         ></div>
       </div>
     </div>
-
 
     <div v-if="isChecklistTodos">
       <div
@@ -58,13 +57,11 @@
         ></todo-preview>
       </div>
     </div>
-
     <div v-if="!isAddTodo" class="task-checklist-btns">
       <button @click="openAddTodo" class="open-edit-dynamic-btn">
         Add an item
       </button>
     </div>
-
     <div v-else v-click-outside="closeAddTodo">
       <form>
         <textarea
@@ -78,7 +75,7 @@
             Add
           </button>
           <button class="task-checklist-close">
-            <span @click="closeAddTodo" class="icon-lg close-icon">  </span>
+            <span @click="closeAddTodo" class="icon-lg close-icon"> </span>
           </button>
         </div>
       </form>
@@ -110,13 +107,13 @@ export default {
   created() {
     this.currentTask = JSON.parse(JSON.stringify(this.currTask));
     this.currChecklist = JSON.parse(JSON.stringify(this.checklist));
-    console.log(this.checklist)
+    console.log(this.checklist);
   },
   methods: {
     addTodo() {
       if (this.newTodo.title.match(/^\s*$/)) return;
-    
-    this.currChecklist = JSON.parse(JSON.stringify(this.checklist));
+
+      this.currChecklist = JSON.parse(JSON.stringify(this.checklist));
       this.newTodo.id = utilService.makeId();
       this.currChecklist.todos.push(this.newTodo);
       this.saveChecklist(this.currChecklist);
@@ -133,24 +130,27 @@ export default {
         this.$refs.title.select();
       });
     },
-    removeCheckList(){
-      let idx = this.currentTask.checklists.findIndex((currChecklist) => currChecklist.id === this.checklist.id);
+    removeCheckList() {
+      let idx = this.currentTask.checklists.findIndex(
+        (currChecklist) => currChecklist.id === this.checklist.id
+      );
       this.currentTask = JSON.parse(JSON.stringify(this.currTask));
-       this.currentTask.checklists.splice(idx,1)
+      this.currentTask.checklists.splice(idx, 1);
       this.$emit("updatedTask", this.currentTask);
     },
 
     saveChecklist(checklist) {
       if (this.checklist.title.match(/^\s*$/)) return;
-       this.currentTask = JSON.parse(JSON.stringify(this.currTask));
+      this.currentTask = JSON.parse(JSON.stringify(this.currTask));
       this.isEditing = false;
-      console.log(this.currentTask.checklists)
-      
-      let idx = this.currentTask.checklists.findIndex((currChecklist) => currChecklist.id === checklist.id);
-      if(idx>-1) this.currentTask.checklists[idx] = checklist;
-      else this.currentTask.checklists.push(checklist) 
+      console.log(this.currentTask.checklists);
+
+      let idx = this.currentTask.checklists.findIndex(
+        (currChecklist) => currChecklist.id === checklist.id
+      );
+      if (idx > -1) this.currentTask.checklists[idx] = checklist;
+      else this.currentTask.checklists.push(checklist);
       this.$emit("updatedTask", this.currentTask);
-     
     },
     closeAddTodo() {
       this.isAddTodo = false;
@@ -162,6 +162,21 @@ export default {
     },
   },
   computed: {
+    getPercentage() {
+      let isDones = this.checklist.todos.reduce((acc, todo) => {
+        if (todo.isDone) acc++;
+        return acc;
+      }, 0);
+      if (!isDones) return "0%";
+      return ((isDones * 100) / this.checklist.todos.length).toFixed(0) + "%";
+    },
+    
+    completedBar() {
+      if (this.getPercentage === "100%") {
+        return "complete";
+      }
+    },
+
     checklistTitle() {
       return this.currChecklist.title;
     },
@@ -170,23 +185,6 @@ export default {
     },
     checklistTodos() {
       return this.checklist.todos;
-    },
-
-
-    getPercentage() {
-      let isDones = this.checklist.todos.reduce((acc, todo) => {
-        if (todo.isDone) acc++;
-        return acc;
-      }, 0);
-      if (!isDones) return "0% ";
-      return ((isDones * 100) / this.checklist.todos.length).toFixed(0) + "%";
-    },
-
-
-    completedBar() {
-      if (this.getPercentage === "100%") {
-        return "complete";
-      }
     },
   },
   directives: {
