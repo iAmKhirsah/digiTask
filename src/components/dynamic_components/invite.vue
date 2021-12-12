@@ -62,6 +62,7 @@ export default {
     closeModal() {
       this.$emit("closeModal");
     },
+    
   },
   computed: {
     getCurrBoard() {
