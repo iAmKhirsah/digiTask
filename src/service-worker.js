@@ -25,20 +25,6 @@ self.addEventListener('message', (event) => {
   }
 });
 
-// EXAMPLE OF GETTING FROM ROUTE
-// workbox.routing.registerRoute(
-//   new RegExp('https://fonts.(?:googleapis|gstatic).com/(.*)'),
-//   workbox.strategies.CacheFirst({
-//     cacheName: 'googleapis',
-//     plugins: [
-//       new workbox.expiration.Plugin({
-//         maxEntries: 30,
-//       }),
-//     ],
-//     method: 'GET',
-//     cacheableResponse: { statuses: [0, 200] },
-//   })
-// );
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
  * requests for URLs in the manifest.
