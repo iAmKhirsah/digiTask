@@ -1,7 +1,7 @@
 module.exports = {
   pwa: {
     name: 'digiTask',
-    workboxPluginMode: 'GenerateSW',
+    workboxPluginMode: 'InjectManifest',
     workboxOptions: {
       swSrc: 'src/service-worker.js',
     },
