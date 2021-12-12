@@ -45,10 +45,13 @@
           ></div>
         </div>
       </div>
-      <!-- <div class="dynamic-attachment-edit">
+      <div class="dynamic-attachment-edit">
         <p class="subtitles">Attachments</p>
-        <button>Upload a cover image</button>
-      </div> -->
+        <label>
+      <span class="subtitle">Computer</span>
+      <input type="file" @change="addImg" hidden />
+    </label>
+      </div>
       <!-- <div>UNSPLASH?</div>
       <div>SEARCH PHOTOS?</div> -->
     </div>
@@ -60,7 +63,7 @@ export default {
   props: ["task"],
   data() {
     return {
-      updatedTask: JSON.parse(JSON.stringify(this.task)),
+      updatedTask: null,
       colors: [
         "#7BC86C",
         "#F5DD29",
@@ -76,13 +79,19 @@ export default {
     };
   },
   created() {
+    this.updatedTask = JSON.parse(JSON.stringify(this.task))
     this.pickedColor = this.updatedTask.style.bgColor;
   },
   methods: {
     selectMode(state) {
       if (!this.updatedTask.style.bgColor) return;
       this.updatedTask.style.isInfo = state;
-      this.$emit("updateTask", this.updatedTask);
+       let task = JSON.parse(JSON.stringify(this.updatedTask))
+      this.$emit("updateTask", task);
+      
+    },
+    addImg(){
+
     },
     closeModal() {
       this.$emit("closeModal");
@@ -90,8 +99,10 @@ export default {
     setCover(color) {
       this.updatedTask.style.bgColor = color;
       this.pickedColor = color;
-      this.$emit("updateTask", this.updatedTask);
-      this.updatedTask = JSON.parse(JSON.stringify(this.task));
+      this.selectMode(this.updatedTask.style.isInfo)
+      let task = JSON.parse(JSON.stringify(this.updatedTask))
+      this.$emit("updateTask", task);
+     
     },
     removeCover() {
       this.updatedTask.style.bgColor = "";
@@ -118,6 +129,10 @@ export default {
     taskBgc() {
       return this.updatedTask.style.bgColor;
     },
+    getTask(){
+      return this.$store.getCurrTask
+    }
+    
   },
 };
 </script>

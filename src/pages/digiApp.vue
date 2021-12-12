@@ -19,7 +19,7 @@
             class="board-card"
             :style="getBackground(board)"
           >
-            <router-link :to="'/b/' + board._id">
+            <router-link :to="'/b/' + board._id" >
               <div class="board-card-content">
                 <div class="board-card-title">{{ board.title }}</div>
                 <div class="board-card-title-badges"></div>
@@ -41,7 +41,7 @@
             class="board-card"
             :style="getBackground(board)"
           >
-            <router-link :to="'/b/' + board._id">
+            <router-link :to="'/b/' + board._id" >
               <div class="board-card-content">
                 <div class="board-card-title">{{ board.title }}</div>
                 <div class="board-card-title-badges"></div>
@@ -65,7 +65,7 @@
             class="board-card"
             :style="getBackground(board)"
           >
-            <router-link :to="'/b/' + board._id">
+            <router-link :to="'/b/' + board._id" >
               <div class="board-card-content">
                 <div class="board-card-title">{{ board.title }}</div>
                 <div class="board-card-title-badges"></div>

@@ -4,7 +4,7 @@
     v-if="task"
     :style="mainContentBgColor"
     @click.self="editTask(task.id)"
-    @contextmenu.prevent="openEditModal"
+    @contextmenu.prevent="openEditModal($event,true)"
   >
     <!-- <button class="edit-button"></button> -->
     <div
@@ -34,6 +34,7 @@
             @closeEditModal="closeEditModal"
             :task="task"
             @editTask="editTask"
+            :editPos="editPos"
           ></edit-modal>
         </div>
       </span>
@@ -81,14 +82,21 @@ export default {
   data() {
     return {
       isOpenEditModal: false,
+      editPos: {
+        left: "",
+        top: "",
+      },
     };
   },
-  created() {
-    // console.log('task on preview',this.task)
-  },
+  created() {},
   methods: {
-    openEditModal() {
+    openEditModal(ev,isRc = false) {
+      console.log(ev)
+      if (this.isOpenEditModal) return;
       this.isOpenEditModal = true;
+      if(isRc) this.editPos.left = (ev.x - ev.offsetX + 240 )+"px";
+      else this.editPos.left = ev.x - ev.offsetX + 20+ "px";
+      this.editPos.top = ev.y - ev.offsetY + "px";
     },
     closeEditModal() {
       this.isOpenEditModal = false;
@@ -109,7 +117,6 @@ export default {
     hasCover() {
       return this.task.style.bgColor;
     },
-
     hasInfo() {
       return (
         (this.hasCommnets ||

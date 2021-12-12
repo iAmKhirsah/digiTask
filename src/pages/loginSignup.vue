@@ -128,7 +128,7 @@ export default {
         username: "",
         fullname: "",
         password: null,
-        imgUrl: "",
+        imgUrl: "https://kitcat.com.sg/wp-content/uploads/2020/07/Kit-Cat.png",
         mentions: [],
         starred: [],
         recentBoards: [],

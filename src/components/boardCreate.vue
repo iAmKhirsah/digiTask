@@ -33,7 +33,7 @@
       </div>
        <div class="board-background-selection-photos" >
         <span v-for="(photo, idx) in photos" :key="idx">
-          <span class="img-content" @click="setBackground(photo, 'photo')">
+          <span class=" creating-board-img-preview" @click="setBackground(photo, 'photo')">
             <img :src="require(`@/assets/img/${photo}`)" :title="photo.by" />
           </span>
           

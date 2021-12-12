@@ -1,7 +1,8 @@
 <template>
   <div>
     <div class="black-screen" @mousedown.stop.prevent="closeEditModal"></div>
-    <div class="edit-modal-container">
+    <div class="edit-modal-container" :style="editPos">
+      <div></div>
       <div class="edit-modal-content">
         <!-- open card -->
         <div class="float-modal-tab" @click="editTask">
@@ -62,7 +63,7 @@ import vClickOutside from "v-click-outside";
 import editDynamic from "./editDynamic.vue";
 export default {
   name: "editModal",
-  props: ["task"],
+  props: ["task", "editPos"],
   directives: {
     clickOutside: vClickOutside.directive,
   },
@@ -72,7 +73,7 @@ export default {
     };
   },
   created() {
-    // console.log(this.task);
+  
   },
   methods: {
     editTask() {

@@ -127,3 +127,20 @@
         }
     }
 }
+.creating-board-img-preview{
+    img{
+        border-radius: 8px;
+        box-sizing: border-box;
+        display: inline-block;
+        position: relative;
+        text-align: left;
+        width: 64px;
+        z-index: 1;
+        height: 40px;
+        -o-object-fit: cover;
+        object-fit: cover;
+        padding: 2px 4px;
+    }
+    cursor: pointer;
+    
+}
