@@ -37,11 +37,7 @@
       <span class="checklist-progress-percentage">{{ getPercentage }}</span>
       <div class="checklist-progress-bar">
         <div
-<<<<<<< HEAD
-          :style="'width :' + getPercentage"
-=======
           :style="'width:' + getPercentage"
->>>>>>> 142f7e9b4c543b7812e4ed6954d41b6b25146dfe
           :class="['progress-bar', completedBar]"
         ></div>
       </div>
@@ -174,7 +170,7 @@ export default {
       if (!isDones) return "0%";
       return ((isDones * 100) / this.checklist.todos.length).toFixed(0) + "%";
     },
-    
+
     completedBar() {
       if (this.getPercentage === "100%") {
         return "complete";
