@@ -1,9 +1,42 @@
 .filter-search-result {
-  background-color: red;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  position: absolute;
-  right: 10px;
-  z-index: 50;
+    background-color: white;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    position: absolute;
+    right: 4px;
+    top: 38px;
+    z-index: 50;
+    width: 370px;
+    max-height: 375px;
+    color: #5e6c84;
+    text-align: start;
+    overflow: auto;
+    border-radius: 5px;
+    box-shadow: 0 0 5px black;
+    .search-res-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 6px 15px;
+        transition: all 0.4s;
+        box-shadow: 0 0.1px 0px 0px black;
+        &:hover {
+            background-color: #091e422a;
+            cursor: pointer;
+        }
+        .search-task-name {
+            color: #172b4d;
+            transition: 0.4s;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        .search-content {
+            display: flex;
+            gap: 5px;
+            height: 25px;
+            line-height: 25px;
+        }
+    }
 }

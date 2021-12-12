@@ -7,16 +7,19 @@
       @input="setFilter"
     />
     <div class="filter-search-result" v-if="showSearch">
-      <div v-for="task in filteredTasks" :key="task.id">
-        <div @click="goToTask(task)">
-          <h3>{{ task.taskName }}</h3>
-          <p>in</p>
-          <h3>{{ task.groupName }}</h3>
-          <h3><span>on</span>{{ task.boardName }}</h3>
+ 
+        <div class="search-res-container"  v-for="task in filteredTasks" :key="task.id" @click="goToTask(task)">
+          <h3 class="search-task-name">{{ task.taskName }}</h3>
+          <div class="search-content">
+            <p>in</p>
+            <h3>{{ task.groupName }}</h3>
+            <span>on</span>
+            <h3>{{ task.boardName }}</h3>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+
 </template>
 <script>
 export default {
