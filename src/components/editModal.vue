@@ -2,6 +2,7 @@
   <div>
     <div class="black-screen" @mousedown.stop.prevent="closeEditModal"></div>
     <div class="edit-modal-container" :style="editPos">
+      <div></div>
       <div class="edit-modal-content">
         <!-- open card -->
         <div class="float-modal-tab" @click="editTask">
@@ -72,7 +73,7 @@ export default {
     };
   },
   created() {
-    // console.log(this.task);
+  
   },
   methods: {
     editTask() {

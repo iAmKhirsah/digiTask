@@ -4,7 +4,7 @@
     v-if="task"
     :style="mainContentBgColor"
     @click.self="editTask(task.id)"
-    @contextmenu.prevent="openEditModal"
+    @contextmenu.prevent="openEditModal($event,true)"
   >
     <!-- <button class="edit-button"></button> -->
     <div
@@ -90,10 +90,12 @@ export default {
   },
   created() {},
   methods: {
-    openEditModal(ev) {
+    openEditModal(ev,isRc = false) {
+      console.log(ev)
       if (this.isOpenEditModal) return;
       this.isOpenEditModal = true;
-      this.editPos.left = ev.x - ev.offsetX + "px";
+      if(isRc) this.editPos.left = (ev.x - ev.offsetX + 240 )+"px";
+      else this.editPos.left = ev.x - ev.offsetX + 20+ "px";
       this.editPos.top = ev.y - ev.offsetY + "px";
     },
     closeEditModal() {
