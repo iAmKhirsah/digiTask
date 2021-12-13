@@ -86,8 +86,10 @@ export default {
       await this.$store.dispatch({
         type: "createBoard",
         board,
-      });
-      this.createMenu = false;
+      }); 
+       this.createMenu = false;
+      let newBoardId = this.$store.getters.boards[this.$store.getters.boards.length-1]._id
+      this.$router.push('/b/'+newBoardId)
     },
     updateUser(user) {
       console.log * user;

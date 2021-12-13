@@ -47,12 +47,14 @@
       </div>
       <div class="dynamic-attachment-edit">
         <p class="subtitles">Attachments</p>
-        <div v-for="attachment in getTaskAttachments" :key="attachment.id" class="cover-attachments">
+        <div class="cover-attachments">
+        <div v-for="attachment in getTaskAttachments" :key="attachment.id" >
           <img :class="{'selected-cover': attachment.imgUrl === pickedImg}" :src="attachment.imgUrl" @click="setCover(attachment.imgUrl)" >
+        </div>
         </div>
         <label>
       <span class="subtitle">Upload a cover image</span>
-      <input type="file" @change="addImg" hidden />
+      <input type="file" @change="addAttachment" hidden />
     </label>
       </div>
       <!-- <div>UNSPLASH?</div>
@@ -95,8 +97,8 @@ export default {
       this.$emit("updateTask", task);
       
     },
-    addImg(){
-
+    addAttachment(ev) {
+      this.$emit("attachment", ev);
     },
     closeModal() {
       this.$emit("closeModal");
@@ -114,7 +116,6 @@ export default {
       this.updatedTask.style.bgColor = ''
       this.pickedColor = null
       }
-      console.log(this.pickedImg)
       this.selectMode(this.updatedTask.style.isInfo)
       let task = JSON.parse(JSON.stringify(this.updatedTask))
       this.$emit("updateTask", task);
@@ -132,6 +133,7 @@ export default {
     sizeBgc() {
       if(this.updatedTask.style.bgColor )  return { background: this.updatedTask.style.bgColor };
       else return { 'background-image': 'url('+this.updatedTask.style.imgUrl+')' };
+      
     },
     infoSelected() {
       return {

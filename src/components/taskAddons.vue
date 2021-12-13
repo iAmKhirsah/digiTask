@@ -48,9 +48,16 @@
         </div>
       </div>
     </div>
+            <task-description
+              :task="getTask"
+              @saveEdit="saveEdit"
+              @editDesc="editDesc"
+              :descEdit="descEdit"
+              @closeDescEdit="closeDescEdit"
+            />
 
     <div class="task-addons-attachment-container" v-if="getTaskAttachments.length">
-      <div v-if="getBoard.attachments">
+      <div >
         <div class="task-addons-att-title-container"> 
           <span class="icon-lg attachments att-symbol-settings"></span>
           <p class="task-addons-att-title">Attachments</p>
@@ -64,11 +71,11 @@
           <div class="att-info">
             <div class="att-content-info">
               <p class="att-title">{{ attachment.txt }}</p>
-              <p class="att-date">{{ attachment.createdAt }}</p>
+              <p class="att-date">{{ attDate(attachment.createdAt) }}</p>
             </div>
             <div class="make-cover-btn-container">
               <span class="icon-sm cover-icon"></span>
-              <button class="make-cover-btn">Make cover</button>
+              <button class="make-cover-btn" @click="setCover(attachment.imgUrl)">{{isCoverImage(attachment.imgUrl)}}</button>
             </div>
           </div>
         </div>
@@ -78,9 +85,10 @@
   </div>
 </template>
 <script>
+import taskDescription from "../components/taskDescription.vue";
 export default {
   name: "taskAddons",
-  props: ["getTask", "getBoard"],
+  props: ["getTask", "getBoard","descEdit"],
   data() {
     return {
       isDone: false,
@@ -98,6 +106,33 @@ export default {
       task.dates.isDone = this.isDone;
       this.$emit("updatedTask", task);
     },
+    saveEdit(task){
+      this.$emit('saveEdit',task)
+    },
+    editDesc(){
+      this.$emit('editDesc')
+    },
+    closeDescEdit(){
+      this.$emit('closeDescEdit')
+    },
+    setCover(img){
+      if(this.isCoverImage(img)==='Remove cover') this.$emit('setCover', '')
+      else this.$emit('setCover',img)
+    },
+      isCoverImage(imgUrl){
+        if(this.getTask.style.imgUrl === imgUrl) return 'Remove cover'
+        else return 'Make cover'
+      },
+        attDate(attDate) {
+      let date = new Date(attDate);
+      if (!attDate) return;
+      let shortMonth = date.toLocaleString("en-us", { month: "short" });
+      let day = date.getDate();
+      let year = date.getFullYear();
+      let stringDate = `${shortMonth}  ${day}, ${year}`;
+      return stringDate;
+    },
+
   },
   computed: {
     getLabel() {
@@ -116,6 +151,7 @@ export default {
     getDates() {
       return this.getTask.dates;
     },
+    
     startDate() {
       let date = new Date(this.getDates.startDate);
       if (
@@ -139,11 +175,16 @@ export default {
     },
        getTaskAttachments(){
       let taskAtts = []
+      
       this.$store.getters.getCurrBoard.attachments.forEach((att)=>{
         if(att.task.id===this.getTask.id) taskAtts.push(att)
       })
       return taskAtts
       },
+    
   },
+  components:{
+    taskDescription
+  }
 };
 </script>

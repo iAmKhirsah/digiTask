@@ -56,137 +56,120 @@
             ></span>
             <task-description
               :task="getTask"
+              @setCover="setCover"
               @saveEdit="saveEdit"
               @editDesc="editDesc"
               :descEdit="descEdit"
               @closeDescEdit="closeDescEdit"
             />
-
-            <div class="task-details-checklist" v-if="getTaskCheckLists.length">
-              <div class="task-details-checklist-content">
-                <span class="task-checklist-symbol">
-                  <span class="icon-lg checklist-icon"></span>
-                </span>
-
-                <!-- <div v-if="currTask.checklist && currTask.checklist.length"> -->
-                <check-list
-                  v-for="checklist in getTask.checklists"
-                  :key="checklist.id"
-                  :checklist="checklist"
-                  :currTask="getTask"
-                  @updatedTask="updatedTask"
-                ></check-list>
-                <!-- </div> -->
-              </div>
-            </div>
-
-            <div class="task-details-activity">
-              <div class="task-details-activity-content">
-                <!-- <span> <i class="fas fa-align-left"></i></span> -->
-                <span class="icon-lg icon-activity"></span>
-                <p class="task-activity-title">Activity</p>
-              </div>
-
-              <span class="user-tag-name in-header side">DR</span>
-              <form>
-                <div class="comments-container">
-                  <textarea
-                    type="text"
-                    v-model="commentTxt"
-                    placeholder="Write a comment..."
-                    @focus="commentsButtons"
-                  />
-                  <div class="save-btn" v-if="isCommentsButton">
-                    <button @click="sendComment">Save</button>
-                  </div>
-                </div>
-              </form>
-              <activity-flow
-                :task="getTask"
-                :group="getGroup"
-                :board="getBoard"
-              />
+          </div>
+          <div class="task-details-checklist" v-if="getTaskCheckLists.length">
+            <div class="task-details-checklist-content">
+              <span class="task-checklist-symbol">
+                <span class="icon-lg checklist-icon"></span>
+              </span>
+              <check-list
+                v-for="checklist in getTask.checklists"
+                :key="checklist.id"
+                :checklist="checklist"
+                :currTask="getTask"
+                @updatedTask="updatedTask"
+              ></check-list>
             </div>
           </div>
-          <div class="task-details-sidebar">
-            <p class="task-details-subtitle">Add to card</p>
-            <div class="task-details-add-to-card">
-              <edit-dynamic
-                :type="type"
-                v-if="type"
-                :getBoard="getBoard"
-                :getTask="getTask"
-                :getUser="getUser"
-                @attachment="attachment"
-                @attachmentLink="attachmentLink"
-                @updateBoard="updateBoard"
-                @updateGroup="updateGroup"
-                @deleteTask="deleteTask"
-                @taskActivity="taskActivity"
-                @updateTask="updatedTask"
-                @closeModal="closeModal"
-                @createLabel="createLabel"
-                @deleteLabel="deleteLabel"
-              />
-              <div class="open-edit-dynamic-btn" @click="setType('members')">
-                <span class="span-settings icon-sm member-icon"></span>
-                Members
-              </div>
-              <div class="open-edit-dynamic-btn" @click="setType('labels')">
-                <span class="span-settings">
-                  <span class="icon-sm label-icon"></span
-                ></span>
-                Labels
-              </div>
-              <div class="open-edit-dynamic-btn" @click="setType('checklist')">
-                <span class="span-settings"
-                  ><span class="icon-sm checklist-icon"></span
-                ></span>
-                Checklist
-              </div>
-              <div class="open-edit-dynamic-btn" @click="setType('dates')">
-                <span class="span-settings"><i class="far fa-clock"></i></span>
-                Dates
-              </div>
-              <div class="open-edit-dynamic-btn" @click="setType('attachment')">
-                <span class="span-settings">
-                  <span class="icon-sm attachments"></span
-                ></span>
-                Attachment
-              </div>
-              <div
-                class="open-edit-dynamic-btn"
-                @click="setType('cover')"
-                v-if="!getTask.style.bgColor"
-              >
-                <span class="span-settings">
-                  <span class="icon-sm cover-icon"></span
-                ></span>
-                Cover
-              </div>
-            </div>
-            <p class="task-details-subtitle">Actions</p>
-            <div class="task-details-actions">
-              <!-- <div class="open-edit-dynamic-btn" @click="setType('move')">
-                <span><i class="fas fa-arrow-right"></i></span> Move
-              </div> -->
-              <div class="open-edit-dynamic-btn" @click="setType('copy')">
-                <span class="icon-sm icon-copy"></span> Copy
-              </div>
 
-              <!-- <div class="open-edit-dynamic-btn"> -->
-              <!-- <span><i class="far fa-eye"></i></span> -->
-              <!-- <span> Watch</span> -->
-              <!-- <span class="checkbox">
-                  <input type="checkbox" />
-                </span> -->
-              <!-- </div> -->
-              <div class="open-edit-dynamic-btn" @click="setType('archive')">
-                <span class="icon-sm archive-icon"></span> Archive
+          <div class="task-details-activity">
+            <div class="task-details-activity-content">
+              <!-- <span> <i class="fas fa-align-left"></i></span> -->
+              <span class="icon-lg icon-activity"></span>
+              <p class="task-activity-title">Activity</p>
+            </div>
+
+            <span class="user-tag-name in-header side">DR</span>
+            <form>
+              <div class="comments-container">
+                <textarea
+                  type="text"
+                  v-model="commentTxt"
+                  placeholder="Write a comment..."
+                  @focus="commentsButtons"
+                />
+                <div class="save-btn" v-if="isCommentsButton">
+                  <button @click="sendComment">Save</button>
+                </div>
               </div>
-              <!-- <div class="open-edit-dynamic-btn" @click="setType('share')">
-                <span><i class="fas fa-share-alt"></i></span> Share
-              </div> -->
+            </form>
+            <activity-flow
+              :task="getTask"
+              :group="getGroup"
+              :board="getBoard"
+            />
+          </div>
+        </div>
+        <div class="task-details-sidebar">
+          <p class="task-details-subtitle">Add to card</p>
+          <div class="task-details-add-to-card">
+            <edit-dynamic
+              :type="type"
+              v-if="type"
+              :getBoard="getBoard"
+              :getTask="getTask"
+              :getUser="getUser"
+              @attachment="attachment"
+              @attachmentLink="attachmentLink"
+              @updateBoard="updateBoard"
+              @updateGroup="updateGroup"
+              @deleteTask="deleteTask"
+              @taskActivity="taskActivity"
+              @updateTask="updatedTask"
+              @closeModal="closeModal"
+              @createLabel="createLabel"
+              @deleteLabel="deleteLabel"
+            />
+            <div class="open-edit-dynamic-btn" @click="setType('members')">
+              <span class="span-settings icon-sm member-icon"></span>
+              Members
+            </div>
+            <div class="open-edit-dynamic-btn" @click="setType('labels')">
+              <span class="span-settings">
+                <span class="icon-sm label-icon"></span
+              ></span>
+              Labels
+            </div>
+            <div class="open-edit-dynamic-btn" @click="setType('checklist')">
+              <span class="span-settings"
+                ><span class="icon-sm checklist-icon"></span
+              ></span>
+              Checklist
+            </div>
+            <div class="open-edit-dynamic-btn" @click="setType('dates')">
+              <span class="span-settings"><i class="far fa-clock"></i></span>
+              Dates
+            </div>
+            <div class="open-edit-dynamic-btn" @click="setType('attachment')">
+              <span class="span-settings">
+                <span class="icon-sm attachments"></span
+              ></span>
+              Attachment
+            </div>
+            <div
+              class="open-edit-dynamic-btn"
+              @click="setType('cover')"
+              v-if="!getTask.style.bgColor"
+            >
+              <span class="span-settings">
+                <span class="icon-sm cover-icon"></span
+              ></span>
+              Cover
+            </div>
+          </div>
+          <p class="task-details-subtitle">Actions</p>
+          <div class="task-details-actions">
+            <div class="open-edit-dynamic-btn" @click="setType('copy')">
+              <span class="icon-sm icon-copy"></span> Copy
+            </div>
+            <div class="open-edit-dynamic-btn" @click="setType('archive')">
+              <span class="icon-sm archive-icon"></span> Archive
             </div>
           </div>
         </div>
@@ -239,6 +222,18 @@ export default {
   methods: {
     commentsButtons() {
       this.isCommentsButton = true;
+    },
+    commentButtonsOff() {
+      this.$nextTick(() => {
+        this.isCommentsButton = false;
+      });
+    },
+    async setCover(img) {
+      console.log(img);
+      let task = JSON.parse(JSON.stringify(this.getTask));
+      task.style.imgUrl = img;
+      task.style.bgColor = "";
+      await this.$store.dispatch({ type: "updateTask", task });
     },
     async sendComment() {
       if (this.commentTxt.match(/^\s*$/)) return;

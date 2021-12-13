@@ -177,14 +177,15 @@ export default {
       this.selectedColor = this.labelToUpdate.color;
     },
     addLabel(label) {
+      let task = JSON.parse(JSON.stringify(this.updatedTask));
       if (this.isBoardLabels) {
         this.labelToEdit(label);
         return;
       }
-      let idx = this.updatedTask.labelIds.indexOf(label.id);
-      if (idx > -1) this.updatedTask.labelIds.splice(idx, 1);
-      else this.updatedTask.labelIds.push(label.id);
-      let task = JSON.parse(JSON.stringify(this.updatedTask));
+      let idx = task.labelIds.indexOf(label.id);
+      if (idx > -1) task.labelIds.splice(idx, 1);
+      else task.labelIds.push(label.id);
+      this.updatedTask = task
       this.$emit("updateTask", task);
     },
     openCreateMenu() {

@@ -1,7 +1,7 @@
 <template>
   <div class="activity-content">
     <div>
-      <div v-if="getActivities">
+      <div v-if="getActivities" class="activity-content-container">
         <div
           class="activity-user-content"
           v-for="activity in getActivities"

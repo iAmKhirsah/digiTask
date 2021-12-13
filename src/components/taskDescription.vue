@@ -1,5 +1,8 @@
 <template>
   <div class="task-description">
+    <span class="task-description-symbol">
+              <i class="fas fa-align-left"></i
+            ></span>
     <p class="task-description-title">Description</p>
     <div
       class="task-description-content"
