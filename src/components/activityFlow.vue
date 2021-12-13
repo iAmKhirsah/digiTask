@@ -1,7 +1,10 @@
 <template>
   <div class="activity-content">
     <div>
+
       <div v-if="getActivities" class="activity-content-container">
+
+
         <div
           class="activity-user-content"
           v-for="activity in getActivities"
@@ -29,6 +32,8 @@
             />
           </span>
         </div>
+
+        
 
         <div v-if="getComments">
           <div
