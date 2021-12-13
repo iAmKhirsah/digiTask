@@ -1,123 +1,132 @@
 .icon-sm {
-    font-family: 'icomoon';
-    font-size: 16px;
-    height: 20px;
-    line-height: 20px;
-    width: 20px;
-    color: #42526e;
+  font-family: 'icomoon';
+  font-size: 16px;
+  height: 20px;
+  line-height: 20px;
+  width: 20px;
+  color: #42526e;
 }
 .icon-md {
-    font-family: 'icomoon';
-    font-size: 20px;
-    height: 32px;
-    line-height: 32px;
-    width: 32px;
-    color: #42526e;
+  font-family: 'icomoon';
+  font-size: 20px;
+  height: 32px;
+  line-height: 32px;
+  width: 32px;
+  color: #42526e;
 }
 .icon-lg {
-    font-family: 'icomoon';
-    height: 32px;
-    line-height: 32px;
-    width: 32px;
-    font-size: 24px;
-    color: #42526e;
+  font-family: 'icomoon';
+  height: 32px;
+  line-height: 32px;
+  width: 32px;
+  font-size: 24px;
+  color: #42526e;
 }
 .menu-header-back-button::before {
-    font-family: 'icomoon';
-    content: '\e90a';
+  font-family: 'icomoon';
+  content: '\e90a';
 }
 .menu-header-close-button::before {
-    font-family: 'icomoon';
-    content: '\e91c';
+  font-family: 'icomoon';
+  content: '\e91c';
 }
 .menu-header-close-button:hover {
-    color: $clr2;
+  color: $clr2;
 }
 .icon-pencil::before {
-    content: '\e928';
+  content: '\e928';
 }
 .icon-copy::before {
-    content: '\e91f';
+  content: '\e91f';
 }
 
 .task-preview-info {
-    font-family: 'icomoon';
-    width: fit-content;
-    .notification::before {
+  font-family: 'icomoon';
+  width: fit-content;
+  .notification::before {
+  }
+  .checklist {
+    &::before {
+      content: '\e918';
     }
-    .checklist {
-        &::before {
-            content: '\e918';
-        }
+  }
+  .clock-icon {
+    &::before {
+      position: absolute;
+      left: 5px;
+      top: 2px;
+      content: '\e91b';
+      font-size: 16px;
     }
-    .clock-icon {
-        &::before {
-            position: absolute;
-            left: 5px;
-            top: 2px;
-            content: '\e91b';
-            font-size: 16px;
-        }
-    }
-    .description::before {
-        content: '\e922';
-    }
-    .attachments::before {
-        content: '\e908';
-    }
-    .comments::before {
-        content: '\e91e';
-    }
+  }
+  .description::before {
+    content: '\e922';
+  }
+  .attachments::before {
+    content: '\e908';
+  }
+  .comments::before {
+    content: '\e91e';
+  }
 }
 
 .attachments::before {
-    content: '\e908';
-    color: #42526e;
+  content: '\e908';
+  color: #42526e;
 }
 .archive-icon::before {
-    content: '\e907';
+  content: '\e907';
 }
 .cover-icon::before {
-    content: '\e914';
+  content: '\e914';
 }
 .dates-icon::before {
-    content: '\e91b';
+  content: '\e91b';
 }
 .label-icon::before {
-    content: '\e93f';
+  content: '\e93f';
 }
 .menu-dots::before {
-    content: '\e952';
-    color: white;
+  content: '\e952';
+  color: white;
 }
 .dots::before {
-    content: '\e952';
-    color: #42526e;
+  content: '\e952';
+  color: #42526e;
 }
 .close-icon::before {
-    content: '\e91c';
-    color: #42526e;
+  content: '\e91c';
+  color: #42526e;
 }
 
 .v-sign::before {
-    content: '\e916';
-    // color: white;
+  content: '\e916';
+  // color: white;
 }
 .checklist-icon::before {
-    content: '\e91a';
+  content: '\e91a';
 }
 .add-member-icon::before {
-    content: '\e902';
+  content: '\e902';
 }
 .edit-pencil-icon::before {
-    content: '\e928';
-    color: #42526e;
+  content: '\e928';
+  color: #42526e;
 }
 
 .card-icon::before {
-    content: '\e912';
-    color: #fff;
+  content: '\e912';
+  color: #fff;
 }
 .member-icon::before {
-    content: '\e946';
+  content: '\e946';
+}
+.card-icon-cover::before {
+  content: '\e912';
+}
+.icon-description::before {
+  content: '\e922';
+}
+.icon-activity::before {
+  content: '\e900';
 }

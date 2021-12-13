@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div class="dynamic-labels-edit " :class="{'on-menu' : isBoardLabels }" v-if="!createMenu">
+    <div
+      class="dynamic-labels-edit"
+      :class="{ 'on-menu': isBoardLabels }"
+      v-if="!createMenu"
+    >
       <button class="close icon-sm" @click="closeModal">
         <span class="menu-header-close-button"></span>
       </button>
@@ -48,7 +52,11 @@
       </div>
       <button class="create" @click="openCreateMenu">Create a new label</button>
     </div>
-    <div class="dynamic-labels-edit" :class="{'on-menu' : isBoardLabels }" v-if="createMenu">
+    <div
+      class="dynamic-labels-edit"
+      :class="{ 'on-menu': isBoardLabels }"
+      v-if="createMenu"
+    >
       <!-- <button class="close" @click="closeModal">
         <span class="material-icons"> clear </span>
       </button> -->
@@ -95,8 +103,12 @@
       >
         Create
       </button>
-      <button @click="createLabel('update')" v-if="labelToUpdate">Save</button>
-      <button @click="deleteLabel" v-if="labelToUpdate">Delete</button>
+      <div class="btns-container"> 
+        <button @click="createLabel('update')" v-if="labelToUpdate">
+          Save
+        </button>
+        <button class="remove" @click="deleteLabel" v-if="labelToUpdate">Delete</button>
+      </div>
     </div>
   </div>
 </template>
@@ -134,7 +146,7 @@ export default {
   },
   created() {
     if (this.task) this.updatedTask = JSON.parse(JSON.stringify(this.task));
-    this.$store.commit({type:'updateTask',task:this.updatedTask})
+    this.$store.commit({ type: "updateTask", task: this.updatedTask });
   },
   computed: {
     createOrUpdate() {
@@ -155,9 +167,9 @@ export default {
       });
       return filteredLabels;
     },
-    getCurrTask(){
-      return this.$store.getters.getCurrTask
-    }
+    getCurrTask() {
+      return this.$store.getters.getCurrTask;
+    },
   },
   methods: {
     goBack() {
@@ -185,7 +197,7 @@ export default {
       let idx = task.labelIds.indexOf(label.id);
       if (idx > -1) task.labelIds.splice(idx, 1);
       else task.labelIds.push(label.id);
-      this.updatedTask = task
+      this.updatedTask = task;
       this.$emit("updateTask", task);
     },
     openCreateMenu() {

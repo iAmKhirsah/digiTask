@@ -37,21 +37,8 @@
             By signing up, you confirm that you've read and accepted our
             <span>Terms of Service</span> and <span>Privacy Policy.</span>
           </p>
-          <button class="signup-btn">Signup</button>
+          <button :class="['signup-btn', isEnabled]">Signup</button>
         </form>
-        <div class="or-divider">OR</div>
-        <div class="other-ways-to-get-inside">
-          <div class="ways">
-            <span class="google"></span> <span class="subtitle">Google</span>
-          </div>
-          <div class="ways">
-            <span class="microsoft"></span>
-            <span class="subtitle">Microsoft</span>
-          </div>
-          <div class="ways">
-            <span class="apple"></span> <span class="subtitle">Apple</span>
-          </div>
-        </div>
         <div class="line-divider"></div>
         <div class="login-switch">
           <div>
@@ -89,19 +76,6 @@
           </p>
           <button class="login-btn">Login</button>
         </form>
-        <div class="or-divider">OR</div>
-        <div class="other-ways-to-get-inside">
-          <div class="ways">
-            <span class="google"></span> <span class="subtitle">Google</span>
-          </div>
-          <div class="ways">
-            <span class="microsoft"></span>
-            <span class="subtitle">Microsoft</span>
-          </div>
-          <div class="ways">
-            <span class="apple"></span> <span class="subtitle">Apple</span>
-          </div>
-        </div>
         <div class="line-divider"></div>
         <div class="login-switch">
           <div>
@@ -133,9 +107,12 @@ export default {
         starred: [],
         recentBoards: [],
       },
-      isSignup: false,
+      isSignup: true,
       msg: "",
     };
+  },
+  created() {
+    if (this.$route.params.login) this.isSignup = false;
   },
   methods: {
     showSignup() {
@@ -174,6 +151,14 @@ export default {
       return this.isSignup
         ? "Already existing user?"
         : "Register a new Account";
+    },
+    isEnabled() {
+      return {
+        enable:
+          this.signupCred.username.length > 3 &&
+          this.signupCred.fullname.length > 3 &&
+          this.signupCred.password.length > 3,
+      };
     },
   },
 };

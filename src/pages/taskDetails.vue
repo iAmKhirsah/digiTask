@@ -214,19 +214,6 @@ export default {
     commentsButtons() {
       this.isCommentsButton = true;
     },
-    commentButtonsOff(){
-      this.$nextTick(()=>{
-        this.isCommentsButton = false
-      })
-      
-    },
-    async setCover(img){
-      console.log(img)
-      let task = JSON.parse(JSON.stringify(this.getTask))
-      task.style.imgUrl = img;
-      task.style.bgColor = ''
-      await this.$store.dispatch({ type: "updateTask", task });
-    },
     async sendComment() {
       if (this.commentTxt.match(/^\s*$/)) return;
       this.isCommentsButton = false;

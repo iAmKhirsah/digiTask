@@ -13,7 +13,7 @@
         </div>
         <div class="user-actions">
           <div class="login">
-            <router-link to="/signup">Log in</router-link>
+            <router-link :to="'/signup/login'">Log in</router-link>
           </div>
           <div class="signup">
             <router-link to="/signup">Sign up</router-link>
