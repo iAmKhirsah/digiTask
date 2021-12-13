@@ -10,15 +10,44 @@
           Workspace
           <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
         </div> -->
-        <div class="main-header-tabs recent" @click="setType('recent')" title="Recent">
+        <div
+          class="main-header-tabs recent"
+          @click="setType('recent')"
+          title="Recent"
+        >
           <!-- Recent -->
           <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
         </div>
-        <div class="main-header-tabs starred" @click="setType('starred')" title="Starred">
+        <div
+          class="main-header-tabs starred"
+          @click="setType('starred')"
+          title="Starred"
+        >
           <!-- Starred -->
           <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
         </div>
-        <div class="main-header-tabs create" @click="setType('create')" title="Create board">
+        <div class="more-btn">
+          <button @click="moreBtn">More</button>
+          <div v-if="moreMenu" class="more-menu" v-click-outside="moreBtn">
+            <div class="more-menu-item" @click="setType('recent')">
+              <div class="main-header-tabs recent" title="Recent"></div>
+              <span class="arrow-down"
+                ><i class="fas fa-chevron-down"></i
+              ></span>
+            </div>
+            <div class="more-menu-item" @click="setType('starred')">
+              <div class="main-header-tabs starred" title="Starred"></div>
+              <span class="arrow-down"
+                ><i class="fas fa-chevron-down"></i
+              ></span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="main-header-tabs create"
+          @click="setType('create')"
+          title="Create board"
+        >
           <!-- <span class="create-text">Create</span> <span>+</span> -->
         </div>
       </div>
@@ -26,7 +55,11 @@
       <div class="main-header-right">
         <div class="input-container">
           <!-- Ilya  -->
-          <filter-app-header class="main-header-search" :boards="getBoards" title="Search cards"/>
+          <filter-app-header
+            class="main-header-search"
+            :boards="getBoards"
+            title="Search cards"
+          />
           <!-- <input type="text" placeholder="Search" class="main-header-search" /> -->
           <span class="search"><i class="fas fa-search"></i></span>
         </div>
@@ -47,7 +80,7 @@
       </div>
     </section>
     <header-dynamic
-     @createBoard="createBoard"
+      @createBoard="createBoard"
       @closeModal="closeModal"
       @updateUser="updateUser"
       @loadBoard="loadBoard"
@@ -73,6 +106,7 @@ export default {
     return {
       type: null,
       boards: null,
+      moreMenu: false,
     };
   },
   async created() {
@@ -82,17 +116,23 @@ export default {
   methods: {
     setType(type) {
       this.type = type;
+      this.moreMenu = false;
     },
-     async createBoard(board) {
-       let user = this.$store.getters.currUser
-        console.log('user',user)
+    moreBtn() {
+      this.moreMenu = !this.moreMenu;
+    },
+    async createBoard(board) {
+      let user = this.$store.getters.currUser;
+      console.log("user", user);
       await this.$store.dispatch({
         type: "createBoard",
-        board,user
-      }); 
-       this.createMenu = false;
-      let newBoardId = this.$store.getters.boards[this.$store.getters.boards.length-1]._id
-      this.$router.push('/b/'+newBoardId)
+        board,
+        user,
+      });
+      this.createMenu = false;
+      let newBoardId =
+        this.$store.getters.boards[this.$store.getters.boards.length - 1]._id;
+      this.$router.push("/b/" + newBoardId);
     },
     updateUser(user) {
       console.log * user;
