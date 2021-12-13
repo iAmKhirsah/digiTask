@@ -1,5 +1,12 @@
 <template>
-  <div>
+  <div ref="boardPage">
+    <div
+      class="mouse "
+      v-for="(boardUser, idx) in boardUsers"
+      :style="{ top: boardUser.y + 'px', left: boardUser.x + 'px' }"
+      :key="idx"
+      ><i class="fas fa-mouse-pointer" :style="{color:getRandomInt}"></i><img class='mouse-image' :title="boardUser.user.username" :src="boardUser.user.imgUrl"/></div
+    >
     <div v-if="isLoading" class="loading-screen" :style="getImgOrColor">
       <div class="container">
         <div class="item item-1"></div>
@@ -96,6 +103,7 @@ import boardHeader from "../components/boardHeader.vue";
 import { dragscroll } from "vue-dragscroll";
 import vClickOutside from "v-click-outside";
 import { Container, Draggable } from "vue-smooth-dnd";
+import { socketService } from "../services/socketService.js";
 
 export default {
   name: "boardDetails",
@@ -114,8 +122,21 @@ export default {
       showMenuOpen: false,
       updatingBoard: null,
       dndCount: 0,
+      boardUsers: [],
+       colors: [
+        "rgb(0, 121, 191)",
+        "rgb(210, 144, 52)",
+        "rgb(81, 152, 57)",
+        "rgb(176, 70, 50)",
+        "rgb(137, 96, 158)",
+        "rgb(205, 90, 145)",
+        "rgb(75, 191, 107)",
+        "rgb(0, 174, 204)",
+        "rgb(131, 140, 145)",
+      ],
     };
   },
+
   async created() {
     try {
       this.newGroup = { ...this.$store.getters.getEmptyGroup };
@@ -129,11 +150,18 @@ export default {
         boardId: this.board._id,
         user: JSON.parse(JSON.stringify(this.getUser)),
       });
-      // this.board = JSON.parse(JSON.stringify(this.getCurrBoard))
+      socketService.on("mouseMove", (ev) => {
+        const idx = this.boardUsers.findIndex((idiot) => idiot.user._id === ev.user._id);
+        if (idx === -1) {
+          this.boardUsers.push(ev);
+        } else {
+          this.boardUsers.splice(idx, 1, ev);
+        }
+      });
       if (!this.board) this.$router.push("/");
-      // if (!this.board.groups.length) return;
       if (!this.board.groups) return;
-      // this.$store.commit({ type: "setLoggedinUser" });
+     
+
     } catch (err) {
       console.log("Couldnt create and watch board ", err);
       this.$router.push("/workspace");
@@ -141,6 +169,13 @@ export default {
   },
   destroyed() {
     this.board = null;
+    // this.$refs.boardPage.removeEventListener("mousemove" , (ev) => {
+    //   socketService.emit("mouseMove", {
+    //     x: ev.pageX,
+    //     y: ev.pageY,
+    //     user: this.getUser|| "Guest",
+    //   });
+    // });
   },
   methods: {
     handleIcon() {
@@ -260,6 +295,9 @@ export default {
     boardGroups() {
       return this.$store.getters.getCurrBoard.groups;
     },
+    getRandomInt(){
+      return '#'+Math.floor(Math.random()*16777215).toString(16);
+    },
     getCurrBoard() {
       return this.$store.getters.getCurrBoard;
     },
@@ -293,6 +331,13 @@ export default {
         this.$refs.list.blur();
       });
     }
+    this.$refs.boardPage.addEventListener("mousemove", (ev) => {
+      socketService.emit("mouseMove", {
+        x: ev.pageX,
+        y: ev.pageY,
+        user: this.getUser || "Guest",
+      });
+    });
   },
 
   components: { groupList, boardHeader, Container, Draggable },
