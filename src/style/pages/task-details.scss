@@ -445,6 +445,10 @@
 .activity-content {
     padding: 0px 15px;
     margin: 0 0 8px 0px;
+  .activity-content-container{
+      display: flex;
+      flex-direction: column-reverse;
+  }
     .activity-user-content {
         display: flex;
         flex-wrap: wrap;

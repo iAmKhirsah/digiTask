@@ -42,7 +42,6 @@ export default {
     },
     saveDates() {
       if (this.date.length < 1) {
-        console.log("im here");
         if (!this.isInvalid)
           setTimeout(() => {
             this.isInvalid = false;

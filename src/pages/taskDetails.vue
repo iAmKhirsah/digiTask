@@ -46,7 +46,7 @@
                 :getTask="getTask"
                 :getBoard="getBoard"
                 @updatedTask="updatedTask"
-                
+                @setCover="setCover"
               @saveEdit="saveEdit"
               @editDesc="editDesc"
               :descEdit="descEdit"
@@ -54,24 +54,11 @@
                 
               />
             </div>
-            <!-- <span class="task-description-symbol">
-              <i class="fas fa-align-left"></i
-            ></span>
-            <task-description
-              :task="getTask"
-              @saveEdit="saveEdit"
-              @editDesc="editDesc"
-              :descEdit="descEdit"
-              @closeDescEdit="closeDescEdit"
-            /> -->
-
             <div class="task-details-checklist" v-if="getTaskCheckLists.length">
               <div class="task-details-checklist-content">
                 <span class="task-checklist-symbol">
                   <span class="icon-lg checklist-icon"></span>
                 </span>
-
-                <!-- <div v-if="currTask.checklist && currTask.checklist.length"> -->
                 <check-list
                   v-for="checklist in getTask.checklists"
                   :key="checklist.id"
@@ -79,7 +66,6 @@
                   :currTask="getTask"
                   @updatedTask="updatedTask"
                 ></check-list>
-                <!-- </div> -->
               </div>
             </div>
 
@@ -97,6 +83,7 @@
                     v-model="commentTxt"
                     placeholder="Write a comment..."
                     @focus="commentsButtons"
+                    
                   />
                   <div class="save-btn" v-if="isCommentsButton">
                     <button @click="sendComment">Save</button>
@@ -169,26 +156,12 @@
             </div>
             <p class="task-details-subtitle">Actions</p>
             <div class="task-details-actions">
-              <!-- <div class="open-edit-dynamic-btn" @click="setType('move')">
-                <span><i class="fas fa-arrow-right"></i></span> Move
-              </div> -->
               <div class="open-edit-dynamic-btn" @click="setType('copy')">
                 <span class="icon-sm icon-copy"></span> Copy
               </div>
-
-              <!-- <div class="open-edit-dynamic-btn"> -->
-              <!-- <span><i class="far fa-eye"></i></span> -->
-              <!-- <span> Watch</span> -->
-              <!-- <span class="checkbox">
-                  <input type="checkbox" />
-                </span> -->
-              <!-- </div> -->
               <div class="open-edit-dynamic-btn" @click="setType('archive')">
                 <span class="icon-sm archive-icon"></span> Archive
               </div>
-              <!-- <div class="open-edit-dynamic-btn" @click="setType('share')">
-                <span><i class="fas fa-share-alt"></i></span> Share
-              </div> -->
             </div>
           </div>
         </div>
@@ -241,6 +214,19 @@ export default {
   methods: {
     commentsButtons() {
       this.isCommentsButton = true;
+    },
+    commentButtonsOff(){
+      this.$nextTick(()=>{
+        this.isCommentsButton = false
+      })
+      
+    },
+    async setCover(img){
+      console.log(img)
+      let task = JSON.parse(JSON.stringify(this.getTask))
+      task.style.imgUrl = img;
+      task.style.bgColor = ''
+      await this.$store.dispatch({ type: "updateTask", task });
     },
     async sendComment() {
       if (this.commentTxt.match(/^\s*$/)) return;
