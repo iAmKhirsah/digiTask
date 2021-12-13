@@ -215,6 +215,9 @@
               justify-content: flex-start;
               align-items: center;
               line-height: 0px;
+              &:hover{
+                background-color: #091e4214;
+              }
             }
             .span-settings {
               padding-right: 6px;
@@ -273,6 +276,9 @@
               padding: 6px 3px 6px 12px;
               width: 168px;
               font-size: 14px;
+              &:hover {
+                background-color: #091e4214;
+              }
             }
             span {
               padding-right: 6px;

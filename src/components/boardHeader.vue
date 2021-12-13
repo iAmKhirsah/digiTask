@@ -11,10 +11,11 @@
             @focus="$event.target.select()"
             v-on:keydown.enter="updateTitle"
             @blur="updateTitle"
+            title="Board title"
           />
           <!-- v-click-outside="updateBoard(board)" -->
         </div>
-        <div class="board-box star" @click="starredBoard">
+        <div class="board-box star" @click="starredBoard" title="Favorite">
           <span v-if="isStarred"><i class="fas fa-star"></i></span>
           <span v-else><i class="far fa-star"></i></span>
         </div>
@@ -24,6 +25,7 @@
             v-for="member in getBoardMembers"
             :key="member._id"
             class="members"
+            :title="member.fullname"
           >
             <!-- <span class="user-tag-name"
               ><img :src="member.imgUrl" class="image-settings"
@@ -39,7 +41,7 @@
           </div>
         </div>
         <div>
-          <div class="board-box invite" @click="setType('invite')">
+          <div class="board-box invite" @click="setType('invite')" title="Invite to board">
             <span class="icon-sm add-member-icon"></span> Invite
           </div>
         </div>
@@ -50,7 +52,7 @@
           <span class="material-icons"> filter_list </span>
           <span class="filter">Dashboard</span>
         </div> -->
-        <div class="board-box" @click="openMenu" :class="hideButton">
+        <div class="board-box" @click="openMenu" :class="hideButton" title="Board menu">
           <button class="group-header-edit-btn">
             <span class="icon-sm menu-dots"></span>
           </button>
