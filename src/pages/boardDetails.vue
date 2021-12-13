@@ -242,9 +242,9 @@ export default {
       }
     },
     getChildPayload(groupIndex, itemIndex) {
-      if (!this.board.groups[groupIndex].tasks)
-        return;
-      return this.board.groups[groupIndex].tasks[itemIndex];
+      // if (!this.getCurrBoard.groups[groupIndex].tasks)
+      //   return;
+      return this.getCurrBoard.groups[groupIndex].tasks[itemIndex];
     },
     toggleMenu() {
       this.showMenuOpen = !this.showMenuOpen;
