@@ -8,7 +8,10 @@
 }
 .drop-preview {
     background-color: rgba(19, 19, 26, 0.15);
+    background-color: lawngreen;
     margin: 5px 5px 5px 3px;
+    height: auto;
+    align-self: flex-start;
 }
 .smooth-dnd-container {
     min-height: 5px;

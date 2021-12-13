@@ -2,9 +2,8 @@
     width: 339px;
     height: 100%;
     position: fixed;
-    // right: 0;
-    right: -50%;
-    transition: right 0.3s;
+    right: 0;
+    transition: transform 0.3s;
     z-index: 10;
     background-color: #f4f5f7;
     display: flex;
@@ -12,9 +11,10 @@
     flex-wrap: nowrap;
     justify-content: flex-start;
     overflow: auto;
+    transform: translateX(100%);
 
     &.open {
-        right: 0%;
+      transform: translateX(0%);
     }
     .close {
         padding: 12px 12px 12px 12px;
