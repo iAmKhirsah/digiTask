@@ -134,6 +134,7 @@ export default {
           this.validateDates ||
           this.task.description ||
         this.attachmentCount || 
+        this.hasMembers ||
           this.todosLength) &&
         this.infoCover
       );
