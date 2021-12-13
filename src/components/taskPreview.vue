@@ -79,6 +79,7 @@
 import taskPreviewLabel from "./taskPreviewLabel.vue";
 import renderMembers from "./renderMembers.vue";
 import editModal from "./editModal.vue";
+import {utilService} from "../services/utilService.js"
 export default {
   name: "taskPreview",
   props: ["task", "board", "isMiniPreview"],
@@ -91,7 +92,9 @@ export default {
       },
     };
   },
-  created() {},
+  created(){
+    this.editTask = utilService.debounce(this.editTask)
+  },
   methods: {
     openEditModal(ev, isRc = false) {
       if (this.isOpenEditModal) return;
@@ -103,7 +106,7 @@ export default {
     closeEditModal() {
       this.isOpenEditModal = false;
     },
-    editTask(taskId) {
+    editTask(taskId) {  
       this.$emit("editTask", taskId);
     },
     miniPreview() {
