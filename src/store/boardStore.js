@@ -284,8 +284,8 @@ export const boardStore = {
     },
     async addBoard({ commit }, board) {
       try {
-        await boardService.add(board);
-        commit({ type: 'addBoard', board });
+        let newBoard = await boardService.add(board);
+        commit({ type: 'addBoard', newBoard });
       } catch (err) {
         console.log("Couldn't add board", err);
       }
@@ -396,7 +396,7 @@ export const boardStore = {
         console.log('boardStore: Error on-AddAttachment', err);
       }
     },
-    async createBoard({ dispatch, commit }, { board }) {
+    async createBoard({ commit }, { board }) {
       try {
         let emptyBoard = boardService.getEmptyBoard();
         // emptyBoard.createdBy = user;
@@ -404,13 +404,12 @@ export const boardStore = {
         if (board.imgUrl) {
           emptyBoard.style.backgroundUrl = board.imgUrl;
         }
-        if (!board.background)
-          emptyBoard.style.backgroundColor = 'rgb(0, 121, 191)';
-        else emptyBoard.style.backgroundColor = board.background;
+        else if (board.background)
+        emptyBoard.style.backgroundColor = board.background;
+        else emptyBoard.style.backgroundColor = 'rgb(0, 121, 191)';
         let newBoard = await boardService.add(emptyBoard);
-        console.log(newBoard);
+        
         commit({ type: 'addBoard', board: newBoard });
-        console.log('now im here');
       } catch (err) {
         console.log('Error on board store CREATEBOARD');
       }

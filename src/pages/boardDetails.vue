@@ -145,6 +145,13 @@ export default {
     this.board = null;
   },
   methods: {
+      handleIcon() {
+        const favicon = document.getElementById("favicon");
+                if(this.board.style.backgroundUrl){
+      favicon.href = require(`@/assets/img/${this.board.style.backgroundUrl}`)
+                }
+                else favicon.href = "https://trello.com/favicon.ico";
+    },
     async removeBoard(boardId) {
       try {
         await this.$store.dispatch({ type: "removeBoard", boardId });
