@@ -34,7 +34,11 @@
         }
     }
 }
-
+@media screen and (max-width: 720px) {
+    .dynamic-starred{
+        left: 29px;
+    }
+}
 .starred-board-background {
     display: inline-block;
     flex: 0 0 auto;

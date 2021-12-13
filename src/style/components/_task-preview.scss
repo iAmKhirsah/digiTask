@@ -51,7 +51,7 @@
             background: linear-gradient(180deg, #ffffff80, #fff);
           }
           .task-cover {
-              display: none;
+            display: none;
           }
         }
         &.edit-preview-container {
@@ -215,13 +215,13 @@
     text-overflow: ellipsis;
     vertical-align: top;
     flex: 1 1;
-    .attachments{
-        .attachment-count{
-            font-size: 12px;
-    padding: 0 4px 0 2px;
-    vertical-align: top;
-    white-space: nowrap;
-        }
+    .attachments {
+      .attachment-count {
+        font-size: 12px;
+        padding: 0 4px 0 2px;
+        vertical-align: top;
+        white-space: nowrap;
+      }
     }
     .badges-container {
       padding-bottom: 4px;
@@ -353,4 +353,11 @@
 
 .chosen {
   z-index: 500;
+}
+@media screen and (max-width: 720px) {
+  .task-list-container {
+    .task-list-container-content {
+      max-height: 400px;
+    }
+  }
 }

@@ -25,6 +25,11 @@
         }
     }
 }
+@media screen and (max-width: 720px) {
+    .dynamic-recent{
+        left: 29px;
+    }
+}
 .recent-board-background {
     display: inline-block;
     flex: 0 0 auto;
