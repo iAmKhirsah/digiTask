@@ -10,15 +10,15 @@
           Workspace
           <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
         </div> -->
-        <div class="main-header-tabs" @click="setType('recent')">
+        <div class="main-header-tabs" @click="setType('recent')" title="Recent">
           Recent
           <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
         </div>
-        <div class="main-header-tabs" @click="setType('starred')">
+        <div class="main-header-tabs" @click="setType('starred')" title="Starred">
           Starred
           <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
         </div>
-        <div class="main-header-tabs create" @click="setType('create')">
+        <div class="main-header-tabs create" @click="setType('create')" title="Create board">
           Create
         </div>
       </div>
@@ -26,7 +26,7 @@
       <div class="main-header-right">
         <div class="input-container">
           <!-- Ilya  -->
-          <filter-app-header class="main-header-search" :boards="getBoards" />
+          <filter-app-header class="main-header-search" :boards="getBoards" title="Search cards"/>
           <!-- <input type="text" placeholder="Search" class="main-header-search" /> -->
           <span class="search"><i class="fas fa-search"></i></span>
         </div>
@@ -35,6 +35,7 @@
           class="main-header-profile user-tag-name in-header"
           @click="setType('profile')"
           v-if="getUser"
+          :title="getUser.fullname"
         >
           <img
             class="image-settings"

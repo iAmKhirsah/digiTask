@@ -11,6 +11,7 @@
         class="label-preview"
         :class="labelMini"
         :style="{ background: label.color }"
+        :title="label.title"
       >
       <transition name="fade" >  <span class="label-preview" v-if="!isMiniPreview"> <span class="label-title">{{ label.title }} </span> </span></transition> 
       </div>

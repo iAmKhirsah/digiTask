@@ -28,6 +28,7 @@
       <span
         class="icon-settings pencil icon-sm edit-pencil-icon"
         @click.stop="openEditModal"
+        title="Quick edit"
       >
         <div class="quick-edit-menu" v-if="getIsQuickEditOpen">
           <edit-modal
@@ -47,14 +48,15 @@
             @click="toggleDueDateDone"
             :class="isDueDate"
             v-if="validateDates"
+            title="Due date"
             ><span class="clock-icon"></span
             ><span class="short-date">{{ startDate }} {{ dueDate }}</span></span
           >
-          <span v-if="task.description" class="badge description"> </span>
+          <span v-if="task.description" class="badge description" title="Description"> </span>
           <span class="badge comments" v-if="hasCommnets"
-            ><span class="comments-count">{{ commnetsCount }}</span></span
+          title="Comments"  ><span class="comments-count">{{ commnetsCount }}</span></span
           >
-          <span class="badge checklist" v-if="todosLength" :class="todosDone">
+          <span class="badge checklist" v-if="todosLength" :class="todosDone" title="Checklist items">
             <span class="todos-done">{{ renderChecklist }}</span>
           </span>
         </div>

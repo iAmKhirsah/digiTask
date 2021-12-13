@@ -1,5 +1,5 @@
 <template>
-    <span class="user-tag-name" v-if="member"><img class="image-settings"  :src="memberImg"/></span>
+    <span class="user-tag-name" v-if="member" :title="member.fullname"><img class="image-settings"  :src="memberImg"/></span>
 </template>
 
 <script>
