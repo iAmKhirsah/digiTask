@@ -32,7 +32,7 @@ const routes = [
     ],
   },
   {
-    path: '/signup',
+    path: '/signup/:login?',
     name: 'loginSignup',
     component: loginSignup,
   },
