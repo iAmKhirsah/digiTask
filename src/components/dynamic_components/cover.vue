@@ -37,7 +37,7 @@
       <button @click="removeCover" v-if="taskBgc">Remove Cover</button>
       <p class="subtitles">Color</p>
       <div class="color-button-container">
-        <div v-for="(color, idx) in colors" :key="idx" @click="setCover(color)">
+        <div v-for="(color, idx) in colors" :key="idx" @click="setCover(color,'color')">
           <div
             :style="'background:' + color"
             class="color-button"
@@ -47,8 +47,8 @@
       </div>
       <div class="dynamic-attachment-edit">
         <p class="subtitles">Attachments</p>
-        <div v-for="attachment in getTaskAttachments" :key="attachment.id">
-          
+        <div v-for="attachment in getTaskAttachments" :key="attachment.id" class="cover-attachments">
+          <img :class="{'selected-cover': attachment.imgUrl === pickedImg}" :src="attachment.imgUrl" @click="setCover(attachment.imgUrl)" >
         </div>
         <label>
       <span class="subtitle">Upload a cover image</span>
@@ -79,15 +79,17 @@ export default {
         "#FF8ED4",
       ],
       pickedColor: null,
+      pickedImg:null
     };
   },
   created() {
     this.updatedTask = JSON.parse(JSON.stringify(this.task))
     this.pickedColor = this.updatedTask.style.bgColor;
+    this.pickedImg = this.updatedTask.style.imgUrl
   },
   methods: {
     selectMode(state) {
-      if (!this.updatedTask.style.bgColor) return;
+      if (!this.updatedTask.style.bgColor && !this.updatedTask.style.imgUrl) return;
       this.updatedTask.style.isInfo = state;
        let task = JSON.parse(JSON.stringify(this.updatedTask))
       this.$emit("updateTask", task);
@@ -99,9 +101,20 @@ export default {
     closeModal() {
       this.$emit("closeModal");
     },
-    setCover(color) {
-      this.updatedTask.style.bgColor = color;
-      this.pickedColor = color;
+    setCover(style,type='img') {
+      if(type==='color'){
+        this.updatedTask.style.bgColor = style;
+      this.pickedColor = style;
+      this.updatedTask.style.imgUrl = ''
+      this.pickedImg = null
+      }
+      else{
+        this.updatedTask.style.imgUrl = style;
+      this.pickedImg = style;
+      this.updatedTask.style.bgColor = ''
+      this.pickedColor = null
+      }
+      console.log(this.pickedImg)
       this.selectMode(this.updatedTask.style.isInfo)
       let task = JSON.parse(JSON.stringify(this.updatedTask))
       this.$emit("updateTask", task);
@@ -109,24 +122,28 @@ export default {
     },
     removeCover() {
       this.updatedTask.style.bgColor = "";
+      this.updatedTask.style.imgUrl = ""
       this.pickedColor = "";
+      this.pickedImg = ""
       this.$emit("updateTask", this.updatedTask);
     },
   },
   computed: {
     sizeBgc() {
-      return { background: this.updatedTask.style.bgColor };
+      if(this.updatedTask.style.bgColor )  return { background: this.updatedTask.style.bgColor };
+      else return { 'background-image': 'url('+this.updatedTask.style.imgUrl+')' };
+      
     },
     infoSelected() {
       return {
         "selected-cover":
-          this.updatedTask.style.isInfo && this.updatedTask.style.bgColor,
+          this.updatedTask.style.isInfo && (this.updatedTask.style.bgColor||this.updatedTask.style.imgUrl),
       };
     },
     noInfoSelected() {
       return {
         "selected-cover":
-          !this.updatedTask.style.isInfo && this.updatedTask.style.bgColor,
+          !this.updatedTask.style.isInfo && (this.updatedTask.style.bgColor||this.updatedTask.style.imgUrl),
       };
     },
     taskBgc() {
@@ -141,7 +158,8 @@ export default {
         if(att.task.id===this.task.id) taskAtts.push(att)
       })
       return taskAtts
-      }
+      },
+     
     
   },
 };

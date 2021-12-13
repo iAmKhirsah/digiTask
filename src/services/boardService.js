@@ -100,6 +100,7 @@ function getEmptyTask() {
     style: {
       bgColor: '',
       isInfo: true,
+      imgUrl:''
     },
   };
   return task;

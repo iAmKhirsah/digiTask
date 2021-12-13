@@ -49,7 +49,7 @@
       </div>
     </div>
 
-    <div class="task-addons-attachment-container">
+    <div class="task-addons-attachment-container" v-if="getTaskAttachments.length">
       <div v-if="getBoard.attachments">
         <div class="task-addons-att-title-container"> 
           <span class="icon-lg attachments att-symbol-settings"></span>
@@ -57,7 +57,7 @@
         </div>
         <div
           class="att-content"
-          v-for="attachment in getBoard.attachments"
+          v-for="attachment in getTaskAttachments"
           :key="attachment.id"
         >
           <img :src="attachment.imgUrl" />
@@ -137,6 +137,13 @@ export default {
       let stringDate = `${shortMonth}  ${day}, ${year}`;
       return stringDate;
     },
+       getTaskAttachments(){
+      let taskAtts = []
+      this.$store.getters.getCurrBoard.attachments.forEach((att)=>{
+        if(att.task.id===this.getTask.id) taskAtts.push(att)
+      })
+      return taskAtts
+      },
   },
 };
 </script>
