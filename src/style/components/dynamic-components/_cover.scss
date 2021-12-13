@@ -4,6 +4,7 @@
     background: white;
     z-index: 800;
     top: 0;
+    
     .close {
         padding: 12px 12px 12px 12px;
         position: absolute;
@@ -71,9 +72,11 @@
                 width: 134px;
                 border: 1px solid rgba(9, 30, 66, 0.08);
                 border-radius: 3px;
+                background-size: cover;
                 .top-preview-bgc {
                     height: 28px;
                     border-radius: 3px 3px 0 0;
+                    background-size: cover;
                 }
                 &.with-info {
                     cursor: pointer;
@@ -197,4 +200,21 @@
             }
         }
     }
+}
+
+.cover-attachments{
+    img{
+        width:88px;
+        height: 44px;
+        border-radius: 3px;
+        cursor: pointer;
+        &.selected-cover {
+            box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0079bf;
+        }
+    &:hover{
+        box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0079bf;
+     
+    }
+    }
+    
 }

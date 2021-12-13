@@ -1,14 +1,12 @@
 <template>
   <div>
     <div v-if="isLoading" class="loading-screen" :style="getImgOrColor">
-
-<div class="container">
-  <div class="item item-1"></div>
-  <div class="item item-2"></div>
-  <div class="item item-3"></div>
-  <div class="item item-4"></div>
-</div>
-
+      <div class="container">
+        <div class="item item-1"></div>
+        <div class="item item-2"></div>
+        <div class="item item-3"></div>
+        <div class="item item-4"></div>
+      </div>
     </div>
     <div
       v-if="getCurrBoard && !isLoading"
@@ -145,12 +143,11 @@ export default {
     this.board = null;
   },
   methods: {
-      handleIcon() {
-        const favicon = document.getElementById("favicon");
-                if(this.board.style.backgroundUrl){
-      favicon.href = require(`@/assets/img/${this.board.style.backgroundUrl}`)
-                }
-                else favicon.href = "https://trello.com/favicon.ico";
+    handleIcon() {
+      const favicon = document.getElementById("favicon");
+      if (this.board.style.backgroundUrl) {
+        favicon.href = require(`@/assets/img/${this.board.style.backgroundUrl}`);
+      } else favicon.href = "https://trello.com/favicon.ico";
     },
     async removeBoard(boardId) {
       try {
@@ -224,6 +221,14 @@ export default {
           type: "addTask",
           taskRaw: { task, idx, user },
         });
+        this.$store.dispatch({
+          type: "addActivity",
+          activity: {
+            task,
+            txt: `created ${task}`,
+            user: this.getUser,
+          },
+        });
       } catch (err) {
         console.log("Couldnt add task", err);
       }
@@ -267,7 +272,10 @@ export default {
     getUser() {
       return this.$store.getters.currUser;
     },
-     getImgOrColor() {
+    getGroup() {
+      return this.$store.getters.getCurrGroup;
+    },
+    getImgOrColor() {
       if (this.getBoard)
         return this.getBoard.style.backgroundColor
           ? "background:" + this.getBoard.style.backgroundColor

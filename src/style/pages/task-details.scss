@@ -89,7 +89,7 @@
                     position: relative;
                     .task-description-symbol {
                         position: absolute;
-                        margin-left: 20px;
+                        left: -30px;
                     }
                     .task-checklist-symbol {
                         position: absolute;
@@ -169,6 +169,7 @@
                             span {
                                 left: -20px;
                                 position: absolute;
+                                bottom: 10px;
                             }
                             .task-activity-title {
                                 font-weight: 600;
@@ -374,11 +375,13 @@
         }
     }
     .task-addons-attachment-container {
+        margin-bottom: 45px;
         .task-addons-att-title-container {
             .att-symbol-settings {
                 position: absolute;
                 left: 17px;
-                top: -4px;
+                    margin-bottom: 45px;
+                
             }
             .task-addons-att-title {
                 font-weight: 600;
@@ -511,6 +514,7 @@
     position: relative;
     box-sizing: border-box;
     background-position: left center;
+    background-size: cover;
     .window-cover-menu {
         align-items: center;
         bottom: 0;

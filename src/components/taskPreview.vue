@@ -1,16 +1,16 @@
 <template>
   <div
-    class="task-preview-container"
+    :class="['task-preview-container', isImgUrlFull]"
     v-if="task"
     :style="mainContentBgColor"
     @click.self="editTask(task.id)"
-    @contextmenu.prevent="openEditModal($event,true)"
+    @contextmenu.prevent="openEditModal($event, true)"
   >
     <!-- <button class="edit-button"></button> -->
     <div
       v-if="hasCover"
       class="task-cover"
-      :class="{ small: !infoCover }"
+      :class="coverClasses"
       :style="bgColor"
       @click="editTask(task.id)"
     ></div>
@@ -29,7 +29,7 @@
         class="icon-settings pencil icon-sm edit-pencil-icon"
         @click.stop="openEditModal"
       >
-        <div class="quick-edit-menu" v-if="isOpenEditModal">
+        <div class="quick-edit-menu" v-if="getIsQuickEditOpen">
           <edit-modal
             @closeEditModal="closeEditModal"
             :task="task"
@@ -90,13 +90,12 @@ export default {
   },
   created() {},
   methods: {
-    openEditModal(ev,isRc = false) {
-      console.log(ev)
+    openEditModal(ev, isRc = false) {
       if (this.isOpenEditModal) return;
       this.isOpenEditModal = true;
-      if(isRc) this.editPos.left = (ev.x - ev.offsetX + 240 )+"px";
-      else this.editPos.left = ev.x - ev.offsetX + 20+ "px";
-      this.editPos.top = ev.y - ev.offsetY + "px";
+      if (isRc) this.editPos.left = ev.x - ev.offsetX + 240 + "px";
+      else this.editPos.left = ev.x - ev.offsetX + 20 + "px";
+      this.editPos.top = ev.y - ev.offsetY - 130 + "px";
     },
     closeEditModal() {
       this.isOpenEditModal = false;
@@ -107,6 +106,9 @@ export default {
     miniPreview() {
       this.$emit("miniPreview");
     },
+    updateTask(task) {
+      this.$emit("updateTask", task);
+    },
     toggleDueDateDone() {
       let task = JSON.parse(JSON.stringify(this.task));
       task.dates.isDone = !task.dates.isDone;
@@ -115,7 +117,13 @@ export default {
   },
   computed: {
     hasCover() {
-      return this.task.style.bgColor;
+      return this.task.style.bgColor || this.task.style.imgUrl;
+    },
+    coverClasses() {
+      return {
+        small: !this.infoCover,
+        img: this.task.style.imgUrl && this.infoCover,
+      };
     },
     hasInfo() {
       return (
@@ -173,7 +181,12 @@ export default {
       return this.task.members;
     },
     bgColor() {
-      return { "background-color": this.task.style.bgColor };
+      if (this.task.style.bgColor)
+        return { background: this.task.style.bgColor };
+      else if (this.task.style.imgUrl && this.task.style.isInfo)
+        return {
+          "background-image": "url(" + this.task.style.imgUrl + ")",
+        };
     },
     infoCover() {
       return this.task.style.isInfo;
@@ -200,10 +213,18 @@ export default {
     },
     mainContentBgColor() {
       if (!this.task.style.isInfo) {
-        return { "background-color": this.task.style.bgColor };
+        // return { "background-color": this.task.style.bgColor };
+        if (this.task.style.bgColor)
+          return { background: this.task.style.bgColor };
+        else
+          return {
+            "background-image": "url(" + this.task.style.imgUrl + ")",
+          };
       }
     },
-
+    isImgUrlFull(){
+      return {'full-cover': this.task.style.imgUrl && !this.task.style.isInfo}
+      },
     todosDone() {
       let todosLength = this.todosLength;
       let doneTodos = this.task.checklists.reduce((acc, checklist) => {
@@ -221,6 +242,9 @@ export default {
     },
     getUser() {
       return this.$store.getters.currUser;
+    },
+    getIsQuickEditOpen() {
+      return this.isOpenEditModal;
     },
   },
   components: {

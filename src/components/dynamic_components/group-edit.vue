@@ -11,8 +11,6 @@
         <p @click="openNewTask">Add card...</p>
         <p @click="openCopyGroup">Copy list...</p>
         <div class="card-line"></div>
-        <p>Sort by...</p>
-        <div class="card-line"></div>
         <p @click="openDelete">Delete...</p>
       </div>
       

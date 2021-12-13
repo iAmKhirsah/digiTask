@@ -7,8 +7,8 @@
         </button>
         <div
           class="task-background-cover"
-          v-if="currTask.style.bgColor"
-          :style="getTaskCoverColor"
+          v-if="isTaskStyle"
+          :style="getTaskCover"
         >
           <div class="window-cover-menu">
             <div class="window-cover-menu-button" @click="setType('cover')">
@@ -40,14 +40,21 @@
 
         <div class="task-details-content-container">
           <div class="task-details-main-content">
+            
             <div class="task-details-addons">
               <task-addons
                 :getTask="getTask"
                 :getBoard="getBoard"
                 @updatedTask="updatedTask"
+                
+              @saveEdit="saveEdit"
+              @editDesc="editDesc"
+              :descEdit="descEdit"
+              @closeDescEdit="closeDescEdit"
+                
               />
             </div>
-            <span class="task-description-symbol">
+            <!-- <span class="task-description-symbol">
               <i class="fas fa-align-left"></i
             ></span>
             <task-description
@@ -56,7 +63,7 @@
               @editDesc="editDesc"
               :descEdit="descEdit"
               @closeDescEdit="closeDescEdit"
-            />
+            /> -->
 
             <div class="task-details-checklist" v-if="getTaskCheckLists.length">
               <div class="task-details-checklist-content">
@@ -392,11 +399,16 @@ export default {
     getTaskCheckLists() {
       return this.$store.getters.getCurrTask.checklists;
     },
-    getTaskCoverColor() {
+    getTaskCover() {
       if (this.getTask.style.bgColor)
         return { "background-color": this.getTask.style.bgColor };
+        else if(this.getTask.style.imgUrl)
+        return { 'background-image': 'url('+this.getTask.style.imgUrl+')' };
     },
-  },
+    isTaskStyle(){
+      return this.getTask.style.bgColor||this.getTask.style.imgUrl
+    }
+    },
   components: {
     taskDescription,
     activityFlow,
