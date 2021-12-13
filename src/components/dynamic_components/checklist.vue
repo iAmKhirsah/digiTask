@@ -8,8 +8,8 @@
     </div>
     <p class="subtitle">Title</p>
     <form @submit.prevent="addChecklist">
-      <input v-model="newChecklist.title" type="text" />
-      <button class="add">Add</button>
+      <input v-model="newChecklist.title" type="text" placeholder="Checklist title" title="Checklist title"/>
+      <button class="add" title="Add checklist">Add</button>
     </form>
   </div>
 </template>

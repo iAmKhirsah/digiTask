@@ -11,7 +11,7 @@
           :style="getTaskCover"
         >
           <div class="window-cover-menu">
-            <div class="window-cover-menu-button" @click="setType('cover')">
+            <div class="window-cover-menu-button" @click="setType('cover')" title="Card cover">
               <span class="span-settings"></span>
               Cover
             </div>
@@ -75,7 +75,7 @@
                 <p class="task-activity-title">Activity</p>
               </div>
 
-              <span class="user-tag-name in-header side"
+              <span class="user-tag-name in-header side" :title="getUser.fullname"
                 ><img class="image-settings" :src="getUser.imgUrl"
               /></span>
               <form>
@@ -85,9 +85,10 @@
                     v-model="commentTxt"
                     placeholder="Write a comment..."
                     @focus="commentsButtons"
+                    title="Comment"
                   />
                   <div class="save-btn" v-if="isCommentsButton">
-                    <button @click="sendComment">Save</button>
+                    <button @click="sendComment" title="Save">Save</button>
                   </div>
                 </div>
               </form>
@@ -118,27 +119,27 @@
                 @createLabel="createLabel"
                 @deleteLabel="deleteLabel"
               />
-              <div class="open-edit-dynamic-btn" @click="setType('members')">
+              <div class="open-edit-dynamic-btn" @click="setType('members')" title="Members">
                 <span class="span-settings icon-sm member-icon"></span>
                 Members
               </div>
-              <div class="open-edit-dynamic-btn" @click="setType('labels')">
+              <div class="open-edit-dynamic-btn" @click="setType('labels')" title="Labels">
                 <span class="span-settings">
                   <span class="icon-sm label-icon"></span
                 ></span>
                 Labels
               </div>
-              <div class="open-edit-dynamic-btn" @click="setType('checklist')">
+              <div class="open-edit-dynamic-btn" @click="setType('checklist')" title="Checklist">
                 <span class="span-settings"
                   ><span class="icon-sm checklist-icon"></span
                 ></span>
                 Checklist
               </div>
-              <div class="open-edit-dynamic-btn" @click="setType('dates')">
+              <div class="open-edit-dynamic-btn" @click="setType('dates')" title="Dates">
                 <span class="span-settings"><i class="far fa-clock"></i></span>
                 Dates
               </div>
-              <div class="open-edit-dynamic-btn" @click="setType('attachment')">
+              <div class="open-edit-dynamic-btn" @click="setType('attachment')" title="Attachment">
                 <span class="span-settings">
                   <span class="icon-sm attachments"></span
                 ></span>
@@ -148,6 +149,7 @@
                 class="open-edit-dynamic-btn"
                 @click="setType('cover')"
                 v-if="!getTask.style.bgColor"
+                title="Cover"
               >
                 <span class="span-settings">
                   <span class="icon-sm cover-icon"></span
@@ -157,10 +159,10 @@
             </div>
             <p class="task-details-subtitle">Actions</p>
             <div class="task-details-actions">
-              <div class="open-edit-dynamic-btn" @click="setType('copy')">
+              <div class="open-edit-dynamic-btn" @click="setType('copy')" title="Copy">
                 <span class="icon-sm icon-copy"></span> Copy
               </div>
-              <div class="open-edit-dynamic-btn" @click="setType('archive')">
+              <div class="open-edit-dynamic-btn" @click="setType('archive')" title="Archive">
                 <span class="icon-sm archive-icon"></span> Archive
               </div>
             </div>

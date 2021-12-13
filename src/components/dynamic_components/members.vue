@@ -6,7 +6,7 @@
     <div class="header-layout">
       <header>Members</header>
     </div>
-    <input type="text" placeholder="Search Members" v-model="filterBy" />
+    <input type="text" placeholder="Search Members" v-model="filterBy" title="Search for members"/>
     <h5 class="subtitle">Board members</h5>
     <div v-if="getBoard">
       <div v-for="member in filterMembers" :key="member._id">
@@ -20,6 +20,7 @@
               class="image-settings"
               :src="member.imgUrl"
               v-if="member.imgUrl"
+              :title="member.fullname"
             />
             <span v-else>{{ initials }}</span>
           </span>

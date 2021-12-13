@@ -15,6 +15,7 @@
                 v-if="activity.byMember.imgUrl"
                 class="image-settings"
                 :src="activity.byMember.imgUrl"
+                :title="activity.byMember.fullname"
             /></span>
             <div class="activity-user-info-content">
               <span>

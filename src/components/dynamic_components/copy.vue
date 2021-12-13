@@ -7,11 +7,11 @@
     <div>
       <form @submit.prevent="addNewCopy"></form>
       <p class="subtitle">Title</p>
-      <textarea type="text" v-model="taskToCopy.title"></textarea>
+      <textarea type="text" v-model="taskToCopy.title" title="Card title"></textarea>
     </div>
     <div>
       <p class="subtitle">Copy to...</p>
-      <div class="copy-to">
+      <div class="copy-to" title="Copy to new group">
         <label class="label-title">List</label>
         <select class="select-settings" v-model="groupId">
         <!-- <select class="select-settings" @change="setCopyTo"> -->
@@ -25,7 +25,7 @@
         </select>
       </div>
     </div>
-    <button @click="addNewCopy" class="create-copy-btn">Create card</button>
+    <button @click="addNewCopy" class="create-copy-btn" title="Create card">Create card</button>
   </div>
 </template>
 <script>

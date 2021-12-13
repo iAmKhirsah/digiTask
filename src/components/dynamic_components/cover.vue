@@ -14,6 +14,7 @@
           class="layout with-info"
           :class="infoSelected"
           @click="selectMode(true)"
+          title="Small"
         >
           <div class="top-preview-bgc" :style="sizeBgc"></div>
           <div class="line-1">
@@ -29,6 +30,7 @@
           @click="selectMode(false)"
           :style="sizeBgc"
           :class="noInfoSelected"
+          title="Large"
         >
           <div class="line-1"></div>
           <div class="line-2"></div>
@@ -49,11 +51,11 @@
         <p class="subtitles">Attachments</p>
         <div class="cover-attachments">
         <div v-for="attachment in getTaskAttachments" :key="attachment.id" >
-          <img :class="{'selected-cover': attachment.imgUrl === pickedImg}" :src="attachment.imgUrl" @click="setCover(attachment.imgUrl)" >
+          <img :class="{'selected-cover': attachment.imgUrl === pickedImg}" :src="attachment.imgUrl" @click="setCover(attachment.imgUrl)" :title="attachment.txt" >
         </div>
         </div>
         <label>
-      <span class="subtitle">Upload a cover image</span>
+      <span class="subtitle" title="Upload cover image">Upload a cover image</span>
       <input type="file" @change="addAttachment" hidden />
     </label>
       </div>

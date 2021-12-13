@@ -15,7 +15,7 @@
         <header>Labels</header>
       </div>
 
-      <input type="text" placeholder="Search labels..." v-model="filterBy" />
+      <input type="text" placeholder="Search labels..." v-model="filterBy" title="Search for labels"/>
 
       <div class="label-list-content">
         <h5 class="subtitle">Labels</h5>
@@ -29,6 +29,7 @@
               :style="'background-color:' + label.color"
               @click="addLabel(label)"
               class="label-list-color"
+              :title="label.title"
             >
               <div class="label-list-title">
                 <span>
@@ -43,6 +44,7 @@
                   labelToEdit(label);
                   openCreateMenu();
                 "
+                title="Edit label"
               >
                 <span class="icon-sm icon-pencil"> </span>
               </button>
@@ -50,7 +52,7 @@
           </ul>
         </div>
       </div>
-      <button class="create" @click="openCreateMenu">Create a new label</button>
+      <button class="create" @click="openCreateMenu" title="Create label">Create a new label</button>
     </div>
     <div
       class="dynamic-labels-edit"
@@ -72,7 +74,7 @@
       <div>
         <p class="subtitle">Name</p>
         <form @submit="createLabel">
-          <input type="text" v-model="newLabel.title" v-if="!labelToUpdate" />
+          <input type="text" v-model="newLabel.title" v-if="!labelToUpdate" placeholder="Label title" title="Label title"/>
           <input
             type="text"
             v-model="labelToUpdate.title"
@@ -100,14 +102,15 @@
         class="create-label-btn"
         @click="createLabel('create')"
         v-if="!labelToUpdate"
+        title="Create label"
       >
         Create
       </button>
       <div class="btns-container">
-        <button @click="createLabel('update')" v-if="labelToUpdate">
+        <button @click="createLabel('update')" v-if="labelToUpdate" title="Save changes">
           Save
         </button>
-        <button class="remove" @click="deleteLabel" v-if="labelToUpdate">
+        <button class="remove" @click="deleteLabel" v-if="labelToUpdate" title="Delete label">
           Delete
         </button>
       </div>

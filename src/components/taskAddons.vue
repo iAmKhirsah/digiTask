@@ -5,7 +5,7 @@
         <p class="subtitles">Members</p>
         <div class="task-addons-members-info">
           <div v-for="member in getTask.members" :key="member._id">
-            <span class="user-tag-name in-header">
+            <span class="user-tag-name in-header" :title="member.fullname">
               <img
                 class="image-settings"
                 :src="member.imgUrl"
@@ -25,7 +25,7 @@
             v-for="label in getLabel"
             :key="label.id"
           >
-            <div :style="'background-color:' + label.color">
+            <div :style="'background-color:' + label.color" :title="label.title">
               <span v-if="label.title">{{ label.title }}</span>
             </div>
           </div>
@@ -38,7 +38,7 @@
         <p></p>
         <div class="task-addons-dates-cards">
           <input type="checkbox" v-model="isDone" @change="saveIsDone" />
-          <div class="dates-preview">
+          <div class="dates-preview" title="Date">
             <span v-if="startDate">{{ startDate }} </span
             ><span v-if="dueDate"> {{ dueDate }}</span>
             <span v-if="getTask.dates.isDone" class="task-due-completed">
@@ -54,6 +54,7 @@
               @editDesc="editDesc"
               :descEdit="descEdit"
               @closeDescEdit="closeDescEdit"
+              title="Description"
             />
 
     <div class="task-addons-attachment-container" v-if="getTaskAttachments.length">
@@ -67,7 +68,7 @@
           v-for="attachment in getTaskAttachments"
           :key="attachment.id"
         >
-          <img :src="attachment.imgUrl" />
+          <img :src="attachment.imgUrl" :title="attachment.txt"/>
           <div class="att-info">
             <div class="att-content-info">
               <p class="att-title">{{ attachment.txt }}</p>
@@ -75,7 +76,7 @@
             </div>
             <div class="make-cover-btn-container">
               <span class="icon-sm cover-icon"></span>
-              <button class="make-cover-btn" @click="setCover(attachment.imgUrl)">{{isCoverImage(attachment.imgUrl)}}</button>
+              <button class="make-cover-btn" @click="setCover(attachment.imgUrl)" title="Set/Remove cover">{{isCoverImage(attachment.imgUrl)}}</button>
             </div>
           </div>
         </div>

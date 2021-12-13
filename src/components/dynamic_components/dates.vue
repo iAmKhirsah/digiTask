@@ -19,7 +19,7 @@
     <transition name="fade">
       <div v-if="isInvalid">Pick start date and due date</div>
     </transition>
-    <button class="save" @click="saveDates">Save</button>
+    <button class="save" @click="saveDates" title="Save date/s">Save</button>
   </div>
 </template>
 <script>

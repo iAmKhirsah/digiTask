@@ -6,7 +6,7 @@
     <div class="header-layout">
       <header>Attach from...</header>
     </div>
-    <label>
+    <label title="Attach from computer">
       <span class="subtitle">Computer</span>
       <input type="file" @change="addAttachment" hidden />
     </label>
@@ -17,8 +17,9 @@
           type="text"
           placeholder="Paste any link here..."
           v-model="attachmentLink"
+          title="Attach link"
         />
-        <button class="attach">Attach</button>
+        <button class="attach" title="Attach">Attach</button>
       </form>
     </div>
   </div>
