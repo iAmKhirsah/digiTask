@@ -68,6 +68,7 @@
     <labels v-if="type==='label'"
     @closeModal="closeShowMenu"
     @createLabel="createLabel"
+    @deleteLabel="deleteLabel"
     @goBack="goBack"
     :isBoardLabels="isBoardLabels"
     />
@@ -103,6 +104,13 @@ export default {
       catch(err){
         console.log('Board couldnt be removed',err)
     
+      }
+    },
+    async deleteLabel(label) {
+      try {
+        await this.$store.dispatch({ type: "deleteLabel", label });
+      } catch (err) {
+        console.log("Error on DELETELABEL in TASKDETAILS");
       }
     },
     goBack() {
