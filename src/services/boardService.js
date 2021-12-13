@@ -157,7 +157,7 @@ function getEmptyBoard() {
     createdAt: Date.now(),
     createdBy: {},
     style: {
-      backgroundColor: 'rgb(0, 121, 191)',
+      backgroundColor: '',
       backgroundUrl: '',
     },
     labels: [],
