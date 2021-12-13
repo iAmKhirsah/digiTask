@@ -4,10 +4,6 @@
 
       <div v-if="getActivities" class="activity-content-container">
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 496be1c728c9c939c57e374e20ac6ba4bf8f03b0
         <div
           class="activity-user-content"
           v-for="activity in getActivities"
