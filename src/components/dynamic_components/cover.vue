@@ -132,7 +132,6 @@ export default {
     sizeBgc() {
       if(this.updatedTask.style.bgColor )  return { background: this.updatedTask.style.bgColor };
       else return { 'background-image': 'url('+this.updatedTask.style.imgUrl+')' };
-      
     },
     infoSelected() {
       return {
