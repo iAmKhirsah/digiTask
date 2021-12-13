@@ -215,6 +215,14 @@
     text-overflow: ellipsis;
     vertical-align: top;
     flex: 1 1;
+    .attachments{
+        .attachment-count{
+            font-size: 12px;
+    padding: 0 4px 0 2px;
+    vertical-align: top;
+    white-space: nowrap;
+        }
+    }
     .badges-container {
       padding-bottom: 4px;
     }
