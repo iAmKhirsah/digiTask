@@ -3,7 +3,7 @@
     height: 32px;
     border-radius: 3px;
     border-radius: 3px 3px 0 0;
-    background-size: cover;
+    background-size: contain;
     &.img {
       height: 183.75px;
     }
@@ -43,6 +43,7 @@
         &.full-cover {
           min-height: 183.75px;
           flex-direction: column-reverse;
+          background-size: contain;
           .task-preview-info {
             display: none;
           }
