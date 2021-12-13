@@ -2,10 +2,10 @@
   <div ref="boardPage">
     <div
       class="mouse "
-      v-for="(boardUser, idx) in boardUsers"
+      v-for="(boardUser, idx) in getBoardUsers"
       :style="{ top: boardUser.y + 'px', left: boardUser.x + 'px' }"
       :key="idx"
-      ><i class="fas fa-mouse-pointer" :style="{color:getRandomInt}"></i><img class='mouse-image' :title="boardUser.user.username" :src="boardUser.user.imgUrl"/></div
+      ><i class="fas fa-mouse-pointer" :style="{color:getRandomInt}" v-if="boardUser"></i><img class='mouse-image' :title="boardUser.user.username" :src="boardUser.user.imgUrl" v-if="boardUser"/></div
     >
     <div v-if="isLoading" class="loading-screen" :style="getImgOrColor">
       <div class="container">
@@ -151,7 +151,7 @@ export default {
         user: JSON.parse(JSON.stringify(this.getUser)),
       });
       socketService.on("mouseMove", (ev) => {
-        const idx = this.boardUsers.findIndex((idiot) => idiot.user._id === ev.user._id);
+        const idx = this.boardUsers.findIndex((currMouse) => currMouse.user._id === ev.user._id);
         if (idx === -1) {
           this.boardUsers.push(ev);
         } else {
@@ -168,7 +168,14 @@ export default {
     }
   },
   destroyed() {
+    console.log('destroyed')
     this.board = null;
+       const idx = this.boardUsers.findIndex((currMouse) => currMouse.user._id === this.$store.getters.currUser);
+       if(idx >-1) this.boardUsers.splice(idx, 1);
+       socketService.off("mouseMove")
+       console.log(idx)
+       console.log(this.boardUsers)
+      // this.$refs.boardPage.removeEventListener("mousemove")
     // this.$refs.boardPage.removeEventListener("mousemove" , (ev) => {
     //   socketService.emit("mouseMove", {
     //     x: ev.pageX,
@@ -292,6 +299,9 @@ export default {
     },
   },
   computed: {
+    getBoardUsers(){
+      return this.boardUsers
+    },
     boardGroups() {
       return this.$store.getters.getCurrBoard.groups;
     },

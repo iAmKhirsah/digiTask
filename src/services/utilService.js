@@ -20,7 +20,7 @@ export const utilService = {
   applyDrag
 };
 
-function debounce(func, wait=1000) {
+function debounce(func, wait=350) {
   let timeout;
 
   return function executedFunction(...args) {
