@@ -77,7 +77,7 @@ export default {
         },
         methods:{
             saveTitle(){
-                let task = JSON.parse(JSON.stringify(this.updatedTask))
+                let task = JSON.parse(JSON.stringify(this.getCurrTask))
                 this.$emit('updateTask',task)
                 this.$emit('closeEditModal')
             },
@@ -192,6 +192,9 @@ export default {
     getUser() {
       return this.$store.getters.currUser;
     },
+    getCurrTask(){
+        return this.$store.getters.getCurrTask
+    }
         },
         components:{
             taskPreviewLabel,
