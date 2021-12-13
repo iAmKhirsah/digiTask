@@ -83,7 +83,7 @@
                     v-model="commentTxt"
                     placeholder="Write a comment..."
                     @focus="commentsButtons"
-                    @blur="commentButtonsOff"
+                    
                   />
                   <div class="save-btn" v-if="isCommentsButton">
                     <button @click="sendComment">Save</button>
@@ -216,7 +216,10 @@ export default {
       this.isCommentsButton = true;
     },
     commentButtonsOff(){
-      this.isCommentsButton = false
+      this.$nextTick(()=>{
+        this.isCommentsButton = false
+      })
+      
     },
     async setCover(img){
       console.log(img)

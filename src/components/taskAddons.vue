@@ -71,7 +71,7 @@
           <div class="att-info">
             <div class="att-content-info">
               <p class="att-title">{{ attachment.txt }}</p>
-              <p class="att-date">{{ attachment.createdAt }}</p>
+              <p class="att-date">{{ attDate(attachment.createdAt) }}</p>
             </div>
             <div class="make-cover-btn-container">
               <span class="icon-sm cover-icon"></span>
@@ -122,7 +122,16 @@ export default {
       isCoverImage(imgUrl){
         if(this.getTask.style.imgUrl === imgUrl) return 'Remove cover'
         else return 'Make cover'
-      }
+      },
+        attDate(attDate) {
+      let date = new Date(attDate);
+      if (!attDate) return;
+      let shortMonth = date.toLocaleString("en-us", { month: "short" });
+      let day = date.getDate();
+      let year = date.getFullYear();
+      let stringDate = `${shortMonth}  ${day}, ${year}`;
+      return stringDate;
+    },
 
   },
   computed: {
@@ -142,6 +151,7 @@ export default {
     getDates() {
       return this.getTask.dates;
     },
+    
     startDate() {
       let date = new Date(this.getDates.startDate);
       if (
