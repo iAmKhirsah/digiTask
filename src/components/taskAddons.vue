@@ -48,9 +48,16 @@
         </div>
       </div>
     </div>
+            <task-description
+              :task="getTask"
+              @saveEdit="saveEdit"
+              @editDesc="editDesc"
+              :descEdit="descEdit"
+              @closeDescEdit="closeDescEdit"
+            />
 
     <div class="task-addons-attachment-container" v-if="getTaskAttachments.length">
-      <div v-if="getBoard.attachments">
+      <div >
         <div class="task-addons-att-title-container"> 
           <span class="icon-lg attachments att-symbol-settings"></span>
           <p class="task-addons-att-title">Attachments</p>
@@ -78,9 +85,10 @@
   </div>
 </template>
 <script>
+import taskDescription from "../components/taskDescription.vue";
 export default {
   name: "taskAddons",
-  props: ["getTask", "getBoard"],
+  props: ["getTask", "getBoard","descEdit"],
   data() {
     return {
       isDone: false,
@@ -98,6 +106,16 @@ export default {
       task.dates.isDone = this.isDone;
       this.$emit("updatedTask", task);
     },
+    saveEdit(task){
+      this.$emit('saveEdit',task)
+    },
+    editDesc(){
+      this.$emit('editDesc')
+    },
+    closeDescEdit(){
+      this.$emit('closeDescEdit')
+    }
+
   },
   computed: {
     getLabel() {
@@ -139,11 +157,15 @@ export default {
     },
        getTaskAttachments(){
       let taskAtts = []
+      
       this.$store.getters.getCurrBoard.attachments.forEach((att)=>{
         if(att.task.id===this.getTask.id) taskAtts.push(att)
       })
       return taskAtts
       },
   },
+  components:{
+    taskDescription
+  }
 };
 </script>

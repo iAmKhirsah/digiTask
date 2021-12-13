@@ -40,14 +40,21 @@
 
         <div class="task-details-content-container">
           <div class="task-details-main-content">
+            
             <div class="task-details-addons">
               <task-addons
                 :getTask="getTask"
                 :getBoard="getBoard"
                 @updatedTask="updatedTask"
+                
+              @saveEdit="saveEdit"
+              @editDesc="editDesc"
+              :descEdit="descEdit"
+              @closeDescEdit="closeDescEdit"
+                
               />
             </div>
-            <span class="task-description-symbol">
+            <!-- <span class="task-description-symbol">
               <i class="fas fa-align-left"></i
             ></span>
             <task-description
@@ -56,7 +63,7 @@
               @editDesc="editDesc"
               :descEdit="descEdit"
               @closeDescEdit="closeDescEdit"
-            />
+            /> -->
 
             <div class="task-details-checklist" v-if="getTaskCheckLists.length">
               <div class="task-details-checklist-content">
