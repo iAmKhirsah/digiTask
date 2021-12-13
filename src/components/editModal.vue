@@ -5,10 +5,10 @@
       <mini-task-preview :task="task" @updateTask="updateTask" @closeEditModal="closeEditModal" />
       <div class="edit-modal-content">
         <!-- open card -->
-        <div class="float-modal-tab" @click="editTask">
+        <!-- <div class="float-modal-tab" @click="editTask">
           <span class="icon-ms card-icon"></span>
           <span class="tab-title">Open card</span>
-        </div>
+        </div> -->
         <!-- Edit labels -->
         <div class="float-modal-tab" @click="setType('labels')">
           <span class="icon-ms label-icon"></span>
