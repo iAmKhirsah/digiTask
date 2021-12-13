@@ -107,7 +107,7 @@
         <button @click="createLabel('update')" v-if="labelToUpdate">
           Save
         </button>
-        <button @click="deleteLabel" v-if="labelToUpdate">Delete</button>
+        <button class="remove" @click="deleteLabel" v-if="labelToUpdate">Delete</button>
       </div>
     </div>
   </div>

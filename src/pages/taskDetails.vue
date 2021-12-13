@@ -75,7 +75,9 @@
                 <p class="task-activity-title">Activity</p>
               </div>
 
-              <span class="user-tag-name in-header side">DR</span>
+              <span class="user-tag-name in-header side"
+                ><img class="image-settings" :src="getUser.imgUrl"
+              /></span>
               <form>
                 <div class="comments-container">
                   <textarea
