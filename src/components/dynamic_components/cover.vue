@@ -59,8 +59,6 @@
       <input type="file" @change="addAttachment" hidden />
     </label>
       </div>
-      <!-- <div>UNSPLASH?</div>
-      <div>SEARCH PHOTOS?</div> -->
     </div>
   </div>
 </template>

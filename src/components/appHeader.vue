@@ -6,10 +6,6 @@
         <div class="logo main-header-tabs">
           <router-link to="/workspace">DigiTask</router-link>
         </div>
-        <!-- <div class="main-header-tabs" @click="setType('workSpace')">
-          Workspace
-          <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
-        </div> -->
         <div
           class="main-header-tabs recent"
           @click="setType('recent')"
@@ -48,19 +44,16 @@
           @click="setType('create')"
           title="Create board"
         >
-          <!-- <span class="create-text">Create</span> <span>+</span> -->
         </div>
       </div>
 
       <div class="main-header-right">
         <div class="input-container">
-          <!-- Ilya  -->
           <filter-app-header
             class="main-header-search"
             :boards="getBoards"
             title="Search cards"
           />
-          <!-- <input type="text" placeholder="Search" class="main-header-search" /> -->
           <span class="search"><i class="fas fa-search"></i></span>
         </div>
         <div class="main-header-bell"><i class="far fa-bell"></i></div>
@@ -123,7 +116,6 @@ export default {
     },
     async createBoard(board) {
       let user = this.$store.getters.currUser;
-      console.log("user", user);
       await this.$store.dispatch({
         type: "createBoard",
         board,
@@ -135,14 +127,12 @@ export default {
       this.$router.push("/b/" + newBoardId);
     },
     updateUser(user) {
-      console.log * user;
       this.$store.dispatch({ type: "updateUser", user });
     },
     closeModal() {
       this.setType("");
     },
     loadBoard(boardId) {
-      console.log(boardId);
       this.$store.dispatch({ type: "loadAndWatchBoard", boardId });
     },
   },
@@ -154,7 +144,6 @@ export default {
       return this.$store.getters.currUser;
     },
     initials() {
-      console.log(this.getUser);
       let initials = this.getUser.fullname.split(" ");
       if (initials.length > 1) {
         initials = initials.shift().charAt(0) + initials.pop().charAt(0);

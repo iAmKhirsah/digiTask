@@ -98,10 +98,6 @@ export default {
     addTask(task) {
       this.$emit("addTask", task, this.idx);
     },
-    // updateGroup(group) {
-    //   console.log("group title changed");
-    //   this.$emit("updateGroup", group);
-    // },
     newTaskOpen() {
       this.isNewTask = true;
     },
@@ -112,12 +108,10 @@ export default {
       this.$emit('updateTask',task)
     },
     updateGroup(group) {
-      console.log("group title changed");
       this.$emit("updateGroup", { ...group });
     },
     disableTitleEdit() {
       if (this.groupTitle){
-        //  let updatedGroup = JSON.parse(JSON.stringify(this.group))
          let updatedGroup = JSON.parse(JSON.stringify(this.group))
          updatedGroup.title=this.groupTitle
          this.$emit("updateGroup", updatedGroup);
@@ -136,7 +130,6 @@ export default {
     },
     onDrop(groupIdx, dropResult) {
       if (!groupIdx) groupIdx = this.idx;
-      console.log(groupIdx, dropResult);
       this.$emit("onDrop", groupIdx, dropResult);
     },
     deleteGroup(group) {

@@ -41,7 +41,6 @@
         <span v-for="(photo, idx) in photos" :key="idx">
           <span class="img-content" @click="setBackground(photo, 'photo')">
             <img :src="require(`@/assets/img/${photo}`)" :title="photo.by" />
-            <!-- <img :src="photo" :title="photo.by" /> -->
           </span>
         </span>
       </div>
@@ -77,9 +76,6 @@ export default {
     };
   },
   created() {
-    // this.currBoard = JSON.parse(
-    //   JSON.stringify(this.$store.getters.getCurrBoard)
-    // );
     this.currBoard = JSON.parse(JSON.stringify(this.getCurrBoard));
   },
   methods: {
@@ -103,16 +99,11 @@ export default {
         updatedBoard.style.backgroundUrl = background;
         updatedBoard.style.backgroundColor = "";
       }
-      /// BENY REALLY WANTS REGEX HERE SO REMIND HIM CONSTANTLY
 
       this.$emit("updateBoard", updatedBoard);
-      // this.$emit("updateBoard", updatedBoard);
     },
   },
   computed: {
-    menuHeader() {
-      // return this.type === 'color' ? 'Colors' || this.type  === 'photos' ? 'Photos by Unsplash' || this.type ? 'Change background'
-    },
     getCurrBoard() {
       return this.$store.getters.getCurrBoard;
     },

@@ -106,7 +106,6 @@ export default {
       await this.$store.dispatch({ type: "updateBoard", board });
     },
     async taskActivity(txt) {
-      console.log(txt);
       let user = this.getUser;
       this.$store.dispatch({
         type: "addActivity",

@@ -97,7 +97,6 @@ export default {
   },
   created() {
     this.isDone = this.getTask.dates.isDone;
-    console.log(this.getBoard.attachments);
   },
   methods: {
     saveIsDone() {

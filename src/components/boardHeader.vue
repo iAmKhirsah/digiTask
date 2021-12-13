@@ -13,7 +13,6 @@
             @blur="updateTitle"
             title="Board title"
           />
-          <!-- v-click-outside="updateBoard(board)" -->
         </div>
         <div class="board-box star" @click="starredBoard" title="Favorite">
           <span v-if="isStarred"><i class="fas fa-star"></i></span>
@@ -27,9 +26,6 @@
             class="members"
             :title="member.fullname"
           >
-            <!-- <span class="user-tag-name"
-              ><img :src="member.imgUrl" class="image-settings"
-            /></span> -->
             <span class="user-tag-name in-header">
               <img
                 class="image-settings"
@@ -48,10 +44,6 @@
       </div>
 
       <div class="board-header-right">
-        <!-- <div class="board-box">
-          <span class="material-icons"> filter_list </span>
-          <span class="filter">Dashboard</span>
-        </div> -->
         <div class="board-box" @click="openMenu" :class="hideButton" title="Board menu">
           <button class="group-header-edit-btn">
             <span class="icon-sm menu-dots"></span>
@@ -187,16 +179,5 @@ export default {
   directives: {
     clickOutside: vClickOutside.directive,
   },
-  // watch: {
-  //   "$route.params.boardId": {
-  //     handler() {
-  //       if (this.board._id !== this.$route.params.boardId) {
-  //         console.log('hello');
-  //         this.boardTitle = this.board.title;
-  //       }
-  //     },
-  //     immediate: true
-  //   },
-  // },
 };
 </script>

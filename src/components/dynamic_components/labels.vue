@@ -59,9 +59,6 @@
       :class="{ 'on-menu': isBoardLabels }"
       v-if="createMenu"
     >
-      <!-- <button class="close" @click="closeModal">
-        <span class="material-icons"> clear </span>
-      </button> -->
       <button class="icon-sm close" @click="closeModal">
         <span class="menu-header-close-button"></span>
       </button>
@@ -125,7 +122,6 @@ export default {
   data() {
     return {
       updatedTask: null,
-      // updatedTask: this.task,
       newLabel: {
         title: "",
         selectedColor: "#ff9f1a",

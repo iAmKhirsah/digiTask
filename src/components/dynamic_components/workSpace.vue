@@ -41,7 +41,6 @@ export default {
   },
   methods: {
     closeModal() {
-      console.log("hello");
       this.$emit("closeModal");
     },
   },

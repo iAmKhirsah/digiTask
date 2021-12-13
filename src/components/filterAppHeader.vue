@@ -30,7 +30,6 @@ export default {
       filterBy: {
         title: "",
       },
-      // boards: null,
       boardFilter: null,
       showSearch: false,
     };
@@ -51,7 +50,6 @@ export default {
   computed: {
     filteredTasks() {
       let filteredBoards = [];
-      console.log(this.boards);
       if (!this.filterBy.title) return;
       this.boards.forEach((board) => {
         board.groups.forEach((group) => {

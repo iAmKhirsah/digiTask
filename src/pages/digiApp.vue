@@ -125,7 +125,6 @@ export default {
   },
   computed: {
     getBoards() {
-      console.log(this.$store.getters.boards);
       return this.$store.getters.boards;
     },
     getUser() {

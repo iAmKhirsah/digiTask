@@ -156,19 +156,14 @@ export const boardStore = {
         let taskIdx = state.currTask.labelIds.findIndex(
         (currLabel) => currLabel.id === label.id
       );
-      
       state.currTask.labelIds.splice(taskIdx, 1);
-      }
-      
+      }  
     },
     addTask(state, { taskRaw }) {
       let newTask = boardService.getEmptyTask();
-
       newTask.title = taskRaw.task;
-      newTask.byMember = taskRaw.user;
-      console.log(newTask);
-      state.currBoard.groups[taskRaw.idx].tasks.push(newTask);
-      console.log(state.currBoard);
+      newTask.byMember = taskRaw.user
+      state.currBoard.groups[taskRaw.idx].tasks.push(newTask);  
     },
     updateStore(state, { taskId }) {
       let groupIdx = state.currBoard.groups.findIndex((group) =>
@@ -199,7 +194,6 @@ export const boardStore = {
         (currTask) => currTask.id === task.id
       );
       state.currBoard.groups[groupIdx].tasks.splice(taskIdx, 1, task);
-      console.log('currBoard', state.currBoard);
       state.currTask = task;
     },
     removeTask(state, { task }) {
@@ -219,7 +213,6 @@ export const boardStore = {
       state.currBoard.groups.splice(idx, 1);
     },
     addBoard(state, { board }) {
-      // if (!state.boards.length) state.boards = [];
       state.boards.push(board);
     },
     applyDrag(state, { content }) {
@@ -273,12 +266,10 @@ export const boardStore = {
         commit({ type: 'setCurrBoard', board: null });
         commit({ type: 'setLoadingOn' });
         const board = await boardService.getBoardById(boardId);
-        console.log(board);
         commit({ type: 'setCurrBoard', board });
         socketService.emit(SOCKET_EVENT_WATCHBOARD, boardId);
         socketService.off(SOCKET_EVENT_UPDATEDBOARD);
         socketService.on(SOCKET_EVENT_UPDATEDBOARD, (updatedBoard) => {
-          console.log('im on socket event updatedboard', updatedBoard);
           commit({ type: 'updateBoard', board: updatedBoard });
         });
       } catch (err) {

@@ -50,7 +50,6 @@ export default {
   created() {
     this.currTodo = JSON.parse(JSON.stringify(this.todo));
     this.isChecked = this.currTodo.isDone;
-    console.log(this.currTodo)
   },
   methods: {
     toggleCheck() {
@@ -71,18 +70,14 @@ export default {
     },
     saveTodo() {
       if (this.currTodo.title.match(/^\s*$/)) return;
-      console.log('hello')
+
       let checklist = JSON.parse(JSON.stringify(this.checklist));
       let idx = checklist.todos.findIndex((todo) => {
         return this.currTodo.id === todo.id;
       });
       checklist.todos[idx].title = this.currTodo.title;
       checklist.todos[idx].isDone = this.currTodo.isDone;
-     
-      console.log(checklist)
       this.$emit("updatedChecklist", checklist);
-
-
       this.todoEdit = false;
     },
   },

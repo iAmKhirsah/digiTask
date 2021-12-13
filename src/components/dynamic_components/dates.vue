@@ -49,7 +49,6 @@ export default {
         this.isInvalid = true;
         return;
       }
-      console.log(this.date);
       this.updatedTask.dates.startDate = this.date[0];
       this.updatedTask.dates.dueDate = this.date[1];
       this.$emit("updateTask", this.updatedTask);

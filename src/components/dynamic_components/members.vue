@@ -43,11 +43,9 @@ export default {
   },
   created() {
     this.boardCopy = JSON.parse(JSON.stringify(this.getBoard));
-    console.log(this.getBoard);
   },
   methods: {
     sendMember(member) {
-      console.log(this.boardCopy);
       var txt = "";
       let idx = this.updatedTask.members.findIndex(
         (currMember) => currMember._id === member._id
@@ -56,7 +54,6 @@ export default {
         this.updatedTask.members.splice(idx, 1);
         this.boardCopy.activities = this.boardCopy.activities.filter(
           (activity) => {
-            console.log(activity);
             if (
               activity.byMember._id === member._id &&
               activity.task.id === this.updatedTask.id
@@ -72,7 +69,6 @@ export default {
           this.updatedTask = JSON.parse(JSON.stringify(this.task));
         });
       } else {
-        console.log("im here");
         txt = `${this.getUser.fullname} added ${member.fullname} to this card`;
         this.updatedTask.members.push(member);
         this.$emit("taskActivity", txt);
@@ -104,7 +100,6 @@ export default {
       return filteredMembers;
     },
     initials() {
-      console.log(this.getUser);
       let initials = this.getUser.fullname.split(" ");
       if (initials.length > 1) {
         initials = initials.shift().charAt(0) + initials.pop().charAt(0);

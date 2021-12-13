@@ -200,7 +200,6 @@ export default {
       let groupId = this.$route.params.groupId;
       let taskId = this.$route.params.taskId;
       let boardId = this.$route.params.boardId;
-      console.log(boardId);
       await this.$store.dispatch({
         type: "updateStore",
         boardId,
@@ -224,7 +223,6 @@ export default {
       });
     },
     async setCover(img) {
-      console.log(img);
       let task = JSON.parse(JSON.stringify(this.getTask));
       task.style.imgUrl = img;
       task.style.bgColor = "";
@@ -314,7 +312,6 @@ export default {
       this.closePage();
     },
     closePage() {
-      console.log("hello");
       this.$router.push(`/b/${this.$route.params.boardId}`);
     },
     async updatedTask(task) {

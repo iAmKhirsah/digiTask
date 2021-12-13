@@ -70,8 +70,6 @@ export default {
         "background-2.jpg",
         "background-3.jpg",
         "background-4.jpg",
-        // "background-5.jpg",
-        // "background-6.jpg",
       ],
     };
   },
@@ -89,8 +87,6 @@ export default {
          this.board.background = background;
          this.board.imgUrl = '';
       }
-      console.log(this.board)
-      
     },
  createBoard() {
       if(this.board.title.match(/^\s*$/)) return

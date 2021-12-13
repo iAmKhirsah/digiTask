@@ -14,7 +14,6 @@
       <div class="copy-to" title="Copy to new group">
         <label class="label-title">List</label>
         <select class="select-settings" v-model="groupId">
-        <!-- <select class="select-settings" @change="setCopyTo"> -->
           <option
             v-for="group in updateBoard.groups"
             :key="group.id"

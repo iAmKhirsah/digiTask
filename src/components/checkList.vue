@@ -1,6 +1,5 @@
 <template>
   <div class="task-checklist">
-    <!-- v-if -->
     <div v-if="!isEditing" class="checklist-title">
       <p class="task-checklist-placeholder" @click="editTitle">
         {{ checklistTitle }}
@@ -80,7 +79,6 @@
         </div>
       </form>
     </div>
-    <!-- v-else -->
   </div>
 </template>
 <script>
@@ -107,7 +105,6 @@ export default {
   created() {
     this.currentTask = JSON.parse(JSON.stringify(this.currTask));
     this.currChecklist = JSON.parse(JSON.stringify(this.checklist));
-    console.log(this.checklist);
   },
   methods: {
     addTodo() {
@@ -143,8 +140,6 @@ export default {
       if (this.checklist.title.match(/^\s*$/)) return;
       this.currentTask = JSON.parse(JSON.stringify(this.currTask));
       this.isEditing = false;
-      console.log(this.currentTask.checklists);
-
       let idx = this.currentTask.checklists.findIndex(
         (currChecklist) => currChecklist.id === checklist.id
       );

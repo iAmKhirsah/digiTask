@@ -21,7 +21,6 @@
           <div>Change background</div>
           <span class="icon-background" :style="getBackground"></span>
         </div>
-        <!-- Ilia we need here another componenet? -->
         <div class="menu-box">
           <div class="labels" @click="openModal('label')">
             <div>Labels</div>
@@ -57,10 +56,8 @@
             </div>
           </div>
         </div>
-        <!-- Ilya Activities Component -->
         <div class="menu-box no-hover">
           <activity-flow :board="board"/>
-          <!-- <div>Activities Component</div> -->
         </div>
       </div>
     </div>

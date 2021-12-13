@@ -5,13 +5,6 @@
     v-if="task"
     :style="mainContentBgColor"
   >
- 
-       <!-- <div
-      v-if="hasCover"
-      class="task-cover"
-      :class="{ small: !infoCover }"
-      :style="bgColor"
-    ></div> -->
  <task-preview-label
       v-if="infoCover"
       :isMiniPreview="true"
@@ -45,7 +38,6 @@
             <span class="todos-done">{{ renderChecklist }}</span>
           </span>
         </div>
-        <!-- <span class="badge notification" ><i class="far fa-bell" aria-hidden="true"></i></span> -->
         <span class="members-container" v-if="hasMembers">
           <span
             class="badge members"

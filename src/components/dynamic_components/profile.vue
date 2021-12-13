@@ -21,14 +21,7 @@
         <span>{{ getUser.username }}</span>
       </div>
     </div>
-
     <div class="card-line"></div>
-    <!-- <div class="user-activity">
-      <p>Profile and visibility</p>
-      <p>Activity</p>
-    </div> -->
-    <!-- <div class="card-line"></div> -->
-
     <button class="user-info-logout-btn" @click="doLogout">Log out</button>
   </section>
 </template>
@@ -39,12 +32,8 @@ export default {
   data() {
     return {};
   },
-  created() {
-    console.log(this.getUser);
-  },
   methods: {
     closeModal() {
-      console.log("hello");
       this.$emit("closeModal");
     },
     doLogout() {
@@ -59,7 +48,6 @@ export default {
       return this.$store.getters.currUser;
     },
     initials() {
-      console.log(this.getUser);
       let initials = this.getUser.fullname.split(" ");
       if (initials.length > 1) {
         initials = initials.shift().charAt(0) + initials.pop().charAt(0);
