@@ -1,7 +1,7 @@
 <template>
 <section class="edit-modal-preview-container">
   <div
-    class="task-preview-container"
+    class="task-preview-container edit-preview-container "
     v-if="task"
     :style="mainContentBgColor"
   >
@@ -18,7 +18,14 @@
       :task="task"
       :board="getBoard"
     />
-    <textarea v-model="updatedTask.title"/>
+    <textarea  class="textarea-another-list"
+              ref="taskTitle"
+              @keydown.enter.prevent="saveTitle"
+              oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+              onfocus='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+              maxlength="512"
+              placeholder="Enter Task title..."
+             v-model="updatedTask.title"/>
     <div class="task-preview-info">
       <span class="task-badges" v-if="hasInfo">
         <div class="badges-container">
@@ -50,9 +57,11 @@
         </span>
       </span>
     </div>
- 
-    <button>Save</button>
+ <div class="edit-modal-save-btn">
+<span @click="saveTitle"><button>Save</button></span>
+</div>
     </div>
+    
  </section>
 </template>
 
@@ -69,12 +78,18 @@ export default {
         },
         created(){
             this.updatedTask = JSON.parse(JSON.stringify(this.task))
+             this.$nextTick(() => {
+        this.$refs.taskTitle.focus();
+          this.$refs.taskTitle.select();
+      });
         },
         methods:{
             saveTitle(){
                 let task = JSON.parse(JSON.stringify(this.updatedTask))
                 this.$emit('updateTask',task)
-            }
+                this.$emit('closeEditModal')
+            },
+           
         },
         computed:{
              hasCover() {

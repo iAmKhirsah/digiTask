@@ -29,7 +29,7 @@
         class="icon-settings pencil icon-sm edit-pencil-icon"
         @click.stop="openEditModal"
       >
-        <div class="quick-edit-menu" v-if="isOpenEditModal">
+        <div class="quick-edit-menu" v-if="getIsQuickEditOpen">
           <edit-modal
             @closeEditModal="closeEditModal"
             :task="task"
@@ -91,12 +91,11 @@ export default {
   created() {},
   methods: {
     openEditModal(ev,isRc = false) {
-      console.log(ev)
       if (this.isOpenEditModal) return;
       this.isOpenEditModal = true;
       if(isRc) this.editPos.left = (ev.x - ev.offsetX + 240 )+"px";
       else this.editPos.left = ev.x - ev.offsetX + 20+ "px";
-      this.editPos.top = ev.y - ev.offsetY + "px";
+      this.editPos.top = ev.y - ev.offsetY - 130 +  "px";
     },
     closeEditModal() {
       this.isOpenEditModal = false;
@@ -106,6 +105,9 @@ export default {
     },
     miniPreview() {
       this.$emit("miniPreview");
+    },
+    updateTask(task){
+      this.$emit('updateTask',task)
     },
     toggleDueDateDone() {
       let task = JSON.parse(JSON.stringify(this.task));
@@ -222,6 +224,9 @@ export default {
     getUser() {
       return this.$store.getters.currUser;
     },
+    getIsQuickEditOpen(){
+      return this.isOpenEditModal
+    }
   },
   components: {
     taskPreviewLabel,

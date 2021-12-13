@@ -2,7 +2,7 @@
   <div>
     <div class="black-screen" @mousedown.stop.prevent="closeEditModal"></div>
     <div class="edit-modal-container" :style="editPos">
-      <mini-task-preview :task="task"/>
+      <mini-task-preview :task="task" @updateTask="updateTask" @closeEditModal="closeEditModal" />
       <div class="edit-modal-content">
         <!-- open card -->
         <div class="float-modal-tab" @click="editTask">
@@ -77,9 +77,9 @@ export default {
   
   },
   methods: {
-    editTask() {
-      this.closeEditModal();
-      this.$emit("editTask", this.task.id);
+     editTask() { 
+    this.closeEditModal();
+    this.$emit("editTask", this.task.id);
     },
     closeModal() {
       this.type = "";
