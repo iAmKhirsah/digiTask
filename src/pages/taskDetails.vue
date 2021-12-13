@@ -50,8 +50,7 @@
               @saveEdit="saveEdit"
               @editDesc="editDesc"
               :descEdit="descEdit"
-              @closeDescEdit="closeDescEdit"
-                
+              @closeDescEdit="closeDescEdit"  
               />
             </div>
             <div class="task-details-checklist" v-if="getTaskCheckLists.length">
@@ -75,7 +74,7 @@
                 <p class="task-activity-title">Activity</p>
               </div>
 
-              <span class="user-tag-name in-header side">DR</span>
+              <span class="user-tag-name in-header side"><img class="image-settings" :src="getUser.imgUrl" /></span>
               <form>
                 <div class="comments-container">
                   <textarea
@@ -393,7 +392,8 @@ export default {
     },
     isTaskStyle(){
       return this.getTask.style.bgColor||this.getTask.style.imgUrl
-    }
+    },
+  
     },
   components: {
     taskDescription,
