@@ -75,7 +75,7 @@
             </div>
             <div class="make-cover-btn-container">
               <span class="icon-sm cover-icon"></span>
-              <button class="make-cover-btn">Make cover</button>
+              <button class="make-cover-btn" @click="setCover(attachment.imgUrl)">{{isCoverImage(attachment.imgUrl)}}</button>
             </div>
           </div>
         </div>
@@ -114,7 +114,15 @@ export default {
     },
     closeDescEdit(){
       this.$emit('closeDescEdit')
-    }
+    },
+    setCover(img){
+      if(this.isCoverImage(img)==='Remove cover') this.$emit('setCover', '')
+      else this.$emit('setCover',img)
+    },
+      isCoverImage(imgUrl){
+        if(this.getTask.style.imgUrl === imgUrl) return 'Remove cover'
+        else return 'Make cover'
+      }
 
   },
   computed: {
@@ -163,6 +171,7 @@ export default {
       })
       return taskAtts
       },
+    
   },
   components:{
     taskDescription

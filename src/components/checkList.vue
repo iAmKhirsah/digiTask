@@ -34,10 +34,10 @@
     </div>
 
     <div class="checklist-progress">
-      <span class="checklist-progress-percentage">{{ getPercentage }}</span>
+      <span class="checklist-progress-percentage">{{ percentageForDisplay }}</span>
       <div class="checklist-progress-bar">
         <div
-          :style="'width:' + getPercentage"
+          :style="'width:' + percentageForDisplay"
           :class="['progress-bar', completedBar]"
         ></div>
       </div>
@@ -162,17 +162,17 @@ export default {
     },
   },
   computed: {
-    getPercentage() {
-      let isDones = this.checklist.todos.reduce((acc, todo) => {
+    percentageForDisplay() {
+      let doneCount = this.checklist.todos.reduce((acc, todo) => {
         if (todo.isDone) acc++;
         return acc;
       }, 0);
-      if (!isDones) return "0%";
-      return ((isDones * 100) / this.checklist.todos.length).toFixed(0) + "%";
+      if (!doneCount) return "0%";
+      return ((doneCount * 100) / this.checklist.todos.length).toFixed(0) + "%";
     },
 
     completedBar() {
-      if (this.getPercentage === "100%") {
+      if (this.percentageForDisplay === "100%") {
         return "complete";
       }
     },
