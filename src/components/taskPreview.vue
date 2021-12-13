@@ -58,6 +58,7 @@
             <span class="todos-done">{{ renderChecklist }}</span>
           </span>
         </div>
+        <span class="badge attachments" v-if="hasAttachments">{{attachmentCount}}</span>
         <!-- <span class="badge notification" ><i class="far fa-bell" aria-hidden="true"></i></span> -->
         <span class="members-container" v-if="hasMembers">
           <span
@@ -130,6 +131,7 @@ export default {
         (this.hasCommnets ||
           this.validateDates ||
           this.task.description ||
+          this.hasAttachments || 
           this.todosLength) &&
         this.infoCover
       );
@@ -142,6 +144,12 @@ export default {
     },
     hasMembers() {
       return this.task.members && this.task.members.length;
+    },
+    hasAttachments(){
+      return this.task.attachments && this.task.attachments.length
+    },
+    attachmentCount(){
+      return this.task.attachments.length
     },
     startDate() {
       let dueTime = new Date(this.task.dates.dueDate).getTime();
@@ -225,6 +233,7 @@ export default {
     isImgUrlFull(){
       return {'full-cover': this.task.style.imgUrl && !this.task.style.isInfo}
       },
+      
     todosDone() {
       let todosLength = this.todosLength;
       let doneTodos = this.task.checklists.reduce((acc, checklist) => {
