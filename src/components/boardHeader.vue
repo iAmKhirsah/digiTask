@@ -56,7 +56,7 @@
           <button class="group-header-edit-btn">
             <span class="icon-sm menu-dots"></span>
           </button>
-          <span class="show-more"> Show Menu</span>
+          <span class="show-more"> </span>
         </div>
       </div>
     </header>

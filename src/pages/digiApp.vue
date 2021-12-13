@@ -110,7 +110,7 @@ export default {
       let user = this.$store.getters.currUser;
       await this.$store.dispatch({
         type: "createBoard",
-        board,
+        board,user
       });
       this.createMenu = false;
     },

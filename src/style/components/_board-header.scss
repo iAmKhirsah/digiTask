@@ -52,6 +52,9 @@
             }
             .show-more {
                 font-size: 14px;
+            &::before{
+                content:'Show more'
+            }
             }
             .material-icons {
                 font-size: 15px;
@@ -71,7 +74,16 @@
                 background-color: white;
                 color: $clr9;
             }
+            @media screen and (max-width:570px) {
+            .show-more::before{
+                    content:''
+            }
+            &.board-box {
+                gap:0;
+            }
         }
+        }
+        
     }
 
     gap: 12px;

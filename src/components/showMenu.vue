@@ -28,7 +28,7 @@
             <span class="icon-board"></span>
           </div>
         </div>
-        <div class="menu-box" @click="isDeleting=true">
+        <div class="menu-box" @click="isDeleting=true" >
           <div>Close board...</div>
         </div>
          <div class=" dynamic-archive-edit card-layout nav-modal " v-if="isDeleting"  v-click-outside="closeDeleteModal">
@@ -40,11 +40,10 @@
          <span>Delete Board</span>
       </header>
     </div>
-    <div class="main-container">
-      <p>Are you sure?
-        Board will be removed and you wont be able get it back
+    <div class="main-container" >
+      <p>{{deleteBoardText}}
       </p>
-      <button @click="removeBoard" class="delete">Delete</button>
+      <button @click="removeBoard" class="delete" v-if="isBoardCreator">Delete</button>
     </div>
   </div>
         
@@ -113,6 +112,7 @@ export default {
         console.log("Error on DELETELABEL in TASKDETAILS");
       }
     },
+    
     goBack() {
       this.type = "";
     },
@@ -141,6 +141,19 @@ export default {
        getBackground(){
       if(this.board.style.backgroundColor) return {'background-color': this.board.style.backgroundColor}
       return {'background-image': `url(${require('@/assets/img/'+this.board.style.backgroundUrl)})`}
+    },
+    getCurrUser(){
+      return this.$store.getters.currUser
+    },
+    isBoardCreator(){
+      let boardCreator = this.board.createdBy._id
+      let userId = this.getCurrUser._id
+      return boardCreator === userId
+    },
+    deleteBoardText(){
+      if(this.isBoardCreator)
+      return 'Are you sure? Board will be removed and you wont be able get it back'
+      return 'You Are not allowed to perform this action'
     }
   },
   components: {

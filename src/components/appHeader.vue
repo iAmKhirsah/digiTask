@@ -10,16 +10,16 @@
           Workspace
           <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
         </div> -->
-        <div class="main-header-tabs" @click="setType('recent')" title="Recent">
-          Recent
+        <div class="main-header-tabs recent" @click="setType('recent')" title="Recent">
+          <!-- Recent -->
           <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
         </div>
-        <div class="main-header-tabs" @click="setType('starred')" title="Starred">
-          Starred
+        <div class="main-header-tabs starred" @click="setType('starred')" title="Starred">
+          <!-- Starred -->
           <span class="arrow-down"><i class="fas fa-chevron-down"></i></span>
         </div>
         <div class="main-header-tabs create" @click="setType('create')" title="Create board">
-          Create
+          <!-- <span class="create-text">Create</span> <span>+</span> -->
         </div>
       </div>
 
@@ -84,9 +84,11 @@ export default {
       this.type = type;
     },
      async createBoard(board) {
+       let user = this.$store.getters.currUser
+        console.log('user',user)
       await this.$store.dispatch({
         type: "createBoard",
-        board,
+        board,user
       }); 
        this.createMenu = false;
       let newBoardId = this.$store.getters.boards[this.$store.getters.boards.length-1]._id
