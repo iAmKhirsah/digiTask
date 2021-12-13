@@ -103,11 +103,13 @@
       >
         Create
       </button>
-      <div class="btns-container"> 
+      <div class="btns-container">
         <button @click="createLabel('update')" v-if="labelToUpdate">
           Save
         </button>
-        <button class="remove" @click="deleteLabel" v-if="labelToUpdate">Delete</button>
+        <button class="remove" @click="deleteLabel" v-if="labelToUpdate">
+          Delete
+        </button>
       </div>
     </div>
   </div>

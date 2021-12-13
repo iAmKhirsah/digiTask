@@ -18,7 +18,8 @@
           </div>
         </div>
         <div class="task-details-header">
-          <span><i class="fas fa-window-maximize"></i></span>
+          <!-- <span><i class="fas fa-window-maximize"></i></span> -->
+          <span class="icon-lg card-icon-cover"></span>
           <form v-if="titleEdit" v-on:keydown.enter="saveTitle">
             <textarea
               class="textarea-another-list"
@@ -40,17 +41,16 @@
 
         <div class="task-details-content-container">
           <div class="task-details-main-content">
-            
             <div class="task-details-addons">
               <task-addons
                 :getTask="getTask"
                 :getBoard="getBoard"
                 @updatedTask="updatedTask"
                 @setCover="setCover"
-              @saveEdit="saveEdit"
-              @editDesc="editDesc"
-              :descEdit="descEdit"
-              @closeDescEdit="closeDescEdit"  
+                @saveEdit="saveEdit"
+                @editDesc="editDesc"
+                :descEdit="descEdit"
+                @closeDescEdit="closeDescEdit"
               />
             </div>
             <div class="task-details-checklist" v-if="getTaskCheckLists.length">
@@ -70,11 +70,14 @@
 
             <div class="task-details-activity">
               <div class="task-details-activity-content">
-                <span> <i class="fas fa-align-left"></i></span>
+                <!-- <span> <i class="fas fa-align-left"></i></span> -->
+                <span class="icon-lg icon-activity"></span>
                 <p class="task-activity-title">Activity</p>
               </div>
 
-              <span class="user-tag-name in-header side"><img class="image-settings" :src="getUser.imgUrl" /></span>
+              <span class="user-tag-name in-header side"
+                ><img class="image-settings" :src="getUser.imgUrl"
+              /></span>
               <form>
                 <div class="comments-container">
                   <textarea
@@ -82,7 +85,6 @@
                     v-model="commentTxt"
                     placeholder="Write a comment..."
                     @focus="commentsButtons"
-                    
                   />
                   <div class="save-btn" v-if="isCommentsButton">
                     <button @click="sendComment">Save</button>
@@ -214,17 +216,16 @@ export default {
     commentsButtons() {
       this.isCommentsButton = true;
     },
-      commentButtonsOff(){
-      this.$nextTick(()=>{
-        this.isCommentsButton = false
-      })
-      
+    commentButtonsOff() {
+      this.$nextTick(() => {
+        this.isCommentsButton = false;
+      });
     },
-    async setCover(img){
-      console.log(img)
-      let task = JSON.parse(JSON.stringify(this.getTask))
+    async setCover(img) {
+      console.log(img);
+      let task = JSON.parse(JSON.stringify(this.getTask));
       task.style.imgUrl = img;
-      task.style.bgColor = ''
+      task.style.bgColor = "";
       await this.$store.dispatch({ type: "updateTask", task });
     },
     async sendComment() {
@@ -387,14 +388,13 @@ export default {
     getTaskCover() {
       if (this.getTask.style.bgColor)
         return { "background-color": this.getTask.style.bgColor };
-        else if(this.getTask.style.imgUrl)
-        return { 'background-image': 'url('+this.getTask.style.imgUrl+')' };
+      else if (this.getTask.style.imgUrl)
+        return { "background-image": "url(" + this.getTask.style.imgUrl + ")" };
     },
-    isTaskStyle(){
-      return this.getTask.style.bgColor||this.getTask.style.imgUrl
+    isTaskStyle() {
+      return this.getTask.style.bgColor || this.getTask.style.imgUrl;
     },
-  
-    },
+  },
   components: {
     taskDescription,
     activityFlow,
