@@ -104,7 +104,7 @@ export default {
       board: null,
       isNewGroup: false,
       newGroup: {},
-      isMiniPreview: false,
+      isMiniPreview: true,
       newTask: {},
       dropPlaceholderOptions: {
         className: "drop-preview",

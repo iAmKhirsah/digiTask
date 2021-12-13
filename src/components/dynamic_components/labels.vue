@@ -91,8 +91,9 @@
                 'background-color': color,
               }"
               class="dynamic-labels-color-card"
+              
               @click="pickSelectedColor(color)"
-              ><span class="icon-settings icon-sm v-sign"></span
+              ><span v-if="color===selectedColor"  class="icon-settings icon-sm v-sign"></span
             ></span>
           </div>
         </div>
@@ -107,7 +108,7 @@
         Create
       </button>
       <div class="btns-container">
-        <button @click="createLabel('update')" v-if="labelToUpdate" title="Save changes">
+        <button @click="createLabel('update')" v-if="labelToUpdate"  title="Save changes">
           Save
         </button>
         <button class="remove" @click="deleteLabel" v-if="labelToUpdate" title="Delete label">
@@ -175,6 +176,7 @@ export default {
     getCurrTask() {
       return this.$store.getters.getCurrTask;
     },
+    
   },
   methods: {
     goBack() {
