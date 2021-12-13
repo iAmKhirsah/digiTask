@@ -47,8 +47,11 @@
       </div>
       <div class="dynamic-attachment-edit">
         <p class="subtitles">Attachments</p>
+        <div v-for="attachment in getTaskAttachments" :key="attachment.id">
+          
+        </div>
         <label>
-      <span class="subtitle">Computer</span>
+      <span class="subtitle">Upload a cover image</span>
       <input type="file" @change="addImg" hidden />
     </label>
       </div>
@@ -131,7 +134,14 @@ export default {
     },
     getTask(){
       return this.$store.getCurrTask
-    }
+    },
+    getTaskAttachments(){
+      let taskAtts = []
+      this.$store.getters.getCurrBoard.attachments.forEach((att)=>{
+        if(att.task.id===this.task.id) taskAtts.push(att)
+      })
+      return taskAtts
+      }
     
   },
 };
