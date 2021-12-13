@@ -143,6 +143,7 @@ export const boardStore = {
         newLabel.title = label.title;
         newLabel.color = label.selectedColor;
         state.currBoard.labels.push(newLabel);
+        if(state.currTask)
         state.currTask.labelIds.push(newLabel.id);
       }
     },
@@ -151,10 +152,14 @@ export const boardStore = {
         (currLabel) => currLabel.id === label.id
       );
       state.currBoard.labels.splice(boardIdx, 1);
-      let taskIdx = state.currTask.labelIds.findIndex(
+      if(state.currTask){
+        let taskIdx = state.currTask.labelIds.findIndex(
         (currLabel) => currLabel.id === label.id
       );
+      
       state.currTask.labelIds.splice(taskIdx, 1);
+      }
+      
     },
     addTask(state, { taskRaw }) {
       let newTask = boardService.getEmptyTask();
