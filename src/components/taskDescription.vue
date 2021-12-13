@@ -1,8 +1,6 @@
 <template>
   <div class="task-description">
-    <span class="task-description-symbol">
-              <i class="fas fa-align-left"></i
-            ></span>
+    <span class="icon-lg task-description-symbol icon-description"></span>
     <p class="task-description-title">Description</p>
     <div
       class="task-description-content"
@@ -24,7 +22,7 @@
         <div class="task-description-buttons">
           <button type="submit" class="task-description-save">Save</button>
           <button @click="clearDesc" class="task-description-close">
-            <span class="icon-lg close-icon">  </span>
+            <span class="icon-lg close-icon"> </span>
           </button>
         </div>
       </form>
@@ -48,12 +46,12 @@ export default {
     };
   },
   created() {
-    this.updatedTask = JSON.parse(JSON.stringify(this.task))
+    this.updatedTask = JSON.parse(JSON.stringify(this.task));
   },
   methods: {
     saveDesc() {
-      let task = JSON.parse(JSON.stringify(this.task))
-      task.description = this.updatedTask.description
+      let task = JSON.parse(JSON.stringify(this.task));
+      task.description = this.updatedTask.description;
       this.$emit("saveEdit", task);
     },
     clearDesc() {
@@ -75,7 +73,6 @@ export default {
         ? this.updatedTask.description
         : "Add a more detailed description...";
     },
-
   },
   directives: {
     clickOutside: vClickOutside.directive,
