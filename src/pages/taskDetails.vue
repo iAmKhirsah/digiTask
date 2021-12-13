@@ -18,7 +18,8 @@
           </div>
         </div>
         <div class="task-details-header">
-          <span><i class="fas fa-window-maximize"></i></span>
+          <!-- <span><i class="fas fa-window-maximize"></i></span> -->
+          <span class="icon-lg card-icon-cover"></span>
           <form v-if="titleEdit" v-on:keydown.enter="saveTitle">
             <textarea
               class="textarea-another-list"
@@ -47,8 +48,11 @@
                 @updatedTask="updatedTask"
               />
             </div>
-            <span class="task-description-symbol">
+            <!-- <span class="task-description-symbol">
               <i class="fas fa-align-left"></i
+            ></span> -->
+            <span
+              class="task-description-symbol icon-lg icon-description"
             ></span>
             <task-description
               :task="getTask"
@@ -78,7 +82,8 @@
 
             <div class="task-details-activity">
               <div class="task-details-activity-content">
-                <span> <i class="fas fa-align-left"></i></span>
+                <!-- <span> <i class="fas fa-align-left"></i></span> -->
+                <span class="icon-lg icon-activity"></span>
                 <p class="task-activity-title">Activity</p>
               </div>
 
@@ -395,13 +400,13 @@ export default {
     getTaskCover() {
       if (this.getTask.style.bgColor)
         return { "background-color": this.getTask.style.bgColor };
-        else if(this.getTask.style.imgUrl)
-        return { 'background-image': 'url('+this.getTask.style.imgUrl+')' };
+      else if (this.getTask.style.imgUrl)
+        return { "background-image": "url(" + this.getTask.style.imgUrl + ")" };
     },
-    isTaskStyle(){
-      return this.getTask.style.bgColor||this.getTask.style.imgUrl
-    }
+    isTaskStyle() {
+      return this.getTask.style.bgColor || this.getTask.style.imgUrl;
     },
+  },
   components: {
     taskDescription,
     activityFlow,
