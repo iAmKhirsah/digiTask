@@ -2,6 +2,7 @@
   <div class="activity-content">
     <div>
       <div v-if="getActivities" class="activity-content-container">
+
         <div
           class="activity-user-content"
           v-for="activity in getActivities"
@@ -36,6 +37,7 @@
             v-for="comment in getComments"
             :key="comment.id"
           >
+          <div class="activity-user-info">
             <span class="user-tag-name in-header"
               ><img
                 class="image-settings"
@@ -47,6 +49,7 @@
             >
             <span>{{ comment.txt }}</span>
           </div>
+        </div>
         </div>
       </div>
     </div>
