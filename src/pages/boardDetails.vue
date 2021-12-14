@@ -341,13 +341,13 @@ export default {
         this.$refs.list.blur();
       });
     }
-    // this.$refs.boardPage.addEventListener("mousemove", (ev) => {
-    //   socketService.emit("mouseMove", {
-    //     x: ev.pageX,
-    //     y: ev.pageY,
-    //     user: this.getUser || "Guest",
-    //   });
-    // });
+    this.$refs.boardPage.addEventListener("mousemove", (ev) => {
+      socketService.emit("mouseMove", {
+        x: ev.pageX,
+        y: ev.pageY,
+        user: this.getUser || "Guest",
+      });
+    });
   },
 
   components: { groupList, boardHeader, Container, Draggable },
