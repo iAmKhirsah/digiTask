@@ -1,12 +1,12 @@
 <template>
   <div ref="boardPage">
-    <div
+    <!-- <div
       class="mouse "
       v-for="(boardUser, idx) in getBoardUsers"
       :style="{ top: boardUser.y + 'px', left: boardUser.x + 'px' }"
       :key="idx"
       ><i class="fas fa-mouse-pointer" :style="{color:getRandomInt}" v-if="boardUser"></i><img class='mouse-image' :title="boardUser.user.username" :src="boardUser.user.imgUrl" v-if="boardUser"/></div
-    >
+    > -->
     <div v-if="isLoading" class="loading-screen" :style="getImgOrColor">
       <div class="container">
         <div class="item item-1"></div>
@@ -150,14 +150,14 @@ export default {
         boardId: this.board._id,
         user: JSON.parse(JSON.stringify(this.getUser)),
       });
-      socketService.on("mouseMove", (ev) => {
-        const idx = this.boardUsers.findIndex((currMouse) => currMouse.user._id === ev.user._id);
-        if (idx === -1) {
-          this.boardUsers.push(ev);
-        } else {
-          this.boardUsers.splice(idx, 1, ev);
-        }
-      });
+      // socketService.on("mouseMove", (ev) => {
+      //   const idx = this.boardUsers.findIndex((currMouse) => currMouse.user._id === ev.user._id);
+      //   if (idx === -1) {
+      //     this.boardUsers.push(ev);
+      //   } else {
+      //     this.boardUsers.splice(idx, 1, ev);
+      //   }
+      // });
       if (!this.board) this.$router.push("/");
       if (!this.board.groups) return;
      
@@ -168,13 +168,13 @@ export default {
     }
   },
   destroyed() {
-    console.log('destroyed')
-    this.board = null;
-       const idx = this.boardUsers.findIndex((currMouse) => currMouse.user._id === this.$store.getters.currUser);
-       if(idx >-1) this.boardUsers.splice(idx, 1);
-       socketService.off("mouseMove")
-       console.log(idx)
-       console.log(this.boardUsers)
+    // console.log('destroyed')
+    // this.board = null;
+    //    const idx = this.boardUsers.findIndex((currMouse) => currMouse.user._id === this.$store.getters.currUser);
+    //    if(idx >-1) this.boardUsers.splice(idx, 1);
+    //    socketService.off("mouseMove")
+    //    console.log(idx)
+    //    console.log(this.boardUsers)
       // this.$refs.boardPage.removeEventListener("mousemove")
     // this.$refs.boardPage.removeEventListener("mousemove" , (ev) => {
     //   socketService.emit("mouseMove", {
@@ -341,13 +341,13 @@ export default {
         this.$refs.list.blur();
       });
     }
-    this.$refs.boardPage.addEventListener("mousemove", (ev) => {
-      socketService.emit("mouseMove", {
-        x: ev.pageX,
-        y: ev.pageY,
-        user: this.getUser || "Guest",
-      });
-    });
+    // this.$refs.boardPage.addEventListener("mousemove", (ev) => {
+    //   socketService.emit("mouseMove", {
+    //     x: ev.pageX,
+    //     y: ev.pageY,
+    //     user: this.getUser || "Guest",
+    //   });
+    // });
   },
 
   components: { groupList, boardHeader, Container, Draggable },
