@@ -1,6 +1,6 @@
 import { storageService } from './asyncStorageService';
 import { utilService } from './utilService';
-import { httpService } from './httpService'
+import { httpService } from './httpService';
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser';
 
 export const userService = {

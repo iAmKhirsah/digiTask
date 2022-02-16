@@ -1,9 +1,9 @@
 import Axios from 'axios';
 import { router } from '../router/router.js';
 
-const BASE_URL =
-  process.env.NODE_ENV === 'production' ? '/api/' : '//localhost:3000/api/';
-
+const BASE_URL = process.env.NODE_ENV === '//localhost:3000/api/';
+  // process.env.NODE_ENV === 'production' ? '/api/' : '//localhost:3000/api/';
+  // process.env.NODE_ENV === '//localhost:3000/api/';
 var axios = Axios.create({
   withCredentials: true,
 });

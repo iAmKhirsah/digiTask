@@ -329,7 +329,7 @@ export const boardStore = {
     },
     async addTask({ dispatch, commit }, { taskRaw }) {
       try {
-        await commit({ type: 'addTask', taskRaw });
+        commit({ type: 'addTask', taskRaw });
         await dispatch({ type: 'updateBoard' });
       } catch (err) {
         console.log('Couldnt add a task', err);
